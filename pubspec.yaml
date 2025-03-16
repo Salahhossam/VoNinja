@@ -42,6 +42,8 @@ dependencies:
   syncfusion_flutter_charts: ^28.2.4+1
   flutter_udid: ^4.0.0
   device_info_plus: ^11.3.0
+  video_player: ^2.9.3
+  chewie: ^1.10.0
   
 dev_dependencies:
   flutter_test:
@@ -69,6 +71,14 @@ flutter:
    - assets/img/ninja1.png
    - assets/img/ninja2.png
    - assets/img/ninja3.png
+   - assets/img/ADs.png
+   - assets/img/avatar.png
+   - assets/img/avatar2.png
+   - assets/img/avatar3.png
+   - assets/img/avatar4.png
+   - assets/img/avatar5.png
+   - assets/img/avatar6.png
+   - assets/img/avatar7.png
    - assets/img/Challenge.png
    - assets/img/home.png
    - assets/img/end_learning.png
@@ -85,3 +95,4 @@ flutter:
    - assets/fonts/njnaruto.ttf
    - lib/l10n/intl_ar.arb
    - lib/l10n/intl_en.arb
+   - assets/videos/intro.MP4

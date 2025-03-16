@@ -121,11 +121,9 @@ class _LogoutButtonState extends State<LogoutButton> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: loading
           ? const Center(
-              child: Image(
-                image: AssetImage('assets/img/ninja_gif.gif'),
-                height: 100,
-                width: 100,
-              ),
+              child: CircularProgressIndicator(
+              color: Colors.white,
+            )
             )
           : ElevatedButton(
               onPressed: () async {

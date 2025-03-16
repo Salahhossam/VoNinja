@@ -38,7 +38,7 @@ class HomeTapCubit extends Cubit<HomeTapState> {
 
               // Get the current pointsNumber and update it without a transaction
               DocumentSnapshot userDoc = await userDocRef.get();
-              double adReward = 5;
+              double adReward = 20;
 
               if (userDoc.exists && userDoc.data() != null) {
                 var data = userDoc.data() as Map<String, dynamic>;

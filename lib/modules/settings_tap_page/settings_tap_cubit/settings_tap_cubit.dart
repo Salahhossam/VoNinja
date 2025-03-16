@@ -47,6 +47,13 @@ class SettingsTapCubit extends Cubit<SettingsTapState> {
     'assets/img/ninja1.png',
     'assets/img/ninja2.png',
     'assets/img/ninja3.png',
+    'assets/img/avatar.png',
+    'assets/img/avatar2.png',
+    'assets/img/avatar3.png',
+    'assets/img/avatar4.png',
+    'assets/img/avatar5.png',
+    'assets/img/avatar6.png',
+    'assets/img/avatar7.png',
   ];
   Future<bool> putEditAvatar(String newAvatar) async {
     try {
@@ -444,12 +451,9 @@ class SettingsTapCubit extends Cubit<SettingsTapState> {
                     builder: (BuildContext context, SettingsTapState state) {
                       return state is PostReferralsFriendLinkLoading
                           ? const Center(
-                              child: Image(
-                                image: AssetImage('assets/img/ninja_gif.gif'),
-                                height: 100,
-                                width: 100,
-                              ),
-                            )
+                              child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ))
                           : SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(

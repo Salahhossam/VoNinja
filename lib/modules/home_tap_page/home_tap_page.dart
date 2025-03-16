@@ -214,10 +214,10 @@ class _HomeTapPageState extends State<HomeTapPage> {
               ),
             ),
             child: Image.asset(
-              'assets/img/fane.png',
+              'assets/img/ADs.png',
               width: 40,
               height: 40,
-              color: Colors.white,
+           //   color: Colors.white,
             ),
           ),
         );

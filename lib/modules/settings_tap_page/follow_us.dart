@@ -90,13 +90,10 @@ class FollowUs extends StatelessWidget {
                           const SizedBox(height: 20),
                           state is PostRewardCodeLoading
                               ? const Center(
-                                  child: Image(
-                                    image:
-                                        AssetImage('assets/img/ninja_gif.gif'),
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                )
+              child: CircularProgressIndicator(
+              color: Colors.white,
+            )
+            )
                               : SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
