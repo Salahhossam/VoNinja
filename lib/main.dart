@@ -129,14 +129,6 @@ class _MyAppState extends State<MyApp> {
         builder: (context, state) {
           final language = MainAppCubit.get(context).language;
           return MaterialApp(
-              // theme: AppTheme.lightTheme,
-              // darkTheme: AppTheme.darkTheme,
-              // themeMode: ThemeMode.dark,
-              // initialRoute: initialRoute,
-              // routes: {
-              //   '/LoginPage': (context) => LoginPage(),
-              //   '/TapsPage': (context) => TapsPage(),
-              // },
               key: Key(MainAppCubit.get(context).language),
               locale: Locale(language),
               localizationsDelegates: const [
@@ -148,22 +140,13 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: S.delegate.supportedLocales,
               debugShowCheckedModeBanner: false,
               home: EasySplashScreen(
-                logoWidth: 150,
+                logoWidth: MediaQuery.of(context).size.width,
                 logo: Image.asset(
-                  'assets/img/splash.png',
-                  width: MediaQuery.of(context).size.width * .6,
-                  height: MediaQuery.of(context).size.width * .6,
+                  'assets/img/intro.gif',
                 ),
-                backgroundColor: AppColors.mainColor,
+                backgroundColor: AppColors.lightColor,
                 showLoader: false,
                 durationInSeconds: 10,
-                title: Text(
-                  "Be Ninja In English Vocabulary!",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: MediaQuery.of(context).size.width * .05,
-                  ),
-                ),
                 navigator: widget.initialRoute == '/TapsPage'
                     ? _navigateWithAd(const TapsPage())
                     : const LoginPage(),

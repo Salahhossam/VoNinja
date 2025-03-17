@@ -91,6 +91,7 @@ flutter:
    - assets/img/voninja.png
    - assets/img/splash.png
    - assets/img/ninja_gif.gif
+   - assets/img/intro.gif
    - assets/fonts/JollyLodger-Regular.ttf
    - assets/fonts/njnaruto.ttf
    - lib/l10n/intl_ar.arb
