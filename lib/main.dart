@@ -146,7 +146,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 backgroundColor: AppColors.lightColor,
                 showLoader: false,
-                durationInSeconds: 10,
+                durationInSeconds: 8,
                 navigator: widget.initialRoute == '/TapsPage'
                     ? _navigateWithAd(const TapsPage())
                     : const LoginPage(),
