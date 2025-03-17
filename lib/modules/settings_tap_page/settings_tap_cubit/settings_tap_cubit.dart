@@ -47,7 +47,7 @@ class SettingsTapCubit extends Cubit<SettingsTapState> {
     'assets/img/ninja1.png',
     'assets/img/ninja2.png',
     'assets/img/ninja3.png',
-    'assets/img/avatar1.png',
+    'assets/img/avatar.png',
     'assets/img/avatar2.png',
     'assets/img/avatar3.png',
     'assets/img/avatar4.png',
