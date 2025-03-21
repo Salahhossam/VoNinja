@@ -9,6 +9,7 @@ import 'package:vo_ninja/modules/login_page/login_cubit/login_cubit.dart';
 import 'package:vo_ninja/modules/settings_tap_page/settings_tap_cubit/settings_tap_cubit.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/modules/singup_page/singup_cubit/singup_cubit.dart';
+import 'package:vo_ninja/modules/splash_screen.dart';
 import 'generated/l10n.dart';
 import 'modules/challenges_page/task_cubit/task_cubit.dart';
 import 'modules/challenges_tap_page/challenges_cubit/challenges_tap_cubit.dart';
@@ -72,39 +73,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AppOpenAd? _appOpenAd;
-  bool _isAdShown = false; // Prevents multiple ad displays in the same session
 
   @override
   void initState() {
     super.initState();
-    _loadAd();
-  }
-
-  /// Loads the ad but does NOT show it immediately
-  void _loadAd() {
-    AppOpenAd.load(
-      adUnitId: 'ca-app-pub-7223929122163665/9538903112', // Test ID
-      request: const AdRequest(),
-      adLoadCallback: AppOpenAdLoadCallback(
-        onAdLoaded: (ad) {
-          _appOpenAd = ad;
-          log('App Open Ad loaded successfully');
-        },
-        onAdFailedToLoad: (error) {
-          log('Failed to load App Open Ad: $error');
-        },
-      ),
-    );
-  }
-
-  /// Shows the ad after the splash screen if it's loaded
-  void _showAdIfLoaded() {
-    if (_appOpenAd != null && !_isAdShown) {
-      _isAdShown = true; // Prevents showing again in the same session
-      _appOpenAd!.show();
-      log('App Open Ad displayed');
-    }
   }
 
   @override
@@ -139,28 +111,12 @@ class _MyAppState extends State<MyApp> {
               ],
               supportedLocales: S.delegate.supportedLocales,
               debugShowCheckedModeBanner: false,
-              home: EasySplashScreen(
-                logoWidth: MediaQuery.of(context).size.width,
-                logo: Image.asset(
-                  'assets/img/intro.gif',
-                ),
-                backgroundColor: AppColors.lightColor,
-                showLoader: false,
-                durationInSeconds: 8,
-                navigator: widget.initialRoute == '/TapsPage'
-                    ? _navigateWithAd(const TapsPage())
-                    : const LoginPage(),
-              ));
+              home: widget.initialRoute == '/TapsPage'
+          ? const SplashScreen(login: false):const SplashScreen(login: true));
         },
       ),
     );
   }
 
-  /// Wraps the page navigation with an ad display
-  Widget _navigateWithAd(Widget page) {
-    Future.delayed(const Duration(seconds: 10), () {
-      _showAdIfLoaded();
-    });
-    return page;
-  }
+
 }

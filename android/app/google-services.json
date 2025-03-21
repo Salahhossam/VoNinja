@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:910113947104:android:9f37e61e4efb90c5807f85",
+        "mobilesdk_app_id": "1:910113947104:android:ea39d47fa7020f5b807f85",
         "android_client_info": {
-          "package_name": "com.example.vo_ninja"
+          "package_name": "com.ahmed.vo_ninja"
         }
       },
       "oauth_client": [],

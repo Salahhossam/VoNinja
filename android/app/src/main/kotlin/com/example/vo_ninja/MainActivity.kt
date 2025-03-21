@@ -1,4 +1,4 @@
-package com.example.vo_ninja
+package com.ahmed.vo_ninja
 
 import io.flutter.embedding.android.FlutterActivity
 
