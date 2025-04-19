@@ -1,0 +1,138 @@
+{
+  "appTitle": "Voninja",
+  "splashWord": "Be Ninja In English Vocabulary!",
+  "login": "Login",
+  "phoneNumber": "Phone Number",
+  "enterPhoneNumber": "Please enter your Phone Number",
+  "enterEmail": "Please enter your Email",
+  "password": "Password",
+  "enterPassword": "Please enter the password",
+  "rememberMe": "Remember me",
+  "forgetPassword": "Forget Password?",
+  "resetPassword": "Password reset link sent to email",
+  "wrongResetPassword": "Wrong Reset Password",
+  "enterEmailOrUserNameToReset": "Enter your email to reset",
+  "loginButton": "Login",
+  "noAccount": "Don't have an account?",
+  "signUp": "Sign up",
+  "wrongCredentials": "Wrong email or password",
+  "exitPrompt": "Press again to exit",
+
+
+
+  "register": "Register",
+  "fristName": "Frist Name",
+  "lastName": "Last Name",
+  "userName": "User Name",
+  "email": "Email",
+  "doNotMatch": "Passwords do not match",
+  "createAccount": "Create Account",
+  "alreadyHaveAccount": "Already have an account?",
+  "enterLabel": "Please enter your {label}",
+
+
+
+  "edit":"Edit",
+  "enterPasswordLabel": "Please enter your {label}",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "confirmPassword": "Confirm Password",
+  "saveChanges": "Save Changes",
+  "changePassword": "Change Password",
+  "editProfile": "Edit Profile",
+  "editPassword": "Edit Password",
+  "chooseAnAvatar": "Choose Your Ninja",
+  "totalBalance":"Total Balance",
+  "egp":"EGP",
+  "socialMedia":"Social Media",
+  "followUs":"Follow us!",
+  "switchIcons":"Switch icons",
+  "getNewCoins":"Get your coins now!",
+  "inviteFriend":"Invite your friend",
+  "getYourPoints":"Get Your Points!",
+  "WithdrawPoints":"Withdrawing points reduces your overall ranking",
+  "totalPoints":"Total Points",
+  "cash":"Cash",
+  "enterPhoneNumberToGetCash":"Please enter the phone number associated with your device. We’ll send you all details to complete the payment process",
+  "sendDetails":"Send Details",
+  "enterFriendLink":"Enter your friend link",
+  "getPoints":"Get Points",
+  "language":"Language",
+  "transaction":"Transaction",
+  "about":"About Us",
+  "version":"Version",
+  "logout":"Logout",
+  "enterYourRewardCode":"Enter your reward code",
+  "followOurSocialMedia":"Follow our social media",
+  "pleaseEnterValidData":"Please enter valid data",
+  "validFristName":"First name must be at least 2 characters",
+  "validLastName":"Last name must be at least 2 characters",
+  "minUserName":"Username must be at least 3 characters long",
+  "maxUserName":"Username cannot exceed 20 characters",
+  "validPhoneNumber":"Enter a valid phone number (e.g., +1234567890 or 0123456789)",
+
+
+
+  "leaderboard": "Leaderboard",
+
+
+
+  "checkVoNinjaEvents": "Check VoNinja Events !",
+  "continueCollectingPoints": "Continue collecting points to convert them into financial rewards",
+  "levelNumber": "Level {level}",
+
+
+
+  "hi": "Hi",
+  "points": "Points",
+  "rank": "Rank",
+  "progress": "Progress",
+  "exit": "Press again to exit",
+
+
+
+  "challenges": "Challenges",
+  "gainPointsChallenges": "Gain points from special \nVocab Challenges!",
+  "pointChallenges": "+ 1 point | - 1 point",
+  "taskNumber": "Task",
+  "tasks": "Tasks",
+  "minmaPoints": "You must have {subscriptionCostPoints} point to enter this challenge",
+  "placeNumber": "Place",
+  "rankPointsNumber": "pts",
+  "firstPlace": "1st",
+  "secondPlace": "2nd",
+  "thirdPlace": "3rd",
+  "subscribeInChallenge": "Subscribe Now",
+  "startChallenge": "Start Challenge",
+  "bringYourSword": "Bring your Sword!",
+  "nextTask": "Next Task",
+  "topTen": "Top 10",
+  "you": "You",
+  "showRanks": "Show Ranks",
+
+
+
+  "lessons": "Lessons",
+  "lessonsLearningVocabulary": "This is your first step in learning English vocabulary.\nGo on ninja!",
+  "correctAnswerPoints": "For each correct answer, you will earn points, but if you answer incorrectly, you will lose points",
+  "lessonNumber": "Lesson",
+  "pointNumber": "Point",
+  "questionsNumber": "Questions",
+  "startLearning": "Start Learning",
+  "startExam": "Start Exam",
+  "successfullyPoints": "You have Successfully \nCompleted the lesson",
+  "pts": "pts",
+  "backToHome": "Back to home",
+  "back": "Back",
+  "viewResults": "View results",
+  "noVocabulariesAvailable": "No vocabularies available",
+  "continueExams": "Continue",
+  "youAreAllSet": "You're All Set!",
+  "youLearned30NewwordsToday": "You learned 30 new words Today...",
+  "plus20Points": "+20 Points",
+  "nextLesson": "Next Lesson",
+  "continueLearning": "Continue Learning"
+
+
+
+  }
