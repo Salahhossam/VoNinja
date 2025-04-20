@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -50,7 +52,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
   bool isLoading = false;
   bool isLoadingAnswer = false;
   String? uid;
-
+  final Map<String, List<String>> shuffledChoicesMap = {};
   @override
   void initState() {
     super.initState();
@@ -136,6 +138,18 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                           builder: (context, state) {
                             var currentQuestion = taskCubit
                                 .questions[taskCubit.currentQuestionIndex];
+
+                            if (!shuffledChoicesMap
+                                .containsKey(currentQuestion.questionId)) {
+                              final originalChoices =
+                                  List<String>.from(currentQuestion.choices);
+                              originalChoices.shuffle(Random());
+                              shuffledChoicesMap[currentQuestion.questionId] =
+                                  originalChoices;
+                            }
+                            final shuffledChoices =
+                                shuffledChoicesMap[currentQuestion.questionId]!;
+
                             double progress =
                                 (taskCubit.currentQuestionIndex + 1) /
                                     taskCubit.questions.length;
@@ -357,27 +371,52 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                       .size
                                                       .height *
                                                   .28,
-                                              child: ListView(
-                                                children: List.generate(
-                                                    currentQuestion.choices
-                                                        .length, (index) {
-                                                  Color borderColor =
-                                                      AppColors.lightColor;
-                                                  Color textColor =
-                                                      Colors.white;
-                                                  Color backgroundColor =
-                                                      Colors.transparent;
+                                              child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount:
+                                                      shuffledChoices.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    final choice =
+                                                        shuffledChoices[index];
+                                                    Color borderColor =
+                                                        AppColors.lightColor;
+                                                    Color textColor =
+                                                        Colors.white;
+                                                    Color backgroundColor =
+                                                        Colors.transparent;
 
-                                                  // If the question was answered before (fetched from API)
-                                                  if (isPreviouslySelected) {
-                                                    if (currentQuestion
-                                                            .choices[index]
-                                                            .trim() ==
-                                                        selectedAnswer[
-                                                                "answerContent"]
-                                                            .trim()) {
-                                                      if (selectedAnswer[
-                                                          "correct"]) {
+                                                    // If the question was answered before (fetched from API)
+                                                    if (isPreviouslySelected) {
+                                                      if (choice.trim() ==
+                                                          selectedAnswer[
+                                                                  "answerContent"]
+                                                              .trim()) {
+                                                        if (selectedAnswer[
+                                                            "correct"]) {
+                                                          borderColor =
+                                                              Colors.green;
+                                                          textColor =
+                                                              Colors.green;
+                                                          backgroundColor =
+                                                              Colors.green
+                                                                  .withOpacity(
+                                                                      0.1);
+                                                        } else {
+                                                          borderColor =
+                                                              Colors.red;
+                                                          textColor =
+                                                              Colors.red;
+                                                          backgroundColor =
+                                                              Colors.red
+                                                                  .withOpacity(
+                                                                      0.1);
+                                                        }
+                                                      } else if (choice
+                                                              .trim() ==
+                                                          currentQuestion
+                                                              .correctAnswer
+                                                              .trim()) {
                                                         borderColor =
                                                             Colors.green;
                                                         textColor =
@@ -385,164 +424,124 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                         backgroundColor = Colors
                                                             .green
                                                             .withOpacity(0.1);
-                                                      } else {
-                                                        borderColor =
-                                                            Colors.red;
-                                                        textColor = Colors.red;
-                                                        backgroundColor = Colors
-                                                            .red
-                                                            .withOpacity(0.1);
                                                       }
-                                                    } else if (currentQuestion
-                                                            .choices[index]
-                                                            .trim() ==
-                                                        currentQuestion
-                                                            .correctAnswer
-                                                            .trim()) {
-                                                      borderColor =
-                                                          Colors.green;
-                                                      textColor = Colors.green;
-                                                      backgroundColor = Colors
-                                                          .green
-                                                          .withOpacity(0.1);
                                                     }
-                                                  }
 
-                                                  return InkWell(
-                                                    onTap: isPreviouslySelected
-                                                        ? null
-                                                        : () async {
-                                                            setState(() {
-                                                              isLoadingAnswer =
-                                                                  true;
-                                                              taskCubit
-                                                                  .userPoints += (currentQuestion
-                                                                          .choices[
-                                                                              index]
-                                                                          .trim() ==
-                                                                      currentQuestion
-                                                                          .correctAnswer
-                                                                          .trim())
-                                                                  ? widget
-                                                                      .rewardPoints
-                                                                  : -widget
-                                                                      .deducePoints;
-                                                              taskCubit
-                                                                  .pointsToShowQuestionExam += (currentQuestion
-                                                                          .choices[
-                                                                              index]
-                                                                          .trim() ==
-                                                                      currentQuestion
-                                                                          .correctAnswer
-                                                                          .trim())
-                                                                  ? widget
-                                                                      .rewardPoints
-                                                                  : -widget
-                                                                      .deducePoints;
-                                                            });
+                                                    return InkWell(
+                                                      onTap:
+                                                          isPreviouslySelected
+                                                              ? null
+                                                              : () async {
+                                                                  setState(() {
+                                                                    isLoadingAnswer =
+                                                                        true;
+                                                                    taskCubit
+                                                                        .userPoints += (choice.trim() ==
+                                                                            currentQuestion.correctAnswer
+                                                                                .trim())
+                                                                        ? widget
+                                                                            .rewardPoints
+                                                                        : -widget
+                                                                            .deducePoints;
+                                                                    taskCubit
+                                                                        .pointsToShowQuestionExam += (choice.trim() ==
+                                                                            currentQuestion.correctAnswer
+                                                                                .trim())
+                                                                        ? widget
+                                                                            .rewardPoints
+                                                                        : -widget
+                                                                            .deducePoints;
+                                                                  });
 
-                                                            taskCubit
-                                                                .previousAnswers
-                                                                .add({
-                                                              "id": currentQuestion
-                                                                  .questionId,
-                                                              "questionId":
-                                                                  currentQuestion
-                                                                      .questionId,
-                                                              "answerContent":
-                                                                  currentQuestion
-                                                                      .choices[
-                                                                          index]
-                                                                      .trim(),
-                                                              "grade": (currentQuestion
-                                                                          .choices[
-                                                                              index]
-                                                                          .trim() ==
-                                                                      currentQuestion
-                                                                          .correctAnswer
-                                                                          .trim())
-                                                                  ? widget
-                                                                      .rewardPoints
-                                                                  : -widget
-                                                                      .deducePoints,
-                                                              "correct": currentQuestion
-                                                                      .choices[
-                                                                          index]
-                                                                      .trim() ==
-                                                                  currentQuestion
-                                                                      .correctAnswer
-                                                                      .trim(),
-                                                            });
-
-                                                            taskCubit.success();
-                                                            await taskCubit.postUserExamAnswers(
-                                                                uid!,
-                                                                widget.taskId,
-                                                                currentQuestion
-                                                                    .questionId,
-                                                                currentQuestion
-                                                                    .choices[
-                                                                        index]
-                                                                    .trim(),
-                                                                currentQuestion
-                                                                        .choices[
-                                                                            index]
-                                                                        .trim() ==
-                                                                    currentQuestion
-                                                                        .correctAnswer
-                                                                        .trim(),
-                                                                (currentQuestion
-                                                                            .choices[
-                                                                                index]
+                                                                  taskCubit
+                                                                      .previousAnswers
+                                                                      .add({
+                                                                    "id": currentQuestion
+                                                                        .questionId,
+                                                                    "questionId":
+                                                                        currentQuestion
+                                                                            .questionId,
+                                                                    "answerContent":
+                                                                        choice
+                                                                            .trim(),
+                                                                    "grade": (choice.trim() ==
+                                                                            currentQuestion.correctAnswer
+                                                                                .trim())
+                                                                        ? widget
+                                                                            .rewardPoints
+                                                                        : -widget
+                                                                            .deducePoints,
+                                                                    "correct": choice
                                                                             .trim() ==
                                                                         currentQuestion
                                                                             .correctAnswer
-                                                                            .trim())
-                                                                    ? widget
-                                                                        .rewardPoints
-                                                                    : widget
-                                                                        .deducePoints,
-                                                                widget
-                                                                    .challengeId);
-                                                            setState(() {
-                                                              isLoadingAnswer =
-                                                                  false;
-                                                            });
-                                                          },
-                                                    child: Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              bottom: 10),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 16),
-                                                      width: 200,
-                                                      decoration: BoxDecoration(
-                                                        color: backgroundColor,
-                                                        border: Border.all(
-                                                          color: borderColor,
-                                                          width: 3,
+                                                                            .trim(),
+                                                                  });
+
+                                                                  taskCubit
+                                                                      .success();
+                                                                  await taskCubit.postUserExamAnswers(
+                                                                      uid!,
+                                                                      widget
+                                                                          .taskId,
+                                                                      currentQuestion
+                                                                          .questionId,
+                                                                      choice
+                                                                          .trim(),
+                                                                      choice.trim() ==
+                                                                          currentQuestion
+                                                                              .correctAnswer
+                                                                              .trim(),
+                                                                      (choice.trim() ==
+                                                                              currentQuestion.correctAnswer
+                                                                                  .trim())
+                                                                          ? widget
+                                                                              .rewardPoints
+                                                                          : widget
+                                                                              .deducePoints,
+                                                                      widget
+                                                                          .challengeId);
+                                                                  setState(() {
+                                                                    isLoadingAnswer =
+                                                                        false;
+                                                                  });
+                                                                },
+                                                      child: Container(
+                                                        margin: const EdgeInsets
+                                                            .only(bottom: 10),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 16),
+                                                        width: 200,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              backgroundColor,
+                                                          border: Border.all(
+                                                            color: borderColor,
+                                                            width: 3,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
                                                         ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          currentQuestion
-                                                              .choices[index],
-                                                          style: TextStyle(
-                                                            color: textColor,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                        child: Center(
+                                                          child: Text(
+                                                            currentQuestion
+                                                                .choices[index],
+                                                            style: TextStyle(
+                                                              color: textColor,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
-                                                }),
-                                              ),
+                                                    );
+                                                  }),
                                             ),
                                           ],
                                         ),
