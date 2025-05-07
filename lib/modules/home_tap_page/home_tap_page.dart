@@ -110,7 +110,80 @@ class _HomeTapPageState extends State<HomeTapPage> {
                             _buildHeader(context),
                             const SizedBox(height: 60),
                             _buildProgressSection(context),
-                            const SizedBox(height: 60),
+                            const SizedBox(height: 15),
+                            Directionality(
+                              textDirection: TextDirection.rtl, // فرض اتجاه النص من اليمين لليسار
+                              child: Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: AppColors.mainColor.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: AppColors.mainColor.withOpacity(0.3),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // الأيقونة ستظل على اليسار (البداية الطبيعية للـ Row)
+                                    Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.mainColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.light_mode_rounded,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          const Text(
+                                            'نصيحة سريعة',
+                                            textAlign: TextAlign.right, // تأكيد محاذاة النص لليمين
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.mainColor,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ',
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Uthmanic',
+                                              color: Colors.grey[800],
+                                              height: 1.4,
+                                            ),
+                                          ),
+                                          Text(
+                                            'وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُمْ',
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Uthmanic',
+                                              color: Colors.grey[800],
+                                              height: 1.4,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 15),
                             BlocBuilder<HomeTapCubit, HomeTapState>(
                               builder: (context, state) {
                                 return Center(
@@ -128,6 +201,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
                                 );
                               },
                             ),
+                            const SizedBox(height: 30),
                           ],
                         ),
                       ),
@@ -148,7 +222,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
           children: [
             Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 80.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 60.0),
               decoration: const BoxDecoration(
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.only(
@@ -203,29 +277,27 @@ class _HomeTapPageState extends State<HomeTapPage> {
           onTap: homeTapCubit.isAdShowing || !homeTapCubit.isProfileIconEnabled
               ? null
               : () async {
-                 Future<bool> result= homeTapCubit.showAds(uid);
-                
-   if (await result) {
-                                          AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.success,
-                                            animType: AnimType.rightSlide,
-                                            title: 'Success',
-                                            desc:
-                                                '20 point added successfully!',
-                                            btnOkOnPress: () {},
-                                          ).show();
-                                        } else {
-                                          AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.error,
-                                            animType: AnimType.rightSlide,
-                                            title: 'Error',
-                                            desc:
-                                                'Ad is not ready. Please try again.',
-                                            btnOkOnPress: () {},
-                                          ).show();
-                                        }                                 
+                  Future<bool> result = homeTapCubit.showAds(uid);
+
+                  if (await result) {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.success,
+                      animType: AnimType.rightSlide,
+                      title: 'Success',
+                      desc: '20 point added successfully!',
+                      btnOkOnPress: () {},
+                    ).show();
+                  } else {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.error,
+                      animType: AnimType.rightSlide,
+                      title: 'Error',
+                      desc: 'Ad is not ready. Please try again.',
+                      btnOkOnPress: () {},
+                    ).show();
+                  }
                 },
           child: Container(
             padding: const EdgeInsets.all(8),
@@ -240,7 +312,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
               'assets/img/ADs.png',
               width: 40,
               height: 40,
-           //   color: Colors.white,
+              //   color: Colors.white,
             ),
           ),
         );

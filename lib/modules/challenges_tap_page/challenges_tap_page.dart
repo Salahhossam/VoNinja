@@ -65,6 +65,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
     });
   }
 
+
   @override
   void dispose() {
     _animationController.dispose(); // Dispose the animation controller
@@ -214,6 +215,8 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                             challengesTap.numberOfLessons,
                                         levelProgress:
                                             challengesTap.levelProgress,
+                                        canTab: (index == 0 || challengesTap.levelProgress == 1.0||(challengesTap.canTap!=null&&challengesTap.canTap!)),
+                                        previousTile: index != 0?challengeTapCubit.levelsData[index-1].levelDifficulty:null,
                                       ),
                                       const SizedBox(height: 16),
                                     ],

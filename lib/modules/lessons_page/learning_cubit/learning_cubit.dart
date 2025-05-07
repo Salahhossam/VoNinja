@@ -46,6 +46,8 @@ class LearningCubit extends Cubit<LearningState> {
     String collectionName,
     double rewardedPoints,
     double deducedPoints,
+      int numberOfLessons,
+      bool isLastExam
   ) {
     if (lessonDetails != null &&
         currentQuestionIndex < lessonDetails!.questions!.length - 1) {
@@ -65,7 +67,7 @@ class LearningCubit extends Cubit<LearningState> {
                   order: order,
                   collectionName: collectionName,
                   rewardedPoints: rewardedPoints,
-                  deducedPoints: deducedPoints,
+                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons, isLastExam: isLastExam,
                 )),
       );
     }
@@ -82,6 +84,7 @@ class LearningCubit extends Cubit<LearningState> {
     String collectionName,
     double rewardedPoints,
     double deducedPoints,
+      int numberOfLessons,
   ) {
     if (lessonDetails != null && currentQuestionIndex != 0) {
       currentQuestionIndex--;
@@ -97,7 +100,7 @@ class LearningCubit extends Cubit<LearningState> {
                   size: size,
                   collectionName: collectionName,
                   rewardedPoints: rewardedPoints,
-                  deducedPoints: deducedPoints,
+                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons,
                 )),
       );
     }
@@ -198,6 +201,8 @@ class LearningCubit extends Cubit<LearningState> {
     String collectionName,
     double rewardedPoints,
     double deducedPoints,
+      int numberOfLessons,
+      bool isLastExam
   ) {
     if (lessonDetails != null &&
         currentVocabIndex < lessonDetails!.vocabularies!.length - 1) {
@@ -216,7 +221,7 @@ class LearningCubit extends Cubit<LearningState> {
             userPoints: userPoints,
             collectionName: collectionName,
             rewardedPoints: rewardedPoints,
-            deducedPoints: deducedPoints,
+            deducedPoints: deducedPoints, numberOfLessons: numberOfLessons, isLastExam: isLastExam,
           ),
         ),
       );
@@ -235,6 +240,8 @@ class LearningCubit extends Cubit<LearningState> {
     String collectionName,
     double rewardedPoints,
     double deducedPoints,
+      int numberOfLessons,
+      bool isLastExam
   ) {
     if (lessonDetails != null && currentVocabIndex != 0) {
       currentVocabIndex--;
@@ -248,7 +255,7 @@ class LearningCubit extends Cubit<LearningState> {
                   size: size,
                   collectionName: collectionName,
                   rewardedPoints: rewardedPoints,
-                  deducedPoints: deducedPoints,
+                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons,
                 )),
       );
     }
@@ -328,4 +335,17 @@ class LearningCubit extends Cubit<LearningState> {
       emit(GetUserPointsError(error.toString()));
     }
   }
+Future<void>addUserToCompleteLesson(String uid,String levelId)async{
+  emit(GetUserPointsLoading());
+  try {
+     await fireStore.collection('levels').doc(levelId).collection('users').doc(uid).set({
+      'userId':uid
+    });
+
+    emit(GetUserPointsSuccess());
+  } catch (error) {
+    emit(GetUserPointsError(error.toString()));
+  }
+}
+
 }

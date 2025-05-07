@@ -24,8 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _controller = VideoPlayerController.asset('assets/videos/intro.MP4')
       ..initialize().then((_) {
-        setState(() {}); // rebuild to show video
-        _controller.play(); // auto play
+        setState(() {});
+        _controller.play();
+
       });
 
     _startSplashScreen();
@@ -54,10 +55,15 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColors.lightColor,
       body: Center(
         child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+            ? FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _controller.value.size.width,
+                height: _controller.value.size.height,
                 child: VideoPlayer(_controller),
-              )
+              ),
+            )
+
             : const Center(
                       child: Image(
                         image: AssetImage('assets/img/ninja_gif.gif'),

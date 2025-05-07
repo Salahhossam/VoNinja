@@ -46,7 +46,6 @@ class LoginCubit extends Cubit<LoginState> {
           .then((UserCredential userCredential) async {
         String uid = userCredential.user!.uid;
 
-        if (userCredential.user!.emailVerified) {
           if (_rememberMe) {
             await CashHelper.saveData(key: 'userToken', value: fcmToken);
           }
@@ -60,24 +59,7 @@ class LoginCubit extends Cubit<LoginState> {
             MaterialPageRoute(builder: (context) => const TapsPage()),
           );
           emit(LoginSuccess());
-        } else {
-          showToast(
-            'Please verify your account through the link sent to your email',
-            context: context,
-            animation: StyledToastAnimation.scale,
-            reverseAnimation: StyledToastAnimation.fade,
-            position: const StyledToastPosition(
-                offset: 140, align: Alignment.bottomCenter),
-            animDuration: const Duration(seconds: 1),
-            duration: const Duration(seconds: 4),
-            curve: Curves.elasticOut,
-            reverseCurve: Curves.linear,
-          );
-          await firebaseAuth.currentUser!
-              .sendEmailVerification()
-              .then((value) {});
-          emit(LoginSuccess());
-        }
+
       });
     } catch (e) {
       emit(LoginFailure("Wrong email or UserName or password"));

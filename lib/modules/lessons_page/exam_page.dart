@@ -23,7 +23,8 @@ class ExamPage extends StatefulWidget {
   final String collectionName;
   final double rewardedPoints;
   final double deducedPoints;
-
+ final bool isLastExam;
+  final int numberOfLessons;
   ExamPage(
       {super.key,
       required this.levelId,
@@ -35,7 +36,9 @@ class ExamPage extends StatefulWidget {
       required this.lessonId,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints});
+      required this.deducedPoints, required this.isLastExam,
+        required this.numberOfLessons
+      });
 
   @override
   State<ExamPage> createState() => _ExamPageState();
@@ -111,7 +114,7 @@ class _ExamPageState extends State<ExamPage> {
                               size: widget.size,
                               collectionName: widget.collectionName,
                               rewardedPoints: widget.rewardedPoints,
-                              deducedPoints: widget.deducedPoints,
+                              deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
                             )),
                   );
 // showFinishLessonDialog(
@@ -214,7 +217,7 @@ class _ExamPageState extends State<ExamPage> {
                                                                         .rewardedPoints,
                                                                 deducedPoints:
                                                                     widget
-                                                                        .deducedPoints,
+                                                                        .deducedPoints, numberOfLessons: widget.numberOfLessons,
                                                               )),
                                                     );
 // showFinishLessonDialog(
@@ -511,6 +514,9 @@ class _ExamPageState extends State<ExamPage> {
                                                                       .deducedPoints,
                                                               widget.levelId,
                                                             );
+                                                            if(widget.isLastExam&&learningCubit.previousAnswers.length==learningCubit.lessonDetails!.questions!.length){
+                                                              await learningCubit.addUserToCompleteLesson(uid??'', widget.levelId);
+                                                            }
 
                                                             setState(() {
                                                               isLoadingAnswer =
@@ -580,7 +586,7 @@ class _ExamPageState extends State<ExamPage> {
                                                   widget.order,
                                                   widget.collectionName,
                                                   widget.rewardedPoints,
-                                                  widget.deducedPoints);
+                                                  widget.deducedPoints,widget.numberOfLessons);
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
@@ -637,7 +643,7 @@ class _ExamPageState extends State<ExamPage> {
                                                   widget.order,
                                                   widget.collectionName,
                                                   widget.rewardedPoints,
-                                                  widget.deducedPoints);
+                                                  widget.deducedPoints,widget.numberOfLessons,widget.isLastExam);
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:

@@ -129,6 +129,21 @@
   "youLearned30NewwordsToday": "لقد تعلمت 30 كلمة جديدة اليوم...",
   "plus20Points": "20 نقطة اضافية",
   "nextLesson": "الدرس التالي",
-  "continueLearning": "استمر في التعلم"
+  "continueLearning": "استمر في التعلم",
+  "successfullyCompleted": "مبروك!",
+  "allQuestionsAnswered": "لقد أتممت جميع أسئلة هذا الدرس بنجاح",
+  "incompleteLesson": "الدرس غير مكتمل",
+  "unansweredQuestionsTitle": "الأسئلة التي لم يتم الإجابة عليها:",
+  "completeAllQuestions": "يمكنك العودة لإكمال هذه الأسئلة لتحسين نتيجتك",
+  "unansweredQuestions": "الأسئلة غير المجابة: ",
+
+
+  "completePreviousLesson": "أكمل الدرس السابق أولاً",
+  "mustCompleteLesson": "يجب عليك إكمال جميع أسئلة الدرس {previousLessonTitle} قبل أن تبدأ هذا الدرس.",
+  "okay": "حسناً",
+  "goToPreviousLesson": "الذهاب للدرس السابق",
+
+  "completePreviousLevel": "أكمل المستوى السابق",
+  "mustCompleteLevel": "يجب عليك إكمال المستوى {level} أولاً لفتح هذا المحتوى",
   
 }

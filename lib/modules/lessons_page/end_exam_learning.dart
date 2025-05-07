@@ -22,6 +22,8 @@ class EndExamLearning extends StatefulWidget {
   final String collectionName;
   final double rewardedPoints;
   final double deducedPoints;
+  final int numberOfLessons;
+  final bool isLastExam;
   const EndExamLearning(
       {super.key,
       required this.userPoints,
@@ -32,7 +34,10 @@ class EndExamLearning extends StatefulWidget {
       required this.order,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints});
+      required this.deducedPoints,
+        required this.numberOfLessons,
+        required this.isLastExam
+      });
 
   @override
   State<EndExamLearning> createState() => _EndExamLearningState();
@@ -44,14 +49,52 @@ class _EndExamLearningState extends State<EndExamLearning> {
   @override
   void initState() {
     super.initState();
-
+    _checkUnansweredQuestions();
     final mainCubit = MainAppCubit.get(context);
     mainCubit.rewardAds();
+  }
+  List<int> unansweredQuestions = [];
+
+  Future<void> _checkUnansweredQuestions() async {
+    final learningCubit = LearningCubit.get(context);
+
+    // التأكد من وجود بيانات الأسئلة والإجابات
+    if (learningCubit.lessonDetails?.questions != null) {
+
+      List<String> answeredQuestionIds = learningCubit.previousAnswers
+          .map((answer) => (answer["questionId"] ?? '').toString())
+          .toList();
+
+      // مسح القائمة السابقة إن وجدت
+      unansweredQuestions.clear();
+      int index=1;
+      // التحقق من كل سؤال في الدرس
+      for (var question in learningCubit.lessonDetails!.questions!) {
+        try {
+
+          String questionId = question.questionId ?? '' ;
+
+          // إذا كان السؤال غير موجود في الإجابات
+          if (!answeredQuestionIds.contains(questionId)) {
+            unansweredQuestions.add(index);
+          }
+         index++;
+
+        } catch (e) {
+          print('Error parsing questionId: ${question.questionId}');
+        }
+      }
+
+
+
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final mainCubit = MainAppCubit.get(context);
+    final learningCubit = LearningCubit.get(context);
     uid = CashHelper.getData(key: 'uid');
 
     return BlocConsumer<LearningCubit, LearningState>(
@@ -136,6 +179,9 @@ class _EndExamLearningState extends State<EndExamLearning> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              unansweredQuestions.isEmpty
+                                  ? _buildSuccessMessage()
+                                  : _buildUnansweredQuestionsMessage(),
                               SizedBox(
                                   height:
                                       MediaQuery.of(context).size.width * .15),
@@ -207,7 +253,7 @@ class _EndExamLearningState extends State<EndExamLearning> {
                                                 widget.collectionName,
                                             rewardedPoints:
                                                 widget.rewardedPoints,
-                                            deducedPoints: widget.deducedPoints,
+                                            deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons, isLastExam: widget.isLastExam,
                                           ),
                                         ),
                                       );
@@ -223,7 +269,7 @@ class _EndExamLearningState extends State<EndExamLearning> {
                                                 widget.collectionName,
                                             rewardedPoints:
                                                 widget.rewardedPoints,
-                                            deducedPoints: widget.deducedPoints,
+                                            deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
                                           ),
                                         ),
                                       );
@@ -285,6 +331,83 @@ class _EndExamLearningState extends State<EndExamLearning> {
           ),
         );
       },
+    );
+  }
+  Widget _buildSuccessMessage() {
+    return Column(
+      children: [
+        Text(
+          S.of(context).successfullyCompleted,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          S.of(context).allQuestionsAnswered,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white70,
+          ),
+        ),
+      ],
+    );
+  }
+
+// ويدجت لعرض الأسئلة غير المجابة
+  Widget _buildUnansweredQuestionsMessage() {
+    return Column(
+      children: [
+        Text(
+          S.of(context).incompleteLesson,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          S.of(context).unansweredQuestionsTitle,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white70,
+          ),
+        ),
+        const SizedBox(height: 8),
+
+        // عرض أرقام الأسئلة غير المجابة في شكل chips
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: unansweredQuestions.map((index) {
+            return Chip(
+              label: Text(
+                '#$index',
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: AppColors.secondColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            );
+          }).toList(),
+        ),
+
+        const SizedBox(height: 12),
+        Text(
+          S.of(context).completeAllQuestions,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white70,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+      ],
     );
   }
 }

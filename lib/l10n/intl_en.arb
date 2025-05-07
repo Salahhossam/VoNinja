@@ -131,8 +131,18 @@
   "youLearned30NewwordsToday": "You learned 30 new words Today...",
   "plus20Points": "+20 Points",
   "nextLesson": "Next Lesson",
-  "continueLearning": "Continue Learning"
+  "continueLearning": "Continue Learning",
+  "successfullyCompleted": "Congratulations!",
+  "allQuestionsAnswered": "You have successfully completed all questions in this lesson",
+  "incompleteLesson": "Lesson Incomplete",
+  "unansweredQuestionsTitle": "Questions not answered:",
+  "completeAllQuestions": "You can return to complete these questions to improve your score",
+  "unansweredQuestions": "Unanswered questions: ",
 
-
-
-  }
+  "completePreviousLesson": "Complete the previous lesson first",
+  "mustCompleteLesson": "You must complete all questions in lesson {previousLessonTitle} before starting this lesson.",
+  "okay": "Okay",
+  "goToPreviousLesson": "Go to previous lesson",
+  "completePreviousLevel": "Complete Previous Level",
+  "mustCompleteLevel": "You must complete level {level} first to unlock this content"
+}

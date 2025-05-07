@@ -19,7 +19,8 @@ class EndLearning extends StatefulWidget {
   final String collectionName;
   final double rewardedPoints;
   final double deducedPoints;
-
+  final int numberOfLessons;
+  final bool isLastExam;
   const EndLearning(
       {super.key,
       required this.lessonId,
@@ -31,7 +32,10 @@ class EndLearning extends StatefulWidget {
       required this.userPoints,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints});
+      required this.deducedPoints,
+        required this.numberOfLessons,
+        required this.isLastExam
+      });
 
   @override
   State<EndLearning> createState() => _EndLearningState();
@@ -63,7 +67,7 @@ class _EndLearningState extends State<EndLearning> {
                             size: widget.size,
                             collectionName: widget.collectionName,
                             rewardedPoints: widget.rewardedPoints,
-                            deducedPoints: widget.deducedPoints,
+                            deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
                           )),
                 );
                 // showFinishLessonDialog(context, order, title, userPoints,
@@ -106,7 +110,7 @@ class _EndLearningState extends State<EndLearning> {
                                                   rewardedPoints:
                                                       widget.rewardedPoints,
                                                   deducedPoints:
-                                                      widget.deducedPoints,
+                                                      widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
                                                 )));
                                     // showFinishLessonDialog(
                                     //     context,
@@ -188,7 +192,7 @@ class _EndLearningState extends State<EndLearning> {
                               userPoints: widget.userPoints,
                               collectionName: widget.collectionName,
                               rewardedPoints: widget.rewardedPoints,
-                              deducedPoints: widget.deducedPoints,
+                              deducedPoints: widget.deducedPoints, isLastExam: widget.isLastExam, numberOfLessons: widget.numberOfLessons,
                             ),
                           ),
                         );

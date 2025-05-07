@@ -17,6 +17,7 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
     try {
       levelsData = [];
 
+
       QuerySnapshot levelsSnapshot = await fireStore.collection('levels').get();
 
       for (var doc in levelsSnapshot.docs) {
@@ -26,6 +27,13 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
         double deducedPoints = (doc['questionDeducePoints'] ?? 0.0).toDouble();
         int numberOfLessons = (doc['totalLessons'] ?? 0);
         int totalQuestions = doc['totalQuestions'] ?? 0;
+
+        final docSnapshot = await fireStore
+            .collection('levels')
+            .doc(levelId)
+            .collection('users')
+            .doc(uid)
+            .get();
 
         // Fetch the number of answered questions for this level
         AggregateQuerySnapshot answersCountSnapshot = await fireStore
@@ -49,6 +57,7 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
           deducedPoints: deducedPoints,
           numberOfLessons: numberOfLessons,
           levelProgress: double.parse(levelProgress.toStringAsFixed(2)),
+          canTap: docSnapshot.exists
         ));
       }
 
@@ -101,4 +110,8 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
   //     emit(ChallengeTapError('Failed to load data'));
   //   }
   // }
+
+
+
+
 }

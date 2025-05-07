@@ -25,7 +25,7 @@ class ChallengeTap {
   final int? numberOfLessons;
   final int? numberOfQuestion;
   final double? levelProgress;
-
+  final bool ?canTap;
   ChallengeTap({
     required this.levelId,
     required this.levelDifficulty,
@@ -33,7 +33,8 @@ class ChallengeTap {
     required this.deducedPoints,
     required this.numberOfLessons,
     this.levelProgress,
-    this.numberOfQuestion
+    this.numberOfQuestion,
+    this.canTap,
   });
 
   factory ChallengeTap.fromJson(Map<String, dynamic> json) {

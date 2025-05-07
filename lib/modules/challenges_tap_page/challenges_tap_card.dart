@@ -14,7 +14,8 @@ class ChallengesTapCard extends StatelessWidget {
   final double? deducedPoints;
   final int? numberOfLessons;
   final double? levelProgress;
-
+  final bool? canTab;
+  final String? previousTile;
   const ChallengesTapCard({
     super.key,
     required this.levelId,
@@ -23,6 +24,8 @@ class ChallengesTapCard extends StatelessWidget {
     required this.deducedPoints,
     required this.numberOfLessons,
     required this.levelProgress,
+    this.canTab,
+    this.previousTile
   });
 
   @override
@@ -45,7 +48,8 @@ class ChallengesTapCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         LessonCubit.get(context).lastDocument = null;
-        Navigator.of(context).pushReplacement(
+        if(canTab==null||canTab!) {
+          Navigator.of(context).pushReplacement(
           MaterialPageRoute(
               builder: (context) => LessonsPage(
                     levelId: levelId!,
@@ -54,8 +58,125 @@ class ChallengesTapCard extends StatelessWidget {
                     collectionName: 'lessons',
                     rewardedPoints: rewardedPoints!,
                     deducedPoints: deducedPoints!,
+                   numberOfLessons: numberOfLessons??0,
                   )),
         );
+        }
+        else{
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                insetPadding: const EdgeInsets.all(20),
+                content: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.mainColor,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.secondColor.withOpacity(1),
+                        spreadRadius: 3,
+                        blurRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Warning Icon with Level Number
+                      const Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: AppColors.secondColor,
+                            radius: 30,
+                          ),
+                          Icon(
+                            Icons.warning_rounded,
+                            color: AppColors.whiteColor,
+                            size: 40,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+
+                      // Title
+                      Center(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          S.of(context).completePreviousLevel,
+                          style: const TextStyle(
+                            color: AppColors.whiteColor,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+
+                      // Level Info Container
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.mainColor.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                            // Previous Level Title
+                            Text(
+                              previousTile ?? '',
+                              style: const TextStyle(
+                                color: AppColors.secondColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Message
+                      Text(
+                        S.of(context).mustCompleteLevel(previousTile??''),
+                        style: const TextStyle(
+                          color: AppColors.whiteColor,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 25),
+
+                      // Buttons
+                      Column(
+                        children: [
+                          // Okay Button
+                          buildActionButton(
+                            context,
+                            S.of(context).okay,
+                            AppColors.lightColor,
+                                () => Navigator.pop(context),
+                            Colors.black,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(16),

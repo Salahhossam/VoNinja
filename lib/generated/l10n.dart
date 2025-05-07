@@ -1169,6 +1169,119 @@ class S {
       args: [],
     );
   }
+
+  /// `Congratulations!`
+  String get successfullyCompleted {
+    return Intl.message(
+      'Congratulations!',
+      name: 'successfullyCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have successfully completed all questions in this lesson`
+  String get allQuestionsAnswered {
+    return Intl.message(
+      'You have successfully completed all questions in this lesson',
+      name: 'allQuestionsAnswered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lesson Incomplete`
+  String get incompleteLesson {
+    return Intl.message(
+      'Lesson Incomplete',
+      name: 'incompleteLesson',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Questions not answered:`
+  String get unansweredQuestionsTitle {
+    return Intl.message(
+      'Questions not answered:',
+      name: 'unansweredQuestionsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can return to complete these questions to improve your score`
+  String get completeAllQuestions {
+    return Intl.message(
+      'You can return to complete these questions to improve your score',
+      name: 'completeAllQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unanswered questions: `
+  String get unansweredQuestions {
+    return Intl.message(
+      'Unanswered questions: ',
+      name: 'unansweredQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+
+  String get completePreviousLesson {
+    return Intl.message(
+      'Complete the previous lesson first',
+      name: 'completePreviousLesson',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String mustCompleteLesson(String previousLessonTitle) {
+    return Intl.message(
+      'You must complete all questions in lesson $previousLessonTitle before starting this lesson.',
+      name: 'mustCompleteLesson',
+      desc: '',
+      args: [previousLessonTitle],
+    );
+  }
+
+  String mustCompleteLevel(String previousLevelTitle) {
+    return Intl.message(
+      'You must complete all questions in level $previousLevelTitle before starting this level.',
+      name: 'mustCompleteLevel',
+      desc: 'Message shown when user tries to access a locked level',
+      args: [previousLevelTitle],
+    );
+  }
+
+  String get completePreviousLevel => Intl.message(
+    'Complete Previous Level',
+    name: 'completePreviousLevel',
+    desc: 'Title shown when previous level needs to be completed',
+  );
+
+  String get okay {
+    return Intl.message(
+      'Okay',
+      name: 'okay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get goToPreviousLesson {
+    return Intl.message(
+      'Go to previous lesson',
+      name: 'goToPreviousLesson',
+      desc: '',
+      args: [],
+    );
+  }
+
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
