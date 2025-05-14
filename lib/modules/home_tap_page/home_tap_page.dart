@@ -125,28 +125,30 @@ class _HomeTapPageState extends State<HomeTapPage> {
                                 child: const Padding(
                                   padding: EdgeInsets.fromLTRB(
                                       10, 10, 10, 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ وَالصَّلَاةِ المَفْرُوضَهْ وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُم',
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ وَالصَّلَاةِ المَفْرُوضَهْ وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُم',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                            softWrap: true,
+                                            overflow:
+                                            TextOverflow.visible,
                                           ),
-                                          softWrap: true,
-                                          overflow:
-                                          TextOverflow.visible,
                                         ),
-                                      ),
 
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -253,7 +255,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
                       dialogType: DialogType.success,
                       animType: AnimType.rightSlide,
                       title: 'Success',
-                      desc: '20 point added successfully!',
+                      desc: '20 points added successfully!',
                       btnOkOnPress: () {},
                     ).show();
                   } else {
