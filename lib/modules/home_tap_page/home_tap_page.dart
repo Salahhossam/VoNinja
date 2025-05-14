@@ -112,77 +112,45 @@ class _HomeTapPageState extends State<HomeTapPage> {
                             _buildProgressSection(context),
                             const SizedBox(height: 15),
                             Directionality(
-                              textDirection: TextDirection.rtl, // فرض اتجاه النص من اليمين لليسار
+                              textDirection: TextDirection.rtl,
                               child: Container(
                                 width: double.infinity,
-                                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                padding: const EdgeInsets.all(12),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: AppColors.mainColor.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: AppColors.mainColor.withOpacity(0.3),
-                                    width: 1,
-                                  ),
+                                  color: AppColors.secondColor,
+                                  borderRadius:
+                                  BorderRadius.circular(10),
                                 ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // الأيقونة ستظل على اليسار (البداية الطبيعية للـ Row)
-                                    Container(
-                                      padding: const EdgeInsets.all(6),
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.mainColor,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        Icons.light_mode_rounded,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          const Text(
-                                            'نصيحة سريعة',
-                                            textAlign: TextAlign.right, // تأكيد محاذاة النص لليمين
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.mainColor,
-                                            ),
+                                child: const Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10, 10, 10, 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ وَالصَّلَاةِ المَفْرُوضَهْ وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُم',
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
                                           ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ',
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: 'Uthmanic',
-                                              color: Colors.grey[800],
-                                              height: 1.4,
-                                            ),
-                                          ),
-                                          Text(
-                                            'وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُمْ',
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: 'Uthmanic',
-                                              color: Colors.grey[800],
-                                              height: 1.4,
-                                            ),
-                                          ),
-                                        ],
+                                          softWrap: true,
+                                          overflow:
+                                          TextOverflow.visible,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-
                             const SizedBox(height: 15),
                             BlocBuilder<HomeTapCubit, HomeTapState>(
                               builder: (context, state) {
