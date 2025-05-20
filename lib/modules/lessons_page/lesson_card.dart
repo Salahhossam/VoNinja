@@ -204,15 +204,15 @@ class LessonCard extends StatelessWidget {
               );
             }
           },
-          child: Container(
+          child:Container(
             margin: const EdgeInsets.only(bottom: 16),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.mainColor, // Dark color for card background
+              color: AppColors.mainColor,
               borderRadius: BorderRadius.circular(16),
               border: const Border(
                 bottom: BorderSide(
-                  color: AppColors.secondColor, // Secondary border color
+                  color: AppColors.secondColor,
                   width: 4,
                 ),
               ),
@@ -233,8 +233,8 @@ class LessonCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       title!,
-                      style: const TextStyle(
-                        color: AppColors.whiteColor,
+                      style: TextStyle(
+                        color:  (canTab!=null&&!canTab!) ? Colors.grey[400] : AppColors.whiteColor, // تغيير لون النص إذا كان مقفولاً
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -243,33 +243,50 @@ class LessonCard extends StatelessWidget {
                     Row(
                       children: [
                         Image.asset(
-                          'assets/img/fane.png', // Replace with your image path
+                          'assets/img/fane.png',
                           width: 20,
                           height: 20,
-                          color: AppColors.whiteColor, // Make the icon white
+                          color:  (canTab!=null&&!canTab!) ? Colors.grey[400] : AppColors.whiteColor, // تغيير لون الأيقونة إذا كان مقفولاً
                         ),
                         Text(
                           ' ${points!.toInt()} ${S.of(context).points}',
-                          style: const TextStyle(
-                            color: AppColors.whiteColor,
+                          style: TextStyle(
+                            color:  (canTab!=null&&!canTab!) ? Colors.grey[400] : AppColors.whiteColor, // تغيير لون النص إذا كان مقفولاً
                             fontSize: 16,
                           ),
                         ),
+                        if ( (canTab!=null&&!canTab!)) // إضافة أيقونة القفل بجانب النقاط إذا كان الدرس مقفولاً
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8),
+                            child: Icon(
+                              Icons.lock,
+                              color: Colors.grey,
+                              size: 16,
+                            ),
+                          ),
                       ],
                     ),
                   ],
                 ),
-                isCompleted
-                    ? const Icon(
-                        Icons.check_circle,
-                        color: AppColors.greenColor, // Green for completed
-                        size: 40,
-                      )
-                    : const Icon(
-                        Icons.arrow_forward_ios,
-                        color: AppColors.lightColor, // Light color for ongoing
-                        size: 30,
-                      ),
+                // الجزء الأيمن (الأيقونة)
+                if (isCompleted)
+                  const Icon(
+                    Icons.check_circle,
+                    color: AppColors.greenColor,
+                    size: 40,
+                  )
+                else if ( (canTab!=null&&!canTab!)) // حالة القفل
+                  const Icon(
+                    Icons.lock,
+                    color: Colors.grey,
+                    size: 30,
+                  )
+                else
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: AppColors.lightColor,
+                    size: 30,
+                  ),
               ],
             ),
           ),

@@ -186,8 +186,25 @@ class ChallengesTapCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Level Image
-            levelImage,
+            // Level Image مع إمكانية إضافة القفل فوقها
+            Stack(
+              children: [
+                levelImage,
+                if ((canTab!=null&&!canTab!)) // افترض أن لديك متغير isLocked يحدد إذا كان المستوى مقفولاً
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black54,
+                      child: const Center(
+                        child: Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
             const SizedBox(width: 16),
             // Progress Information
             Expanded(
@@ -198,12 +215,18 @@ class ChallengesTapCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: AutoSizeText(
-                          '$numberOfLessons ${S.of(context).lessons}', // Corrected concatenation
+                          '$numberOfLessons ${S.of(context).lessons}',
                           style: const TextStyle(
                               color: AppColors.lightColor, fontSize: 14),
-                          maxLines: 1, // Ensures it remains in one line
+                          maxLines: 1,
                         ),
                       ),
+                      if ((canTab!=null&&!canTab!)) // إضافة أيقونة قفل صغيرة بجوار النقاط
+                        const Icon(
+                          Icons.lock,
+                          color: AppColors.lightColor,
+                          size: 16,
+                        ),
                       Text(
                         '+ ${rewardedPoints!.toInt()} ${S.of(context).points} | - ${deducedPoints!.toInt()} ${S.of(context).points}',
                         style: const TextStyle(
@@ -212,7 +235,6 @@ class ChallengesTapCard extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 4),
                   Text(
                     levelDifficulty![0].toUpperCase() +
@@ -230,7 +252,22 @@ class ChallengesTapCard extends StatelessWidget {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: LinearProgressIndicator(
+                          child: (canTab!=null&&!canTab!)
+                              ? Container(
+                            height: 15,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[600],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.lock,
+                                color: Colors.white,
+                                size: 12,
+                              ),
+                            ),
+                          )
+                              : LinearProgressIndicator(
                             value: levelProgress,
                             backgroundColor: AppColors.lightColor,
                             valueColor: const AlwaysStoppedAnimation<Color>(
@@ -241,7 +278,7 @@ class ChallengesTapCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '${(levelProgress! * 100).toInt()}%',
+                        (canTab!=null&&!canTab!) ? 'Locked' : '${(levelProgress! * 100).toInt()}%',
                         style: const TextStyle(
                             color: AppColors.whiteColor,
                             fontSize: 12,
@@ -253,11 +290,6 @@ class ChallengesTapCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            // Points Information
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [],
-            ),
           ],
         ),
       ),

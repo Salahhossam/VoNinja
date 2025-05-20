@@ -232,14 +232,14 @@ class _SwitchCoinsPageState extends State<SwitchCoinsPage> {
                                       try {
                                         if (double.tryParse(switchCoinsCubit
                                                 .pointNumberController.text)! <
-                                            1000) {
+                                            10000) {
                                           AwesomeDialog(
                                             context: context,
                                             dialogType: DialogType.error,
                                             animType: AnimType.rightSlide,
                                             title: 'Error',
                                             desc:
-                                                'Transaction failed! Minimum transaction amount is 1000 points',
+                                                'Transaction failed! Minimum transaction amount is 10000 points',
                                             btnOkOnPress: () {},
                                           ).show();
                                         } else {
