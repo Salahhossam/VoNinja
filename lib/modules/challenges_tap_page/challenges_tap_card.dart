@@ -221,12 +221,6 @@ class ChallengesTapCard extends StatelessWidget {
                           maxLines: 1,
                         ),
                       ),
-                      if ((canTab!=null&&!canTab!)) // إضافة أيقونة قفل صغيرة بجوار النقاط
-                        const Icon(
-                          Icons.lock,
-                          color: AppColors.lightColor,
-                          size: 16,
-                        ),
                       Text(
                         '+ ${rewardedPoints!.toInt()} ${S.of(context).points} | - ${deducedPoints!.toInt()} ${S.of(context).points}',
                         style: const TextStyle(
