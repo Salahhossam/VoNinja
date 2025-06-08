@@ -30,6 +30,8 @@ class ChallengeCubit extends Cubit<ChallengeState> {
       }
       emit(ChallengeLoaded2());
     } catch (error) {
+      print(error);
+      print('7777777777777777777');
       emit(ChallengeError(error.toString()));
     }
   }

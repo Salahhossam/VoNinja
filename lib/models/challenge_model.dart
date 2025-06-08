@@ -111,9 +111,9 @@ class Rewards {
 
   factory Rewards.fromJson(Map<String?, dynamic> json) {
     return Rewards(
-      additionalProp1: json['additionalProp1'] ?? 0.0,
-      additionalProp2: json['additionalProp2'] ?? 0.0,
-      additionalProp3: json['additionalProp3'] ?? 0.0,
+      additionalProp1: json['additionalProp1'].toDouble() ?? 0.0,
+      additionalProp2: json['additionalProp2'].toDouble()?? 0.0,
+      additionalProp3: json['additionalProp3'].toDouble() ?? 0.0,
     );
   }
 
