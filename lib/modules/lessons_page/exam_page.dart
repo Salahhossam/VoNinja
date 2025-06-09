@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -304,41 +305,50 @@ class _ExamPageState extends State<ExamPage> {
                                                 ),
                                               ],
                                             ),
+                                            if (currentQuestion.imageUrl !=
+                                                null &&
+                                                currentQuestion.imageUrl != '')
+                                              const SizedBox(height: 10)
+                                            else
                                             SizedBox(
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
                                                   .15,
                                             ),
-// if (currentQuestion.imageUrl !=
-//         null &&
-//     currentQuestion.imageUrl != '')
-//   Center(
-//     child: CachedNetworkImage(
-//       imageUrl: currentQuestion
-//               .imageUrl ??
-//           'http/',
-//       height: 100,
-//       width: 100,
-//       placeholder: (context, url) =>
-//           const SizedBox(
-//         height: 30,
-//         width: 30,
-//         child: Center(
-//           child:
-//               CircularProgressIndicator(
-//             strokeWidth: 2,
-//           ),
-//         ),
-//       ),
-//       errorWidget: (context, url,
-//               error) =>
-//           const Icon(Icons.error,
-//               color: Colors.red,
-//               size: 30),
-//     ),
-//   ),
-// const SizedBox(height: 6),
+                                            if (currentQuestion.imageUrl !=
+                                                null &&
+                                                currentQuestion.imageUrl != '')
+                                              Center(
+                                                child: CachedNetworkImage(
+                                                  imageUrl: currentQuestion
+                                                      .imageUrl ??
+                                                      'http/',
+                                                  height: 100,
+                                                  width: 100,
+                                                  placeholder: (context, url) =>
+                                                  const SizedBox(
+                                                    height:
+                                                    30, // Adjust the size as needed
+                                                    width: 30,
+                                                    child: Center(
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                              'assets/img/ninja_gif.gif'),
+                                                          height: 100,
+                                                          width: 100,
+                                                        )
+                                                      // Thinner indicator
+                                                    ),
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                      error) =>
+                                                  const Icon(Icons.error,
+                                                      color: Colors.red,
+                                                      size: 30),
+                                                ),
+                                              ),
+                                            const SizedBox(height: 6),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
