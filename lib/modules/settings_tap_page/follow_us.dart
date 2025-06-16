@@ -90,10 +90,9 @@ class FollowUs extends StatelessWidget {
                           const SizedBox(height: 20),
                           state is PostRewardCodeLoading
                               ? const Center(
-              child: CircularProgressIndicator(
-              color: Colors.white,
-            )
-            )
+                                  child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ))
                               : SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
@@ -148,7 +147,7 @@ class FollowUs extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  _launchURL('https://www.facebook.com/');
+                                  _launchURL('https://www.facebook.com/share/16TodybiRP/');
                                 },
                                 child: Image.asset(
                                   'assets/img/facebook.png',
@@ -159,7 +158,7 @@ class FollowUs extends StatelessWidget {
                               const SizedBox(width: 20),
                               InkWell(
                                 onTap: () {
-                                  _launchURL('https://www.instagram.com/');
+                                  _launchURL('https://www.instagram.com/vo_nin_ja?igsh=MmVtZDlvMGF3eHNy');
                                 },
                                 child: Image.asset(
                                   'assets/img/instagram.png',
@@ -170,18 +169,7 @@ class FollowUs extends StatelessWidget {
                               const SizedBox(width: 20),
                               InkWell(
                                 onTap: () {
-                                  _launchURL('https://www.x.com/');
-                                },
-                                child: Image.asset(
-                                  'assets/img/x.png',
-                                  width: 40,
-                                  height: 40,
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              InkWell(
-                                onTap: () {
-                                  _launchURL('https://www.tiktok.com/');
+                                  _launchURL('https://www.tiktok.com/@vo.ninja.app?_t=ZS-8xE13Dsqbnr&_r=1');
                                 },
                                 child: Image.asset(
                                   'assets/img/tiktok.png',
