@@ -321,8 +321,8 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                   imageUrl: currentQuestion
                                                       .imageUrl ??
                                                       'http/',
-                                                  height: 100,
-                                                  width: 100,
+                                                  height: 200,
+                                                  width: 200,
                                                   placeholder: (context, url) =>
                                                   const SizedBox(
                                                     height:
