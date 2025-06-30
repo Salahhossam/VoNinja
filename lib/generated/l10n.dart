@@ -1160,6 +1160,26 @@ class S {
     );
   }
 
+
+  String get pleaseAnswerTheQuestionFirst {
+    return Intl.message(
+      'Please answer the current question before continuing.',
+      name: 'pleaseAnswerTheQuestionFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warning`
+  String get warning {
+    return Intl.message(
+      'Warning',
+      name: 'warning',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue Learning`
   String get continueLearning {
     return Intl.message(

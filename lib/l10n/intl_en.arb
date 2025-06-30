@@ -144,5 +144,7 @@
   "okay": "Okay",
   "goToPreviousLesson": "Go to previous lesson",
   "completePreviousLevel": "Complete Previous Level",
-  "mustCompleteLevel": "You must complete level {level} first to unlock this content"
+  "mustCompleteLevel": "You must complete level {level} first to unlock this content",
+  "pleaseAnswerTheQuestionFirst": "Please answer the current question before continuing.",
+  "warning": "Warning"
 }

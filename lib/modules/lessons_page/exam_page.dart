@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -621,13 +622,7 @@ class _ExamPageState extends State<ExamPage> {
                                                             FontWeight.bold),
                                                   ),
                                                 ),
-// const Positioned(
-//   left: 0,
-//   child: Icon(
-//     Icons.arrow_back,
-//     color: Colors.white,
-//   ),
-// )
+
                                               ],
                                             ),
                                           ),
@@ -643,6 +638,24 @@ class _ExamPageState extends State<ExamPage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              // Check if current question is answered
+                                              bool isAnswered = learningCubit.previousAnswers.any((answer) =>
+                                              answer["questionId"] == learningCubit.lessonDetails!
+                                                  .questions![learningCubit.currentQuestionIndex].questionId);
+
+                                              if (!isAnswered) {
+                                                // Show AwesomeDialog if not answered
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.warning,
+                                                  animType: AnimType.bottomSlide,
+                                                  title: S.of(context).warning,
+                                                  desc: S.of(context).pleaseAnswerTheQuestionFirst,
+                                                  btnCancelOnPress: () {},
+                                                  btnCancelText: S.of(context).okay,
+                                                ).show();
+                                                return;
+                                              }
                                               learningCubit.moveToNextQuestion(
                                                   context,
                                                   widget.userPoints,
@@ -678,13 +691,7 @@ class _ExamPageState extends State<ExamPage> {
                                                             FontWeight.bold),
                                                   ),
                                                 ),
-// const Positioned(
-//   right: 0,
-//   child: Icon(
-//     Icons.arrow_back,
-//     color: Colors.white,
-//   ),
-// )
+
                                               ],
                                             ),
                                           ),

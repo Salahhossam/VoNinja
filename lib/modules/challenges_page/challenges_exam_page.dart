@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -584,6 +585,9 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+
+
+
                                               taskCubit.moveToPastQuestion(
                                                   context,
                                                   taskCubit.userPoints,
@@ -648,6 +652,23 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              // Check if current question is answered
+                                              bool isAnswered = taskCubit.previousAnswers.any((answer) =>
+                                              answer["questionId"] == taskCubit.questions[taskCubit.currentQuestionIndex].questionId);
+
+                                              if (!isAnswered) {
+                                                // Show AwesomeDialog if not answered
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.warning,
+                                                  animType: AnimType.bottomSlide,
+                                                  title: S.of(context).warning,
+                                                  desc: S.of(context).pleaseAnswerTheQuestionFirst,
+                                                  btnCancelOnPress: () {},
+                                                  btnCancelText: S.of(context).okay,
+                                                ).show();
+                                                return;
+                                              }
                                               taskCubit.moveToNextQuestion(
                                                   context,
                                                   taskCubit.userPoints,
