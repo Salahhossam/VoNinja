@@ -69,9 +69,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void _showUpdateDialog(BuildContext context, bool isMandatory, String appStoreUrl) {
     showDialog(
       context: context,
-      barrierDismissible: !isMandatory,
+      barrierDismissible: false,
       builder: (context) => WillPopScope(
-        onWillPop: () async => !isMandatory,
+        onWillPop: () async => false,
         child: AlertDialog(
           title: Text(isMandatory ? 'Update Required' : 'Update Available'),
           content: Text(isMandatory
