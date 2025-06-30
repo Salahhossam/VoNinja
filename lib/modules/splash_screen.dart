@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart'; // 👈 import this
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/modules/taps_page/taps_page.dart';
@@ -7,6 +11,7 @@ import '../shared/style/color.dart';
 
 class SplashScreen extends StatefulWidget {
   final bool login;
+
   const SplashScreen({super.key, required this.login});
 
   @override
@@ -18,18 +23,85 @@ class _SplashScreenState extends State<SplashScreen> {
   bool _isAdShown = false;
 
   late VideoPlayerController _controller;
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.asset('assets/videos/intro.MP4')
       ..initialize().then((_) {
+        _controller.setLooping(true);
         setState(() {});
         _controller.play();
-
       });
 
     _startSplashScreen();
+  }
+
+  Future<bool> _checkAppVersion() async {
+    try {
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      final currentVersion = packageInfo.version;
+      final currentBuildNumber = int.tryParse(packageInfo.buildNumber) ?? 0;
+
+      final doc = await _firestore.collection('utils').doc('app_version').get();
+
+      if (doc.exists) {
+        final data = doc.data() as Map<String, dynamic>;
+        final latestVersion = data['latest_version'] as String? ?? '1.0.0';
+        final latestBuildNumber = data['latest_build_number'] as String?  ?? '0';
+        final isMandatory = data['is_mandatory'] as bool? ?? false;
+        final appStoreUrl = data['app_store_url'] as String? ?? '';
+
+        if (currentVersion!= latestVersion  || currentBuildNumber.toString()!= latestBuildNumber) {
+          _showUpdateDialog(context, isMandatory, appStoreUrl);
+          _controller.pause();
+          return false;
+        }
+      }
+      return true;
+
+    } catch (e) {
+      debugPrint('Error checking app version: $e');
+      return false;
+    }
+  }
+
+  void _showUpdateDialog(BuildContext context, bool isMandatory, String appStoreUrl) {
+    showDialog(
+      context: context,
+      barrierDismissible: !isMandatory,
+      builder: (context) => WillPopScope(
+        onWillPop: () async => !isMandatory,
+        child: AlertDialog(
+          title: Text(isMandatory ? 'Update Required' : 'Update Available'),
+          content: Text(isMandatory
+              ? 'Please update to the latest version to continue using the app.'
+              : 'A new version is available with improvements and bug fixes.'),
+          actions: [
+            if (!isMandatory)
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _navigateToNextScreen();
+                },
+                child: const Text('Later'),
+              ),
+            TextButton(
+              onPressed: () async {
+                if (await canLaunchUrl(Uri.parse(appStoreUrl))) {
+                  await launchUrl(Uri.parse(appStoreUrl));
+                }
+                if (isMandatory) {
+                  Navigator.pop(context);
+                  SystemNavigator.pop();
+                }
+              },
+              child: const Text('Update Now'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -38,41 +110,44 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
-  void _startSplashScreen() {
-    Future.delayed(const Duration(seconds: 3), () {
+  Future<void> _startSplashScreen() async {
+    bool valid = await _checkAppVersion();
+    if(valid){
+      await Future.delayed(const Duration(seconds: 3));
+      _controller.pause();
       if (widget.login) {
         _navigateToNextScreen();
       } else {
         _loadAd();
       }
-    });
+    }
+
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-            child: Scaffold(
+        child: Scaffold(
       backgroundColor: AppColors.lightColor,
       body: Center(
         child: _controller.value.isInitialized
             ? FittedBox(
-              fit: BoxFit.cover,
-              child: SizedBox(
-                width: _controller.value.size.width,
-                height: _controller.value.size.height,
-                child: VideoPlayer(_controller),
-              ),
-            )
-
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: _controller.value.size.width,
+                  height: _controller.value.size.height,
+                  child: VideoPlayer(_controller),
+                ),
+              )
             : const Center(
-                      child: Image(
-                        image: AssetImage('assets/img/ninja_gif.gif'),
-                        height: 100,
-                        width: 100,
-                      ),
-                    ), // loading placeholder
+                child: Image(
+                  image: AssetImage('assets/img/ninja_gif.gif'),
+                  height: 100,
+                  width: 100,
+                ),
+              ), // loading placeholder
       ),
-  )  );
+    ));
   }
 
   void _navigateToNextScreen() {
