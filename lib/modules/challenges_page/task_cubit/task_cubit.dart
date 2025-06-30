@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/models/challenge_progress_model.dart';
 import 'package:vo_ninja/modules/challenges_page/task_cubit/task_state.dart';
 
@@ -117,6 +120,56 @@ class TaskCubit extends Cubit<TaskState> {
 
   int currentQuestionIndex = 0;
 
+  bool canShowAd=false;
+
+  Future<void> rewardedInterstitialAd(String? uid,String challengeId, String taskId) async {
+    RewardedInterstitialAd.load(
+      adUnitId: 'ca-app-pub-7223929122163665/2103266220',
+      request: const AdRequest(),
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          log('InterstitialAd loaded successfully');
+          ad.show(
+            onUserEarnedReward: (ad, reward) async {
+              DocumentReference userDocRef =
+              fireStore.collection('users').doc(uid);
+
+              // Get the current pointsNumber and update it without a transaction
+              DocumentSnapshot userDoc = await userDocRef.get();
+
+              if (userDoc.exists && userDoc.data() != null) {
+                await userDocRef.update({
+                  'pointsNumber': FieldValue.increment(10),
+                });
+
+                await fireStore
+                    .collection('challenges')
+                    .doc(challengeId)
+                    .collection('tasks')
+                    .doc(taskId)
+                    .collection('userAds')
+                    .doc(uid)
+                    .set({'uid': uid});
+                canShowAd = false;
+                emit(GetTasksDetailsDataSuccess());
+              }
+
+              log('User earned reward: ${reward.amount} ${reward.type}');
+            },
+          );
+        },
+        onAdFailedToLoad: (error) {
+          log('Failed to load Rewarded Interstitial Ad: $error');
+        },
+      ),
+    );
+  }
+
+
+
+
+
+
   Future<void> getTasksDetailsData(
     String uid,
     String challengeId,
@@ -133,6 +186,16 @@ class TaskCubit extends Cubit<TaskState> {
           .doc(taskId)
           .collection('questions')
           .get();
+
+      var docSnapshot= await fireStore
+          .collection('challenges')
+          .doc(challengeId)
+          .collection('tasks')
+          .doc(taskId)
+          .collection('userAds')
+          .doc(uid)
+          .get();
+       canShowAd = !docSnapshot.exists;  // true if the document doesn't exist
 
       questions =
           data.docs.map((doc) => Question.fromJson(doc.data())).toList();

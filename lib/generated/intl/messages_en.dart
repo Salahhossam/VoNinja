@@ -27,7 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(level) => "Level ${level}";
 
   static String m3(subscriptionCostPoints) =>
-      "You must have ${subscriptionCostPoints} point to enter this challenge";
+      "You must have ${subscriptionCostPoints} points to enter this challenge";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -132,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "placeNumber": MessageLookupByLibrary.simpleMessage("Place"),
         "pleaseEnterValidData":
             MessageLookupByLibrary.simpleMessage("Please enter valid data"),
-        "plus20Points": MessageLookupByLibrary.simpleMessage("+20 Points"),
+        "plus20Points": MessageLookupByLibrary.simpleMessage("+10 Points"),
         "pointChallenges":
             MessageLookupByLibrary.simpleMessage("+ 1 point | - 1 point"),
         "pointNumber": MessageLookupByLibrary.simpleMessage("Point"),

@@ -127,7 +127,7 @@
   "continueExams": "استمر",
   "youAreAllSet": "كل شيء جاهز!",
   "youLearned30NewwordsToday": "لقد تعلمت 30 كلمة جديدة اليوم...",
-  "plus20Points": "20 نقطة اضافية",
+  "plus20Points": "10 نقطة اضافية",
   "nextLesson": "الدرس التالي",
   "continueLearning": "استمر في التعلم",
   "successfullyCompleted": "مبروك!",
@@ -144,6 +144,6 @@
   "goToPreviousLesson": "الذهاب للدرس السابق",
 
   "completePreviousLevel": "أكمل المستوى السابق",
-  "mustCompleteLevel": "يجب عليك إكمال المستوى {level} أولاً لفتح هذا المحتوى",
+  "mustCompleteLevel": "يجب عليك إكمال المستوى {level} أولاً لفتح هذا المحتوى"
   
 }

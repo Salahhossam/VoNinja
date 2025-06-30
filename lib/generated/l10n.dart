@@ -843,7 +843,7 @@ class S {
   /// `You must have {subscriptionCostPoints} point to enter this challenge`
   String minmaPoints(Object subscriptionCostPoints) {
     return Intl.message(
-      'You must have $subscriptionCostPoints point to enter this challenge',
+      'You must have $subscriptionCostPoints points to enter this challenge',
       name: 'minmaPoints',
       desc: '',
       args: [subscriptionCostPoints],
@@ -1143,7 +1143,7 @@ class S {
   /// `+20 Points`
   String get plus20Points {
     return Intl.message(
-      '+20 Points',
+      '+10 Points',
       name: 'plus20Points',
       desc: '',
       args: [],

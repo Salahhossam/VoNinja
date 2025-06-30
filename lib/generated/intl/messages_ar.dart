@@ -131,7 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "placeNumber": MessageLookupByLibrary.simpleMessage("المركز"),
         "pleaseEnterValidData":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال معلومات صحيحة"),
-        "plus20Points": MessageLookupByLibrary.simpleMessage("20 نقطة اضافية"),
+        "plus20Points": MessageLookupByLibrary.simpleMessage("10 نقطة اضافية"),
         "pointChallenges":
             MessageLookupByLibrary.simpleMessage("+ 1 نقطة | - 1 نقطة"),
         "pointNumber": MessageLookupByLibrary.simpleMessage("نقطة"),

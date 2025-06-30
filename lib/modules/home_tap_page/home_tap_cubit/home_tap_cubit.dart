@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/models/level_progress_model.dart';
 import 'package:vo_ninja/models/user_data_model.dart';
 import '../../../generated/l10n.dart';
@@ -27,44 +28,74 @@ class HomeTapCubit extends Cubit<HomeTapState> {
   UserDataModel? userData;
   List<LevelsProgressData> levelsData = [];
 
-  Future<bool> showAds(String? uid) async {
-    if (rewardedAd != null && isProfileIconEnabled) {
-      isAdShowing = true;
-      try {
-        rewardedAd!.show(
-          onUserEarnedReward: (AdWithoutView ad, RewardItem reward) async {
-            try {
-              // Reference to the user document
-              DocumentReference userDocRef =
-                  fireStore.collection('users').doc(uid);
 
-              // Get the current pointsNumber and update it without a transaction
-              DocumentSnapshot userDoc = await userDocRef.get();
-              double adReward = 20;
 
-              if (userDoc.exists && userDoc.data() != null) {
-                var data = userDoc.data() as Map<String, dynamic>;
-                if (data.containsKey('pointsNumber')) {
-                  adReward =
-                      ((data['pointsNumber'] as num) + adReward).toDouble();
-                }
-              }
+  Future<Map<String, dynamic>> showAds(String? uid) async {
+    if (uid == null) {
+      return {
+      'success': false,
+      'title': 'Error',
+      'message': 'User ID is missing'
+    };
+    }
 
-              await userDocRef.update({'pointsNumber': adReward});
+    if (rewardedAd == null || !isProfileIconEnabled) {
+      return {
+        'success': false,
+        'title': 'Error',
+        'message': 'Ad is not ready now try again later'
+      };
+    }
 
-              // Refresh all data
-              await getUserData(uid!);
-              await getUserRank(uid);
+    try {
+      DocumentReference userDocRef = fireStore.collection('users').doc(uid);
+      DocumentSnapshot userDoc = await userDocRef.get();
 
-              emit(HomeTapLoaded(userData!, levelsData)); // Ensure UI refreshes
-            } catch (e) {
-              log('Error in onUserEarnedReward: $e');
-            }
-          },
-        );
-      } catch (e) {
-        log('Error showing ad: $e');
+      final now = await NTP.now();
+      final today = DateTime(now.year, now.month, now.day);
+
+      int adsViewedToday = 0;
+      DateTime? lastAdDate;
+
+      if (userDoc.exists && userDoc.data() != null) {
+        var data = userDoc.data() as Map<String, dynamic>;
+        lastAdDate = data['lastAdDate']?.toDate();
+        adsViewedToday = data['adsViewedToday'] ?? 0;
       }
+
+      // إذا كان اليوم مختلفاً، نعيد العداد إلى الصفر
+      if (lastAdDate == null || lastAdDate.isBefore(today)) {
+        adsViewedToday = 0;
+      }
+
+      // التحقق من تجاوز الحد اليومي
+      if (adsViewedToday >= 10) {
+        return {
+          'success': false,
+          'title': 'Limit Reached',
+          'message': 'You have reached the daily ads limit (10 ads). Please try again tomorrow.'
+        };
+      }
+
+      isAdShowing = true;
+
+      rewardedAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) async {
+          try {
+            await userDocRef.update({
+              'pointsNumber': FieldValue.increment(10),
+              'adsViewedToday': (lastAdDate == null || lastAdDate.isBefore(today))?1:FieldValue.increment(1),
+              'lastAdDate': Timestamp.fromDate(now),
+            });
+
+            await getUserData(uid);
+            await getUserRank(uid);
+            emit(HomeTapLoaded(userData!, levelsData));
+          } catch (e) {
+            log('Error in onUserEarnedReward: $e');
+          }
+        },
+      );
 
       rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
@@ -85,12 +116,19 @@ class HomeTapCubit extends Cubit<HomeTapState> {
           emit(HomeTapLoaded(userData!, levelsData));
         },
       );
-    return true;
 
-    } else {
-      log('Ad is not ready or profile icon is disabled');
-    return false;
-
+      return {
+        'success': true,
+        'title': 'Success',
+        'message': '10 points added successfully!'
+      };
+    } catch (e) {
+      log('Error showing ad: $e');
+      return {
+        'success': false,
+        'title': 'Error',
+        'message': 'An error occurred. Please try again.'
+      };
     }
   }
 

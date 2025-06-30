@@ -1,6 +1,10 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/models/lesson_details_model.dart';
 import 'package:vo_ninja/modules/lessons_page/learning_cubit/learning_state.dart';
 import 'package:vo_ninja/shared/constant/constant.dart';
@@ -47,7 +51,8 @@ class LearningCubit extends Cubit<LearningState> {
     double rewardedPoints,
     double deducedPoints,
       int numberOfLessons,
-      bool isLastExam
+      bool isLastExam,
+
   ) {
     if (lessonDetails != null &&
         currentQuestionIndex < lessonDetails!.questions!.length - 1) {
@@ -270,6 +275,16 @@ class LearningCubit extends Cubit<LearningState> {
         lessonDetails = null;
       }
 
+      var docSnapshot = await fireStore.collection('levels')
+          .doc(levelId)
+          .collection(collectionName)
+          .doc(lessonsId)
+          .collection('userAds')
+          .doc(uid)  // Using the uid as the document ID
+          .get();
+
+      var canShowAd = !docSnapshot.exists;  // true if the document doesn't exist
+
       if (question) {
         var data = await fireStore
             .collection('levels')
@@ -278,6 +293,7 @@ class LearningCubit extends Cubit<LearningState> {
             .doc(lessonsId)
             .collection('questions')
             .get();
+
 
         List<Question> questions =
             data.docs.map((doc) => Question.fromJson(doc.data())).toList();
@@ -289,6 +305,7 @@ class LearningCubit extends Cubit<LearningState> {
             order: order,
             levelId: levelId,
             questions: questions,
+            canShowAd: canShowAd,
           );
         } else {
           lessonDetails?.questions = questions;
@@ -311,6 +328,7 @@ class LearningCubit extends Cubit<LearningState> {
             order: order,
             levelId: levelId,
             vocabularies: vocabularies,
+            canShowAd: canShowAd,
           );
         } else {
           lessonDetails?.vocabularies = vocabularies;
@@ -323,6 +341,54 @@ class LearningCubit extends Cubit<LearningState> {
       emit(LearningError(error.toString()));
     }
   }
+
+  Future<void> rewardedInterstitialAdLessonExam(String? uid ,String levelId,
+  String collectionName, String lessonsId) async {
+    RewardedInterstitialAd.load(
+      adUnitId: 'ca-app-pub-7223929122163665/2103266220',
+      request: const AdRequest(),
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          log('InterstitialAd loaded successfully');
+          ad.show(
+            onUserEarnedReward: (ad, reward) async {
+              DocumentReference userDocRef =
+              fireStore.collection('users').doc(uid);
+
+              // Get the current pointsNumber and update it without a transaction
+              DocumentSnapshot userDoc = await userDocRef.get();
+
+              if (userDoc.exists && userDoc.data() != null) {
+                await userDocRef.update({
+                  'pointsNumber': FieldValue.increment(10),
+                });
+
+                await fireStore.collection('levels')
+                    .doc(levelId)
+                    .collection(collectionName)
+                    .doc(lessonsId)
+                    .collection('userAds')
+                    .doc(uid)
+                    .set({
+                  'uid':uid
+                });
+                lessonDetails?.canShowAd=false;
+                emit(LearningLoaded());
+              }
+
+              log('User earned reward: ${reward.amount} ${reward.type}');
+            },
+          );
+        },
+        onAdFailedToLoad: (error) {
+          log('Failed to load Rewarded Interstitial Ad: $error');
+        },
+      ),
+    );
+  }
+
+
+
 
   double pointsToShowQuestionExam = 0;
   Future<void> getUserPoints(String uid) async {

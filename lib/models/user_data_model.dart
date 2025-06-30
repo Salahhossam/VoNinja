@@ -76,7 +76,8 @@ class UserDataModel {
       'isReferred': false,
       'pointsNumber': 0,
       'fcmToken': '',
-      'role': 'USER'
+      'role': 'USER',
+      'createdAt':DateTime.now()
     };
   }
 }

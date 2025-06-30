@@ -3,6 +3,7 @@ class LessonDetails {
   final String title;
   final int order;
   final String levelId;
+   bool canShowAd;
 
    List<Vocabulary> ?vocabularies;
    List<Question> ?questions;
@@ -14,6 +15,7 @@ class LessonDetails {
     required this.levelId,
     this.vocabularies,
     this.questions,
+    required this.canShowAd
   });
 
   factory LessonDetails.fromJson(Map<String, dynamic> json) {
@@ -30,6 +32,7 @@ class LessonDetails {
               ?.map((q) => Question.fromJson(q))
               .toList() ??
           [],
+      canShowAd: false,
     );
   }
 

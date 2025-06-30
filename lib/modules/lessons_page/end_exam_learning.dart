@@ -185,11 +185,13 @@ class _EndExamLearningState extends State<EndExamLearning> {
                               SizedBox(
                                   height:
                                       MediaQuery.of(context).size.width * .15),
+                              if(learningCubit.lessonDetails!.canShowAd)
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    mainCubit.rewardedInterstitialAd(uid);
+                                  onPressed: () async {
+                                    await learningCubit.rewardedInterstitialAdLessonExam(uid, widget.levelId, widget.collectionName, widget.lessonId);
+
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.secondColor,

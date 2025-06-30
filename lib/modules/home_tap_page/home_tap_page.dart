@@ -244,31 +244,32 @@ class _HomeTapPageState extends State<HomeTapPage> {
     return BlocBuilder<HomeTapCubit, HomeTapState>(
       builder: (context, state) {
         return InkWell(
-          onTap: homeTapCubit.isAdShowing || !homeTapCubit.isProfileIconEnabled
+          onTap: homeTapCubit.isAdShowing
               ? null
               : () async {
-                  Future<bool> result = homeTapCubit.showAds(uid);
+            if(!homeTapCubit.isProfileIconEnabled){
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.warning,
+                animType: AnimType.rightSlide,
+                title: 'Warning',
+                desc: 'Ad is not ready now try again later',
+                btnOkOnPress: () {},
+              ).show();
+            }
+            else{
+              final result = await homeTapCubit.showAds(uid);
+              AwesomeDialog(
+                context: context,
+                dialogType: result['success'] ? DialogType.success : DialogType.error,
+                animType: AnimType.rightSlide,
+                title: result['title'],
+                desc: result['message'],
+                btnOkOnPress: () {},
+              ).show();
+            }
 
-                  if (await result) {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.success,
-                      animType: AnimType.rightSlide,
-                      title: 'Success',
-                      desc: '20 points added successfully!',
-                      btnOkOnPress: () {},
-                    ).show();
-                  } else {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Error',
-                      desc: 'Ad is not ready. Please try again.',
-                      btnOkOnPress: () {},
-                    ).show();
-                  }
-                },
+          },
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -282,7 +283,6 @@ class _HomeTapPageState extends State<HomeTapPage> {
               'assets/img/ADs.png',
               width: 40,
               height: 40,
-              //   color: Colors.white,
             ),
           ),
         );

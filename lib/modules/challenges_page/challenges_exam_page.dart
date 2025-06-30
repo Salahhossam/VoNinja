@@ -140,8 +140,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                             var currentQuestion = taskCubit
                                 .questions[taskCubit.currentQuestionIndex];
 
-                            print(taskCubit.questions[taskCubit.currentQuestionIndex].correctAnswer);
-                            print('77777777777777777');
+
 
                             if (!shuffledChoicesMap
                                 .containsKey(currentQuestion.questionId)) {
@@ -156,7 +155,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                 shuffledChoicesMap[currentQuestion.questionId]!;
 
                             for (var choice in shuffledChoices) {
-                              print(choice);
+
                             }
 
                             double progress =
@@ -401,8 +400,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                       (context, index) {
                                                     final choice =
                                                         shuffledChoices[index];
-                                                    print(choice);
-                                                    print(999999999999);
+
                                                     Color borderColor =
                                                         AppColors.lightColor;
                                                     Color textColor =

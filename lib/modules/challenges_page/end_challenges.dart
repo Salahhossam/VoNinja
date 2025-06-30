@@ -55,12 +55,12 @@ class _EndChallengesState extends State<EndChallenges> {
   void initState() {
     super.initState();
     initData();
-    final mainCubit = MainAppCubit.get(context);
-    mainCubit.rewardAds();
+
   }
 
   Future<void> initData() async {
     final taskCubit = TaskCubit.get(context);
+    final mainCubit = MainAppCubit.get(context);
     setState(() {
       isLoading = true;
     });
@@ -70,6 +70,8 @@ class _EndChallengesState extends State<EndChallenges> {
         // Wait until UID is retrieved
         uid = await CashHelper.getData(key: 'uid');
         await taskCubit.getUserRank(uid!, widget.challengeId);
+
+        mainCubit.rewardAds();
         setState(() {
           isLoading = false;
         });
@@ -216,11 +218,12 @@ class _EndChallengesState extends State<EndChallenges> {
                                     const SizedBox(
                                       height: 10,
                                     ),
+                                    if(taskCubit.canShowAd)
                                     SizedBox(
                                       width: double.infinity,
                                       child: ElevatedButton(
-                                        onPressed: () {
-                                          mainCubit.rewardedInterstitialAd(uid);
+                                        onPressed: ()  async {
+                                          await taskCubit.rewardedInterstitialAd(uid!, widget.challengeId, widget.taskId);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
