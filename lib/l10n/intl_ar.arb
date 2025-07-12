@@ -146,6 +146,8 @@
   "completePreviousLevel": "أكمل المستوى السابق",
   "mustCompleteLevel": "يجب عليك إكمال المستوى {level} أولاً لفتح هذا المحتوى",
   "pleaseAnswerTheQuestionFirst": "الرجاء الإجابة على السؤال الحالي قبل المتابعة.",
-  "warning": "تحذير"
+  "warning": "تحذير",
+  "libraryTitle": "مكتبة النينجا",
+  "librarySubtitle": "تصفح كتب تعلم الإنجليزية"
   
 }

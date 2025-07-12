@@ -16,6 +16,7 @@ class UserDataModel {
   final double? rankNumber;
   final String? versionNumber;
   final double? userBalance;
+  final DateTime ? lastRewardDate;
 
   UserDataModel(
       {this.userId,
@@ -33,6 +34,7 @@ class UserDataModel {
       this.versionNumber,
       this.rankNumber,
       this.fcmToken,
+        this.lastRewardDate,
       this.role});
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
     return UserDataModel(
@@ -49,6 +51,7 @@ class UserDataModel {
       isReferred: json['isReferred'] as bool? ?? true,
       pointsNumber: double.tryParse(json['pointsNumber'].toString()) ?? 0,
       fcmToken: json['fcmToken'] as String? ?? '',
+      lastRewardDate: json['lastAdDate']?.toDate(),
     );
   }
   // Simulated JSON response
@@ -62,6 +65,46 @@ class UserDataModel {
   //   "referLink": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   //   "isReferred": true
   // };
+
+  UserDataModel copyWith({
+    String? userId,
+    String? firstName,
+    String? lastName,
+    String? userName,
+    String? userNameLowerCase,
+    String? userPhoneNumber,
+    String? userAvatar,
+    String? userEmail,
+    String? referLink,
+    bool? isReferred,
+    double? pointsNumber,
+    String? fcmToken,
+    String? role,
+    double? rankNumber,
+    String? versionNumber,
+    double? userBalance,
+    DateTime? lastRewardDate,
+  }) {
+    return UserDataModel(
+      userId: userId ?? this.userId,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      userName: userName ?? this.userName,
+      userNameLowerCase: userNameLowerCase ?? this.userNameLowerCase,
+      userPhoneNumber: userPhoneNumber ?? this.userPhoneNumber,
+      userAvatar: userAvatar ?? this.userAvatar,
+      userEmail: userEmail ?? this.userEmail,
+      referLink: referLink ?? this.referLink,
+      isReferred: isReferred ?? this.isReferred,
+      pointsNumber: pointsNumber ?? this.pointsNumber,
+      fcmToken: fcmToken ?? this.fcmToken,
+      role: role ?? this.role,
+      rankNumber: rankNumber ?? this.rankNumber,
+      versionNumber: versionNumber ?? this.versionNumber,
+      userBalance: userBalance ?? this.userBalance,
+      lastRewardDate: lastRewardDate ?? this.lastRewardDate,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

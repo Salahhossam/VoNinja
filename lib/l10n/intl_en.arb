@@ -146,5 +146,7 @@
   "completePreviousLevel": "Complete Previous Level",
   "mustCompleteLevel": "You must complete level {level} first to unlock this content",
   "pleaseAnswerTheQuestionFirst": "Please answer the current question before continuing.",
-  "warning": "Warning"
+  "warning": "Warning",
+  "libraryTitle": "Ninja Library",
+  "librarySubtitle": "Browse English learning books"
 }

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -222,6 +223,54 @@ class HomeTapCubit extends Cubit<HomeTapState> {
       var response = await fireStore.collection(USERS).doc(uid).get();
       userData =
           UserDataModel.fromJson(response.data() as Map<String, dynamic>);
+      emit(HomeTapLoaded(userData!, levelsData));
+    } catch (error) {
+      emit(HomeTapError(error.toString()));
+    }
+  }
+
+  bool _isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
+  Future<void> checkUserDailyReward(String uid,context) async {
+    emit(HomeTapLoading());
+    try {
+      var response = await fireStore.collection(USERS).doc(uid).get();
+      userData = UserDataModel.fromJson(response.data() as Map<String, dynamic>);
+
+
+      final lastRewardDate = userData?.lastRewardDate;
+      final today = await NTP.now(); // YYYY-MM-DD
+
+      if (lastRewardDate ==null || !_isSameDay(lastRewardDate, today)) {
+        // It's a new day, add points
+        final newPoints = (userData!.pointsNumber ?? 0) + 10;
+
+        // Update in Firestore
+        await fireStore.collection(USERS).doc(uid).update({
+          'pointsNumber': newPoints,
+          'lastAdDate':today
+        });
+
+        // Update local model
+        userData = userData!.copyWith(pointsNumber: newPoints);
+
+
+
+        // Show awesome dialog
+        AwesomeDialog(
+          context: context, // You'll need to pass context to this function or get it another way
+          dialogType: DialogType.success,
+          animType: AnimType.bottomSlide,
+          title: 'Daily Reward!',
+          desc: 'You received 10 points for today!',
+          btnOkOnPress: () {},
+        ).show();
+      }
+
       emit(HomeTapLoaded(userData!, levelsData));
     } catch (error) {
       emit(HomeTapError(error.toString()));

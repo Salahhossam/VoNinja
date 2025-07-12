@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:vo_ninja/shared/main_cubit/cubit.dart';
 import '../../generated/l10n.dart';
@@ -52,12 +53,60 @@ class _ExamPageState extends State<ExamPage> {
   String? uid;
   final Map<String, List<String>> shuffledChoicesMap = {};
 
+  BannerAd? myBannerTop;
+  BannerAd? myBannerBottom;
+  bool isTopBannerLoaded = false;
+  bool isBottomBannerLoaded = false;
+  void _initBannerAds() {
+    // Top Banner
+    myBannerTop = BannerAd(
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isTopBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // print('Failed to load a banner ad: ${error.message}');
+          // print('Error code: ${error.code}');
+          // print('Error domain: ${error.domain}');
+          ad.dispose();
+        },
+      ),
+    )..load();
+
+    // Bottom Banner
+    myBannerBottom = BannerAd(
+      //adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488',
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isBottomBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // print('Failed to load a banner ad: ${error.message}');
+          // print('Error code: ${error.code}');
+          // print('Error domain: ${error.domain}');
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
+
   @override
   void initState() {
     super.initState();
     initData();
     final mainCubit = MainAppCubit.get(context);
     mainCubit.interstitialAd();
+    _initBannerAds();
   }
 
   Future<void> initData() async {
@@ -191,6 +240,14 @@ class _ExamPageState extends State<ExamPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            if (isTopBannerLoaded && myBannerTop != null)
+                                              Container(
+                                                padding: const EdgeInsets.all(16.0),
+                                                height: AdSize.banner.height.toDouble(),
+                                                width: double.infinity,
+                                                alignment: Alignment.center,
+                                                child: AdWidget(ad: myBannerTop!),
+                                              ),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -638,6 +695,12 @@ class _ExamPageState extends State<ExamPage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+
+                                              if (learningCubit.currentQuestionIndex +1  == (learningCubit.lessonDetails!.questions!.length / 2).floor()) {
+
+                                                final mainCubit = MainAppCubit.get(context);
+                                                mainCubit.interstitialAd();
+                                              }
                                               // Check if current question is answered
                                               bool isAnswered = learningCubit.previousAnswers.any((answer) =>
                                               answer["questionId"] == learningCubit.lessonDetails!
@@ -700,6 +763,14 @@ class _ExamPageState extends State<ExamPage> {
                                     ],
                                   ),
                                 ),
+                                if (isBottomBannerLoaded && myBannerBottom != null)
+                                  Container(
+                                    padding: const EdgeInsets.all(16.0),
+                                    height: AdSize.banner.height.toDouble(),
+                                    width: double.infinity,
+                                    alignment: Alignment.center,
+                                    child: AdWidget(ad: myBannerBottom!),
+                                  ),
                               ],
                             );
                           },

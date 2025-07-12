@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/generated/l10n.dart';
 
 import 'package:vo_ninja/modules/lessons_page/learning_cubit/learning_state.dart';
@@ -46,13 +47,58 @@ class LessonLearning extends StatefulWidget {
 
 class _LessonLearningState extends State<LessonLearning> {
   bool isLoading = false;
+  BannerAd? myBannerTop;
+  BannerAd? myBannerBottom;
+  bool isTopBannerLoaded = false;
+  bool isBottomBannerLoaded = false;
+  void _initBannerAds() {
+    // Top Banner
+    myBannerTop = BannerAd(
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isTopBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // print('Failed to load a banner ad: ${error.message}');
+          // print('Error code: ${error.code}');
+          // print('Error domain: ${error.domain}');
+          ad.dispose();
+        },
+      ),
+    )..load();
 
+    // Bottom Banner
+    myBannerBottom = BannerAd(
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isBottomBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // print('Failed to load a banner ad: ${error.message}');
+          // print('Error code: ${error.code}');
+          // print('Error domain: ${error.domain}');
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
   @override
   void initState() {
     super.initState();
     initData();
     final mainCubit = MainAppCubit.get(context);
     mainCubit.interstitialAd();
+    _initBannerAds();
   }
 
   Future<void> initData() async {
@@ -82,6 +128,13 @@ class _LessonLearningState extends State<LessonLearning> {
         });
       });
     });
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    myBannerTop?.dispose();
+    myBannerBottom?.dispose();
   }
 
   @override
@@ -139,11 +192,13 @@ class _LessonLearningState extends State<LessonLearning> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              // Top Banner (only show if loaded)
+
                               // Blue container with rounded bottom
                               Container(
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * .75,
+                                MediaQuery.of(context).size.height * .75,
                                 decoration: const BoxDecoration(
                                   color: AppColors.mainColor,
                                   borderRadius: BorderRadius.only(
@@ -157,12 +212,20 @@ class _LessonLearningState extends State<LessonLearning> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
+                                        if (isTopBannerLoaded && myBannerTop != null)
+                                          Container(
+                                            padding: const EdgeInsets.all(16.0),
+                                            height: AdSize.banner.height.toDouble(),
+                                            width: double.infinity,
+                                            alignment: Alignment.center,
+                                            child: AdWidget(ad: myBannerTop!),
+                                          ),
                                         // Small blue line at the top
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             IconButton(
                                               icon: const Icon(
@@ -176,17 +239,17 @@ class _LessonLearningState extends State<LessonLearning> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         LessonsPage(
-                                                      levelId: widget.levelId,
-                                                      page: widget.page,
-                                                      size: widget.size,
-                                                      collectionName:
+                                                          levelId: widget.levelId,
+                                                          page: widget.page,
+                                                          size: widget.size,
+                                                          collectionName:
                                                           widget.collectionName,
-                                                      rewardedPoints:
+                                                          rewardedPoints:
                                                           widget.rewardedPoints,
-                                                      deducedPoints:
+                                                          deducedPoints:
                                                           widget.deducedPoints,
                                                           numberOfLessons: widget.numberOfLessons,
-                                                    ),
+                                                        ),
                                                   ),
                                                 );
                                               },
@@ -195,8 +258,8 @@ class _LessonLearningState extends State<LessonLearning> {
                                               child: LinearProgressIndicator(
                                                 value: progress,
                                                 backgroundColor:
-                                                    const Color.fromRGBO(
-                                                        168, 168, 168, 1),
+                                                const Color.fromRGBO(
+                                                    168, 168, 168, 1),
                                                 color: AppColors.secondColor,
                                               ),
                                             ),
@@ -206,30 +269,30 @@ class _LessonLearningState extends State<LessonLearning> {
                                         const SizedBox(height: 0),
                                         if (currentVocab.imageUrl != null &&
                                             currentVocab.imageUrl != '')
-                                          // Image
+                                        // Image
                                           CachedNetworkImage(
                                             imageUrl: currentVocab.imageUrl ??
                                                 'http/',
                                             height: 200,
                                             width: 200,
                                             placeholder: (context, url) =>
-                                                const SizedBox(
+                                            const SizedBox(
                                               height:
-                                                  30, // Adjust the size as needed
+                                              30, // Adjust the size as needed
                                               width: 30,
                                               child: Center(
                                                   child: Image(
-                                                image: AssetImage(
-                                                    'assets/img/ninja_gif.gif'),
-                                                height: 100,
-                                                width: 100,
-                                              )
-                                                  // Thinner indicator
-                                                  ),
+                                                    image: AssetImage(
+                                                        'assets/img/ninja_gif.gif'),
+                                                    height: 100,
+                                                    width: 100,
+                                                  )
+                                                // Thinner indicator
+                                              ),
                                             ),
                                             errorWidget:
                                                 (context, url, error) =>
-                                                    const Icon(
+                                            const Icon(
                                               Icons.error,
                                               color: Colors.red,
                                               size: 30,
@@ -255,7 +318,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                         // Points display
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             // Button 1: Icon for Sound (Headphone)
                                             ElevatedButton(
@@ -264,19 +327,19 @@ class _LessonLearningState extends State<LessonLearning> {
                                                       learningCubit.isEnglish
                                                           ? currentVocab.word
                                                           : currentVocab
-                                                              .translation,
+                                                          .translation,
                                                       learningCubit.isEnglish
                                                           ? "en-US"
                                                           : ""),
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.white,
                                                 padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 0,
-                                                        vertical: 17),
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 0,
+                                                    vertical: 17),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                  BorderRadius.circular(20),
                                                   side: const BorderSide(
                                                       color: Colors.grey),
                                                 ),
@@ -295,12 +358,12 @@ class _LessonLearningState extends State<LessonLearning> {
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.white,
                                                 padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 0,
-                                                        vertical: 17),
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 0,
+                                                    vertical: 17),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                  BorderRadius.circular(20),
                                                   side: const BorderSide(
                                                       color: Colors.grey),
                                                 ),
@@ -314,24 +377,24 @@ class _LessonLearningState extends State<LessonLearning> {
                                         ),
                                         const SizedBox(height: 35),
 
-                                  Container(
+                                        Container(
                                           width: double.infinity,
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 16, vertical: 8),
                                           decoration: BoxDecoration(
                                             color: AppColors.secondColor,
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                            BorderRadius.circular(10),
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 10, 10, 0, 10),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Expanded(
                                                   child: Text(
@@ -343,7 +406,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                                     textAlign: TextAlign.left,
                                                     softWrap: true,
                                                     overflow:
-                                                        TextOverflow.visible,
+                                                    TextOverflow.visible,
                                                   ),
                                                 ),
                                                 IconButton(
@@ -356,8 +419,8 @@ class _LessonLearningState extends State<LessonLearning> {
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              50),
+                                                      BorderRadius.circular(
+                                                          50),
                                                     ),
                                                     child: const Icon(
                                                       Icons.volume_up,
@@ -369,7 +432,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                             ),
                                           ),
                                         ),
-                               
+
                                         Container(
                                           width: double.infinity,
                                           margin: const EdgeInsets.symmetric(
@@ -377,17 +440,17 @@ class _LessonLearningState extends State<LessonLearning> {
                                           decoration: BoxDecoration(
                                             color: AppColors.secondColor,
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                            BorderRadius.circular(10),
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 10, 10, 10, 10),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 // IconButton(
                                                 //   onPressed: () {
@@ -422,7 +485,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                                     textAlign: TextAlign.right,
                                                     softWrap: true,
                                                     overflow:
-                                                        TextOverflow.visible,
+                                                    TextOverflow.visible,
                                                   ),
                                                 ),
                                               ],
@@ -463,10 +526,10 @@ class _LessonLearningState extends State<LessonLearning> {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
-                                                AppColors.mainColor,
+                                            AppColors.mainColor,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(20),
+                                              BorderRadius.circular(20),
                                             ),
                                             padding: const EdgeInsets.all(15),
                                           ),
@@ -478,10 +541,10 @@ class _LessonLearningState extends State<LessonLearning> {
                                                   S.of(context).back,
                                                   style: const TextStyle(
                                                       color:
-                                                          AppColors.whiteColor,
+                                                      AppColors.whiteColor,
                                                       fontSize: 16,
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                      FontWeight.bold),
                                                 ),
                                               ),
                                               // const Positioned(
@@ -498,14 +561,18 @@ class _LessonLearningState extends State<LessonLearning> {
                                     ),
                                     SizedBox(
                                       width:
-                                          MediaQuery.of(context).size.height *
-                                              .01,
+                                      MediaQuery.of(context).size.height *
+                                          .01,
                                     ),
                                     Expanded(
                                       child: SizedBox(
                                         width: double.infinity,
                                         child: ElevatedButton(
                                           onPressed: () {
+                                            if (learningCubit.currentVocabIndex +1== (learningCubit.lessonDetails!.vocabularies!.length / 2).floor()) {
+                                              final mainCubit = MainAppCubit.get(context);
+                                              mainCubit.interstitialAd();
+                                            }
                                             learningCubit.nextVocabulary(
                                                 context,
                                                 widget.lessonId,
@@ -521,10 +588,10 @@ class _LessonLearningState extends State<LessonLearning> {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
-                                                AppColors.mainColor,
+                                            AppColors.mainColor,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(20),
+                                              BorderRadius.circular(20),
                                             ),
                                             padding: const EdgeInsets.all(15),
                                           ),
@@ -536,10 +603,10 @@ class _LessonLearningState extends State<LessonLearning> {
                                                   S.of(context).continueExams,
                                                   style: const TextStyle(
                                                       color:
-                                                          AppColors.whiteColor,
+                                                      AppColors.whiteColor,
                                                       fontSize: 16,
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                      FontWeight.bold),
                                                 ),
                                               ),
                                               // const Positioned(
@@ -557,6 +624,15 @@ class _LessonLearningState extends State<LessonLearning> {
                                   ],
                                 ),
                               ),
+
+                              if (isBottomBannerLoaded && myBannerBottom != null)
+                                Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  height: AdSize.banner.height.toDouble(),
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
+                                  child: AdWidget(ad: myBannerBottom!),
+                                ),
                             ],
                           );
                         },

@@ -1180,6 +1180,26 @@ class S {
     );
   }
 
+  /// `مكتبة النينجا`
+  String get libraryTitle {
+    return Intl.message(
+      'مكتبة النينجا',
+      name: 'libraryTitle',
+      desc: 'Title for the library section',
+      args: [],
+    );
+  }
+
+  /// `تصفح كتب تعلم الإنجليزية`
+  String get librarySubtitle {
+    return Intl.message(
+      'تصفح كتب تعلم الإنجليزية',
+      name: 'librarySubtitle',
+      desc: 'Subtitle for the library section',
+      args: [],
+    );
+  }
+
   /// `Continue Learning`
   String get continueLearning {
     return Intl.message(

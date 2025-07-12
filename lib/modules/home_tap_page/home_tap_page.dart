@@ -9,6 +9,7 @@ import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
 
 import '../../shared/network/local/cash_helper.dart';
+import '../library_page/library_screen.dart';
 import 'home_tap_cubit/home_tap_cubit.dart';
 import 'home_tap_cubit/home_tap_state.dart';
 import 'progress_indicator_widget.dart';
@@ -64,9 +65,9 @@ class _HomeTapPageState extends State<HomeTapPage> {
         //await homeTapCubit.loadRewardAds();
         // Now that we have UID, proceed with fetching data
         homeTapCubit.levelsData = [];
-        await homeTapCubit.getUserData(uid!);
+        await homeTapCubit.checkUserDailyReward(uid!,context);
         if (homeTapCubit.userData != null) {
-          await homeTapCubit.getLevelsDataProgress(uid!);
+          //await homeTapCubit.getLevelsDataProgress(uid!);
           await homeTapCubit.getUserRank(uid!);
         }
         setState(() {
@@ -108,8 +109,66 @@ class _HomeTapPageState extends State<HomeTapPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildHeader(context),
-                            const SizedBox(height: 60),
-                            _buildProgressSection(context),
+                            const SizedBox(height: 80),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LibraryScreen()));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: AppColors.secondColor,
+                                  borderRadius: BorderRadius.circular(20),
+
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.2),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(Icons.auto_stories_rounded, color: Colors.white, size: 30),
+                                    ),
+                                    const SizedBox(width: 20),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            S.of(context).libraryTitle,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: [
+                                                Shadow(
+                                                  blurRadius: 4,
+                                                  color: Colors.black26,
+                                                  offset: Offset(1, 1),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            S.of(context).librarySubtitle,
+                                            style: TextStyle(
+                                              color: Colors.white.withOpacity(0.9),
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Icon(Icons.chevron_right_rounded, color: Colors.white, size: 30),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // _buildProgressSection(context),
                             const SizedBox(height: 15),
                             Directionality(
                               textDirection: TextDirection.rtl,

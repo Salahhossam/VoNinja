@@ -16,6 +16,7 @@ import 'modules/challenges_page/task_cubit/task_cubit.dart';
 import 'modules/challenges_tap_page/challenges_cubit/challenges_tap_cubit.dart';
 import 'modules/home_tap_page/home_tap_cubit/home_tap_cubit.dart';
 import 'modules/lessons_page/lessons_cubit/lessons_cubit.dart';
+import 'modules/library_page/library_cubit/library_cubit.dart';
 import 'shared/main_cubit/bloc_observer.dart';
 import 'modules/taps_page/taps_cubit/taps_cubit.dart';
 import 'shared/main_cubit/cubit.dart';
@@ -326,6 +327,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => LeaderboardTapCubit()),
         BlocProvider(create: (context) => SettingsTapCubit()),
         BlocProvider(create: (context) => TaskCubit()),
+        BlocProvider(create: (context) => LibraryCubit()),
       ],
       child: BlocConsumer<MainAppCubit, MainAppState>(
         listener: (context, state) {},
