@@ -54,7 +54,7 @@ class _LessonLearningState extends State<LessonLearning> {
   void _initBannerAds() {
     // Top Banner
     myBannerTop = BannerAd(
-      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488',
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -74,7 +74,8 @@ class _LessonLearningState extends State<LessonLearning> {
 
     // Bottom Banner
     myBannerBottom = BannerAd(
-      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488',
+      //adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -216,8 +217,8 @@ class _LessonLearningState extends State<LessonLearning> {
                                       children: [
                                         if (isTopBannerLoaded && myBannerTop != null)
                                           Container(
-                                            padding: const EdgeInsets.all(16.0),
-                                            height: AdSize.banner.height.toDouble(),
+                                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                            height: 80,
                                             width: double.infinity,
                                             alignment: Alignment.center,
                                             child: AdWidget(ad: myBannerTop!),
@@ -569,7 +570,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                         width: double.infinity,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            if (learningCubit.currentVocabIndex +1== (learningCubit.lessonDetails!.vocabularies!.length / 2).floor()) {
+                                            if (learningCubit.currentVocabIndex +1== (learningCubit.lessonDetails!.vocabularies!.length / 2).floor()||learningCubit.currentVocabIndex +3== learningCubit.lessonDetails!.vocabularies!.length) {
                                               final mainCubit = MainAppCubit.get(context);
                                               mainCubit.interstitialAd();
                                             }
@@ -627,8 +628,8 @@ class _LessonLearningState extends State<LessonLearning> {
 
                               if (isBottomBannerLoaded && myBannerBottom != null)
                                 Container(
-                                  padding: const EdgeInsets.all(16.0),
-                                  height: AdSize.banner.height.toDouble(),
+                                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                  height: 80,
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: AdWidget(ad: myBannerBottom!),

@@ -1183,7 +1183,7 @@ class S {
   /// `مكتبة النينجا`
   String get libraryTitle {
     return Intl.message(
-      'مكتبة النينجا',
+      'مكتبة فونينجا',
       name: 'libraryTitle',
       desc: 'Title for the library section',
       args: [],

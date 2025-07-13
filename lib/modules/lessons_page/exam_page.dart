@@ -242,8 +242,8 @@ class _ExamPageState extends State<ExamPage> {
                                           children: [
                                             if (isTopBannerLoaded && myBannerTop != null)
                                               Container(
-                                                padding: const EdgeInsets.all(16.0),
-                                                height: AdSize.banner.height.toDouble(),
+                                                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                                height: 80,
                                                 width: double.infinity,
                                                 alignment: Alignment.center,
                                                 child: AdWidget(ad: myBannerTop!),
@@ -696,7 +696,7 @@ class _ExamPageState extends State<ExamPage> {
                                           child: ElevatedButton(
                                             onPressed: () {
 
-                                              if (learningCubit.currentQuestionIndex +1  == (learningCubit.lessonDetails!.questions!.length / 2).floor()) {
+                                              if (learningCubit.currentQuestionIndex +1  == (learningCubit.lessonDetails!.questions!.length / 2).floor()||learningCubit.currentQuestionIndex +3  == learningCubit.lessonDetails!.questions!.length) {
 
                                                 final mainCubit = MainAppCubit.get(context);
                                                 mainCubit.interstitialAd();
@@ -765,8 +765,8 @@ class _ExamPageState extends State<ExamPage> {
                                 ),
                                 if (isBottomBannerLoaded && myBannerBottom != null)
                                   Container(
-                                    padding: const EdgeInsets.all(16.0),
-                                    height: AdSize.banner.height.toDouble(),
+                                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                    height: 80,
                                     width: double.infinity,
                                     alignment: Alignment.center,
                                     child: AdWidget(ad: myBannerBottom!),

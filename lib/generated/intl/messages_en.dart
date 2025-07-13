@@ -186,7 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "you": MessageLookupByLibrary.simpleMessage("You"),
         "youAreAllSet":
             MessageLookupByLibrary.simpleMessage("You\'re All Set!"),
-    "libraryTitle": MessageLookupByLibrary.simpleMessage("Ninja Library"),
+    "libraryTitle": MessageLookupByLibrary.simpleMessage("Voninja Library"),
     "librarySubtitle": MessageLookupByLibrary.simpleMessage("Browse English learning books"),
         "youLearned30NewwordsToday": MessageLookupByLibrary.simpleMessage(
             "You learned 30 new words Today...")

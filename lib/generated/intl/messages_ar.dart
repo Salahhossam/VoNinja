@@ -184,7 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" كلمة المرور غير صحيحة"),
         "you": MessageLookupByLibrary.simpleMessage("انت"),
         "youAreAllSet": MessageLookupByLibrary.simpleMessage("كل شيء جاهز!"),
-    "libraryTitle": MessageLookupByLibrary.simpleMessage("مكتبة النينجا"),
+    "libraryTitle": MessageLookupByLibrary.simpleMessage("مكتبة فونينجا"),
     "librarySubtitle": MessageLookupByLibrary.simpleMessage("تصفح كتب تعلم الإنجليزية"),
         "youLearned30NewwordsToday": MessageLookupByLibrary.simpleMessage(
             "لقد تعلمت 30 كلمة جديدة اليوم...")
