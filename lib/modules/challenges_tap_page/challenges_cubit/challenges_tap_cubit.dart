@@ -68,48 +68,7 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
     }
   }
 
-// Simulated server fetch function
-  // Future<void> fetchChallenges() async {
-  //   try {
-  //     emit(ChallengeTapLoading());
 
-  //     // await Future.delayed(const Duration(seconds: 2));
-
-  //     final challenges = [
-  //       ChallengeTap(
-  //         imagePath: 'assets/img/basic.png',
-  //         level: 1,
-  //         title: 'Basic',
-  //         progress: 0.9,
-  //         positivePoints: '1',
-  //         negativePoints: '1',
-  //         percentage: '90%',
-  //       ),
-  //       ChallengeTap(
-  //         imagePath: 'assets/img/intermed.png',
-  //         level: 2,
-  //         title: 'Intermediate',
-  //         progress: 0.28,
-  //         positivePoints: '3',
-  //         negativePoints: '1',
-  //         percentage: '28%',
-  //       ),
-  //       ChallengeTap(
-  //         imagePath: 'assets/img/Advanced.png',
-  //         level: 3,
-  //         title: 'Advanced',
-  //         progress: 0.60,
-  //         positivePoints: '5',
-  //         negativePoints: '1',
-  //         percentage: '60%',
-  //       ),
-  //     ];
-
-  //     emit(ChallengeTapLoaded(challenges));
-  //   } catch (e) {
-  //     emit(ChallengeTapError('Failed to load data'));
-  //   }
-  // }
 
 
 

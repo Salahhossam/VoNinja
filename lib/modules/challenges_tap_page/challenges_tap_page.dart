@@ -48,6 +48,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
   Future<void> initData() async {
     final challengeTapCubit = ChallengeTapCubit.get(context);
     setState(() {
+      challengeTapCubit.levelsData=[];
       isLoading = true;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -195,6 +196,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                               BlocBuilder<ChallengeTapCubit, ChallengeTapState>(
                             builder: (context, state) {
                               return ListView.builder(
+                                key: const Key('challenges_list'),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),
                                 itemCount: challengeTapCubit.levelsData.length,
@@ -202,6 +204,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                   final challengesTap =
                                       challengeTapCubit.levelsData[index];
                                   return Column(
+                                    key: Key('challenge_${challengesTap.levelId}'),
                                     children: [
                                       ChallengesTapCard(
                                         levelId: challengesTap.levelId,

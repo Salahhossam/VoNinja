@@ -23,15 +23,15 @@ class ChallengeCubit extends Cubit<ChallengeState> {
           .collection('challenges')
           .where('status', isEqualTo: 'PUBLISHED')
           .where('endTime', isGreaterThan: now)
-          .orderBy('endTime')
+          .orderBy('challenge_order')
           .get();
       for (var doc in query.docs) {
         challenges.add(Challenge.fromJson(doc.data()));
       }
       emit(ChallengeLoaded2());
     } catch (error) {
-      print(error);
-      print('7777777777777777777');
+      // print(error);
+      // print('7777777777777777777');
       emit(ChallengeError(error.toString()));
     }
   }
