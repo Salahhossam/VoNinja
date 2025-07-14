@@ -48,7 +48,6 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
   Future<void> initData() async {
     final challengeTapCubit = ChallengeTapCubit.get(context);
     setState(() {
-      challengeTapCubit.levelsData=[];
       isLoading = true;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -59,6 +58,8 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
         uid = await CashHelper.getData(key: 'uid');
 
         await challengeTapCubit.getLevelsData(uid!);
+        // print(challengeTapCubit.levelsData.length);
+        // print('777777777777777777777');
         setState(() {
           isLoading = false;
         });
@@ -193,10 +194,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                         // Progress Cards with data from Cubit
                         Expanded(
                           child:
-                              BlocBuilder<ChallengeTapCubit, ChallengeTapState>(
-                            builder: (context, state) {
-                              return ListView.builder(
-                                key: const Key('challenges_list'),
+                              ListView.builder(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),
                                 itemCount: challengeTapCubit.levelsData.length,
@@ -204,7 +202,6 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                   final challengesTap =
                                       challengeTapCubit.levelsData[index];
                                   return Column(
-                                    key: Key('challenge_${challengesTap.levelId}'),
                                     children: [
                                       ChallengesTapCard(
                                         levelId: challengesTap.levelId,
@@ -225,9 +222,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                     ],
                                   );
                                 },
-                              );
-                            },
-                          ),
+                              ),
                         ),
                       ],
                     ),

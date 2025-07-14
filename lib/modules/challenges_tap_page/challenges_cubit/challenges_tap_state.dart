@@ -5,9 +5,9 @@ abstract class ChallengeTapState {}
 class ChallengeTapLoading extends ChallengeTapState {}
 
 class ChallengeTapLoaded extends ChallengeTapState {
-  final List<ChallengeTap> challengesTap;
 
-  ChallengeTapLoaded(this.challengesTap);
+
+  ChallengeTapLoaded();
 }
 
 class ChallengeTapError extends ChallengeTapState {

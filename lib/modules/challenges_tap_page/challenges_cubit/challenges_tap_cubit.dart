@@ -49,7 +49,8 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
         if (answeredQuestions != null && totalQuestions > 0) {
           levelProgress = (answeredQuestions / totalQuestions);
         }
-        // Store challenge data
+        if (!levelsData.any((e) => e.levelId == levelId)) {
+          // Store challenge data
         levelsData.add(ChallengeTap(
           levelId: levelId,
           levelDifficulty: levelDifficulty,
@@ -59,10 +60,11 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
           levelProgress: double.parse(levelProgress.toStringAsFixed(2)),
           canTap: docSnapshot.exists
         ));
+        }
       }
 
       // Emit the loaded state with levels data and progress data
-      emit(ChallengeTapLoaded(levelsData));
+      emit(ChallengeTapLoaded());
     } catch (error) {
       emit(ChallengeTapError(error.toString()));
     }
