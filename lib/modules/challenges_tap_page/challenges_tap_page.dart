@@ -215,7 +215,11 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                             challengesTap.numberOfLessons,
                                         levelProgress:
                                             challengesTap.levelProgress,
-                                        canTab: (index == 0 || challengesTap.levelProgress == 1.0||(challengesTap.canTap!=null&&challengesTap.canTap!)),
+                                        canTab: index == 0 ||
+                                            challengesTap.levelProgress == 1.0 ||
+                                            (challengesTap.canTap != null && challengesTap.canTap!) ||
+                                            (index > 0 &&
+                                                challengeTapCubit.levelsData[index - 1].levelProgress == 1.0),
                                         previousTile: index != 0?challengeTapCubit.levelsData[index-1].levelDifficulty:null,
                                       ),
                                       const SizedBox(height: 16),
