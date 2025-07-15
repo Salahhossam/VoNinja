@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/models/pdf_book_model.dart';
 
+import '../../shared/main_cubit/cubit.dart';
 import '../../shared/style/color.dart';
 
 class PDFScreen extends StatefulWidget {
@@ -16,6 +18,58 @@ class PDFScreen extends StatefulWidget {
 class _PDFScreenState extends State<PDFScreen> {
   bool _isLoading = true;
   String? _error;
+  BannerAd? myBannerTop;
+  BannerAd? myBannerBottom;
+  bool isTopBannerLoaded = false;
+  bool isBottomBannerLoaded = false;
+  void _initBannerAds() {
+    // Top Banner
+    myBannerTop = BannerAd(
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isTopBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // print('Failed to load a banner ad: ${error.message}');
+          // print('Error code: ${error.code}');
+          // print('Error domain: ${error.domain}');
+          ad.dispose();
+        },
+      ),
+    )..load();
+
+    // Bottom Banner
+    myBannerBottom = BannerAd(
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isBottomBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // print('Failed to load a banner ad: ${error.message}');
+          // print('Error code: ${error.code}');
+          // print('Error domain: ${error.domain}');
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
+  @override
+  void initState() {
+    super.initState();
+    final mainCubit = MainAppCubit.get(context);
+    mainCubit.interstitialAd();
+    _initBannerAds();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,42 +122,63 @@ class _PDFScreenState extends State<PDFScreen> {
       );
     }
 
-    return PDF(
-      enableSwipe: true,
-      swipeHorizontal: false,
-      autoSpacing: false,
-      pageFling: true,
-      onError: (error) {
-        setState(() {
-          _error = error.toString();
-        });
-      },
-      onPageError: (page, error) {
-        setState(() {
-          _error = '$page: ${error.toString()}';
-        });
-      },
-      onRender: (pages) {
-        setState(() {
-          _isLoading = false;
-        });
-      },
-    ).cachedFromUrl(
-      url,
-      placeholder: (progress) => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Image(
-              image: AssetImage('assets/img/ninja_gif.gif'),
-              height: 100,
-              width: 100,
+    return Column(
+      children: [
+        if (isTopBannerLoaded && myBannerTop != null)
+          Container(
+            height: 60,
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: AdWidget(ad: myBannerTop!),
+          ),
+        Expanded(
+          child: PDF(
+            enableSwipe: true,
+            swipeHorizontal: false,
+            autoSpacing: false,
+            pageFling: true,
+            onError: (error) {
+              setState(() {
+                _error = error.toString();
+              });
+            },
+            onPageError: (page, error) {
+              setState(() {
+                _error = '$page: ${error.toString()}';
+              });
+            },
+            onRender: (pages) {
+              setState(() {
+                _isLoading = false;
+              });
+            },
+          ).cachedFromUrl(
+            url,
+            placeholder: (progress) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Image(
+                    image: AssetImage('assets/img/ninja_gif.gif'),
+                    height: 100,
+                    width: 100,
+                  ),
+                  const SizedBox(height: 20),
+                  Text('Loading... $progress%'),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-            Text('Loading... $progress%'),
-          ],
+          ),
         ),
-      ),
+
+        if (isBottomBannerLoaded && myBannerBottom != null)
+          Container(
+            height: 60,
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: AdWidget(ad: myBannerBottom!),
+          ),
+      ],
     );
   }
 }

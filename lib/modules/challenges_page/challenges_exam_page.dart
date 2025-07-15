@@ -183,49 +183,56 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                           width: 100,
                         ),
                       )
-                    : SingleChildScrollView(
-                        child: BlocBuilder<TaskCubit, TaskState>(
-                          builder: (context, state) {
-                            var currentQuestion = taskCubit
-                                .questions[taskCubit.currentQuestionIndex];
+                    : BlocBuilder<TaskCubit, TaskState>(
+                      builder: (context, state) {
+                        var currentQuestion = taskCubit
+                            .questions[taskCubit.currentQuestionIndex];
 
 
 
-                            if (!shuffledChoicesMap
-                                .containsKey(currentQuestion.questionId)) {
-                              final originalChoices =
-                                  List<String>.from(currentQuestion.choices);
-                              originalChoices.shuffle(Random());
-                              shuffledChoicesMap[currentQuestion.questionId] =
-                                  originalChoices;
+                        if (!shuffledChoicesMap
+                            .containsKey(currentQuestion.questionId)) {
+                          final originalChoices =
+                              List<String>.from(currentQuestion.choices);
+                          originalChoices.shuffle(Random());
+                          shuffledChoicesMap[currentQuestion.questionId] =
+                              originalChoices;
 
-                            }
-                            final shuffledChoices =
-                                shuffledChoicesMap[currentQuestion.questionId]!;
+                        }
+                        final shuffledChoices =
+                            shuffledChoicesMap[currentQuestion.questionId]!;
 
-                            for (var choice in shuffledChoices) {
+                        for (var choice in shuffledChoices) {
 
-                            }
+                        }
 
-                            double progress =
-                                (taskCubit.currentQuestionIndex + 1) /
-                                    taskCubit.questions.length;
-                            Map<String, dynamic>? selectedAnswer =
-                                taskCubit.previousAnswers.firstWhere(
-                              (answer) =>
-                                  answer["questionId"] ==
-                                  currentQuestion.questionId,
-                              orElse: () =>
-                                  {}, // Return an empty map instead of null
-                            );
-                            bool isPreviouslySelected =
-                                selectedAnswer.isNotEmpty;
-                            return Column(
-                              children: [
-                                Container(
+                        double progress =
+                            (taskCubit.currentQuestionIndex + 1) /
+                                taskCubit.questions.length;
+                        Map<String, dynamic>? selectedAnswer =
+                            taskCubit.previousAnswers.firstWhere(
+                          (answer) =>
+                              answer["questionId"] ==
+                              currentQuestion.questionId,
+                          orElse: () =>
+                              {}, // Return an empty map instead of null
+                        );
+                        bool isPreviouslySelected =
+                            selectedAnswer.isNotEmpty;
+                        return Column(
+                          children: [
+                            if (isTopBannerLoaded && myBannerTop != null)
+                              Container(
+                                height: 60,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: AdWidget(ad: myBannerTop!),
+                              ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Container(
                                   width: double.infinity,
-                                  height:
-                                      MediaQuery.of(context).size.height * .75,
+                                  //height: MediaQuery.of(context).size.height * .75,
                                   decoration: const BoxDecoration(
                                     color: AppColors.mainColor,
                                     borderRadius: BorderRadius.only(
@@ -241,14 +248,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            if (isTopBannerLoaded && myBannerTop != null)
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                                height: 80,
-                                                width: double.infinity,
-                                                alignment: Alignment.center,
-                                                child: AdWidget(ad: myBannerTop!),
-                                              ),
+
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -444,362 +444,353 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                               ],
                                             ),
                                             const SizedBox(height: 50),
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .28,
-                                              child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  itemCount:
-                                                      shuffledChoices.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    final choice =
-                                                        shuffledChoices[index];
+                                            ListView.builder(
+                                              physics: const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount:
+                                                    shuffledChoices.length,
+                                                itemBuilder:
+                                                    (context, index) {
+                                                  final choice =
+                                                      shuffledChoices[index];
 
-                                                    Color borderColor =
-                                                        AppColors.lightColor;
-                                                    Color textColor =
-                                                        Colors.white;
-                                                    Color backgroundColor =
-                                                        Colors.transparent;
+                                                  Color borderColor =
+                                                      AppColors.lightColor;
+                                                  Color textColor =
+                                                      Colors.white;
+                                                  Color backgroundColor =
+                                                      Colors.transparent;
 
-                                                    // If the question was answered before (fetched from API)
-                                                    if (isPreviouslySelected) {
-                                                      if (choice.trim() ==
-                                                          selectedAnswer[
-                                                                  "answerContent"]
-                                                              .trim()) {
-                                                        if (selectedAnswer[
-                                                            "correct"]) {
-                                                          borderColor =
-                                                              Colors.green;
-                                                          textColor =
-                                                              Colors.green;
-                                                          backgroundColor =
-                                                              Colors.green
-                                                                  .withOpacity(
-                                                                      0.1);
-                                                        } else {
-                                                          borderColor =
-                                                              Colors.red;
-                                                          textColor =
-                                                              Colors.red;
-                                                          backgroundColor =
-                                                              Colors.red
-                                                                  .withOpacity(
-                                                                      0.1);
-                                                        }
-                                                      } else if (choice
-                                                              .trim() ==
-                                                          currentQuestion
-                                                              .correctAnswer
-                                                              .trim()) {
+                                                  // If the question was answered before (fetched from API)
+                                                  if (isPreviouslySelected) {
+                                                    if (choice.trim() ==
+                                                        selectedAnswer[
+                                                                "answerContent"]
+                                                            .trim()) {
+                                                      if (selectedAnswer[
+                                                          "correct"]) {
                                                         borderColor =
                                                             Colors.green;
                                                         textColor =
                                                             Colors.green;
-                                                        backgroundColor = Colors
-                                                            .green
-                                                            .withOpacity(0.1);
+                                                        backgroundColor =
+                                                            Colors.green
+                                                                .withOpacity(
+                                                                    0.1);
+                                                      } else {
+                                                        borderColor =
+                                                            Colors.red;
+                                                        textColor =
+                                                            Colors.red;
+                                                        backgroundColor =
+                                                            Colors.red
+                                                                .withOpacity(
+                                                                    0.1);
                                                       }
+                                                    } else if (choice
+                                                            .trim() ==
+                                                        currentQuestion
+                                                            .correctAnswer
+                                                            .trim()) {
+                                                      borderColor =
+                                                          Colors.green;
+                                                      textColor =
+                                                          Colors.green;
+                                                      backgroundColor = Colors
+                                                          .green
+                                                          .withOpacity(0.1);
                                                     }
+                                                  }
 
-                                                    return InkWell(
-                                                      onTap:
-                                                          isPreviouslySelected
-                                                              ? null
-                                                              : () async {
-                                                                  setState(() {
-                                                                    isLoadingAnswer =
-                                                                        true;
-                                                                    taskCubit
-                                                                        .userPoints += (choice.trim() ==
-                                                                            currentQuestion.correctAnswer
-                                                                                .trim())
-                                                                        ? widget
-                                                                            .rewardPoints
-                                                                        : -widget
-                                                                            .deducePoints;
-                                                                    taskCubit
-                                                                        .pointsToShowQuestionExam += (choice.trim() ==
-                                                                            currentQuestion.correctAnswer
-                                                                                .trim())
-                                                                        ? widget
-                                                                            .rewardPoints
-                                                                        : -widget
-                                                                            .deducePoints;
-                                                                  });
-
+                                                  return InkWell(
+                                                    onTap:
+                                                        isPreviouslySelected
+                                                            ? null
+                                                            : () async {
+                                                                setState(() {
+                                                                  isLoadingAnswer =
+                                                                      true;
                                                                   taskCubit
-                                                                      .previousAnswers
-                                                                      .add({
-                                                                    "id": currentQuestion
+                                                                      .userPoints += (choice.trim() ==
+                                                                          currentQuestion.correctAnswer
+                                                                              .trim())
+                                                                      ? widget
+                                                                          .rewardPoints
+                                                                      : -widget
+                                                                          .deducePoints;
+                                                                  taskCubit
+                                                                      .pointsToShowQuestionExam += (choice.trim() ==
+                                                                          currentQuestion.correctAnswer
+                                                                              .trim())
+                                                                      ? widget
+                                                                          .rewardPoints
+                                                                      : -widget
+                                                                          .deducePoints;
+                                                                });
+
+                                                                taskCubit
+                                                                    .previousAnswers
+                                                                    .add({
+                                                                  "id": currentQuestion
+                                                                      .questionId,
+                                                                  "questionId":
+                                                                      currentQuestion
+                                                                          .questionId,
+                                                                  "answerContent":
+                                                                      choice
+                                                                          .trim(),
+                                                                  "grade": (choice.trim() ==
+                                                                          currentQuestion.correctAnswer
+                                                                              .trim())
+                                                                      ? widget
+                                                                          .rewardPoints
+                                                                      : -widget
+                                                                          .deducePoints,
+                                                                  "correct": choice
+                                                                          .trim() ==
+                                                                      currentQuestion
+                                                                          .correctAnswer
+                                                                          .trim(),
+                                                                });
+
+                                                                taskCubit
+                                                                    .success();
+                                                                await taskCubit.postUserExamAnswers(
+                                                                    uid!,
+                                                                    widget
+                                                                        .taskId,
+                                                                    currentQuestion
                                                                         .questionId,
-                                                                    "questionId":
-                                                                        currentQuestion
-                                                                            .questionId,
-                                                                    "answerContent":
-                                                                        choice
-                                                                            .trim(),
-                                                                    "grade": (choice.trim() ==
-                                                                            currentQuestion.correctAnswer
-                                                                                .trim())
-                                                                        ? widget
-                                                                            .rewardPoints
-                                                                        : -widget
-                                                                            .deducePoints,
-                                                                    "correct": choice
-                                                                            .trim() ==
+                                                                    choice
+                                                                        .trim(),
+                                                                    choice.trim() ==
                                                                         currentQuestion
                                                                             .correctAnswer
                                                                             .trim(),
-                                                                  });
-
-                                                                  taskCubit
-                                                                      .success();
-                                                                  await taskCubit.postUserExamAnswers(
-                                                                      uid!,
-                                                                      widget
-                                                                          .taskId,
-                                                                      currentQuestion
-                                                                          .questionId,
-                                                                      choice
-                                                                          .trim(),
-                                                                      choice.trim() ==
-                                                                          currentQuestion
-                                                                              .correctAnswer
-                                                                              .trim(),
-                                                                      (choice.trim() ==
-                                                                              currentQuestion.correctAnswer
-                                                                                  .trim())
-                                                                          ? widget
-                                                                              .rewardPoints
-                                                                          : widget
-                                                                              .deducePoints,
-                                                                      widget
-                                                                          .challengeId);
-                                                                  setState(() {
-                                                                    isLoadingAnswer =
-                                                                        false;
-                                                                  });
-                                                                },
-                                                      child: Container(
-                                                        margin: const EdgeInsets
-                                                            .only(bottom: 10),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 16),
-                                                        width: 200,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              backgroundColor,
-                                                          border: Border.all(
-                                                            color: borderColor,
-                                                            width: 3,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
+                                                                    (choice.trim() ==
+                                                                            currentQuestion.correctAnswer
+                                                                                .trim())
+                                                                        ? widget
+                                                                            .rewardPoints
+                                                                        : widget
+                                                                            .deducePoints,
+                                                                    widget
+                                                                        .challengeId);
+                                                                setState(() {
+                                                                  isLoadingAnswer =
+                                                                      false;
+                                                                });
+                                                              },
+                                                    child: Container(
+                                                      margin: const EdgeInsets
+                                                          .only(bottom: 10),
+                                                      padding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 16),
+                                                      width: 200,
+                                                      decoration:
+                                                          BoxDecoration(
+                                                        color:
+                                                            backgroundColor,
+                                                        border: Border.all(
+                                                          color: borderColor,
+                                                          width: 3,
                                                         ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            choice,
-                                                            style: TextStyle(
-                                                              color: textColor,
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          choice,
+                                                          style: TextStyle(
+                                                            color: textColor,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold,
                                                           ),
                                                         ),
                                                       ),
-                                                    );
-                                                  }),
-                                            ),
+                                                    ),
+                                                  );
+                                                }),
                                           ],
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .08,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: SizedBox(
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0,left: 8.0,right: 8),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        onPressed: () {
 
 
 
-                                              taskCubit.moveToPastQuestion(
-                                                  context,
-                                                  taskCubit.userPoints,
-                                                  widget.taskId,
-                                                  widget.challengeId,
-                                                  widget.challengesName,
-                                                  widget.rewardPoints,
-                                                  widget.deducePoints,
-                                                  widget
-                                                      .challengesRemainingTime,
-                                                  widget.subscriptionCostPoints,
-                                                  widget.status,
-                                                  widget.rankPoints,
-                                                  widget
-                                                      .challengesNumberOfTasks,
-                                                  widget.numberOfQuestion,
-                                                  widget
-                                                      .challengesNumberOfSubscriptions);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.mainColor,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              padding: const EdgeInsets.all(15),
-                                            ),
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    S.of(context).back,
-                                                    style: const TextStyle(
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                                // const Positioned(
-                                                //   left: 0,
-                                                //   child: Icon(
-                                                //     Icons.arrow_back,
-                                                //     color: Colors.white,
-                                                //   ),
-                                                // )
-                                              ],
-                                            ),
+                                          taskCubit.moveToPastQuestion(
+                                              context,
+                                              taskCubit.userPoints,
+                                              widget.taskId,
+                                              widget.challengeId,
+                                              widget.challengesName,
+                                              widget.rewardPoints,
+                                              widget.deducePoints,
+                                              widget
+                                                  .challengesRemainingTime,
+                                              widget.subscriptionCostPoints,
+                                              widget.status,
+                                              widget.rankPoints,
+                                              widget
+                                                  .challengesNumberOfTasks,
+                                              widget.numberOfQuestion,
+                                              widget
+                                                  .challengesNumberOfSubscriptions);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.mainColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
+                                          padding: const EdgeInsets.all(15),
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                S.of(context).back,
+                                                style: const TextStyle(
+                                                    color: AppColors
+                                                        .whiteColor,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            // const Positioned(
+                                            //   left: 0,
+                                            //   child: Icon(
+                                            //     Icons.arrow_back,
+                                            //     color: Colors.white,
+                                            //   ),
+                                            // )
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.height *
-                                                .01,
-                                      ),
-                                      Expanded(
-                                        child: SizedBox(
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.height *
+                                            .01,
+                                  ),
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        onPressed: () {
 
-                                              if (taskCubit.currentQuestionIndex +1== (taskCubit.questions.length / 2).floor()||taskCubit.currentQuestionIndex +3== taskCubit.questions.length ) {
-                                                final mainCubit = MainAppCubit.get(context);
-                                                mainCubit.interstitialAd();
-                                              }
-                                              // Check if current question is answered
-                                              bool isAnswered = taskCubit.previousAnswers.any((answer) =>
-                                              answer["questionId"] == taskCubit.questions[taskCubit.currentQuestionIndex].questionId);
+                                          if (taskCubit.currentQuestionIndex +1== (taskCubit.questions.length / 2).floor()||taskCubit.currentQuestionIndex +3== taskCubit.questions.length ) {
+                                            final mainCubit = MainAppCubit.get(context);
+                                            mainCubit.interstitialAd();
+                                          }
+                                          // Check if current question is answered
+                                          bool isAnswered = taskCubit.previousAnswers.any((answer) =>
+                                          answer["questionId"] == taskCubit.questions[taskCubit.currentQuestionIndex].questionId);
 
-                                              if (!isAnswered) {
-                                                // Show AwesomeDialog if not answered
-                                                AwesomeDialog(
-                                                  context: context,
-                                                  dialogType: DialogType.warning,
-                                                  animType: AnimType.bottomSlide,
-                                                  title: S.of(context).warning,
-                                                  desc: S.of(context).pleaseAnswerTheQuestionFirst,
-                                                  btnCancelOnPress: () {},
-                                                  btnCancelText: S.of(context).okay,
-                                                ).show();
-                                                return;
-                                              }
-                                              taskCubit.moveToNextQuestion(
-                                                  context,
-                                                  taskCubit.userPoints,
-                                                  widget.taskId,
-                                                  widget.challengeId,
-                                                  widget.challengesName,
-                                                  widget.rewardPoints,
-                                                  widget.deducePoints,
-                                                  widget
-                                                      .challengesRemainingTime,
-                                                  widget.subscriptionCostPoints,
-                                                  widget.status,
-                                                  widget.rankPoints,
-                                                  widget
-                                                      .challengesNumberOfTasks,
-                                                  widget.numberOfQuestion,
-                                                  widget
-                                                      .challengesNumberOfSubscriptions);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.mainColor,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              padding: const EdgeInsets.all(15),
-                                            ),
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    S.of(context).continueExams,
-                                                    style: const TextStyle(
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                                // const Positioned(
-                                                //   right: 0,
-                                                //   child: Icon(
-                                                //     Icons.arrow_back,
-                                                //     color: Colors.white,
-                                                //   ),
-                                                // )
-                                              ],
-                                            ),
+                                          if (!isAnswered) {
+                                            // Show AwesomeDialog if not answered
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.warning,
+                                              animType: AnimType.bottomSlide,
+                                              title: S.of(context).warning,
+                                              desc: S.of(context).pleaseAnswerTheQuestionFirst,
+                                              btnCancelOnPress: () {},
+                                              btnCancelText: S.of(context).okay,
+                                            ).show();
+                                            return;
+                                          }
+                                          taskCubit.moveToNextQuestion(
+                                              context,
+                                              taskCubit.userPoints,
+                                              widget.taskId,
+                                              widget.challengeId,
+                                              widget.challengesName,
+                                              widget.rewardPoints,
+                                              widget.deducePoints,
+                                              widget
+                                                  .challengesRemainingTime,
+                                              widget.subscriptionCostPoints,
+                                              widget.status,
+                                              widget.rankPoints,
+                                              widget
+                                                  .challengesNumberOfTasks,
+                                              widget.numberOfQuestion,
+                                              widget
+                                                  .challengesNumberOfSubscriptions);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.mainColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
+                                          padding: const EdgeInsets.all(15),
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                S.of(context).continueExams,
+                                                style: const TextStyle(
+                                                    color: AppColors
+                                                        .whiteColor,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            // const Positioned(
+                                            //   right: 0,
+                                            //   child: Icon(
+                                            //     Icons.arrow_back,
+                                            //     color: Colors.white,
+                                            //   ),
+                                            // )
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                if (isBottomBannerLoaded && myBannerBottom != null)
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                    height: 80,
-                                    width: double.infinity,
-                                    alignment: Alignment.center,
-                                    child: AdWidget(ad: myBannerBottom!),
-                                  ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
+                                ],
+                              ),
+                            ),
+                            if (isBottomBannerLoaded && myBannerBottom != null)
+                              Container(
+                                height: 60,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: AdWidget(ad: myBannerBottom!),
+                              ),
+                          ],
+                        );
+                      },
+                    ),
               ),
             ),
           ),

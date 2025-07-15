@@ -80,7 +80,7 @@ class _ExamPageState extends State<ExamPage> {
 
     // Bottom Banner
     myBannerBottom = BannerAd(
-      //adUnitId: 'ca-app-pub-7223929122163665/1831803488', // استبدل بمعرف وحدة الإعلان الخاصة بك
+      //adUnitId: 'ca-app-pub-3940256099942544/9214589741', // استبدل بمعرف وحدة الإعلان الخاصة بك
       adUnitId: 'ca-app-pub-7223929122163665/1831803488',
       size: AdSize.banner,
       request: const AdRequest(),
@@ -189,42 +189,49 @@ class _ExamPageState extends State<ExamPage> {
                           width: 100,
                         ),
                       )
-                    : SingleChildScrollView(
-                        child: BlocBuilder<LearningCubit, LearningState>(
-                          builder: (context, state) {
-                            var currentQuestion = learningCubit.lessonDetails!
-                                .questions![learningCubit.currentQuestionIndex];
-                            if (!shuffledChoicesMap
-                                .containsKey(currentQuestion.questionId)) {
-                              final originalChoices =
-                                  List<String>.from(currentQuestion.choices);
-                              originalChoices.shuffle(Random());
-                              shuffledChoicesMap[currentQuestion.questionId] =
-                                  originalChoices;
-                            }
-                            final shuffledChoices =
-                                shuffledChoicesMap[currentQuestion.questionId]!;
+                    : BlocBuilder<LearningCubit, LearningState>(
+                      builder: (context, state) {
+                        var currentQuestion = learningCubit.lessonDetails!
+                            .questions![learningCubit.currentQuestionIndex];
+                        if (!shuffledChoicesMap
+                            .containsKey(currentQuestion.questionId)) {
+                          final originalChoices =
+                              List<String>.from(currentQuestion.choices);
+                          originalChoices.shuffle(Random());
+                          shuffledChoicesMap[currentQuestion.questionId] =
+                              originalChoices;
+                        }
+                        final shuffledChoices =
+                            shuffledChoicesMap[currentQuestion.questionId]!;
 
-                            double progress =
-                                (learningCubit.currentQuestionIndex + 1) /
-                                    learningCubit
-                                        .lessonDetails!.questions!.length;
-                            Map<String, dynamic>? selectedAnswer =
-                                learningCubit.previousAnswers.firstWhere(
-                              (answer) =>
-                                  answer["questionId"] ==
-                                  currentQuestion.questionId,
-                              orElse: () =>
-                                  {}, // Return an empty map instead of null
-                            );
-                            bool isPreviouslySelected =
-                                selectedAnswer.isNotEmpty;
-                            return Column(
-                              children: [
-                                Container(
+                        double progress =
+                            (learningCubit.currentQuestionIndex + 1) /
+                                learningCubit
+                                    .lessonDetails!.questions!.length;
+                        Map<String, dynamic>? selectedAnswer =
+                            learningCubit.previousAnswers.firstWhere(
+                          (answer) =>
+                              answer["questionId"] ==
+                              currentQuestion.questionId,
+                          orElse: () =>
+                              {}, // Return an empty map instead of null
+                        );
+                        bool isPreviouslySelected =
+                            selectedAnswer.isNotEmpty;
+                        return Column(
+                          children: [
+                            if (isTopBannerLoaded && myBannerTop != null)
+                              Container(
+                                height: 60,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: AdWidget(ad: myBannerTop!),
+                              ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Container(
                                   width: double.infinity,
-                                  height:
-                                      MediaQuery.of(context).size.height * .75,
+                                  //height: MediaQuery.of(context).size.height * .75,
                                   decoration: const BoxDecoration(
                                     color: AppColors.mainColor,
                                     borderRadius: BorderRadius.only(
@@ -240,14 +247,7 @@ class _ExamPageState extends State<ExamPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            if (isTopBannerLoaded && myBannerTop != null)
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                                height: 80,
-                                                width: double.infinity,
-                                                alignment: Alignment.center,
-                                                child: AdWidget(ad: myBannerTop!),
-                                              ),
+
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -279,18 +279,18 @@ class _ExamPageState extends State<ExamPage> {
                                                                         .deducedPoints, numberOfLessons: widget.numberOfLessons,
                                                               )),
                                                     );
-// showFinishLessonDialog(
-//   context,
-//   widget.order,
-//   widget.title,
-//   widget.userPoints,
-//   widget.levelId,
-//   widget.page,
-//   widget.size,
-//   widget.collectionName,
-//   widget.rewardedPoints,
-//   widget.deducedPoints,
-// );
+                                                    // showFinishLessonDialog(
+                                                    //   context,
+                                                    //   widget.order,
+                                                    //   widget.title,
+                                                    //   widget.userPoints,
+                                                    //   widget.levelId,
+                                                    //   widget.page,
+                                                    //   widget.size,
+                                                    //   widget.collectionName,
+                                                    //   widget.rewardedPoints,
+                                                    //   widget.deducedPoints,
+                                                    // );
                                                   },
                                                 ),
                                                 Column(
@@ -450,180 +450,175 @@ class _ExamPageState extends State<ExamPage> {
                                               ],
                                             ),
                                             const SizedBox(height: 50),
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .28,
-                                              child: ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount:
-                                                    shuffledChoices.length,
-                                                itemBuilder: (context, index) {
-                                                  final choice =
-                                                      shuffledChoices[index];
+                                            ListView.builder(
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount:
+                                                  shuffledChoices.length,
+                                              itemBuilder: (context, index) {
+                                                final choice =
+                                                    shuffledChoices[index];
 
-                                                  Color borderColor =
-                                                      AppColors.lightColor;
-                                                  Color textColor =
-                                                      Colors.white;
-                                                  Color backgroundColor =
-                                                      Colors.transparent;
+                                                Color borderColor =
+                                                    AppColors.lightColor;
+                                                Color textColor =
+                                                    Colors.white;
+                                                Color backgroundColor =
+                                                    Colors.transparent;
 
-                                                  if (isPreviouslySelected) {
-                                                    if (choice.trim() ==
-                                                        selectedAnswer[
-                                                                "answerContent"]
-                                                            .trim()) {
-                                                      if (selectedAnswer[
-                                                          "correct"]) {
-                                                        borderColor =
-                                                            Colors.green;
-                                                        textColor =
-                                                            Colors.green;
-                                                        backgroundColor = Colors
-                                                            .green
-                                                            .withOpacity(0.1);
-                                                      } else {
-                                                        borderColor =
-                                                            Colors.red;
-                                                        textColor = Colors.red;
-                                                        backgroundColor = Colors
-                                                            .red
-                                                            .withOpacity(0.1);
-                                                      }
-                                                    } else if (choice.trim() ==
-                                                        currentQuestion
-                                                            .correctAnswer
-                                                            .trim()) {
+                                                if (isPreviouslySelected) {
+                                                  if (choice.trim() ==
+                                                      selectedAnswer[
+                                                              "answerContent"]
+                                                          .trim()) {
+                                                    if (selectedAnswer[
+                                                        "correct"]) {
                                                       borderColor =
                                                           Colors.green;
-                                                      textColor = Colors.green;
+                                                      textColor =
+                                                          Colors.green;
                                                       backgroundColor = Colors
                                                           .green
                                                           .withOpacity(0.1);
+                                                    } else {
+                                                      borderColor =
+                                                          Colors.red;
+                                                      textColor = Colors.red;
+                                                      backgroundColor = Colors
+                                                          .red
+                                                          .withOpacity(0.1);
                                                     }
+                                                  } else if (choice.trim() ==
+                                                      currentQuestion
+                                                          .correctAnswer
+                                                          .trim()) {
+                                                    borderColor =
+                                                        Colors.green;
+                                                    textColor = Colors.green;
+                                                    backgroundColor = Colors
+                                                        .green
+                                                        .withOpacity(0.1);
                                                   }
+                                                }
 
-                                                  return InkWell(
-                                                    onTap: isPreviouslySelected
-                                                        ? null
-                                                        : () async {
-                                                            setState(() {
-                                                              isLoadingAnswer =
-                                                                  true;
-                                                              bool isCorrect = choice
-                                                                      .trim() ==
-                                                                  currentQuestion
-                                                                      .correctAnswer
-                                                                      .trim();
-                                                              double
-                                                                  deltaPoints =
-                                                                  isCorrect
-                                                                      ? widget
-                                                                          .rewardedPoints
-                                                                      : -widget
-                                                                          .deducedPoints;
+                                                return InkWell(
+                                                  onTap: isPreviouslySelected
+                                                      ? null
+                                                      : () async {
+                                                          setState(() {
+                                                            isLoadingAnswer =
+                                                                true;
+                                                            bool isCorrect = choice
+                                                                    .trim() ==
+                                                                currentQuestion
+                                                                    .correctAnswer
+                                                                    .trim();
+                                                            double
+                                                                deltaPoints =
+                                                                isCorrect
+                                                                    ? widget
+                                                                        .rewardedPoints
+                                                                    : -widget
+                                                                        .deducedPoints;
 
-                                                              widget.userPoints +=
-                                                                  deltaPoints;
-                                                              learningCubit
-                                                                      .pointsToShowQuestionExam +=
-                                                                  deltaPoints;
-                                                            });
-
+                                                            widget.userPoints +=
+                                                                deltaPoints;
                                                             learningCubit
-                                                                .previousAnswers
-                                                                .add({
-                                                              "id": currentQuestion
-                                                                  .questionId,
-                                                              "questionId":
-                                                                  currentQuestion
-                                                                      .questionId,
-                                                              "answerContent":
-                                                                  choice.trim(),
-                                                              "grade": choice
-                                                                          .trim() ==
-                                                                      currentQuestion
-                                                                          .correctAnswer
-                                                                          .trim()
-                                                                  ? widget
-                                                                      .rewardedPoints
-                                                                  : -widget
-                                                                      .deducedPoints,
-                                                              "correct": choice
-                                                                      .trim() ==
-                                                                  currentQuestion
-                                                                      .correctAnswer
-                                                                      .trim(),
-                                                            });
+                                                                    .pointsToShowQuestionExam +=
+                                                                deltaPoints;
+                                                          });
 
-                                                            learningCubit
-                                                                .selectOption(
-                                                                    index);
-                                                            await learningCubit
-                                                                .postUserExamAnswers(
-                                                              uid!,
-                                                              widget.lessonId,
-                                                              currentQuestion
-                                                                  .questionId,
-                                                              choice.trim(),
-                                                              choice.trim() ==
-                                                                  currentQuestion
-                                                                      .correctAnswer
-                                                                      .trim(),
-                                                              choice.trim() ==
-                                                                      currentQuestion
-                                                                          .correctAnswer
-                                                                          .trim()
-                                                                  ? widget
-                                                                      .rewardedPoints
-                                                                  : widget
-                                                                      .deducedPoints,
-                                                              widget.levelId,
-                                                            );
-                                                            if(widget.isLastExam&&learningCubit.previousAnswers.length==learningCubit.lessonDetails!.questions!.length){
-                                                              await learningCubit.addUserToCompleteLesson(uid??'', widget.levelId);
-                                                            }
+                                                          learningCubit
+                                                              .previousAnswers
+                                                              .add({
+                                                            "id": currentQuestion
+                                                                .questionId,
+                                                            "questionId":
+                                                                currentQuestion
+                                                                    .questionId,
+                                                            "answerContent":
+                                                                choice.trim(),
+                                                            "grade": choice
+                                                                        .trim() ==
+                                                                    currentQuestion
+                                                                        .correctAnswer
+                                                                        .trim()
+                                                                ? widget
+                                                                    .rewardedPoints
+                                                                : -widget
+                                                                    .deducedPoints,
+                                                            "correct": choice
+                                                                    .trim() ==
+                                                                currentQuestion
+                                                                    .correctAnswer
+                                                                    .trim(),
+                                                          });
 
-                                                            setState(() {
-                                                              isLoadingAnswer =
-                                                                  false;
-                                                            });
-                                                          },
-                                                    child: Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              bottom: 10),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 16),
-                                                      width: 200,
-                                                      decoration: BoxDecoration(
-                                                        color: backgroundColor,
-                                                        border: Border.all(
-                                                          color: borderColor,
-                                                          width: 3,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
+                                                          learningCubit
+                                                              .selectOption(
+                                                                  index);
+                                                          await learningCubit
+                                                              .postUserExamAnswers(
+                                                            uid!,
+                                                            widget.lessonId,
+                                                            currentQuestion
+                                                                .questionId,
+                                                            choice.trim(),
+                                                            choice.trim() ==
+                                                                currentQuestion
+                                                                    .correctAnswer
+                                                                    .trim(),
+                                                            choice.trim() ==
+                                                                    currentQuestion
+                                                                        .correctAnswer
+                                                                        .trim()
+                                                                ? widget
+                                                                    .rewardedPoints
+                                                                : widget
+                                                                    .deducedPoints,
+                                                            widget.levelId,
+                                                          );
+                                                          if(widget.isLastExam&&learningCubit.previousAnswers.length==learningCubit.lessonDetails!.questions!.length){
+                                                            await learningCubit.addUserToCompleteLesson(uid??'', widget.levelId);
+                                                          }
+
+                                                          setState(() {
+                                                            isLoadingAnswer =
+                                                                false;
+                                                          });
+                                                        },
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 16),
+                                                    width: 200,
+                                                    decoration: BoxDecoration(
+                                                      color: backgroundColor,
+                                                      border: Border.all(
+                                                        color: borderColor,
+                                                        width: 3,
                                                       ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          choice,
-                                                          style: TextStyle(
-                                                            color: textColor,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                                      borderRadius:
+                                                          BorderRadius
+                                                              .circular(8),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        choice,
+                                                        style: TextStyle(
+                                                          color: textColor,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                       ),
                                                     ),
-                                                  );
-                                                },
-                                              ),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ],
                                         ),
@@ -631,151 +626,148 @@ class _ExamPageState extends State<ExamPage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .08,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: SizedBox(
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              learningCubit.moveToPastQuestion(
-                                                  context,
-                                                  widget.userPoints,
-                                                  widget.lessonId,
-                                                  widget.levelId,
-                                                  widget.page,
-                                                  widget.size,
-                                                  widget.order,
-                                                  widget.collectionName,
-                                                  widget.rewardedPoints,
-                                                  widget.deducedPoints,widget.numberOfLessons);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.mainColor,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              padding: const EdgeInsets.all(15),
-                                            ),
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    S.of(context).back,
-                                                    style: const TextStyle(
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
+                              ),
+                            ),
 
-                                              ],
-                                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0,left: 8.0,right: 8),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          learningCubit.moveToPastQuestion(
+                                              context,
+                                              widget.userPoints,
+                                              widget.lessonId,
+                                              widget.levelId,
+                                              widget.page,
+                                              widget.size,
+                                              widget.order,
+                                              widget.collectionName,
+                                              widget.rewardedPoints,
+                                              widget.deducedPoints,widget.numberOfLessons);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.mainColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
+                                          padding: const EdgeInsets.all(15),
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                S.of(context).back,
+                                                style: const TextStyle(
+                                                    color: AppColors
+                                                        .whiteColor,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.height *
-                                                .01,
-                                      ),
-                                      Expanded(
-                                        child: SizedBox(
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.height *
+                                            .01,
+                                  ),
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        onPressed: () {
 
-                                              if (learningCubit.currentQuestionIndex +1  == (learningCubit.lessonDetails!.questions!.length / 2).floor()||learningCubit.currentQuestionIndex +3  == learningCubit.lessonDetails!.questions!.length) {
+                                          if (learningCubit.currentQuestionIndex +1  == (learningCubit.lessonDetails!.questions!.length / 2).floor()||learningCubit.currentQuestionIndex +3  == learningCubit.lessonDetails!.questions!.length) {
 
-                                                final mainCubit = MainAppCubit.get(context);
-                                                mainCubit.interstitialAd();
-                                              }
-                                              // Check if current question is answered
-                                              bool isAnswered = learningCubit.previousAnswers.any((answer) =>
-                                              answer["questionId"] == learningCubit.lessonDetails!
-                                                  .questions![learningCubit.currentQuestionIndex].questionId);
+                                            final mainCubit = MainAppCubit.get(context);
+                                            mainCubit.interstitialAd();
+                                          }
+                                          // Check if current question is answered
+                                          bool isAnswered = learningCubit.previousAnswers.any((answer) =>
+                                          answer["questionId"] == learningCubit.lessonDetails!
+                                              .questions![learningCubit.currentQuestionIndex].questionId);
 
-                                              if (!isAnswered) {
-                                                // Show AwesomeDialog if not answered
-                                                AwesomeDialog(
-                                                  context: context,
-                                                  dialogType: DialogType.warning,
-                                                  animType: AnimType.bottomSlide,
-                                                  title: S.of(context).warning,
-                                                  desc: S.of(context).pleaseAnswerTheQuestionFirst,
-                                                  btnCancelOnPress: () {},
-                                                  btnCancelText: S.of(context).okay,
-                                                ).show();
-                                                return;
-                                              }
-                                              learningCubit.moveToNextQuestion(
-                                                  context,
-                                                  widget.userPoints,
-                                                  widget.lessonId,
-                                                  widget.levelId,
-                                                  widget.page,
-                                                  widget.size,
-                                                  widget.order,
-                                                  widget.collectionName,
-                                                  widget.rewardedPoints,
-                                                  widget.deducedPoints,widget.numberOfLessons,widget.isLastExam);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.mainColor,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              padding: const EdgeInsets.all(15),
-                                            ),
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    S.of(context).continueExams,
-                                                    style: const TextStyle(
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-
-                                              ],
-                                            ),
+                                          if (!isAnswered) {
+                                            // Show AwesomeDialog if not answered
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.warning,
+                                              animType: AnimType.bottomSlide,
+                                              title: S.of(context).warning,
+                                              desc: S.of(context).pleaseAnswerTheQuestionFirst,
+                                              btnCancelOnPress: () {},
+                                              btnCancelText: S.of(context).okay,
+                                            ).show();
+                                            return;
+                                          }
+                                          learningCubit.moveToNextQuestion(
+                                              context,
+                                              widget.userPoints,
+                                              widget.lessonId,
+                                              widget.levelId,
+                                              widget.page,
+                                              widget.size,
+                                              widget.order,
+                                              widget.collectionName,
+                                              widget.rewardedPoints,
+                                              widget.deducedPoints,widget.numberOfLessons,widget.isLastExam);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.mainColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
+                                          padding: const EdgeInsets.all(15),
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                S.of(context).continueExams,
+                                                style: const TextStyle(
+                                                    color: AppColors
+                                                        .whiteColor,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                if (isBottomBannerLoaded && myBannerBottom != null)
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                    height: 80,
-                                    width: double.infinity,
-                                    alignment: Alignment.center,
-                                    child: AdWidget(ad: myBannerBottom!),
-                                  ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
+                                ],
+                              ),
+                            ),
+                            if (isBottomBannerLoaded && myBannerBottom != null)
+                              Container(
+                                height: 60,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: AdWidget(ad: myBannerBottom!),
+                              ),
+                          ],
+                        );
+                      },
+                    ),
               ),
             ),
           ),
