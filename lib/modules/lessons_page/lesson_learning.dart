@@ -495,7 +495,7 @@ class _LessonLearningState extends State<LessonLearning> {
                   
                           // Back to home button
                           Padding(
-                            padding: EdgeInsets.only(top: (isBottomBannerLoaded && myBannerBottom != null)?20:50, left: 8,right: 8,bottom: 8),
+                            padding: const EdgeInsets.only(top: 20, left: 8,right: 8,bottom: 8),
                             child: Row(
                               children: [
                                 Expanded(
@@ -623,7 +623,9 @@ class _LessonLearningState extends State<LessonLearning> {
                               width: double.infinity,
                               alignment: Alignment.center,
                               child: AdWidget(ad: myBannerBottom!),
-                            ),
+                            )
+                          else
+                            const SizedBox(height:60)
                         ],
                       );
                     },

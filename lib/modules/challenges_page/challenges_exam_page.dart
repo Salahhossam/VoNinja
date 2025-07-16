@@ -617,7 +617,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                             ),
 
                             Padding(
-                              padding: EdgeInsets.only(top: (isBottomBannerLoaded && myBannerBottom != null)?20:50, left: 8,right: 8,bottom: 8),
+                              padding: const EdgeInsets.only(top: 20, left: 8,right: 8,bottom: 8),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -777,7 +777,9 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                 width: double.infinity,
                                 alignment: Alignment.center,
                                 child: AdWidget(ad: myBannerBottom!),
-                              ),
+                              )
+                            else
+                              const SizedBox(height:60)
                           ],
                         );
                       },
