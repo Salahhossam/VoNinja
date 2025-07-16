@@ -49,5 +49,22 @@
 		<string>ca-app-pub-7223929122163665~5334760768</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<!-- Facebook Configuration -->
+        		<key>CFBundleURLTypes</key>
+        		<array>
+        			<dict>
+        				<key>CFBundleURLSchemes</key>
+        				<array>
+        					<string>fb7373158773334</string>
+        				</array>
+        			</dict>
+        		</array>
+        		<key>FacebookAppID</key>
+        		<string>7373158773334</string>
+        		<key>FacebookClientToken</key>
+        		<string>4e28a9b48d121a353c79bd627045d73c</string>
+        		<key>FacebookDisplayName</key>
+        		<string>Voninja</string>
+
 	</dict>
 </plist>

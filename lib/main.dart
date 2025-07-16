@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_meta_sdk/flutter_meta_sdk.dart';
 import 'package:vo_ninja/modules/challenges_page/challenges_cubit/challenges_cubit.dart';
 import 'package:vo_ninja/modules/leaderboard_tap_page/leaderboard_tap_cubit/leaderboard_tap_cubit.dart';
 import 'package:vo_ninja/modules/lessons_page/learning_cubit/learning_cubit.dart';
@@ -55,6 +56,10 @@ Future<void> main() async {
   await CashHelper.init();
   final String? userToken = CashHelper.getData(key: 'userToken');
   String language = await CashHelper.getData(key: 'language') ?? 'en';
+
+    var metaSdk =  FlutterMetaSdk();
+    await metaSdk.setAdvertiserTracking(enabled: true);
+
 
   runApp(MyApp(
       language: language,

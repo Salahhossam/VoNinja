@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Existing app name (if any) -->
+    <string name="app_name">Voninja</string>
+
+    <!-- Facebook Configuration -->
+    <string name="facebook_app_id">7373158773334</string>
+    <string name="fb_login_protocol_scheme">fb7373158773334</string>
+    <string name="facebook_client_token">4e28a9b48d121a353c79bd627045d73c</string>
+</resources>
