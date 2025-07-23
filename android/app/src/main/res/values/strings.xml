@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">737315818773334</string>
-    <string name="facebook_client_token">1bc504761c0af8c1bbbf9143fb87f1e2</string>
-    <string name="fb_login_protocol_scheme">fb737315818773334</string>
+    <string name="facebook_app_id">1539711300364105</string>
+    <string name="facebook_client_token">1a48c75dec30567f9feede1f45051b9b</string>
+    <string name="fb_login_protocol_scheme">fb1539711300364105</string>
     <string name="app_name">Voninja</string>
 </resources>

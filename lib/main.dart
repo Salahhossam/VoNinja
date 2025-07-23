@@ -60,8 +60,6 @@ Future<void> main() async {
   try {
     final metaSdk = FacebookAppEvents();
     await metaSdk.setAutoLogAppEventsEnabled(true);
-    // await metaSdk.setAdvertiserTracking(enabled: true);
-    //await metaSdk.logEvent(name: 'test3',parameters: {'test3':'test3'});
   } catch (e) {
     log('Meta SDK initialization failed: $e');
   }
