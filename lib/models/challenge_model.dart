@@ -40,7 +40,6 @@ class Challenge {
   String? challengeId;
   String? title;
   double? rewardPoints;
-  DateTime? endTime;
   double? subscriptionPoints;
   String? status;
  // Rewards? rewards;
@@ -52,7 +51,6 @@ class Challenge {
     required this.challengeId,
     required this.title,
     required this.rewardPoints,
-    required this.endTime,
     required this.subscriptionPoints,
     required this.status,
     //required this.rewards,
@@ -67,7 +65,6 @@ class Challenge {
       challengeId: json['challengeId'] ?? '',
       title: json['title'] ?? '',
       rewardPoints: json['rewardPoints'].toDouble() ?? 0.0,
-      endTime: json['endTime'].toDate() ?? DateTime.now(),
       subscriptionPoints: json['subscriptionPoints'].toDouble() ?? 0.0,
       status: json['status'] ?? '',
       //rewards: Rewards.fromJson(json['rewards'] ?? {}),
@@ -83,7 +80,6 @@ class Challenge {
       'challengeId': challengeId,
       'title': title,
       'rewardPoints': rewardPoints,
-      'endTime': endTime,
       'subscriptionPoints': subscriptionPoints,
       'status': status,
       //'rewards': rewards?.toJson() ?? [],

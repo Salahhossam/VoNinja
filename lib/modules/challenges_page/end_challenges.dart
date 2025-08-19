@@ -18,7 +18,6 @@ class EndChallenges extends StatefulWidget {
   final String title;
   final String challengesName;
   final double rewardPoints;
-  final DateTime challengesRemainingTime;
   final double subscriptionCostPoints;
   final String status;
   final double challengesNumberOfTasks;
@@ -32,7 +31,6 @@ class EndChallenges extends StatefulWidget {
       required this.title,
       required this.challengesName,
       required this.rewardPoints,
-      required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
       required this.challengesNumberOfTasks,
@@ -305,8 +303,6 @@ class _EndChallengesState extends State<EndChallenges> {
                                                       widget.challengeId,
                                                   rewardPoints:
                                                       widget.rewardPoints,
-                                                  challengesRemainingTime: widget
-                                                      .challengesRemainingTime,
                                                   subscriptionCostPoints: widget
                                                       .subscriptionCostPoints,
                                                   status: widget.status,

@@ -138,9 +138,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               setState(() {
                                                 isLoading2 = true;
                                               });
-                                              var now2 = await NTP.now();
-                                              if (challenges.endTime!
-                                                  .isAfter(now2)) {
+
+
                                                 bool userExist =
                                                     await challengeCubit
                                                         .checkUserExistInChallenge(
@@ -151,6 +150,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                                 '',
                                                             challenges
                                                                 .challengeId!);
+
                                                 if (userExist) {
                                                   Navigator.of(context)
                                                       .pushReplacement(
@@ -163,8 +163,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                             .challengeId!,
                                                         rewardPoints: challenges
                                                             .rewardPoints!,
-                                                        challengesRemainingTime:
-                                                            challenges.endTime!,
                                                         subscriptionCostPoints:
                                                             challenges
                                                                 .subscriptionPoints!,
@@ -182,21 +180,12 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                       ),
                                                     ),
                                                   );
-                                                } else {
+                                                }
+                                                else {
                                                   _showChallengeDialog(
                                                       context, challenges);
                                                 }
-                                              } else {
-                                                AwesomeDialog(
-                                                  context: context,
-                                                  dialogType: DialogType.error,
-                                                  animType: AnimType.rightSlide,
-                                                  title: 'Time Ended',
-                                                  desc:
-                                                      'The challenge time has ended!',
-                                                  btnOkOnPress: () {},
-                                                ).show();
-                                              }
+
 
                                               setState(() {
                                                 isLoading2 = false;
@@ -208,8 +197,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                   challenges.challengeId!,
                                               rewardPoints:
                                                   challenges.rewardPoints!,
-                                              challengesRemainingTime:
-                                                  challenges.endTime!,
                                               subscriptionCostPoints: challenges
                                                   .subscriptionPoints!,
                                               status: challenges.status!,
@@ -218,7 +205,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               challengesNumberOfSubscriptions:
                                                   challenges
                                                       .numberOfSubscriptions!,
-                                              now: now!,
                                               numberOfQuestion:
                                                   challenges.totalQuestions!,
                                             ),
@@ -341,8 +327,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                       challengesName: challenge.title!,
                                       challengeId: challenge.challengeId!,
                                       rewardPoints: challenge.rewardPoints!,
-                                      challengesRemainingTime:
-                                          challenge.endTime!,
                                       subscriptionCostPoints:
                                           challenge.subscriptionPoints!,
                                       status: challenge.status!,

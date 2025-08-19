@@ -13,27 +13,21 @@ class TaskCard extends StatelessWidget {
   final String challengeId;
   final String taskId;
   final double rewardPoints;
-  final DateTime
-      challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
   final String status;
   final double challengesNumberOfTasks;
   final double numberOfQuestion;
   final double challengesNumberOfSubscriptions;
-  final bool available;
   final bool isCompleted;
   const TaskCard(
       {super.key,
       required this.challengesName,
       required this.challengeId,
       required this.rewardPoints,
-
-      required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
       required this.challengesNumberOfTasks,
       required this.challengesNumberOfSubscriptions,
-        required this.available,
         required this.isCompleted,
         required this.taskId,
         required this.taskName,
@@ -48,23 +42,11 @@ class TaskCard extends StatelessWidget {
       builder: (BuildContext context, ChallengeState state) {
         return InkWell(
             onTap: () {
-              if (!available) {
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.error,
-                  animType: AnimType.rightSlide,
-                  title: 'Time Ended',
-                  desc: 'The challenge time has ended!',
-                  btnOkOnPress: () {},
-                ).show();
-              }
-              else{
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) =>  ChallengesExamPage(taskId: taskId, title:taskName , challengeId: challengeId, challengesName: challengesName, rewardPoints: rewardPoints,challengesRemainingTime: challengesRemainingTime, subscriptionCostPoints: subscriptionCostPoints, status: status,  challengesNumberOfTasks: challengesNumberOfTasks, numberOfQuestion: numberOfQuestion, challengesNumberOfSubscriptions: challengesNumberOfSubscriptions),
-                  ),
-                );
-              }
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) =>  ChallengesExamPage(taskId: taskId, title:taskName , challengeId: challengeId, challengesName: challengesName, rewardPoints: rewardPoints, subscriptionCostPoints: subscriptionCostPoints, status: status,  challengesNumberOfTasks: challengesNumberOfTasks, numberOfQuestion: numberOfQuestion, challengesNumberOfSubscriptions: challengesNumberOfSubscriptions),
+                ),
+              );
             },
             child: Container(
               margin: const EdgeInsets.only(bottom: 16),

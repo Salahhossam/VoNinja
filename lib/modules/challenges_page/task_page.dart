@@ -16,8 +16,6 @@ class TaskPage extends StatefulWidget {
   final String challengesName;
   final String challengeId;
   final double rewardPoints;
-  final DateTime
-      challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
   final String status;
   final double challengesNumberOfTasks;
@@ -29,7 +27,6 @@ class TaskPage extends StatefulWidget {
       required this.challengesName,
       required this.challengeId,
       required this.rewardPoints,
-      required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
       required this.challengesNumberOfTasks,
@@ -41,22 +38,9 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  String formatDuration(Duration duration) {
-    int days = duration.inDays;
-    int hours = duration.inHours.remainder(24);
-    int minutes = duration.inMinutes.remainder(60);
-    int seconds = duration.inSeconds.remainder(60);
 
-    return '${days.toString().padLeft(2, '0')} : '
-        '${hours.toString().padLeft(2, '0')} : '
-        '${minutes.toString().padLeft(2, '0')} : '
-        '${seconds.toString().padLeft(2, '0')}';
-  }
 
-  ValueNotifier<Duration>? remainingTime;
-  Timer? _timer;
 
-  DateTime? now;
   bool isLoading = false;
   bool isLoadingMore = false; // Flag for pagination
   final ScrollController _scrollController =
@@ -79,8 +63,6 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   void dispose() {
-    _timer?.cancel();
-    remainingTime?.dispose();
     super.dispose();
   }
 
@@ -95,18 +77,6 @@ class _TaskPageState extends State<TaskPage> {
         String uid;
         // Wait until UID is retrieved
         uid = await CashHelper.getData(key: 'uid');
-        now = await NTP.now();
-        remainingTime =
-            ValueNotifier(widget.challengesRemainingTime.difference(now!));
-
-        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          if (remainingTime!.value.inSeconds > 0) {
-            remainingTime!.value =
-                remainingTime!.value - const Duration(seconds: 1);
-          } else {
-            _timer?.cancel();
-          }
-        });
         await taskCubit.getChallengeData(
             uid, widget.challengeId, false, widget.rewardPoints);
         setState(() {
@@ -199,76 +169,6 @@ class _TaskPageState extends State<TaskPage> {
                                     ),
                                     centerTitle: true,
                                   )),
-                              Positioned(
-                                  top: MediaQuery.of(context).padding.top + 70,
-                                  left: 0,
-                                  right: 0,
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child:
-                                              ValueListenableBuilder<Duration>(
-                                            valueListenable: remainingTime!,
-                                            builder: (context, time, child) {
-                                              return AutoSizeText(
-                                                formatDuration(time),
-                                                style: const TextStyle(
-                                                  color: Colors.red,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              );
-                                            },
-                                          )),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                            Icons.person,
-                                            // أيقونة الشخص من مكتبة FontAwesome
-                                            color: Colors.white,
-                                            size: 25, // حجم الأيقونة
-                                          ),
-                                          const SizedBox(
-                                            width: 3,
-                                          ),
-                                          Text(
-                                            '${widget.challengesNumberOfSubscriptions.toInt()}',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Image.asset(
-                                            'assets/img/fane.png',
-                                            width: 15,
-                                            height: 15,
-                                            color: AppColors.whiteColor,
-                                          ),
-                                          const SizedBox(
-                                            width: 3,
-                                          ),
-                                          Text(
-                                            ' ${(widget.rewardPoints * widget.numberOfQuestion).toInt()} ${S.of(context).points}',
-                                            style: const TextStyle(
-                                              color: AppColors.whiteColor,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
                             ],
                           ),
                           Expanded(
@@ -289,8 +189,6 @@ class _TaskPageState extends State<TaskPage> {
                                       challengesName: widget.challengesName,
                                       challengeId: widget.challengeId,
                                       rewardPoints: widget.rewardPoints,
-                                      challengesRemainingTime:
-                                          widget.challengesRemainingTime,
                                       subscriptionCostPoints:
                                           widget.subscriptionCostPoints,
                                       status: widget.status,
@@ -299,9 +197,6 @@ class _TaskPageState extends State<TaskPage> {
                                           widget.challengesNumberOfTasks,
                                       challengesNumberOfSubscriptions: widget
                                           .challengesNumberOfSubscriptions,
-                                      available:
-                                          !(remainingTime!.value.inSeconds <=
-                                              0),
                                       isCompleted: progress.userProgress == 1,
                                       taskId: task.taskId!,
                                       taskName: task.title!,

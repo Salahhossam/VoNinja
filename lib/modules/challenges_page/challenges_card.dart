@@ -10,25 +10,20 @@ class ChallengeCard extends StatefulWidget {
   final String challengesName;
   final String challengeId;
   final double rewardPoints;
-  final DateTime
-      challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
   final String status;
   final double challengesNumberOfTasks;
   final double challengesNumberOfSubscriptions;
   final double numberOfQuestion;
-  final DateTime now;
   const ChallengeCard(
       {super.key,
       required this.challengesName,
       required this.challengeId,
       required this.rewardPoints,
-      required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
       required this.challengesNumberOfTasks,
       required this.challengesNumberOfSubscriptions,
-      required this.now,
       required this.numberOfQuestion});
 
   @override
@@ -36,40 +31,15 @@ class ChallengeCard extends StatefulWidget {
 }
 
 class _ChallengeCardState extends State<ChallengeCard> {
-  String formatDuration(Duration duration) {
-    int days = duration.inDays;
-    int hours = duration.inHours.remainder(24);
-    int minutes = duration.inMinutes.remainder(60);
-    int seconds = duration.inSeconds.remainder(60);
 
-    return '${days.toString().padLeft(2, '0')} : '
-        '${hours.toString().padLeft(2, '0')} : '
-        '${minutes.toString().padLeft(2, '0')} : '
-        '${seconds.toString().padLeft(2, '0')}';
-  }
-
-  late ValueNotifier<Duration> remainingTime;
-  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    remainingTime =
-        ValueNotifier(widget.challengesRemainingTime.difference(widget.now));
-
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (remainingTime.value.inSeconds > 0) {
-        remainingTime.value = remainingTime.value - const Duration(seconds: 1);
-      } else {
-        _timer?.cancel();
-      }
-    });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
-    remainingTime.dispose();
     super.dispose();
   }
 
@@ -167,26 +137,7 @@ class _ChallengeCardState extends State<ChallengeCard> {
                   ),
                 ],
               ),
-              const SizedBox(
-                width: 15,
-              ),
-              Flexible(
-                child: ValueListenableBuilder<Duration>(
-                  valueListenable: remainingTime,
-                  builder: (context, time, child) {
-                    return AutoSizeText(
-                      formatDuration(time),
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    );
-                  },
-                ),
-              ),
+
             ],
           ),
         ],
