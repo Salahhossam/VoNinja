@@ -16,7 +16,6 @@ class TaskPage extends StatefulWidget {
   final String challengesName;
   final String challengeId;
   final double rewardPoints;
-  final double deducePoints;
   final DateTime
       challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
@@ -31,7 +30,6 @@ class TaskPage extends StatefulWidget {
       required this.challengesName,
       required this.challengeId,
       required this.rewardPoints,
-      required this.deducePoints,
       required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
@@ -293,7 +291,6 @@ class _TaskPageState extends State<TaskPage> {
                                       challengesName: widget.challengesName,
                                       challengeId: widget.challengeId,
                                       rewardPoints: widget.rewardPoints,
-                                      deducePoints: widget.deducePoints,
                                       challengesRemainingTime:
                                           widget.challengesRemainingTime,
                                       subscriptionCostPoints:

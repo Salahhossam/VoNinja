@@ -25,7 +25,6 @@ class ExamPage extends StatefulWidget {
   double userPoints;
   final String collectionName;
   final double rewardedPoints;
-  final double deducedPoints;
  final bool isLastExam;
   final int numberOfLessons;
   ExamPage(
@@ -39,7 +38,7 @@ class ExamPage extends StatefulWidget {
       required this.lessonId,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints, required this.isLastExam,
+       required this.isLastExam,
         required this.numberOfLessons
       });
 
@@ -165,7 +164,7 @@ class _ExamPageState extends State<ExamPage> {
                               size: widget.size,
                               collectionName: widget.collectionName,
                               rewardedPoints: widget.rewardedPoints,
-                              deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
+                               numberOfLessons: widget.numberOfLessons,
                             )),
                   );
                   return true;
@@ -258,9 +257,7 @@ class _ExamPageState extends State<ExamPage> {
                                                           rewardedPoints:
                                                               widget
                                                                   .rewardedPoints,
-                                                          deducedPoints:
-                                                              widget
-                                                                  .deducedPoints, numberOfLessons: widget.numberOfLessons,
+                                                         numberOfLessons: widget.numberOfLessons,
                                                         )),
                                               );
                                               // showFinishLessonDialog(
@@ -502,8 +499,7 @@ class _ExamPageState extends State<ExamPage> {
                                                           isCorrect
                                                               ? widget
                                                                   .rewardedPoints
-                                                              : -widget
-                                                                  .deducedPoints;
+                                                              : 0;
 
                                                       widget.userPoints +=
                                                           deltaPoints;
@@ -529,8 +525,7 @@ class _ExamPageState extends State<ExamPage> {
                                                                   .trim()
                                                           ? widget
                                                               .rewardedPoints
-                                                          : -widget
-                                                              .deducedPoints,
+                                                          : 0,
                                                       "correct": choice
                                                               .trim() ==
                                                           currentQuestion
@@ -558,8 +553,7 @@ class _ExamPageState extends State<ExamPage> {
                                                                   .trim()
                                                           ? widget
                                                               .rewardedPoints
-                                                          : widget
-                                                              .deducedPoints,
+                                                          : 0,
                                                       widget.levelId,
                                                     );
                                                     if(widget.isLastExam&&learningCubit.previousAnswers.length==learningCubit.lessonDetails!.questions!.length){
@@ -629,7 +623,7 @@ class _ExamPageState extends State<ExamPage> {
                                               widget.order,
                                               widget.collectionName,
                                               widget.rewardedPoints,
-                                              widget.deducedPoints,widget.numberOfLessons);
+                                              widget.numberOfLessons);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
@@ -704,7 +698,7 @@ class _ExamPageState extends State<ExamPage> {
                                               widget.order,
                                               widget.collectionName,
                                               widget.rewardedPoints,
-                                              widget.deducedPoints,widget.numberOfLessons,widget.isLastExam);
+                                             widget.numberOfLessons,widget.isLastExam);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:

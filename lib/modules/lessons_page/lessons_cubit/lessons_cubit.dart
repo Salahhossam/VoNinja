@@ -127,7 +127,6 @@ void showLessonDialog(
   double userPoints,
   String collectionName,
   double rewardedPoints,
-  double deducedPoints,
   int numberOfLessons,
     bool isLastExam
 ) {
@@ -232,7 +231,7 @@ void showLessonDialog(
                                       userPoints: userPoints,
                                       collectionName: collectionName,
                                       rewardedPoints: rewardedPoints,
-                                      deducedPoints: deducedPoints, numberOfLessons: numberOfLessons, isLastExam: isLastExam,
+                                       numberOfLessons: numberOfLessons, isLastExam: isLastExam,
                                     )),
                           ),
                       Colors.black),
@@ -252,7 +251,7 @@ void showLessonDialog(
                                 lessonId: lessonId,
                                 collectionName: collectionName,
                                 rewardedPoints: rewardedPoints,
-                                deducedPoints: deducedPoints, isLastExam: isLastExam, numberOfLessons: numberOfLessons,
+                                isLastExam: isLastExam, numberOfLessons: numberOfLessons,
                               ),
                             ),
                           ),
@@ -277,7 +276,7 @@ void showFinishLessonDialog(
     double size,
     String collectionName,
     double rewardedPoints,
-    double deducedPoints,
+
     String lessonId,
     int numberOfLessons,
     bool isLastExam
@@ -417,7 +416,7 @@ void showFinishLessonDialog(
                               lessonId: lessonId,
                               collectionName: collectionName,
                               rewardedPoints: rewardedPoints,
-                              deducedPoints: deducedPoints, isLastExam: isLastExam,numberOfLessons: numberOfLessons,
+                              isLastExam: isLastExam,numberOfLessons: numberOfLessons,
                             ),
                           ),
                         ),
@@ -444,7 +443,7 @@ void showFinishLessonDialog(
                                   userPoints: userPoints,
                                   collectionName: collectionName,
                                   rewardedPoints: rewardedPoints,
-                                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons, isLastExam: isLastExam,
+                                  numberOfLessons: numberOfLessons, isLastExam: isLastExam,
                                 )),
                       ),
                   Colors.black),

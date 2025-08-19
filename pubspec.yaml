@@ -10,14 +10,14 @@ dependencies:
   easy_splash_screen: ^1.0.4
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   flutter_bloc: ^8.1.6
   flutter_styled_toast: ^2.2.1  
   shared_preferences: ^2.3.2
   # flutter_native_splash: ^2.4.4
   google_mobile_ads: ^5.2.0
   dio: ^5.7.0
+  flutter_localizations:
+    sdk: flutter
   intl: any
   image_picker: ^1.1.2
   http: ^1.2.2
@@ -116,3 +116,5 @@ flutter:
 #   android_12:
 #     color: "#1A3037"
 #     image: assets/img/background_color.png
+flutter_intl:
+  enabled: true

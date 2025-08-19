@@ -96,137 +96,248 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                       height: 100,
                       width: 100,
                     ))
-                  : Column(
+                  : ListView(
                       children: [
                         // Top Banner Section
                         InkWell(
                           onTap: () => Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => const ChallengesPage()),
+                              builder: (context) => const ChallengesPage(),
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Container(
-                                padding: const EdgeInsets.all(40),
-                                decoration: BoxDecoration(
-                                  color:
-                                      AppColors.mainColor, // Top section color
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    // Text Section wrapped with Expanded
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            S.of(context).checkVoNinjaEvents,
-                                            style: const TextStyle(
-                                              color: AppColors.whiteColor,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: AppColors.mainColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Text and Icon Row
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // Text Section
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              S.of(context).joinChallengesEarnPoints,
+                                              style: const TextStyle(
+                                                color: AppColors.whiteColor,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                              height: 8), // Adjust spacing
-                                          Text(
-                                            S
-                                                .of(context)
-                                                .continueCollectingPoints,
-                                            style: const TextStyle(
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Image Section
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: AppColors.secondColor
-                                                  .withOpacity(1),
-                                              spreadRadius: 0,
-                                              blurRadius: 15,
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              S.of(context).completeDailyChallenges,
+                                              style: const TextStyle(
+                                                color: AppColors.whiteColor,
+                                                fontSize: 14,
+                                              ),
                                             ),
                                           ],
                                         ),
-                                        child: AnimatedBuilder(
-                                          animation: _animationController,
-                                          builder: (context, child) {
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                color:
-                                                    _imageBackgroundColorAnimation
-                                                        .value,
+                                      ),
+                                      // Fire Icon Section
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.secondColor.withOpacity(0.7),
+                                                spreadRadius: 0,
+                                                blurRadius: 15,
                                               ),
-                                              child: Image.asset(
-                                                'assets/img/home.png',
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.15, // Ensure this is not too large
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.15, // Ensure this is not too large
-                                              ),
-                                            );
-                                          },
+                                            ],
+                                          ),
+                                          child: AnimatedBuilder(
+                                            animation: _animationController,
+                                            builder: (context, child) {
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  color: _imageBackgroundColorAnimation.value,
+                                                ),
+                                                child: Icon(
+                                                  Icons.local_fire_department,
+                                                  color: Colors.orange,
+                                                  size: MediaQuery.of(context).size.width * 0.12,
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
+                                    ],
+                                  ),
+                                  // Button Section
+                                  const SizedBox(height: 16),
+                                  ElevatedButton(
+                                    onPressed: () => Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const ChallengesPage(),
+                                      ),
                                     ),
-                                  ],
-                                )),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.secondColor,
+                                      foregroundColor: AppColors.whiteColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                    ),
+                                    child: Text(
+                                      S.of(context).viewAllChallenges,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: AppColors.mainColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Text and Icon Row
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // Text Section
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              S.of(context).discoverExcitingEvents,
+                                              style: const TextStyle(
+                                                color: AppColors.whiteColor,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              S.of(context).participateSpecialEvents,
+                                              style: const TextStyle(
+                                                color: AppColors.whiteColor,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      // Star Icon Section
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.secondColor.withOpacity(0.7),
+                                                spreadRadius: 0,
+                                                blurRadius: 15,
+                                              ),
+                                            ],
+                                          ),
+                                          child: AnimatedBuilder(
+                                            animation: _animationController,
+                                            builder: (context, child) {
+                                              return Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(50),
+                                                    color: _imageBackgroundColorAnimation.value,
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                    size: MediaQuery.of(context).size.width * 0.12,
+                                                  )
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Button Section
+                                  const SizedBox(height: 16),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.secondColor,
+                                      foregroundColor: AppColors.whiteColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                    ),
+                                    child: Text(
+                                      S.of(context).viewAllEvents,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                         // Progress Cards with data from Cubit
-                        Expanded(
-                          child:
-                              ListView.builder(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                itemCount: challengeTapCubit.levelsData.length,
-                                itemBuilder: (context, index) {
-                                  final challengesTap =
-                                      challengeTapCubit.levelsData[index];
-                                  return Column(
-                                    children: [
-                                      ChallengesTapCard(
-                                        levelId: challengesTap.levelId,
-                                        levelDifficulty:
-                                            challengesTap.levelDifficulty,
-                                        rewardedPoints:
-                                            challengesTap.rewardedPoints,
-                                        deducedPoints:
-                                            challengesTap.deducedPoints,
-                                        numberOfLessons:
-                                            challengesTap.numberOfLessons,
-                                        levelProgress:
-                                            challengesTap.levelProgress,
-                                        canTab: index == 0 ||
-                                            challengesTap.levelProgress == 1.0 ||
-                                            (challengesTap.canTap != null && challengesTap.canTap!) ||
-                                            (index > 0 &&
-                                                challengeTapCubit.levelsData[index - 1].levelProgress == 1.0),
-                                        previousTile: index != 0?challengeTapCubit.levelsData[index-1].levelDifficulty:null,
-                                      ),
-                                      const SizedBox(height: 16),
-                                    ],
-                                  );
-                                },
-                              ),
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0),
+                          itemCount: challengeTapCubit.levelsData.length,
+                          itemBuilder: (context, index) {
+                            final challengesTap =
+                                challengeTapCubit.levelsData[index];
+                            return Column(
+                              children: [
+                                ChallengesTapCard(
+                                  levelId: challengesTap.levelId,
+                                  levelDifficulty:
+                                      challengesTap.levelDifficulty,
+                                  rewardedPoints:
+                                      challengesTap.rewardedPoints,
+                                  numberOfLessons:
+                                      challengesTap.numberOfLessons,
+                                  levelProgress:
+                                      challengesTap.levelProgress,
+                                  canTab: index == 0 ||
+                                      challengesTap.levelProgress == 1.0 ||
+                                      (challengesTap.canTap != null && challengesTap.canTap!) ||
+                                      (index > 0 &&
+                                          challengeTapCubit.levelsData[index - 1].levelProgress == 1.0),
+                                  previousTile: index != 0?challengeTapCubit.levelsData[index-1].levelDifficulty:null,
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),

@@ -21,7 +21,6 @@ class ChallengesExamPage extends StatefulWidget {
   final String title;
   final String challengesName;
   final double rewardPoints;
-  final double deducePoints;
   final DateTime challengesRemainingTime;
   final double subscriptionCostPoints;
   final String status;
@@ -37,7 +36,6 @@ class ChallengesExamPage extends StatefulWidget {
     required this.challengeId,
     required this.challengesName,
     required this.rewardPoints,
-    required this.deducePoints,
     required this.challengesRemainingTime,
     required this.subscriptionCostPoints,
     required this.status,
@@ -158,7 +156,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                               challengesName: widget.challengesName,
                               challengeId: widget.challengeId,
                               rewardPoints: widget.rewardPoints,
-                              deducePoints: widget.deducePoints,
                               challengesRemainingTime:
                                   widget.challengesRemainingTime,
                               subscriptionCostPoints:
@@ -264,8 +261,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                               .challengeId,
                                                           rewardPoints: widget
                                                               .rewardPoints,
-                                                          deducePoints: widget
-                                                              .deducePoints,
                                                           challengesRemainingTime:
                                                               widget
                                                                   .challengesRemainingTime,
@@ -510,16 +505,14 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                                         .trim())
                                                                 ? widget
                                                                     .rewardPoints
-                                                                : -widget
-                                                                    .deducePoints;
+                                                                : 0;
                                                             taskCubit
                                                                 .pointsToShowQuestionExam += (choice.trim() ==
                                                                     currentQuestion.correctAnswer
                                                                         .trim())
                                                                 ? widget
                                                                     .rewardPoints
-                                                                : -widget
-                                                                    .deducePoints;
+                                                                : 0;
                                                           });
 
                                                           taskCubit
@@ -538,8 +531,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                                         .trim())
                                                                 ? widget
                                                                     .rewardPoints
-                                                                : -widget
-                                                                    .deducePoints,
+                                                                : 0,
                                                             "correct": choice
                                                                     .trim() ==
                                                                 currentQuestion
@@ -566,8 +558,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                                           .trim())
                                                                   ? widget
                                                                       .rewardPoints
-                                                                  : widget
-                                                                      .deducePoints,
+                                                                  : 0,
                                                               widget
                                                                   .challengeId);
                                                           setState(() {
@@ -635,7 +626,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                               widget.challengeId,
                                               widget.challengesName,
                                               widget.rewardPoints,
-                                              widget.deducePoints,
+
                                               widget
                                                   .challengesRemainingTime,
                                               widget.subscriptionCostPoints,
@@ -721,7 +712,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                               widget.challengeId,
                                               widget.challengesName,
                                               widget.rewardPoints,
-                                              widget.deducePoints,
                                               widget
                                                   .challengesRemainingTime,
                                               widget.subscriptionCostPoints,

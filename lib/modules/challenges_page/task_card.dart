@@ -13,7 +13,6 @@ class TaskCard extends StatelessWidget {
   final String challengeId;
   final String taskId;
   final double rewardPoints;
-  final double deducePoints;
   final DateTime
       challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
@@ -29,7 +28,7 @@ class TaskCard extends StatelessWidget {
       required this.challengesName,
       required this.challengeId,
       required this.rewardPoints,
-      required this.deducePoints,
+
       required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
@@ -64,7 +63,7 @@ class TaskCard extends StatelessWidget {
               else{
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) =>  ChallengesExamPage(taskId: taskId, title:taskName , challengeId: challengeId, challengesName: challengesName, rewardPoints: rewardPoints, deducePoints: deducePoints, challengesRemainingTime: challengesRemainingTime, subscriptionCostPoints: subscriptionCostPoints, status: status, rankPoints: rankPoints, challengesNumberOfTasks: challengesNumberOfTasks, numberOfQuestion: numberOfQuestion, challengesNumberOfSubscriptions: challengesNumberOfSubscriptions),
+                    builder: (context) =>  ChallengesExamPage(taskId: taskId, title:taskName , challengeId: challengeId, challengesName: challengesName, rewardPoints: rewardPoints,challengesRemainingTime: challengesRemainingTime, subscriptionCostPoints: subscriptionCostPoints, status: status, rankPoints: rankPoints, challengesNumberOfTasks: challengesNumberOfTasks, numberOfQuestion: numberOfQuestion, challengesNumberOfSubscriptions: challengesNumberOfSubscriptions),
                   ),
                 );
               }

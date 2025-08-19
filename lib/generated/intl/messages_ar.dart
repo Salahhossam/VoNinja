@@ -29,11 +29,19 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(subscriptionCostPoints) =>
       "يجب أن يكون لديك ${subscriptionCostPoints} نقطة لدخول هذا التحدي";
 
+  static String m4(previousLessonTitle) =>
+      "يجب عليك إكمال جميع أسئلة الدرس ${previousLessonTitle} قبل أن تبدأ هذا الدرس.";
+
+  static String m5(level) =>
+      "يجب عليك إكمال المستوى ${level} أولاً لفتح هذا المحتوى";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "WithdrawPoints": MessageLookupByLibrary.simpleMessage(
             "سحب النقاط يقلل من تصنيفك الإجمالي."),
         "about": MessageLookupByLibrary.simpleMessage("معلومات عننا"),
+        "allQuestionsAnswered": MessageLookupByLibrary.simpleMessage(
+            "لقد أتممت جميع أسئلة هذا الدرس بنجاح"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب؟"),
         "appTitle": MessageLookupByLibrary.simpleMessage("فونينجا"),
@@ -48,6 +56,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تحقق من أحداث VoNinja!"),
         "chooseAnAvatar":
             MessageLookupByLibrary.simpleMessage("اختر النينجا الخاص بك"),
+        "completeAllQuestions": MessageLookupByLibrary.simpleMessage(
+            "يمكنك العودة لإكمال هذه الأسئلة لتحسين نتيجتك"),
+        "completeDailyChallenges": MessageLookupByLibrary.simpleMessage(
+            "أكمل التحديات اليومية لجمع المكافآت"),
+        "completePreviousLesson":
+            MessageLookupByLibrary.simpleMessage("أكمل الدرس السابق أولاً"),
+        "completePreviousLevel":
+            MessageLookupByLibrary.simpleMessage("أكمل المستوى السابق"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
@@ -60,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("كلمة المرور الحالية"),
+        "discoverExcitingEvents":
+            MessageLookupByLibrary.simpleMessage("اكتشف الأحداث المثيرة"),
         "doNotMatch":
             MessageLookupByLibrary.simpleMessage("كلمات المرور غير متطابقة"),
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
@@ -101,8 +119,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("احصل على عملاتك الآن!"),
         "getPoints": MessageLookupByLibrary.simpleMessage("احصل علي هديتك"),
         "getYourPoints": MessageLookupByLibrary.simpleMessage("رصيدك ونقاطك"),
+        "goToPreviousLesson":
+            MessageLookupByLibrary.simpleMessage("الذهاب للدرس السابق"),
         "hi": MessageLookupByLibrary.simpleMessage("مرحبًا"),
+        "incompleteLesson":
+            MessageLookupByLibrary.simpleMessage("الدرس غير مكتمل"),
         "inviteFriend": MessageLookupByLibrary.simpleMessage("ادع صديقك"),
+        "joinChallengesEarnPoints": MessageLookupByLibrary.simpleMessage(
+            "انضم إلى التحديات واكسب النقاط"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "lastName": MessageLookupByLibrary.simpleMessage("الاسم الاخير"),
         "leaderboard": MessageLookupByLibrary.simpleMessage("لوحة المتصدرين"),
@@ -111,6 +135,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lessonsLearningVocabulary": MessageLookupByLibrary.simpleMessage(
             "هذه هي خطوتك الأولى في تعلم مفردات اللغة الإنجليزية.\nاستمر، يا نينجا!"),
         "levelNumber": m2,
+        "librarySubtitle":
+            MessageLookupByLibrary.simpleMessage("تصفح كتب تعلم الإنجليزية"),
+        "libraryTitle": MessageLookupByLibrary.simpleMessage("مكتبة فونينجا"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginButton": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -119,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "minUserName": MessageLookupByLibrary.simpleMessage(
             "يجب أن يتكون اسم المستخدم من 3 أحرف على الأقل"),
         "minmaPoints": m3,
+        "mustCompleteLesson": m4,
+        "mustCompleteLevel": m5,
         "newPassword":
             MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
         "nextLesson": MessageLookupByLibrary.simpleMessage("الدرس التالي"),
@@ -126,9 +155,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "noAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "noVocabulariesAvailable":
             MessageLookupByLibrary.simpleMessage("لا توجد مفردات متاحة"),
+        "okay": MessageLookupByLibrary.simpleMessage("حسناً"),
+        "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(
+            "شارك في الأحداث الخاصة للحصول على مكافآت حصرية"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "placeNumber": MessageLookupByLibrary.simpleMessage("المركز"),
+        "pleaseAnswerTheQuestionFirst": MessageLookupByLibrary.simpleMessage(
+            "الرجاء الإجابة على السؤال الحالي قبل المتابعة."),
         "pleaseEnterValidData":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال معلومات صحيحة"),
         "plus20Points": MessageLookupByLibrary.simpleMessage("10 نقطة اضافية"),
@@ -159,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startLearning": MessageLookupByLibrary.simpleMessage("ابدأ التعلم"),
         "subscribeInChallenge":
             MessageLookupByLibrary.simpleMessage("اشترك الآن"),
+        "successfullyCompleted": MessageLookupByLibrary.simpleMessage("مبروك!"),
         "successfullyPoints": MessageLookupByLibrary.simpleMessage(
             "لقد أكملت الدرس بنجاح \nواكتسبت النقاط"),
         "switchIcons": MessageLookupByLibrary.simpleMessage("تبديل الأيقونات"),
@@ -169,6 +204,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalBalance": MessageLookupByLibrary.simpleMessage("إجمالي الرصيد"),
         "totalPoints": MessageLookupByLibrary.simpleMessage("اجمالي النقاط"),
         "transaction": MessageLookupByLibrary.simpleMessage("المعاملات"),
+        "unansweredQuestions":
+            MessageLookupByLibrary.simpleMessage("الأسئلة غير المجابة: "),
+        "unansweredQuestionsTitle": MessageLookupByLibrary.simpleMessage(
+            "الأسئلة التي لم يتم الإجابة عليها:"),
         "userName": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "validFristName": MessageLookupByLibrary.simpleMessage(
             "يجب أن يتكون الاسم الأول من حرفين على الأقل"),
@@ -177,15 +216,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "validPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "أدخل رقم هاتف صالحًا (على سبيل المثال، +1234567890 أو 0123456789)"),
         "version": MessageLookupByLibrary.simpleMessage("الإصدار"),
+        "viewAllChallenges":
+            MessageLookupByLibrary.simpleMessage("عرض جميع التحديات"),
+        "viewAllEvents":
+            MessageLookupByLibrary.simpleMessage("عرض جميع الأحداث"),
         "viewResults": MessageLookupByLibrary.simpleMessage("عرض النتائج"),
+        "warning": MessageLookupByLibrary.simpleMessage("تحذير"),
         "wrongCredentials": MessageLookupByLibrary.simpleMessage(
             "البريد الإلكتروني أو كلمة المرور غير صحيحة"),
         "wrongResetPassword":
             MessageLookupByLibrary.simpleMessage(" كلمة المرور غير صحيحة"),
         "you": MessageLookupByLibrary.simpleMessage("انت"),
         "youAreAllSet": MessageLookupByLibrary.simpleMessage("كل شيء جاهز!"),
-    "libraryTitle": MessageLookupByLibrary.simpleMessage("مكتبة فونينجا"),
-    "librarySubtitle": MessageLookupByLibrary.simpleMessage("تصفح كتب تعلم الإنجليزية"),
         "youLearned30NewwordsToday": MessageLookupByLibrary.simpleMessage(
             "لقد تعلمت 30 كلمة جديدة اليوم...")
       };

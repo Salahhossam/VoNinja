@@ -29,11 +29,19 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(subscriptionCostPoints) =>
       "You must have ${subscriptionCostPoints} points to enter this challenge";
 
+  static String m4(previousLessonTitle) =>
+      "You must complete all questions in lesson ${previousLessonTitle} before starting this lesson.";
+
+  static String m5(level) =>
+      "You must complete level ${level} first to unlock this content";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "WithdrawPoints": MessageLookupByLibrary.simpleMessage(
             "Withdrawing points reduces your overall ranking"),
         "about": MessageLookupByLibrary.simpleMessage("About Us"),
+        "allQuestionsAnswered": MessageLookupByLibrary.simpleMessage(
+            "You have successfully completed all questions in this lesson"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Voninja"),
@@ -49,6 +57,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Check VoNinja Events !"),
         "chooseAnAvatar":
             MessageLookupByLibrary.simpleMessage("Choose Your Ninja"),
+        "completeAllQuestions": MessageLookupByLibrary.simpleMessage(
+            "You can return to complete these questions to improve your score"),
+        "completeDailyChallenges": MessageLookupByLibrary.simpleMessage(
+            "Complete daily challenges to collect rewards"),
+        "completePreviousLesson": MessageLookupByLibrary.simpleMessage(
+            "Complete the previous lesson first"),
+        "completePreviousLevel":
+            MessageLookupByLibrary.simpleMessage("Complete Previous Level"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
@@ -61,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current Password"),
+        "discoverExcitingEvents":
+            MessageLookupByLibrary.simpleMessage("Discover Exciting Events"),
         "doNotMatch":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -101,9 +119,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "getPoints": MessageLookupByLibrary.simpleMessage("Get Points"),
         "getYourPoints":
             MessageLookupByLibrary.simpleMessage("Get Your Points!"),
+        "goToPreviousLesson":
+            MessageLookupByLibrary.simpleMessage("Go to previous lesson"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
+        "incompleteLesson":
+            MessageLookupByLibrary.simpleMessage("Lesson Incomplete"),
         "inviteFriend":
             MessageLookupByLibrary.simpleMessage("Invite your friend"),
+        "joinChallengesEarnPoints": MessageLookupByLibrary.simpleMessage(
+            "Join Challenges & Earn Points"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
         "leaderboard": MessageLookupByLibrary.simpleMessage("Leaderboard"),
@@ -112,6 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lessonsLearningVocabulary": MessageLookupByLibrary.simpleMessage(
             "This is your first step in learning English vocabulary.\nGo on ninja!"),
         "levelNumber": m2,
+        "librarySubtitle": MessageLookupByLibrary.simpleMessage(
+            "Browse English learning books"),
+        "libraryTitle": MessageLookupByLibrary.simpleMessage("Voninja Library"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginButton": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -120,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "minUserName": MessageLookupByLibrary.simpleMessage(
             "Username must be at least 3 characters long"),
         "minmaPoints": m3,
+        "mustCompleteLesson": m4,
+        "mustCompleteLevel": m5,
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
         "nextLesson": MessageLookupByLibrary.simpleMessage("Next Lesson"),
         "nextTask": MessageLookupByLibrary.simpleMessage("Next Task"),
@@ -127,9 +156,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "noVocabulariesAvailable":
             MessageLookupByLibrary.simpleMessage("No vocabularies available"),
+        "okay": MessageLookupByLibrary.simpleMessage("Okay"),
+        "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(
+            "Participate in special events for exclusive rewards"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "placeNumber": MessageLookupByLibrary.simpleMessage("Place"),
+        "pleaseAnswerTheQuestionFirst": MessageLookupByLibrary.simpleMessage(
+            "Please answer the current question before continuing."),
         "pleaseEnterValidData":
             MessageLookupByLibrary.simpleMessage("Please enter valid data"),
         "plus20Points": MessageLookupByLibrary.simpleMessage("+10 Points"),
@@ -160,6 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "startLearning": MessageLookupByLibrary.simpleMessage("Start Learning"),
         "subscribeInChallenge":
             MessageLookupByLibrary.simpleMessage("Subscribe Now"),
+        "successfullyCompleted":
+            MessageLookupByLibrary.simpleMessage("Congratulations!"),
         "successfullyPoints": MessageLookupByLibrary.simpleMessage(
             "You have Successfully \nCompleted the lesson"),
         "switchIcons": MessageLookupByLibrary.simpleMessage("Switch icons"),
@@ -170,6 +206,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalBalance": MessageLookupByLibrary.simpleMessage("Total Balance"),
         "totalPoints": MessageLookupByLibrary.simpleMessage("Total Points"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transaction"),
+        "unansweredQuestions":
+            MessageLookupByLibrary.simpleMessage("Unanswered questions: "),
+        "unansweredQuestionsTitle":
+            MessageLookupByLibrary.simpleMessage("Questions not answered:"),
         "userName": MessageLookupByLibrary.simpleMessage("User Name"),
         "validFristName": MessageLookupByLibrary.simpleMessage(
             "First name must be at least 2 characters"),
@@ -178,7 +218,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "validPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Enter a valid phone number (e.g., +1234567890 or 0123456789)"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
+        "viewAllChallenges":
+            MessageLookupByLibrary.simpleMessage("View All Challenges"),
+        "viewAllEvents":
+            MessageLookupByLibrary.simpleMessage("View All Events"),
         "viewResults": MessageLookupByLibrary.simpleMessage("View results"),
+        "warning": MessageLookupByLibrary.simpleMessage("Warning"),
         "wrongCredentials":
             MessageLookupByLibrary.simpleMessage("Wrong email or password"),
         "wrongResetPassword":
@@ -186,10 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "you": MessageLookupByLibrary.simpleMessage("You"),
         "youAreAllSet":
             MessageLookupByLibrary.simpleMessage("You\'re All Set!"),
-    "libraryTitle": MessageLookupByLibrary.simpleMessage("Voninja Library"),
-    "librarySubtitle": MessageLookupByLibrary.simpleMessage("Browse English learning books"),
         "youLearned30NewwordsToday": MessageLookupByLibrary.simpleMessage(
             "You learned 30 new words Today...")
-
       };
 }

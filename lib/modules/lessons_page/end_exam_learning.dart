@@ -21,7 +21,6 @@ class EndExamLearning extends StatefulWidget {
   final double userPoints;
   final String collectionName;
   final double rewardedPoints;
-  final double deducedPoints;
   final int numberOfLessons;
   final bool isLastExam;
   const EndExamLearning(
@@ -34,7 +33,6 @@ class EndExamLearning extends StatefulWidget {
       required this.order,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints,
         required this.numberOfLessons,
         required this.isLastExam
       });
@@ -255,7 +253,7 @@ class _EndExamLearningState extends State<EndExamLearning> {
                                                 widget.collectionName,
                                             rewardedPoints:
                                                 widget.rewardedPoints,
-                                            deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons, isLastExam: widget.isLastExam,
+                                            numberOfLessons: widget.numberOfLessons, isLastExam: widget.isLastExam,
                                           ),
                                         ),
                                       );
@@ -271,7 +269,7 @@ class _EndExamLearningState extends State<EndExamLearning> {
                                                 widget.collectionName,
                                             rewardedPoints:
                                                 widget.rewardedPoints,
-                                            deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
+                                            numberOfLessons: widget.numberOfLessons,
                                           ),
                                         ),
                                       );

@@ -19,7 +19,6 @@ class LessonCard extends StatelessWidget {
   final double size;
   final String collectionName;
   final double rewardedPoints;
-  final double deducedPoints;
   final bool? canTab;
   final String? previousTile;
   final bool isLastExam;
@@ -38,7 +37,6 @@ class LessonCard extends StatelessWidget {
       required this.size,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints,
       this.canTab,
       this.previousTile,
         required this.isLastExam,
@@ -65,7 +63,6 @@ class LessonCard extends StatelessWidget {
                       size,
                       collectionName,
                       rewardedPoints,
-                      deducedPoints,
                       lessonId!,
                      numberOfLessons,
                    isLastExam
@@ -83,7 +80,6 @@ class LessonCard extends StatelessWidget {
                       userPoints!,
                       collectionName,
                       rewardedPoints,
-                      deducedPoints,
                 numberOfLessons,
                 isLastExam
               );

@@ -49,7 +49,6 @@ class LearningCubit extends Cubit<LearningState> {
     double order,
     String collectionName,
     double rewardedPoints,
-    double deducedPoints,
       int numberOfLessons,
       bool isLastExam,
 
@@ -72,7 +71,7 @@ class LearningCubit extends Cubit<LearningState> {
                   order: order,
                   collectionName: collectionName,
                   rewardedPoints: rewardedPoints,
-                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons, isLastExam: isLastExam,
+                   numberOfLessons: numberOfLessons, isLastExam: isLastExam,
                 )),
       );
     }
@@ -88,7 +87,6 @@ class LearningCubit extends Cubit<LearningState> {
     double order,
     String collectionName,
     double rewardedPoints,
-    double deducedPoints,
       int numberOfLessons,
   ) {
     if (lessonDetails != null && currentQuestionIndex != 0) {
@@ -105,7 +103,7 @@ class LearningCubit extends Cubit<LearningState> {
                   size: size,
                   collectionName: collectionName,
                   rewardedPoints: rewardedPoints,
-                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons,
+                   numberOfLessons: numberOfLessons,
                 )),
       );
     }
@@ -205,7 +203,6 @@ class LearningCubit extends Cubit<LearningState> {
     double userPoints,
     String collectionName,
     double rewardedPoints,
-    double deducedPoints,
       int numberOfLessons,
       bool isLastExam
   ) {
@@ -226,7 +223,7 @@ class LearningCubit extends Cubit<LearningState> {
             userPoints: userPoints,
             collectionName: collectionName,
             rewardedPoints: rewardedPoints,
-            deducedPoints: deducedPoints, numberOfLessons: numberOfLessons, isLastExam: isLastExam,
+            numberOfLessons: numberOfLessons, isLastExam: isLastExam,
           ),
         ),
       );
@@ -244,7 +241,6 @@ class LearningCubit extends Cubit<LearningState> {
     double userPoints,
     String collectionName,
     double rewardedPoints,
-    double deducedPoints,
       int numberOfLessons,
       bool isLastExam
   ) {
@@ -260,7 +256,7 @@ class LearningCubit extends Cubit<LearningState> {
                   size: size,
                   collectionName: collectionName,
                   rewardedPoints: rewardedPoints,
-                  deducedPoints: deducedPoints, numberOfLessons: numberOfLessons,
+                 numberOfLessons: numberOfLessons,
                 )),
       );
     }

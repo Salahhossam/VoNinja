@@ -148,6 +148,12 @@
   "pleaseAnswerTheQuestionFirst": "الرجاء الإجابة على السؤال الحالي قبل المتابعة.",
   "warning": "تحذير",
   "libraryTitle": "مكتبة فونينجا",
-  "librarySubtitle": "تصفح كتب تعلم الإنجليزية"
+  "librarySubtitle": "تصفح كتب تعلم الإنجليزية",
+  "joinChallengesEarnPoints": "انضم إلى التحديات واكسب النقاط",
+  "completeDailyChallenges": "أكمل التحديات اليومية لجمع المكافآت",
+  "viewAllChallenges": "عرض جميع التحديات",
+  "discoverExcitingEvents": "اكتشف الأحداث المثيرة",
+  "participateSpecialEvents": "شارك في الأحداث الخاصة للحصول على مكافآت حصرية",
+  "viewAllEvents": "عرض جميع الأحداث"
   
 }

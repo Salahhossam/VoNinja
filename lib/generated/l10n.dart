@@ -840,7 +840,7 @@ class S {
     );
   }
 
-  /// `You must have {subscriptionCostPoints} point to enter this challenge`
+  /// `You must have {subscriptionCostPoints} points to enter this challenge`
   String minmaPoints(Object subscriptionCostPoints) {
     return Intl.message(
       'You must have $subscriptionCostPoints points to enter this challenge',
@@ -1140,7 +1140,7 @@ class S {
     );
   }
 
-  /// `+20 Points`
+  /// `+10 Points`
   String get plus20Points {
     return Intl.message(
       '+10 Points',
@@ -1156,46 +1156,6 @@ class S {
       'Next Lesson',
       name: 'nextLesson',
       desc: '',
-      args: [],
-    );
-  }
-
-
-  String get pleaseAnswerTheQuestionFirst {
-    return Intl.message(
-      'Please answer the current question before continuing.',
-      name: 'pleaseAnswerTheQuestionFirst',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Warning`
-  String get warning {
-    return Intl.message(
-      'Warning',
-      name: 'warning',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `مكتبة النينجا`
-  String get libraryTitle {
-    return Intl.message(
-      'مكتبة فونينجا',
-      name: 'libraryTitle',
-      desc: 'Title for the library section',
-      args: [],
-    );
-  }
-
-  /// `تصفح كتب تعلم الإنجليزية`
-  String get librarySubtitle {
-    return Intl.message(
-      'تصفح كتب تعلم الإنجليزية',
-      name: 'librarySubtitle',
-      desc: 'Subtitle for the library section',
       args: [],
     );
   }
@@ -1270,7 +1230,7 @@ class S {
     );
   }
 
-
+  /// `Complete the previous lesson first`
   String get completePreviousLesson {
     return Intl.message(
       'Complete the previous lesson first',
@@ -1280,7 +1240,8 @@ class S {
     );
   }
 
-  String mustCompleteLesson(String previousLessonTitle) {
+  /// `You must complete all questions in lesson {previousLessonTitle} before starting this lesson.`
+  String mustCompleteLesson(Object previousLessonTitle) {
     return Intl.message(
       'You must complete all questions in lesson $previousLessonTitle before starting this lesson.',
       name: 'mustCompleteLesson',
@@ -1289,21 +1250,7 @@ class S {
     );
   }
 
-  String mustCompleteLevel(String previousLevelTitle) {
-    return Intl.message(
-      'You must complete all questions in level $previousLevelTitle before starting this level.',
-      name: 'mustCompleteLevel',
-      desc: 'Message shown when user tries to access a locked level',
-      args: [previousLevelTitle],
-    );
-  }
-
-  String get completePreviousLevel => Intl.message(
-    'Complete Previous Level',
-    name: 'completePreviousLevel',
-    desc: 'Title shown when previous level needs to be completed',
-  );
-
+  /// `Okay`
   String get okay {
     return Intl.message(
       'Okay',
@@ -1313,6 +1260,7 @@ class S {
     );
   }
 
+  /// `Go to previous lesson`
   String get goToPreviousLesson {
     return Intl.message(
       'Go to previous lesson',
@@ -1322,6 +1270,125 @@ class S {
     );
   }
 
+  /// `Complete Previous Level`
+  String get completePreviousLevel {
+    return Intl.message(
+      'Complete Previous Level',
+      name: 'completePreviousLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must complete level {level} first to unlock this content`
+  String mustCompleteLevel(Object level) {
+    return Intl.message(
+      'You must complete level $level first to unlock this content',
+      name: 'mustCompleteLevel',
+      desc: '',
+      args: [level],
+    );
+  }
+
+  /// `Please answer the current question before continuing.`
+  String get pleaseAnswerTheQuestionFirst {
+    return Intl.message(
+      'Please answer the current question before continuing.',
+      name: 'pleaseAnswerTheQuestionFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warning`
+  String get warning {
+    return Intl.message(
+      'Warning',
+      name: 'warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja Library`
+  String get libraryTitle {
+    return Intl.message(
+      'Voninja Library',
+      name: 'libraryTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Browse English learning books`
+  String get librarySubtitle {
+    return Intl.message(
+      'Browse English learning books',
+      name: 'librarySubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join Challenges & Earn Points`
+  String get joinChallengesEarnPoints {
+    return Intl.message(
+      'Join Challenges & Earn Points',
+      name: 'joinChallengesEarnPoints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete daily challenges to collect rewards`
+  String get completeDailyChallenges {
+    return Intl.message(
+      'Complete daily challenges to collect rewards',
+      name: 'completeDailyChallenges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View All Challenges`
+  String get viewAllChallenges {
+    return Intl.message(
+      'View All Challenges',
+      name: 'viewAllChallenges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discover Exciting Events`
+  String get discoverExcitingEvents {
+    return Intl.message(
+      'Discover Exciting Events',
+      name: 'discoverExcitingEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Participate in special events for exclusive rewards`
+  String get participateSpecialEvents {
+    return Intl.message(
+      'Participate in special events for exclusive rewards',
+      name: 'participateSpecialEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View All Events`
+  String get viewAllEvents {
+    return Intl.message(
+      'View All Events',
+      name: 'viewAllEvents',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

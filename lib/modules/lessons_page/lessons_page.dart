@@ -14,7 +14,6 @@ class LessonsPage extends StatefulWidget {
   final double? size;
   final String collectionName;
   final double rewardedPoints;
-  final double deducedPoints;
   final int numberOfLessons;
   const LessonsPage({
     super.key,
@@ -23,7 +22,6 @@ class LessonsPage extends StatefulWidget {
     required this.size,
     required this.collectionName,
     required this.rewardedPoints,
-    required this.deducedPoints,
     required this.numberOfLessons
   });
 
@@ -180,7 +178,6 @@ class _LessonsPageState extends State<LessonsPage> {
                                         size: widget.size!,
                                         collectionName: widget.collectionName,
                                         rewardedPoints: widget.rewardedPoints,
-                                        deducedPoints: widget.deducedPoints,
                                         canTab: (index == 0 || lessonCubit.learningProgress[index-1].userProgress == 1.0),
                                         previousTile: index != 0?lessonCubit.lessonCards[index-1].title:null,
                                         isLastExam: index+1==widget.numberOfLessons, numberOfLessons: widget.numberOfLessons,

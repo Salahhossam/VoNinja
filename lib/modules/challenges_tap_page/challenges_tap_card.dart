@@ -11,7 +11,6 @@ class ChallengesTapCard extends StatelessWidget {
   final String? levelId;
   final String? levelDifficulty;
   final double? rewardedPoints;
-  final double? deducedPoints;
   final int? numberOfLessons;
   final double? levelProgress;
   final bool? canTab;
@@ -21,7 +20,6 @@ class ChallengesTapCard extends StatelessWidget {
     required this.levelId,
     required this.levelDifficulty,
     required this.rewardedPoints,
-    required this.deducedPoints,
     required this.numberOfLessons,
     required this.levelProgress,
     this.canTab,
@@ -57,7 +55,6 @@ class ChallengesTapCard extends StatelessWidget {
                     size: size,
                     collectionName: 'lessons',
                     rewardedPoints: rewardedPoints!,
-                    deducedPoints: deducedPoints!,
                    numberOfLessons: numberOfLessons??0,
                   )),
         );
@@ -222,7 +219,7 @@ class ChallengesTapCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '+ ${rewardedPoints!.toInt()} ${S.of(context).points} | - ${deducedPoints!.toInt()} ${S.of(context).points}',
+                        '+ ${rewardedPoints!.toInt()} ${S.of(context).points}  ${S.of(context).points}',
                         style: const TextStyle(
                             color: AppColors.lightColor, fontSize: 12),
                         textAlign: TextAlign.end,

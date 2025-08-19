@@ -148,5 +148,11 @@
   "pleaseAnswerTheQuestionFirst": "Please answer the current question before continuing.",
   "warning": "Warning",
   "libraryTitle": "Voninja Library",
-  "librarySubtitle": "Browse English learning books"
+  "librarySubtitle": "Browse English learning books",
+  "joinChallengesEarnPoints": "Join Challenges & Earn Points",
+  "completeDailyChallenges": "Complete daily challenges to collect rewards",
+  "viewAllChallenges": "View All Challenges",
+  "discoverExcitingEvents": "Discover Exciting Events",
+  "participateSpecialEvents": "Participate in special events for exclusive rewards",
+  "viewAllEvents": "View All Events"
 }

@@ -10,7 +10,6 @@ class ChallengeCard extends StatefulWidget {
   final String challengesName;
   final String challengeId;
   final double rewardPoints;
-  final double deducePoints;
   final DateTime
       challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
@@ -25,7 +24,6 @@ class ChallengeCard extends StatefulWidget {
       required this.challengesName,
       required this.challengeId,
       required this.rewardPoints,
-      required this.deducePoints,
       required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
@@ -110,7 +108,7 @@ class _ChallengeCardState extends State<ChallengeCard> {
                 ),
               ),
               Text(
-                '+ ${widget.rewardPoints.toInt()} ${S.of(context).points} | - ${widget.deducePoints.toInt()} ${S.of(context).points}',
+                '+ ${widget.rewardPoints.toInt()} ${S.of(context).points} ${S.of(context).points}',
                 style:
                     const TextStyle(color: AppColors.lightColor, fontSize: 12),
                 textAlign: TextAlign.end,

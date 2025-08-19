@@ -163,8 +163,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                             .challengeId!,
                                                         rewardPoints: challenges
                                                             .rewardPoints!,
-                                                        deducePoints: challenges
-                                                            .deducePoints!,
                                                         challengesRemainingTime:
                                                             challenges.endTime!,
                                                         subscriptionCostPoints:
@@ -228,8 +226,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                   challenges.challengeId!,
                                               rewardPoints:
                                                   challenges.rewardPoints!,
-                                              deducePoints:
-                                                  challenges.deducePoints!,
                                               challengesRemainingTime:
                                                   challenges.endTime!,
                                               subscriptionCostPoints: challenges
@@ -386,7 +382,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                       challengesName: challenge.title!,
                                       challengeId: challenge.challengeId!,
                                       rewardPoints: challenge.rewardPoints!,
-                                      deducePoints: challenge.deducePoints!,
                                       challengesRemainingTime:
                                           challenge.endTime!,
                                       subscriptionCostPoints:

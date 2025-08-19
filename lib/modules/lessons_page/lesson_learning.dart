@@ -22,7 +22,6 @@ class LessonLearning extends StatefulWidget {
   final String title;
   final double userPoints;
   final double rewardedPoints;
-  final double deducedPoints;
   final int numberOfLessons;
   final bool isLastExam;
   const LessonLearning(
@@ -36,7 +35,6 @@ class LessonLearning extends StatefulWidget {
       required this.userPoints,
       required this.collectionName,
       required this.rewardedPoints,
-      required this.deducedPoints,
        required this.numberOfLessons,
         required this.isLastExam
       });
@@ -157,7 +155,7 @@ class _LessonLearningState extends State<LessonLearning> {
                             size: widget.size,
                             collectionName: widget.collectionName,
                             rewardedPoints: widget.rewardedPoints,
-                            deducedPoints: widget.deducedPoints, numberOfLessons: widget.numberOfLessons,
+                            numberOfLessons: widget.numberOfLessons,
                           )),
                 );
                 return true;
@@ -241,8 +239,6 @@ class _LessonLearningState extends State<LessonLearning> {
                                                       widget.collectionName,
                                                       rewardedPoints:
                                                       widget.rewardedPoints,
-                                                      deducedPoints:
-                                                      widget.deducedPoints,
                                                       numberOfLessons: widget.numberOfLessons,
                                                     ),
                                               ),
@@ -514,7 +510,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                             widget.userPoints,
                                             widget.collectionName,
                                             widget.rewardedPoints,
-                                            widget.deducedPoints,widget.numberOfLessons,widget.isLastExam);
+                                             widget.numberOfLessons,widget.isLastExam);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:
@@ -576,7 +572,7 @@ class _LessonLearningState extends State<LessonLearning> {
                                             widget.userPoints,
                                             widget.collectionName,
                                             widget.rewardedPoints,
-                                            widget.deducedPoints,widget.numberOfLessons,widget.isLastExam);
+                                            widget.numberOfLessons,widget.isLastExam);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:

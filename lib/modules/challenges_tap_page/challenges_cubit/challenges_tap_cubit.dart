@@ -55,7 +55,6 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
           levelId: levelId,
           levelDifficulty: levelDifficulty,
           rewardedPoints: rewardedPoints,
-          deducedPoints: deducedPoints,
           numberOfLessons: numberOfLessons,
           levelProgress: double.parse(levelProgress.toStringAsFixed(2)),
           canTap: docSnapshot.exists
