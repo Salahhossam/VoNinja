@@ -20,7 +20,6 @@ class TaskPage extends StatefulWidget {
       challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
   final String status;
-  final List<double> rankPoints;
   final double challengesNumberOfTasks;
   final double numberOfQuestion;
   final double challengesNumberOfSubscriptions;
@@ -33,7 +32,6 @@ class TaskPage extends StatefulWidget {
       required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
-      required this.rankPoints,
       required this.challengesNumberOfTasks,
       required this.challengesNumberOfSubscriptions,
       required this.numberOfQuestion});
@@ -296,7 +294,7 @@ class _TaskPageState extends State<TaskPage> {
                                       subscriptionCostPoints:
                                           widget.subscriptionCostPoints,
                                       status: widget.status,
-                                      rankPoints: widget.rankPoints,
+
                                       challengesNumberOfTasks:
                                           widget.challengesNumberOfTasks,
                                       challengesNumberOfSubscriptions: widget

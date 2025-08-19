@@ -24,7 +24,6 @@ class ChallengesExamPage extends StatefulWidget {
   final DateTime challengesRemainingTime;
   final double subscriptionCostPoints;
   final String status;
-  final List<double> rankPoints;
   final double challengesNumberOfTasks;
   final double numberOfQuestion;
   final double challengesNumberOfSubscriptions;
@@ -39,7 +38,6 @@ class ChallengesExamPage extends StatefulWidget {
     required this.challengesRemainingTime,
     required this.subscriptionCostPoints,
     required this.status,
-    required this.rankPoints,
     required this.challengesNumberOfTasks,
     required this.numberOfQuestion,
     required this.challengesNumberOfSubscriptions,
@@ -161,7 +159,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                               subscriptionCostPoints:
                                   widget.subscriptionCostPoints,
                               status: widget.status,
-                              rankPoints: widget.rankPoints,
                               challengesNumberOfTasks:
                                   widget.challengesNumberOfTasks,
                               challengesNumberOfSubscriptions:
@@ -269,8 +266,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                                   .subscriptionCostPoints,
                                                           status: widget
                                                               .status,
-                                                          rankPoints: widget
-                                                              .rankPoints,
                                                           challengesNumberOfTasks:
                                                               widget
                                                                   .challengesNumberOfTasks,
@@ -631,7 +626,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                   .challengesRemainingTime,
                                               widget.subscriptionCostPoints,
                                               widget.status,
-                                              widget.rankPoints,
                                               widget
                                                   .challengesNumberOfTasks,
                                               widget.numberOfQuestion,
@@ -716,7 +710,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                   .challengesRemainingTime,
                                               widget.subscriptionCostPoints,
                                               widget.status,
-                                              widget.rankPoints,
                                               widget
                                                   .challengesNumberOfTasks,
                                               widget.numberOfQuestion,

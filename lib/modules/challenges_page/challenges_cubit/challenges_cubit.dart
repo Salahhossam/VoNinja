@@ -18,11 +18,9 @@ class ChallengeCubit extends Cubit<ChallengeState> {
     emit(ChallengeLoading());
     try {
       challenges = [];
-      DateTime now = await NTP.now();
       var query = await fireStore
           .collection('challenges')
           .where('status', isEqualTo: 'PUBLISHED')
-          .where('endTime', isGreaterThan: now)
           .orderBy('challenge_order')
           .get();
       for (var doc in query.docs) {

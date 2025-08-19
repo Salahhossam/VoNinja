@@ -43,7 +43,7 @@ class Challenge {
   DateTime? endTime;
   double? subscriptionPoints;
   String? status;
-  Rewards? rewards;
+ // Rewards? rewards;
   double? numberOfTasks;
   double? numberOfSubscriptions;
   double? totalQuestions;
@@ -55,7 +55,7 @@ class Challenge {
     required this.endTime,
     required this.subscriptionPoints,
     required this.status,
-    required this.rewards,
+    //required this.rewards,
     required this.numberOfTasks,
     required this.numberOfSubscriptions,
     this.createdAt,
@@ -70,7 +70,7 @@ class Challenge {
       endTime: json['endTime'].toDate() ?? DateTime.now(),
       subscriptionPoints: json['subscriptionPoints'].toDouble() ?? 0.0,
       status: json['status'] ?? '',
-      rewards: Rewards.fromJson(json['rewards'] ?? {}),
+      //rewards: Rewards.fromJson(json['rewards'] ?? {}),
       numberOfTasks: json['numberOfTasks'].toDouble() ?? 0.0,
       numberOfSubscriptions: json['numberOfSubscriptions'].toDouble() ?? 0.0,
       createdAt: json['createdAt'].toDate(),
@@ -86,7 +86,7 @@ class Challenge {
       'endTime': endTime,
       'subscriptionPoints': subscriptionPoints,
       'status': status,
-      'rewards': rewards?.toJson() ?? [],
+      //'rewards': rewards?.toJson() ?? [],
       'numberOfTasks': numberOfTasks,
       'numberOfSubscriptions': numberOfSubscriptions,
       'createdAt':createdAt
@@ -94,30 +94,30 @@ class Challenge {
   }
 }
 
-class Rewards {
-  double? additionalProp1;
-  double? additionalProp2;
-  double? additionalProp3;
-
-  Rewards({
-    required this.additionalProp1,
-    required this.additionalProp2,
-    required this.additionalProp3,
-  });
-
-  factory Rewards.fromJson(Map<String?, dynamic> json) {
-    return Rewards(
-      additionalProp1: json['additionalProp1'].toDouble() ?? 0.0,
-      additionalProp2: json['additionalProp2'].toDouble()?? 0.0,
-      additionalProp3: json['additionalProp3'].toDouble() ?? 0.0,
-    );
-  }
-
-  Map<String?, dynamic> toJson() {
-    return {
-      'additionalProp1': additionalProp1,
-      'additionalProp2': additionalProp2,
-      'additionalProp3': additionalProp3,
-    };
-  }
-}
+// class Rewards {
+//   double? additionalProp1;
+//   double? additionalProp2;
+//   double? additionalProp3;
+//
+//   Rewards({
+//     required this.additionalProp1,
+//     required this.additionalProp2,
+//     required this.additionalProp3,
+//   });
+//
+//   factory Rewards.fromJson(Map<String?, dynamic> json) {
+//     return Rewards(
+//       additionalProp1: json['additionalProp1'].toDouble() ?? 0.0,
+//       additionalProp2: json['additionalProp2'].toDouble()?? 0.0,
+//       additionalProp3: json['additionalProp3'].toDouble() ?? 0.0,
+//     );
+//   }
+//
+//   Map<String?, dynamic> toJson() {
+//     return {
+//       'additionalProp1': additionalProp1,
+//       'additionalProp2': additionalProp2,
+//       'additionalProp3': additionalProp3,
+//     };
+//   }
+// }

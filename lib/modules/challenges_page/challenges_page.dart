@@ -170,24 +170,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                                 .subscriptionPoints!,
                                                         status:
                                                             challenges.status!,
-                                                        rankPoints: challenges
-                                                                    .rewards !=
-                                                                null
-                                                            ? [
-                                                                challenges
-                                                                        .rewards!
-                                                                        .additionalProp1 ??
-                                                                    0.0,
-                                                                challenges
-                                                                        .rewards!
-                                                                        .additionalProp2 ??
-                                                                    0.0,
-                                                                challenges
-                                                                        .rewards!
-                                                                        .additionalProp3 ??
-                                                                    0.0
-                                                              ]
-                                                            : [],
                                                         challengesNumberOfTasks:
                                                             challenges
                                                                 .numberOfTasks!,
@@ -231,20 +213,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               subscriptionCostPoints: challenges
                                                   .subscriptionPoints!,
                                               status: challenges.status!,
-                                              rankPoints:
-                                                  challenges.rewards != null
-                                                      ? [
-                                                          challenges.rewards!
-                                                                  .additionalProp1 ??
-                                                              0.0,
-                                                          challenges.rewards!
-                                                                  .additionalProp2 ??
-                                                              0.0,
-                                                          challenges.rewards!
-                                                                  .additionalProp3 ??
-                                                              0.0
-                                                        ]
-                                                      : [],
                                               challengesNumberOfTasks:
                                                   challenges.numberOfTasks!,
                                               challengesNumberOfSubscriptions:
@@ -332,15 +300,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                         challenge.subscriptionPoints!,
                       ),
                       const SizedBox(height: 15),
-                      _buildRanks(Colors.amber, S.of(context).firstPlace,
-                          challenge.rewards!.additionalProp1!, context),
-                      const SizedBox(height: 15),
-                      _buildRanks(Colors.grey, S.of(context).secondPlace,
-                          challenge.rewards!.additionalProp2!, context),
-                      const SizedBox(height: 15),
-                      _buildRanks(Colors.brown, S.of(context).thirdPlace,
-                          challenge.rewards!.additionalProp3!, context),
-                      const SizedBox(height: 15),
                       isLoading3
                           ? const Center(
                               child: Image(
@@ -387,19 +346,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                       subscriptionCostPoints:
                                           challenge.subscriptionPoints!,
                                       status: challenge.status!,
-                                      rankPoints: challenge.rewards != null
-                                          ? [
-                                              challenge.rewards!
-                                                      .additionalProp1 ??
-                                                  0.0,
-                                              challenge.rewards!
-                                                      .additionalProp2 ??
-                                                  0.0,
-                                              challenge.rewards!
-                                                      .additionalProp3 ??
-                                                  0.0
-                                            ]
-                                          : [],
                                       challengesNumberOfTasks:
                                           challenge.numberOfTasks!,
                                       challengesNumberOfSubscriptions:

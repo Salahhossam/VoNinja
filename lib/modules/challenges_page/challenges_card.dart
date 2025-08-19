@@ -14,7 +14,6 @@ class ChallengeCard extends StatefulWidget {
       challengesRemainingTime; //   "endTime": "2025-01-28T13:39:50.526Z",
   final double subscriptionCostPoints;
   final String status;
-  final List<double> rankPoints;
   final double challengesNumberOfTasks;
   final double challengesNumberOfSubscriptions;
   final double numberOfQuestion;
@@ -27,7 +26,6 @@ class ChallengeCard extends StatefulWidget {
       required this.challengesRemainingTime,
       required this.subscriptionCostPoints,
       required this.status,
-      required this.rankPoints,
       required this.challengesNumberOfTasks,
       required this.challengesNumberOfSubscriptions,
       required this.now,

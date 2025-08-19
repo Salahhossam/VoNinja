@@ -323,7 +323,6 @@ class TaskCubit extends Cubit<TaskState> {
       DateTime challengesRemainingTime,
       double subscriptionCostPoints,
       String status,
-      List<double> rankPoints,
       double challengesNumberOfTasks,
       double numberOfQuestion,
       double challengesNumberOfSubscriptions) {
@@ -343,7 +342,6 @@ class TaskCubit extends Cubit<TaskState> {
                 challengesRemainingTime: challengesRemainingTime,
                 subscriptionCostPoints: subscriptionCostPoints,
                 status: status,
-                rankPoints: rankPoints,
                 challengesNumberOfTasks: challengesNumberOfTasks,
                 numberOfQuestion: numberOfQuestion,
                 challengesNumberOfSubscriptions:
@@ -363,7 +361,6 @@ class TaskCubit extends Cubit<TaskState> {
       DateTime challengesRemainingTime,
       double subscriptionCostPoints,
       String status,
-      List<double> rankPoints,
       double challengesNumberOfTasks,
       double numberOfQuestion,
       double challengesNumberOfSubscriptions) {
@@ -381,7 +378,6 @@ class TaskCubit extends Cubit<TaskState> {
                   challengesRemainingTime: challengesRemainingTime,
                   subscriptionCostPoints: subscriptionCostPoints,
                   status: status,
-                  rankPoints: rankPoints,
                   challengesNumberOfTasks: challengesNumberOfTasks,
                   challengesNumberOfSubscriptions:
                       challengesNumberOfSubscriptions,
