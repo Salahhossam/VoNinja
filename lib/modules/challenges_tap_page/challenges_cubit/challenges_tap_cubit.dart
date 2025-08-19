@@ -24,7 +24,6 @@ class ChallengeTapCubit extends Cubit<ChallengeTapState> {
         String levelId = doc.id;
         String levelDifficulty = doc['difficulty']; // Ensure this field exists
         double rewardedPoints = (doc['questionRewardPoints'] ?? 0.0).toDouble();
-        double deducedPoints = (doc['questionDeducePoints'] ?? 0.0).toDouble();
         int numberOfLessons = (doc['totalLessons'] ?? 0);
         int totalQuestions = doc['totalQuestions'] ?? 0;
 

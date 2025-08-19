@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../generated/l10n.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
@@ -270,7 +271,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                                     color: _imageBackgroundColorAnimation.value,
                                                   ),
                                                   child: Icon(
-                                                    Icons.star,
+                                                    FontAwesomeIcons.dragon,
                                                     color: Colors.yellow,
                                                     size: MediaQuery.of(context).size.width * 0.12,
                                                   )

@@ -107,8 +107,13 @@ class Question {
     return Question(
       questionId: json['id'] ?? '',
       content: json['content'] ?? '',
-      choices: List<String>.from(json['choices'] ?? []),
-      correctAnswer: json['correct_answer'] ?? '',
+      choices: (json['choices'] is List)
+          ? List<String>.from((json['choices'] as List).map((e) => e.toString()))
+          : [],
+      correctAnswer: json['correct_answer'] != null
+          ? json['correct_answer'].toString()
+          : '',
+
       imageUrl: json['image_url'] ?? '',
     );
   }
