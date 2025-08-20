@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vo_ninja/modules/challenges_page/challenges_cubit/challenges_cubit.dart';
+import 'package:vo_ninja/modules/events_page/event_cubit/event_cubit.dart';
 import 'package:vo_ninja/modules/leaderboard_tap_page/leaderboard_tap_cubit/leaderboard_tap_cubit.dart';
 import 'package:vo_ninja/modules/lessons_page/learning_cubit/learning_cubit.dart';
 import 'package:vo_ninja/modules/login_page/login_cubit/login_cubit.dart';
@@ -338,6 +339,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => SettingsTapCubit()),
         BlocProvider(create: (context) => TaskCubit()),
         BlocProvider(create: (context) => LibraryCubit()),
+        BlocProvider(create: (context) => EventCubit()),
       ],
       child: BlocConsumer<MainAppCubit, MainAppState>(
         listener: (context, state) {},

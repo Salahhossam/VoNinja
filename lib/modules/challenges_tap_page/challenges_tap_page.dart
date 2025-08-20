@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vo_ninja/modules/events_page/events_page.dart';
 import '../../generated/l10n.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
@@ -208,7 +209,11 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () => Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const EventsPage(),
+                            ),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
                             child: Container(
@@ -285,7 +290,11 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                                   // Button Section
                                   const SizedBox(height: 16),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () => Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const EventsPage(),
+                                      ),
+                                    ),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColors.secondColor,
                                       foregroundColor: AppColors.whiteColor,

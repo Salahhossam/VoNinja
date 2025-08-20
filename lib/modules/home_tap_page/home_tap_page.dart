@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:vo_ninja/modules/events_page/event_cubit/event_cubit.dart';
 
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
@@ -70,6 +71,8 @@ class _HomeTapPageState extends State<HomeTapPage> {
           //await homeTapCubit.getLevelsDataProgress(uid!);
           await homeTapCubit.getUserRank(uid!);
         }
+
+        //await EventCubit.get(context).seedDummyEvents();
         setState(() {
           isLoading = false;
         });
