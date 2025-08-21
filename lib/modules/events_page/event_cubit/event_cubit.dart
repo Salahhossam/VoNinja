@@ -195,8 +195,8 @@ class EventCubit extends Cubit<EventState> {
       }).toList();
 
       filtered.sort((a, b) {
-        final aEnd = a.endAt ?? DateTime(9999);
-        final bEnd = b.endAt ?? DateTime(9999);
+        final aEnd = a.order ?? 0;
+        final bEnd = b.order ?? 0;
         return aEnd.compareTo(bEnd);
       });
 

@@ -21,6 +21,7 @@ class AppEvent {
   final DateTime? startAt; // null in welcome template
   final DateTime? endAt;   // null in welcome template
   final Map<String, dynamic> rules;
+  final int ?order;
 
   AppEvent({
     required this.id,
@@ -31,6 +32,7 @@ class AppEvent {
     required this.rules,
     this.startAt,
     this.endAt,
+    this.order,
   });
 
   factory AppEvent.fromDoc(DocumentSnapshot doc) {
@@ -44,6 +46,7 @@ class AppEvent {
       rules: Map<String, dynamic>.from(data['rules'] ?? {}),
       startAt: (data['startAt'] as Timestamp?)?.toDate(),
       endAt: (data['endAt'] as Timestamp?)?.toDate(),
+      order: int.tryParse(data['order'].toString()),
     );
   }
 
