@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/modules/challenges_page/task_cubit/task_cubit.dart';
 import 'package:vo_ninja/modules/challenges_page/task_cubit/task_state.dart';
 import 'package:vo_ninja/modules/challenges_page/task_page.dart';
@@ -13,6 +14,7 @@ import '../../generated/l10n.dart';
 import '../../shared/main_cubit/cubit.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
+import '../events_page/event_cubit/event_cubit.dart';
 import '../lessons_page/learning_cubit/learning_cubit.dart';
 
 class ChallengesExamPage extends StatefulWidget {
@@ -104,9 +106,10 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
      mainCubit.interstitialAd();
     _initBannerAds();
   }
-
+  DateTime now = DateTime.now();
   Future<void> initData() async {
     final taskCubit = TaskCubit.get(context);
+    final eventCubit = EventCubit.get(context);
     setState(() {
       isLoading = true;
     });
@@ -120,6 +123,9 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
             uid!, widget.challengeId, widget.taskId);
         await taskCubit.getUserPreviousAnswers(uid!, widget.taskId);
         await taskCubit.getUserPoints(uid!, widget.challengeId);
+        DateTime now = await NTP.now();
+        await eventCubit.fetchActiveAndUpcomingEvents(now);
+        await eventCubit.fetchUserEventsProgress(uid!);
         setState(() {
           isLoading = false;
         });
@@ -131,6 +137,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
   Widget build(BuildContext context) {
     final taskCubit = TaskCubit.get(context);
     final learningCubit = LearningCubit.get(context);
+    final eventCubit = EventCubit.get(context);
     return BlocConsumer<TaskCubit, TaskState>(
       listener: (BuildContext context, TaskState state) {},
       builder: (BuildContext context, TaskState state) {
@@ -487,21 +494,11 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                           setState(() {
                                                             isLoadingAnswer =
                                                                 true;
-                                                            taskCubit
-                                                                .userPoints += (choice.trim() ==
-                                                                    currentQuestion.correctAnswer
-                                                                        .trim())
-                                                                ? widget
-                                                                    .rewardPoints
-                                                                : 0;
-                                                            taskCubit
-                                                                .pointsToShowQuestionExam += (choice.trim() ==
-                                                                    currentQuestion.correctAnswer
-                                                                        .trim())
-                                                                ? widget
-                                                                    .rewardPoints
-                                                                : 0;
                                                           });
+                                                          bool isCorrect=choice.trim() ==
+                                                              currentQuestion
+                                                                  .correctAnswer
+                                                                  .trim();
 
                                                           taskCubit
                                                               .previousAnswers
@@ -529,6 +526,11 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
 
                                                           taskCubit
                                                               .success();
+                                                          await eventCubit.addPointsWithEvents(uid: uid!, basePoints: isCorrect?widget.rewardPoints.toInt():0, events: eventCubit.events, userProgressMap: eventCubit.userEventsProgress, now: now);
+                                                          setState(() {
+                                                            taskCubit.userPoints += eventCubit.pointsAdded;
+                                                            taskCubit.pointsToShowQuestionExam +=  eventCubit.pointsAdded;
+                                                          });
                                                           await taskCubit.postUserExamAnswers(
                                                               uid!,
                                                               widget
@@ -549,6 +551,8 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                                                   : 0,
                                                               widget
                                                                   .challengeId);
+
+
                                                           setState(() {
                                                             isLoadingAnswer =
                                                                 false;

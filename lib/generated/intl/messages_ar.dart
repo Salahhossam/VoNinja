@@ -20,20 +20,32 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(label) => "من فضلك أدخل ${label}";
+  static String m0(percentage) => "تم إكمال ${percentage}%";
 
-  static String m1(label) => "من فضلك أدخل ${label}";
+  static String m1(current, goal) => "الإجابات الصحيحة: ${current}/${goal}";
 
-  static String m2(level) => "المستوى ${level}";
+  static String m2(time) => "ينتهي بعد ${time}";
 
-  static String m3(subscriptionCostPoints) =>
+  static String m3(label) => "من فضلك أدخل ${label}";
+
+  static String m4(label) => "من فضلك أدخل ${label}";
+
+  static String m5(level) => "المستوى ${level}";
+
+  static String m6(subscriptionCostPoints) =>
       "يجب أن يكون لديك ${subscriptionCostPoints} نقطة لدخول هذا التحدي";
 
-  static String m4(previousLessonTitle) =>
+  static String m7(previousLessonTitle) =>
       "يجب عليك إكمال جميع أسئلة الدرس ${previousLessonTitle} قبل أن تبدأ هذا الدرس.";
 
-  static String m5(level) =>
+  static String m8(level) =>
       "يجب عليك إكمال المستوى ${level} أولاً لفتح هذا المحتوى";
+
+  static String m9(current, goal) => "النقاط: ${current}/${goal}";
+
+  static String m10(time) => "يبدأ بعد ${time}";
+
+  static String m11(current, total) => "إجمالي الإجابات: ${current}/${total}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -56,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تحقق من أحداث VoNinja!"),
         "chooseAnAvatar":
             MessageLookupByLibrary.simpleMessage("اختر النينجا الخاص بك"),
+        "claimReward":
+            MessageLookupByLibrary.simpleMessage("المطالبة بالمكافأة"),
         "completeAllQuestions": MessageLookupByLibrary.simpleMessage(
             "يمكنك العودة لإكمال هذه الأسئلة لتحسين نتيجتك"),
         "completeDailyChallenges": MessageLookupByLibrary.simpleMessage(
@@ -64,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أكمل الدرس السابق أولاً"),
         "completePreviousLevel":
             MessageLookupByLibrary.simpleMessage("أكمل المستوى السابق"),
+        "completedPercentage": m0,
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
@@ -71,8 +86,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueExams": MessageLookupByLibrary.simpleMessage("استمر"),
         "continueLearning":
             MessageLookupByLibrary.simpleMessage("استمر في التعلم"),
+        "continueQuiz":
+            MessageLookupByLibrary.simpleMessage("استمر في الاختبار"),
         "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
             "لكل إجابة صحيحة، سوف تكسب نقاطًا، ولكن إذا أجبت بشكل غير صحيح، فسوف تخسر نقاطًا"),
+        "correctAnswers": m1,
         "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("كلمة المرور الحالية"),
@@ -87,22 +105,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
         "egp": MessageLookupByLibrary.simpleMessage("جنيه مصري"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+        "ended": MessageLookupByLibrary.simpleMessage("انتهى"),
+        "endsIn": m2,
         "enterEmail": MessageLookupByLibrary.simpleMessage(
             "من فضلك أدخل البريد الإلكتروني "),
         "enterEmailOrUserNameToReset": MessageLookupByLibrary.simpleMessage(
             "أدخل البريد الإلكتروني لإعادة التعيين"),
         "enterFriendLink":
             MessageLookupByLibrary.simpleMessage("أدخل رابط صديقك"),
-        "enterLabel": m0,
+        "enterLabel": m3,
         "enterPassword":
             MessageLookupByLibrary.simpleMessage("من فضلك أدخل كلمة المرور"),
-        "enterPasswordLabel": m1,
+        "enterPasswordLabel": m4,
         "enterPhoneNumber":
             MessageLookupByLibrary.simpleMessage("من فضلك أدخل رقم الهاتف"),
         "enterPhoneNumberToGetCash": MessageLookupByLibrary.simpleMessage(
             "يرجى إدخال رقم الهاتف المرتبط بجهازك. سنرسل لك جميع التفاصيل لإتمام عملية الدفع."),
         "enterYourRewardCode":
             MessageLookupByLibrary.simpleMessage("أدخل رمز المكافأة الخاص بك"),
+        "error": MessageLookupByLibrary.simpleMessage("خطأ"),
+        "events": MessageLookupByLibrary.simpleMessage("الأحداث"),
         "exit": MessageLookupByLibrary.simpleMessage("اضغط مرة أخرى للخروج"),
         "exitPrompt":
             MessageLookupByLibrary.simpleMessage("اضغط مرة أخرى للخروج"),
@@ -122,9 +144,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "goToPreviousLesson":
             MessageLookupByLibrary.simpleMessage("الذهاب للدرس السابق"),
         "hi": MessageLookupByLibrary.simpleMessage("مرحبًا"),
+        "inProgress": MessageLookupByLibrary.simpleMessage("قيد التقدم"),
         "incompleteLesson":
             MessageLookupByLibrary.simpleMessage("الدرس غير مكتمل"),
         "inviteFriend": MessageLookupByLibrary.simpleMessage("ادع صديقك"),
+        "join": MessageLookupByLibrary.simpleMessage("انضم"),
         "joinChallengesEarnPoints": MessageLookupByLibrary.simpleMessage(
             "انضم إلى التحديات واكسب النقاط"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
@@ -134,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lessons": MessageLookupByLibrary.simpleMessage("الدروس"),
         "lessonsLearningVocabulary": MessageLookupByLibrary.simpleMessage(
             "هذه هي خطوتك الأولى في تعلم مفردات اللغة الإنجليزية.\nاستمر، يا نينجا!"),
-        "levelNumber": m2,
+        "levelNumber": m5,
         "librarySubtitle":
             MessageLookupByLibrary.simpleMessage("تصفح كتب تعلم الإنجليزية"),
         "libraryTitle": MessageLookupByLibrary.simpleMessage("مكتبة فونينجا"),
@@ -145,16 +169,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "لا يمكن أن يتجاوز اسم المستخدم 20 حرفًا"),
         "minUserName": MessageLookupByLibrary.simpleMessage(
             "يجب أن يتكون اسم المستخدم من 3 أحرف على الأقل"),
-        "minmaPoints": m3,
-        "mustCompleteLesson": m4,
-        "mustCompleteLevel": m5,
+        "minmaPoints": m6,
+        "mustCompleteLesson": m7,
+        "mustCompleteLevel": m8,
         "newPassword":
             MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
         "nextLesson": MessageLookupByLibrary.simpleMessage("الدرس التالي"),
         "nextTask": MessageLookupByLibrary.simpleMessage("المهمة التالية"),
         "noAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+        "noEventsAvailable":
+            MessageLookupByLibrary.simpleMessage("لا توجد أحداث متاحة"),
         "noVocabulariesAvailable":
             MessageLookupByLibrary.simpleMessage("لا توجد مفردات متاحة"),
+        "notActiveYet": MessageLookupByLibrary.simpleMessage("غير نشط بعد"),
         "okay": MessageLookupByLibrary.simpleMessage("حسناً"),
         "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(
             "شارك في الأحداث الخاصة للحصول على مكافآت حصرية"),
@@ -170,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("+ 1 نقطة | - 1 نقطة"),
         "pointNumber": MessageLookupByLibrary.simpleMessage("نقطة"),
         "points": MessageLookupByLibrary.simpleMessage("النقاط"),
+        "points2": m9,
         "progress": MessageLookupByLibrary.simpleMessage("التقدم"),
         "pts": MessageLookupByLibrary.simpleMessage("نقطة"),
         "questionsNumber": MessageLookupByLibrary.simpleMessage("الأسئلة"),
@@ -179,6 +207,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "rememberMe": MessageLookupByLibrary.simpleMessage("تذكرني"),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "تم إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني"),
+        "rewardClaimed":
+            MessageLookupByLibrary.simpleMessage("تم المطالبة بالمكافأة"),
+        "rewardClaimedMessage":
+            MessageLookupByLibrary.simpleMessage("تم المطالبة بالمكافأة!"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
         "secondPlace": MessageLookupByLibrary.simpleMessage("الثاني"),
         "sendDetails": MessageLookupByLibrary.simpleMessage("إرسال التفاصيل"),
@@ -191,6 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startChallenge": MessageLookupByLibrary.simpleMessage("ابدأ التحدي"),
         "startExam": MessageLookupByLibrary.simpleMessage("ابدأ الامتحان"),
         "startLearning": MessageLookupByLibrary.simpleMessage("ابدأ التعلم"),
+        "startsIn": m10,
         "subscribeInChallenge":
             MessageLookupByLibrary.simpleMessage("اشترك الآن"),
         "successfullyCompleted": MessageLookupByLibrary.simpleMessage("مبروك!"),
@@ -201,6 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tasks": MessageLookupByLibrary.simpleMessage("المهام"),
         "thirdPlace": MessageLookupByLibrary.simpleMessage("الثالث"),
         "topTen": MessageLookupByLibrary.simpleMessage("افضل 10 مقاتلين!"),
+        "totalAnswers": m11,
         "totalBalance": MessageLookupByLibrary.simpleMessage("إجمالي الرصيد"),
         "totalPoints": MessageLookupByLibrary.simpleMessage("اجمالي النقاط"),
         "transaction": MessageLookupByLibrary.simpleMessage("المعاملات"),

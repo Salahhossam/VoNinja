@@ -154,6 +154,23 @@
   "viewAllChallenges": "عرض جميع التحديات",
   "discoverExcitingEvents": "اكتشف الأحداث المثيرة",
   "participateSpecialEvents": "شارك في الأحداث الخاصة للحصول على مكافآت حصرية",
-  "viewAllEvents": "عرض جميع الأحداث"
+  "viewAllEvents": "عرض جميع الأحداث",
+  "events": "الأحداث",
+  "noEventsAvailable": "لا توجد أحداث متاحة",
+  "startsIn": "يبدأ بعد {time}",
+  "endsIn": "ينتهي بعد {time}",
+  "notActiveYet": "غير نشط بعد",
+  "ended": "انتهى",
+  "correctAnswers": "الإجابات الصحيحة: {current}/{goal}",
+  "totalAnswers": "إجمالي الإجابات: {current}/{total}",
+  "points2": "النقاط: {current}/{goal}",
+  "completedPercentage": "تم إكمال {percentage}%",
+  "join": "انضم",
+  "inProgress": "قيد التقدم",
+  "continueQuiz": "استمر في الاختبار",
+  "claimReward": "المطالبة بالمكافأة",
+  "rewardClaimed": "تم المطالبة بالمكافأة",
+  "rewardClaimedMessage": "تم المطالبة بالمكافأة!",
+  "error": "خطأ"
   
 }

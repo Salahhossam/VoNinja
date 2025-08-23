@@ -75,8 +75,9 @@ class UserEventProgress {
   final String status; // not_joined, in_progress, completed, reward_claimed, expired
   final DateTime? userStartAt;
   final DateTime? userEndAt;
-  final int pointsAccumulated;
-  final int correctAnswers;
+  int pointsAccumulated;
+  int correctAnswers;
+  int answerCount;
   final int rewardPoints;
 
   UserEventProgress({
@@ -86,6 +87,7 @@ class UserEventProgress {
     required this.pointsAccumulated,
     required this.correctAnswers,
     required this.rewardPoints,
+    required this.answerCount,
     this.userStartAt,
     this.userEndAt,
   });
@@ -98,6 +100,7 @@ class UserEventProgress {
       status: d['status'],
       pointsAccumulated: (d['progress']?['pointsAccumulated'] ?? 0) as int,
       correctAnswers: (d['progress']?['correctAnswers'] ?? 0) as int,
+      answerCount: (d['progress']?['answerCount'] ?? 0) as int,
       rewardPoints: (d['rewardPoints'] ?? 0) as int,
       userStartAt: (d['userStartAt'] as Timestamp?)?.toDate(),
       userEndAt: (d['userEndAt'] as Timestamp?)?.toDate(),

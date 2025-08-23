@@ -154,5 +154,22 @@
   "viewAllChallenges": "View All Challenges",
   "discoverExcitingEvents": "Discover Exciting Events",
   "participateSpecialEvents": "Participate in special events for exclusive rewards",
-  "viewAllEvents": "View All Events"
+  "viewAllEvents": "View All Events",
+  "events": "Events",
+  "noEventsAvailable": "No events available",
+  "startsIn": "Starts in {time}",
+  "endsIn": "Ends in {time}",
+  "notActiveYet": "Not active yet",
+  "ended": "Ended",
+  "correctAnswers": "Correct answers: {current}/{goal}",
+  "totalAnswers": "Total answers: {current}/{total}",
+  "points2": "Points: {current}/{goal}",
+  "completedPercentage": "{percentage}% completed",
+  "join": "Join",
+  "inProgress": "In progress",
+  "continueQuiz": "Continue Quiz",
+  "claimReward": "Claim Reward",
+  "rewardClaimed": "Reward Claimed",
+  "rewardClaimedMessage": "Reward claimed!",
+  "error": "Error"
 }

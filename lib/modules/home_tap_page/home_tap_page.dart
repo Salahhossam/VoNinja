@@ -71,8 +71,6 @@ class _HomeTapPageState extends State<HomeTapPage> {
           //await homeTapCubit.getLevelsDataProgress(uid!);
           await homeTapCubit.getUserRank(uid!);
         }
-
-        //await EventCubit.get(context).seedDummyEvents();
         setState(() {
           isLoading = false;
         });

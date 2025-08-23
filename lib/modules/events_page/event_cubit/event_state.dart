@@ -94,3 +94,40 @@ class ClaimRewardError extends EventState {
 
   ClaimRewardError(this.message);
 }
+
+
+class GetQuizDetailsDataLoading extends EventState {}
+
+class GetQuizDetailsDataSuccess extends EventState {}
+
+class GetQuizDetailsDataError extends EventState {
+  final String message;
+
+  GetQuizDetailsDataError(this.message);
+}
+
+
+
+class GetUserPreviousAnswersLoading extends EventState {}
+
+class GetUserPreviousAnswersSuccess extends EventState {}
+
+class GetUserPreviousAnswersError extends EventState {
+  final String message;
+
+  GetUserPreviousAnswersError(this.message);
+}
+
+class LearningUpdated extends EventState {}
+
+
+
+class PostUserExamAnswersLoading extends EventState {}
+
+class PostUserExamAnswersSuccess extends EventState {}
+
+class PostUserExamAnswersError extends EventState {
+  final String message;
+
+  PostUserExamAnswersError(this.message);
+}

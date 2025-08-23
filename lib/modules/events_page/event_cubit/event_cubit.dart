@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:vo_ninja/modules/events_page/events_page.dart';
 
 import '../../../models/event_model.dart';
+import '../../../models/lesson_details_model.dart';
 import 'event_state.dart';
 
 class EventCubit extends Cubit<EventState> {
@@ -290,6 +294,7 @@ class EventCubit extends Cubit<EventState> {
         'progress': {
           'pointsAccumulated': 0,
           'correctAnswers': 0,
+          'answerCount':0,
         },
         'rewardPoints': _defaultRewardFor(event),
         'createdAt': FieldValue.serverTimestamp(),
@@ -315,7 +320,7 @@ class EventCubit extends Cubit<EventState> {
     required String uid,
     required int basePoints,
     required List<AppEvent> events,
-    required Map<String, UserEventProgress> userProgressMap,
+    required Map<String, UserEventProgress>? userProgressMap,
     required DateTime now,
   }) async {
     emit(AddPointsLoading());
@@ -323,60 +328,58 @@ class EventCubit extends Cubit<EventState> {
     try {
       // 1) احسب multiplier الفعّال
       double multiplier = 1.0;
+      int add=0;
       for (final e in events.where((e) => e.type == EventType.multiplier)) {
-        final up = userProgressMap[e.id];
+        final up = userProgressMap?[e.id];
         final active = e.isActiveNow(now,
             userStart: up?.userStartAt, userEnd: up?.userEndAt);
-        if (active) {
+        if (active && up != null) {
           final m = (e.rules['multiplier'] ?? 2.0) as num;
           multiplier = multiplier * m.toDouble();
         }
       }
-      final add = (basePoints * multiplier).round();
-
+      add = (basePoints * multiplier).round();
       final userRef = fs.collection('users').doc(uid);
-
-      // 2) حدث نقاط المستخدم + تقدّم الإيفنتات داخل Batch (بسيطة وآمنة كفاية)
-      final batch = fs.batch();
-
-      batch.update(userRef, {
-        'pointsNumber': FieldValue.increment(add),
+      // 2) حدث نقاط المستخدم
+      await userRef.update({
+        'pointsNumber': FieldValue.increment(add-basePoints),
       });
 
-      // 3) لو في welcome/targetPoints فعّالين: زوّد progress.pointsAccumulated
+      // 3) تحديث progress.pointsAccumulated للأحداث النشطة
       for (final e in events.where((x) =>
       x.type == EventType.welcome || x.type == EventType.targetPoints)) {
-        final up = userProgressMap[e.id];
+        final up = userProgressMap?[e.id];
         DateTime? uStart = up?.userStartAt;
         DateTime? uEnd = up?.userEndAt;
 
         final active = e.isActiveNow(now, userStart: uStart, userEnd: uEnd);
-        if (!active) continue;
-
+        if (!active || up == null) continue;
         final ueRef = userRef.collection('user_events').doc(e.id);
-        batch.update(ueRef, {
+        final updateData = <String, dynamic>{
           'progress.pointsAccumulated': FieldValue.increment(add),
           'lastUpdatedAt': FieldValue.serverTimestamp(),
-        });
+        };
 
-        // تحقق وصول الهدف: حوّلها completed (هنقررها على العميل الآن)
+
+        // تحقق وصول الهدف
         final goal = (e.type == EventType.welcome)
             ? (e.rules['welcomeGoal'] ?? 1000) as int
             : (e.rules['targetGoal'] ?? 0) as int;
 
-        final currentAccum = (up?.pointsAccumulated ?? 0) + add;
+        final currentAccum = (up.pointsAccumulated) + add;
         if (goal > 0 &&
             currentAccum >= goal &&
-            (up?.status ?? 'in_progress') != 'reward_claimed') {
-          batch.update(ueRef, {'status': 'completed'});
+            (up.status) != 'reward_claimed') {
+          updateData['status'] = 'completed';
         }
-      }
+        userEventsProgress?[e.id]?.pointsAccumulated =
+            (userEventsProgress?[e.id]?.pointsAccumulated ?? 0) + add;
 
-      await batch.commit();
+        await ueRef.update(updateData);
+      }
 
       pointsAdded = add;
       emit(AddPointsSuccess());
-
     } catch (e) {
       emit(AddPointsError('فشل في إضافة النقاط: ${e.toString()}'));
     }
@@ -451,7 +454,7 @@ class EventCubit extends Cubit<EventState> {
 
         // أضف النقاط
         final userData = userSnap.data() ?? {};
-        final current = (userData['pointsNumber'] ?? 0) as int;
+        final current = (userData['pointsNumber'] ?? 0).toInt();
         tx.update(userRef, {'pointsNumber': current + reward});
 
         // حدّث حالة الإيفنت
@@ -493,4 +496,166 @@ class EventCubit extends Cubit<EventState> {
         return (e.rules['quizReward'] ?? 0) as int;
     }
   }
+
+
+  ///////////////////////////////////////Quiz/////////////////////////////////
+  int currentQuestionIndex = 0;
+  List<Question> questions= [];
+  Future<void> getQuizDetailsData(String uid, String eventId,) async {
+    emit(GetQuizDetailsDataLoading());
+    try {
+      questions= [] ;
+        var data = await fs
+            .collection('events')
+            .doc(eventId)
+            .collection('questions')
+            .get();
+       questions =
+        data.docs.map((doc) => Question.fromJson(doc.data())).toList();
+      emit(GetQuizDetailsDataSuccess());
+    } catch (error) {
+     // print('Error fetching lesson details: $error');
+      emit(GetQuizDetailsDataError(error.toString()));
+    }
+  }
+
+  List<Map<String, dynamic>> previousAnswers = [];
+
+  Future<void> getUserPreviousAnswers(String? uid, String eventId) async {
+    emit(GetUserPreviousAnswersLoading());
+
+    try {
+      previousAnswers=[];
+      // Fetch data from Firestore
+      QuerySnapshot querySnapshot = await fs
+          .collection('users')
+          .doc(uid)
+          .collection('eventAnswers')
+          .where('eventId', isEqualTo: eventId)
+          .get();
+
+      // Extract data from documents
+      previousAnswers = querySnapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return {
+          "id": doc.id, // Firestore document ID
+          "questionId": data["questionId"],
+          "answerContent": data["selectedAnswer"],
+          "correct": data["correct"],
+        };
+      }).toList();
+
+      // Emit the loaded state with extracted data
+      emit(GetUserPreviousAnswersSuccess());
+    } catch (e) {
+      emit(GetUserPreviousAnswersError("Error: $e"));
+    }
+  }
+
+  final FlutterTts flutterTts = FlutterTts();
+  bool isEnglish = true;
+  void toggleLanguage() {
+    isEnglish = !isEnglish;
+    emit(LearningUpdated());
+  }
+
+  Future<void> speak(String text, String language) async {
+    await flutterTts.setLanguage(language);
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(text);
+  }
+
+  int? selectedOption;
+  void selectOption(int index) {
+    selectedOption = index;
+    emit(LearningUpdated());
+  }
+
+
+  Future<void> postUserExamAnswers(
+      String uid,
+      String questionId,
+      String answer,
+      bool correct,
+      AppEvent e
+      ) async {
+    emit(PostUserExamAnswersLoading());
+    try {
+      // Store the answer in the user's answers collection
+      int add =correct ?1:0;
+      await fs
+          .collection('users')
+          .doc(uid)
+          .collection('eventAnswers')
+          .doc(questionId)
+          .set({
+        'correct': correct,
+        'eventId': e.id,
+        'questionId': questionId,
+        'selectedAnswer': answer,
+      });
+      final userRef = fs.collection('users').doc(uid);
+      final ueRef = userRef.collection('user_events').doc(e.id);
+      final updateData = <String, dynamic>{
+        'progress.correctAnswers': FieldValue.increment(add),
+        'progress.answerCount': FieldValue.increment(1),
+        'lastUpdatedAt': FieldValue.serverTimestamp(),
+      };
+      final up = userEventsProgress?[e.id];
+
+      // تحقق وصول الهدف
+      final goal = (e.rules['quizMinCorrect'] ?? 0) as int;
+      final goal2 = (e.rules['quizTotal'] ?? 0) as int;
+      final currentAccum = (up?.correctAnswers ?? 0) + add;
+      final totalAnswer= (up?.answerCount ?? 0) + 1;
+      if (goal > 0 &&
+          currentAccum >= goal &&
+          totalAnswer==goal2 &&
+          (up?.status) != 'reward_claimed') {
+        updateData['status'] = 'completed';
+      }
+      userEventsProgress?[e.id]?.correctAnswers = (userEventsProgress?[e.id]?.correctAnswers ?? 0) + add;
+      userEventsProgress?[e.id]?.answerCount = (userEventsProgress?[e.id]?.answerCount ?? 0) + 1;
+      await ueRef.update(updateData);
+
+      emit(PostUserExamAnswersSuccess());
+    } catch (e) {
+      emit(PostUserExamAnswersError("Network error: ${e.toString()}"));
+    }
+  }
+
+  bool isAnswered = false;
+  void moveToPastQuestion(
+      context,
+
+      ) {
+    if (currentQuestionIndex != 0) {
+      currentQuestionIndex--;
+      selectedOption = null;
+      isAnswered = false;
+      emit(LearningUpdated());
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) => const EventsPage()),
+      );
+    }
+  }
+
+
+  void moveToNextQuestion(context,) {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      selectedOption = null;
+      isAnswered = false;
+      emit(LearningUpdated());
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) => const EventsPage()),
+      );
+    }
+  }
 }
+
+

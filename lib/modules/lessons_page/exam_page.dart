@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/shared/main_cubit/cubit.dart';
 import '../../generated/l10n.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
+import '../events_page/event_cubit/event_cubit.dart';
 import 'learning_cubit/learning_cubit.dart';
 import 'learning_cubit/learning_state.dart';
 import 'lessons_page.dart';
@@ -107,9 +109,10 @@ class _ExamPageState extends State<ExamPage> {
     mainCubit.interstitialAd();
     _initBannerAds();
   }
-
+  DateTime now = DateTime.now();
   Future<void> initData() async {
     final learningCubit = LearningCubit.get(context);
+    final eventCubit = EventCubit.get(context);
     setState(() {
       isLoading = true;
     });
@@ -131,6 +134,10 @@ class _ExamPageState extends State<ExamPage> {
           await learningCubit.getUserPreviousAnswers(uid, widget.lessonId);
         }
 
+        DateTime now = await NTP.now();
+        await eventCubit.fetchActiveAndUpcomingEvents(now);
+        await eventCubit.fetchUserEventsProgress(uid!);
+
         setState(() {
           isLoading = false;
         });
@@ -141,6 +148,7 @@ class _ExamPageState extends State<ExamPage> {
   @override
   Widget build(BuildContext context) {
     final learningCubit = LearningCubit.get(context);
+    final eventCubit = EventCubit.get(context);
     return BlocConsumer<LearningCubit, LearningState>(
       listener: (BuildContext context, LearningState state) {},
       builder: (BuildContext context, LearningState state) {
@@ -489,24 +497,12 @@ class _ExamPageState extends State<ExamPage> {
                                                     setState(() {
                                                       isLoadingAnswer =
                                                           true;
-                                                      bool isCorrect = choice
-                                                              .trim() ==
-                                                          currentQuestion
-                                                              .correctAnswer
-                                                              .trim();
-                                                      double
-                                                          deltaPoints =
-                                                          isCorrect
-                                                              ? widget
-                                                                  .rewardedPoints
-                                                              : 0;
 
-                                                      widget.userPoints +=
-                                                          deltaPoints;
-                                                      learningCubit
-                                                              .pointsToShowQuestionExam +=
-                                                          deltaPoints;
                                                     });
+                                                    bool isCorrect=choice.trim() ==
+                                                        currentQuestion
+                                                            .correctAnswer
+                                                            .trim();
 
                                                     learningCubit
                                                         .previousAnswers
@@ -559,8 +555,14 @@ class _ExamPageState extends State<ExamPage> {
                                                     if(widget.isLastExam&&learningCubit.previousAnswers.length==learningCubit.lessonDetails!.questions!.length){
                                                       await learningCubit.addUserToCompleteLesson(uid??'', widget.levelId);
                                                     }
+                                                    await eventCubit.addPointsWithEvents(uid: uid!, basePoints: isCorrect?widget.rewardedPoints.toInt():0, events: eventCubit.events, userProgressMap: eventCubit.userEventsProgress, now: now);
 
                                                     setState(() {
+                                                      widget.userPoints +=
+                                                          eventCubit.pointsAdded;
+                                                      learningCubit
+                                                          .pointsToShowQuestionExam +=
+                                                          eventCubit.pointsAdded;
                                                       isLoadingAnswer =
                                                           false;
                                                     });

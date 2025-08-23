@@ -1389,6 +1389,176 @@ class S {
       args: [],
     );
   }
+
+  /// `Events`
+  String get events {
+    return Intl.message(
+      'Events',
+      name: 'events',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No events available`
+  String get noEventsAvailable {
+    return Intl.message(
+      'No events available',
+      name: 'noEventsAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Starts in {time}`
+  String startsIn(Object time) {
+    return Intl.message(
+      'Starts in $time',
+      name: 'startsIn',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Ends in {time}`
+  String endsIn(Object time) {
+    return Intl.message(
+      'Ends in $time',
+      name: 'endsIn',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Not active yet`
+  String get notActiveYet {
+    return Intl.message(
+      'Not active yet',
+      name: 'notActiveYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ended`
+  String get ended {
+    return Intl.message(
+      'Ended',
+      name: 'ended',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Correct answers: {current}/{goal}`
+  String correctAnswers(Object current, Object goal) {
+    return Intl.message(
+      'Correct answers: $current/$goal',
+      name: 'correctAnswers',
+      desc: '',
+      args: [current, goal],
+    );
+  }
+
+  /// `Total answers: {current}/{total}`
+  String totalAnswers(Object current, Object total) {
+    return Intl.message(
+      'Total answers: $current/$total',
+      name: 'totalAnswers',
+      desc: '',
+      args: [current, total],
+    );
+  }
+
+  /// `Points: {current}/{goal}`
+  String points2(Object current, Object goal) {
+    return Intl.message(
+      'Points: $current/$goal',
+      name: 'points2',
+      desc: '',
+      args: [current, goal],
+    );
+  }
+
+  /// `{percentage}% completed`
+  String completedPercentage(Object percentage) {
+    return Intl.message(
+      '$percentage% completed',
+      name: 'completedPercentage',
+      desc: '',
+      args: [percentage],
+    );
+  }
+
+  /// `Join`
+  String get join {
+    return Intl.message(
+      'Join',
+      name: 'join',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In progress`
+  String get inProgress {
+    return Intl.message(
+      'In progress',
+      name: 'inProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue Quiz`
+  String get continueQuiz {
+    return Intl.message(
+      'Continue Quiz',
+      name: 'continueQuiz',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim Reward`
+  String get claimReward {
+    return Intl.message(
+      'Claim Reward',
+      name: 'claimReward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward Claimed`
+  String get rewardClaimed {
+    return Intl.message(
+      'Reward Claimed',
+      name: 'rewardClaimed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward claimed!`
+  String get rewardClaimedMessage {
+    return Intl.message(
+      'Reward claimed!',
+      name: 'rewardClaimedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
