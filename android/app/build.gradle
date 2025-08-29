@@ -1,3 +1,5 @@
+
+
 plugins {
     id "com.android.application"
     // START: FlutterFire Configuration
@@ -19,7 +21,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.ahmed.vo_ninja"
     compileSdk = 35
-    ndkVersion = "25.1.8937393"
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
