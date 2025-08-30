@@ -171,5 +171,11 @@
   "claimReward": "Claim Reward",
   "rewardClaimed": "Reward Claimed",
   "rewardClaimedMessage": "Reward claimed!",
-  "error": "Error"
+  "error": "Error",
+  "specialOfferTitle": "Special Points Offer",
+  "specialOfferBody": "You can earn more points right now by visiting the Events page. There is also a Welcome Event that grants you extra bonus points on your first visit. Would you like to go now, or continue your exam?",
+  "goToEvents": "Go to Events",
+  "continueExam": "Continue Exam",
+  "goodLuck": "Good luck! Review your answers and try again in the next event.",
+  "showMyAnswers": "Show my answers"
 }

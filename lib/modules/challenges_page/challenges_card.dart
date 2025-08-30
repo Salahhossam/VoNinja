@@ -76,7 +76,7 @@ class _ChallengeCardState extends State<ChallengeCard> {
                 ),
               ),
               Text(
-                '+ ${widget.rewardPoints.toInt()} ${S.of(context).points} ${S.of(context).points}',
+                '+ ${widget.rewardPoints.toInt()} ${S.of(context).points}',
                 style:
                     const TextStyle(color: AppColors.lightColor, fontSize: 12),
                 textAlign: TextAlign.end,

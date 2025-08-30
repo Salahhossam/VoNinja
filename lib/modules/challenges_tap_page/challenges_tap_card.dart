@@ -219,7 +219,7 @@ class ChallengesTapCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '+ ${rewardedPoints!.toInt()} ${S.of(context).points}  ${S.of(context).points}',
+                        '+ ${rewardedPoints!.toInt()} ${S.of(context).points}',
                         style: const TextStyle(
                             color: AppColors.lightColor, fontSize: 12),
                         textAlign: TextAlign.end,

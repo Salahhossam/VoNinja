@@ -26,7 +26,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   bool isLoading = false;
   bool isLoading2 = false;
   bool isLoading3 = false;
-  DateTime? now;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +43,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
         String? uid;
         uid = await CashHelper.getData(key: 'uid');
         await challengeCubit.getChallengePageData(uid!);
-        now = await NTP.now();
         setState(() {
           isLoading = false;
         });

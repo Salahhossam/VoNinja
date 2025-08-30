@@ -1559,6 +1559,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Special Points Offer`
+  String get specialOfferTitle {
+    return Intl.message(
+      'Special Points Offer',
+      name: 'specialOfferTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can earn more points right now by visiting the Events page. There is also a Welcome Event that grants you extra bonus points on your first visit. Would you like to go now, or continue your exam?`
+  String get specialOfferBody {
+    return Intl.message(
+      'You can earn more points right now by visiting the Events page. There is also a Welcome Event that grants you extra bonus points on your first visit. Would you like to go now, or continue your exam?',
+      name: 'specialOfferBody',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Events`
+  String get goToEvents {
+    return Intl.message(
+      'Go to Events',
+      name: 'goToEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue Exam`
+  String get continueExam {
+    return Intl.message(
+      'Continue Exam',
+      name: 'continueExam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good luck! Review your answers and try again in the next event.`
+  String get goodLuck {
+    return Intl.message(
+      'Good luck! Review your answers and try again in the next event.',
+      name: 'goodLuck',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show my answers`
+  String get showMyAnswers {
+    return Intl.message(
+      'Show my answers',
+      name: 'showMyAnswers',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -90,8 +90,8 @@ class _QuizPageState extends State<QuizPage> {
     super.initState();
     initData();
     final mainCubit = MainAppCubit.get(context);
-    // mainCubit.interstitialAd();
-    // _initBannerAds();
+    //mainCubit.interstitialAd();
+    _initBannerAds();
   }
 
   DateTime now = DateTime.now();

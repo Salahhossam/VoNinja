@@ -7,6 +7,7 @@ import 'package:vo_ninja/shared/style/color.dart';
 import '../../../models/lesson_page_model.dart';
 import '../../../models/lesson_progress_model.dart';
 import '../../../shared/constant/constant.dart';
+import '../../events_page/events_page.dart';
 import '../lesson_learning.dart';
 import 'lessons_state.dart';
 
@@ -235,27 +236,67 @@ void showLessonDialog(
                                     )),
                           ),
                       Colors.black),
+// في ضغطة زر "بدء الامتحان"
                   buildActionButton(
-                      context,
-                      S.of(context).startExam,
-                      AppColors.secondColor,
-                      () => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => ExamPage(
-                                levelId: levelId,
-                                page: page,
-                                size: size,
-                                order: order,
-                                title: title,
-                                userPoints: userPoints,
-                                lessonId: lessonId,
-                                collectionName: collectionName,
-                                rewardedPoints: rewardedPoints,
-                                isLastExam: isLastExam, numberOfLessons: numberOfLessons,
+                    context,
+                    S.of(context).startExam,
+                    AppColors.secondColor,
+                        () async {
+                      if (lessonId == '3hGV9M4IoIY9q4gzcmma') {
+                        await showEventsOfferDialog(
+                          context: context,
+                          onGoToEvents: () {
+                            Navigator.of(context).pop(); // اغلاق دايلوج العرض
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (_) => EventsPage(), // غيّر للويدجت/المسار عندك
                               ),
+                            );
+                          },
+                          onContinueExam: () {
+                            Navigator.of(context).pop(); // اغلاق دايلوج العرض
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => ExamPage(
+                                  levelId: levelId,
+                                  page: page,
+                                  size: size,
+                                  order: order,
+                                  title: title,
+                                  userPoints: userPoints,
+                                  lessonId: lessonId,
+                                  collectionName: collectionName,
+                                  rewardedPoints: rewardedPoints,
+                                  isLastExam: isLastExam,
+                                  numberOfLessons: numberOfLessons,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => ExamPage(
+                              levelId: levelId,
+                              page: page,
+                              size: size,
+                              order: order,
+                              title: title,
+                              userPoints: userPoints,
+                              lessonId: lessonId,
+                              collectionName: collectionName,
+                              rewardedPoints: rewardedPoints,
+                              isLastExam: isLastExam,
+                              numberOfLessons: numberOfLessons,
                             ),
                           ),
-                      AppColors.whiteColor),
+                        );
+                      }
+                    },
+                    AppColors.whiteColor,
+                  ),
+
                 ],
               ),
             ],
@@ -475,3 +516,80 @@ Widget buildActionButton(BuildContext context, String label,
     ),
   );
 }
+
+
+/// دايلوج العرض المترجم بالكامل عبر S.of(context)
+Future<void> showEventsOfferDialog({
+  required BuildContext context,
+  required VoidCallback onGoToEvents,
+  required VoidCallback onContinueExam,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      backgroundColor: AppColors.mainColor,
+
+      // ✅ عنوان بدون Overflow: استخدمنا Expanded+maxLines+ellipsis
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Icon(Icons.celebration, color: Colors.white),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              S.of(ctx).specialOfferTitle,
+              style: const TextStyle(color: Colors.white),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
+            ),
+          ),
+        ],
+      ),
+
+      // ✅ نحط الأزرار داخل الـ content كـ عمود بعرض كامل باستخدام buildActionButton
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            S.of(ctx).specialOfferBody,
+            style: const TextStyle(color: Colors.white70),
+          ),
+          const SizedBox(height: 16),
+
+          // زر متابعة الامتحان
+          buildActionButton(
+            ctx,
+            S.of(ctx).continueExam,
+            Colors.transparent, // الخلفية شفافة ليظهر كلون الخلفية
+                () {
+              Navigator.of(ctx).pop(); // اغلاق الديالوج
+              onContinueExam();
+            },
+            Colors.white,
+          ),
+
+          const SizedBox(height: 8),
+
+          // زر الذهاب للفعاليات
+          buildActionButton(
+            ctx,
+            S.of(ctx).goToEvents,
+            AppColors.secondColor,
+                () {
+              Navigator.of(ctx).pop(); // اغلاق الديالوج اولًا
+              onGoToEvents();
+            },
+            Colors.white,
+          ),
+        ],
+      ),
+
+      // ❌ ما نستخدمش actions علشان ما يحصلش تزاحم أفقي
+      actions: const [],
+    ),
+  );
+}
+

@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
             "Continue collecting points to convert them into financial rewards"),
+        "continueExam": MessageLookupByLibrary.simpleMessage("Continue Exam"),
         "continueExams": MessageLookupByLibrary.simpleMessage("Continue"),
         "continueLearning":
             MessageLookupByLibrary.simpleMessage("Continue Learning"),
@@ -139,8 +140,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "getPoints": MessageLookupByLibrary.simpleMessage("Get Points"),
         "getYourPoints":
             MessageLookupByLibrary.simpleMessage("Get Your Points!"),
+        "goToEvents": MessageLookupByLibrary.simpleMessage("Go to Events"),
         "goToPreviousLesson":
             MessageLookupByLibrary.simpleMessage("Go to previous lesson"),
+        "goodLuck": MessageLookupByLibrary.simpleMessage(
+            "Good luck! Review your answers and try again in the next event."),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "inProgress": MessageLookupByLibrary.simpleMessage("In progress"),
         "incompleteLesson":
@@ -212,9 +216,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
         "secondPlace": MessageLookupByLibrary.simpleMessage("2nd"),
         "sendDetails": MessageLookupByLibrary.simpleMessage("Send Details"),
+        "showMyAnswers":
+            MessageLookupByLibrary.simpleMessage("Show my answers"),
         "showRanks": MessageLookupByLibrary.simpleMessage("Show Ranks"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "socialMedia": MessageLookupByLibrary.simpleMessage("Social Media"),
+        "specialOfferBody": MessageLookupByLibrary.simpleMessage(
+            "You can earn more points right now by visiting the Events page. There is also a Welcome Event that grants you extra bonus points on your first visit. Would you like to go now, or continue your exam?"),
+        "specialOfferTitle":
+            MessageLookupByLibrary.simpleMessage("Special Points Offer"),
         "splashWord": MessageLookupByLibrary.simpleMessage(
             "Be Ninja In English Vocabulary!"),
         "startChallenge":

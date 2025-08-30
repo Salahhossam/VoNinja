@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
             "استمر في جمع النقاط لتحويلها إلى مكافآت مالية"),
+        "continueExam": MessageLookupByLibrary.simpleMessage("متابعة الامتحان"),
         "continueExams": MessageLookupByLibrary.simpleMessage("استمر"),
         "continueLearning":
             MessageLookupByLibrary.simpleMessage("استمر في التعلم"),
@@ -141,8 +142,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("احصل على عملاتك الآن!"),
         "getPoints": MessageLookupByLibrary.simpleMessage("احصل علي هديتك"),
         "getYourPoints": MessageLookupByLibrary.simpleMessage("رصيدك ونقاطك"),
+        "goToEvents":
+            MessageLookupByLibrary.simpleMessage("اذهب إلى الفعاليات"),
         "goToPreviousLesson":
             MessageLookupByLibrary.simpleMessage("الذهاب للدرس السابق"),
+        "goodLuck": MessageLookupByLibrary.simpleMessage(
+            "حظًا موفقًا! راجع إجاباتك وحاول مرة أخرى في الحدث القادم."),
         "hi": MessageLookupByLibrary.simpleMessage("مرحبًا"),
         "inProgress": MessageLookupByLibrary.simpleMessage("قيد التقدم"),
         "incompleteLesson":
@@ -214,10 +219,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
         "secondPlace": MessageLookupByLibrary.simpleMessage("الثاني"),
         "sendDetails": MessageLookupByLibrary.simpleMessage("إرسال التفاصيل"),
+        "showMyAnswers": MessageLookupByLibrary.simpleMessage("عرض إجاباتي"),
         "showRanks": MessageLookupByLibrary.simpleMessage("اظهر الترتيب"),
         "signUp": MessageLookupByLibrary.simpleMessage("سجل الآن"),
         "socialMedia":
             MessageLookupByLibrary.simpleMessage("وسائل التواصل الاجتماعي"),
+        "specialOfferBody": MessageLookupByLibrary.simpleMessage(
+            "تستطيع جمع نقاط أكثر الآن عند زيارة صفحة الفعاليات. كما يوجد فعالية ترحيبية (Welcome Event) تمنحك نقاطًا إضافية في أول زيارة. هل تود الانتقال الآن أم تفضّل متابعة الامتحان؟"),
+        "specialOfferTitle":
+            MessageLookupByLibrary.simpleMessage("عرض نقاط خاص"),
         "splashWord": MessageLookupByLibrary.simpleMessage(
             "كن خبيرًا بارعًا في مفردات اللغة الإنجليزية!"),
         "startChallenge": MessageLookupByLibrary.simpleMessage("ابدأ التحدي"),
