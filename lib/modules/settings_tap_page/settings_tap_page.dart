@@ -4,6 +4,7 @@ import 'package:vo_ninja/shared/style/color.dart';
 
 import '../../shared/network/local/cash_helper.dart';
 import '../taps_page/taps_cubit/taps_cubit.dart';
+import '../treasure_boxes_page/treasure_boxes_page.dart';
 import 'balance_widget.dart';
 import 'profile_header_widget.dart';
 import 'settings_options_list.dart';
@@ -91,6 +92,28 @@ class _SettingsTapPageState extends State<SettingsTapPage> {
                           SettingsOptionsList(
                               versionNumber:
                                   'v ${settingsTapCubit.appVersion}'),
+                          const SizedBox(height: 20),
+                          // داخل Column(...) قبل LogoutButton()
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Card(
+                              color: AppColors.mainColor,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              child: ListTile(
+                                selectedColor: AppColors.mainColor,
+                                leading: const Icon(Icons.card_giftcard, color: AppColors.secondColor),
+                                title: const Text('Treasure Boxes',style: TextStyle(color: AppColors.whiteColor),),
+                                subtitle: const Text('Bronze • Silver • Gold',style: TextStyle(color: Colors.grey),),
+                                trailing: const Icon(Icons.chevron_right,color: AppColors.whiteColor),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => const TreasureBoxesPage()),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 20),
                           const LogoutButton(),
                           const SizedBox(height: 20),

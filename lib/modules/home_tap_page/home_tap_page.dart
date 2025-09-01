@@ -11,6 +11,7 @@ import '../../generated/l10n.dart';
 
 import '../../shared/network/local/cash_helper.dart';
 import '../library_page/library_screen.dart';
+import '../treasure_boxes_page/treasure_boxes_cubit/treasure_boxes_cubit.dart';
 import 'home_tap_cubit/home_tap_cubit.dart';
 import 'home_tap_cubit/home_tap_state.dart';
 import 'progress_indicator_widget.dart';

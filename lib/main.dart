@@ -13,6 +13,7 @@ import 'package:vo_ninja/modules/settings_tap_page/settings_tap_cubit/settings_t
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/modules/singup_page/singup_cubit/singup_cubit.dart';
 import 'package:vo_ninja/modules/splash_screen.dart';
+import 'package:vo_ninja/modules/treasure_boxes_page/treasure_boxes_cubit/treasure_boxes_cubit.dart';
 import 'generated/l10n.dart';
 import 'modules/challenges_page/task_cubit/task_cubit.dart';
 import 'modules/challenges_tap_page/challenges_cubit/challenges_tap_cubit.dart';
@@ -340,6 +341,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => TaskCubit()),
         BlocProvider(create: (context) => LibraryCubit()),
         BlocProvider(create: (context) => EventCubit()),
+        BlocProvider(create: (context) => TreasureBoxCubit()),
       ],
       child: BlocConsumer<MainAppCubit, MainAppState>(
         listener: (context, state) {},
