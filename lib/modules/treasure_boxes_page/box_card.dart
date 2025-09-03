@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/style/color.dart';
+import '../../generated/l10n.dart';
 import '../../models/treasure_model.dart';
 
 enum BoxCardStatus { locked, next, done }
@@ -10,9 +11,10 @@ class BoxCard extends StatelessWidget {
   final BoxCardStatus status;
   final bool isCurrent;
   final int currentAdsWatched;
-  final int userPoints; // <-- اضفنا ده
+  final int userPoints;
   final VoidCallback onOpen;
   final VoidCallback onWatchAd;
+  final BuildContext context;
 
   const BoxCard({
     super.key,
@@ -21,9 +23,10 @@ class BoxCard extends StatelessWidget {
     required this.status,
     required this.isCurrent,
     required this.currentAdsWatched,
-    required this.userPoints, // <-- اضفنا ده
+    required this.userPoints,
     required this.onOpen,
     required this.onWatchAd,
+    required this.context,
   });
 
   @override
@@ -58,21 +61,24 @@ class BoxCard extends StatelessWidget {
     final bool pointsMet = havePtsDisp >= reqPts;
     final int remaining  = (reqPts - havePtsDisp).clamp(0, reqPts);
 
+    // ======= التحقق من الشروط لفتح الصندوق =======
+    final bool canOpen = !needsPoints || pointsMet;
+    final bool canWatchAd = needsAds && (adsNow < adsReq);
+
     String pointsLabel() {
       if (!needsPoints) return '';
-      final base = 'Need $havePtsDisp/$reqPts pts';
       if (isCurrent && isNext && !pointsMet && reqPts > 0) {
-        return '$base (−$remaining)';
+        return S.of(context).needPointsRemaining(havePtsDisp, reqPts);
       }
-      return base; // done أو باقي الحالات
+      return S.of(context).needPoints2(havePtsDisp, reqPts);
     }
 
     // ======= شارة الإعلانات =======
     String adsLabel() {
       if (!needsAds) return '';
-      if (isDone) return 'Ads $adsReq/$adsReq';
-      if (isCurrent) return 'Ads $adsNow/$adsReq';
-      return 'Ads 0/$adsReq';
+      if (isDone) return S.of(context).adsProgress(adsReq, adsReq);
+      if (isCurrent) return S.of(context).adsProgress(adsNow, adsReq);
+      return S.of(context).adsProgress(0, adsReq);
     }
 
     return AnimatedOpacity(
@@ -107,14 +113,17 @@ class BoxCard extends StatelessWidget {
             const SizedBox(height: 2),
             FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text('#${box.index + 1}', style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(
+                  S.of(context).boxNumber(box.index + 1),
+                  style: const TextStyle(fontWeight: FontWeight.bold)
+              ),
             ),
             const SizedBox(height: 4),
 
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                'Reward + ${box.rewardPoints} pts',
+                S.of(context).rewardPoints(box.rewardPoints),
                 style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ),
@@ -137,17 +146,19 @@ class BoxCard extends StatelessWidget {
 
             if (showWatchAd)
               _ctaButton(
-                label: 'Watch Ad',
+                label: S.of(context).watchAd,
                 onPressed: onWatchAd,
                 background: AppColors.secondColor,
                 foreground: AppColors.whiteColor,
+                enabled: true, // زر Watch Ad دائماً مفعل
               )
             else if (showOpen)
               _ctaButton(
-                label: 'Open',
-                onPressed: onOpen,
+                label: S.of(context).open,
+                onPressed: canOpen ? onOpen : null, // null يجعل الزر معطلاً
                 background: AppColors.mainColor,
                 foreground: AppColors.whiteColor,
+                enabled: canOpen, // الزر يكون معطلاً إذا لم تتحقق الشروط
               )
             else
               const SizedBox.shrink(),
@@ -159,18 +170,19 @@ class BoxCard extends StatelessWidget {
 
   Widget _ctaButton({
     required String label,
-    required VoidCallback onPressed,
+    required VoidCallback? onPressed, // تغيير إلى VoidCallback? ليدعم null
     required Color background,
     required Color foreground,
+    bool enabled = true, // إضافة معامل enabled
   }) {
     return SizedBox(
       height: 40,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: enabled ? onPressed : null, // تعطيل الزر إذا كان enabled = false
         style: ElevatedButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: foreground,
+          backgroundColor: enabled ? background : Colors.grey, // تغيير اللون إذا كان معطلاً
+          foregroundColor: enabled ? foreground : Colors.white70,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: 0,
         ),

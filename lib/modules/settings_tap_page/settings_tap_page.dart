@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 
+import '../../generated/l10n.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../taps_page/taps_cubit/taps_cubit.dart';
 import '../treasure_boxes_page/treasure_boxes_page.dart';
@@ -102,9 +103,15 @@ class _SettingsTapPageState extends State<SettingsTapPage> {
                               child: ListTile(
                                 selectedColor: AppColors.mainColor,
                                 leading: const Icon(Icons.card_giftcard, color: AppColors.secondColor),
-                                title: const Text('Treasure Boxes',style: TextStyle(color: AppColors.whiteColor),),
-                                subtitle: const Text('Bronze • Silver • Gold',style: TextStyle(color: Colors.grey),),
-                                trailing: const Icon(Icons.chevron_right,color: AppColors.whiteColor),
+                                title: Text(
+                                  S.of(context).treasureBoxesCard,
+                                  style: const TextStyle(color: AppColors.whiteColor),
+                                ),
+                                subtitle: Text(
+                                  S.of(context).treasureBoxesLevels,
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                                trailing: const Icon(Icons.chevron_right, color: AppColors.whiteColor),
                                 onTap: () {
                                   Navigator.push(
                                     context,

@@ -3,36 +3,40 @@ import 'package:flutter/material.dart';
 enum TreasureTier { bronze, silver, gold }
 
 extension TierMeta on TreasureTier {
-  String get title => switch (this) {
-    TreasureTier.bronze => 'Bronze',
-    TreasureTier.silver => 'Silver',
-    TreasureTier.gold => 'Gold',
-  };
+  String get title =>
+      switch (this) {
+        TreasureTier.bronze => 'Bronze',
+        TreasureTier.silver => 'Silver',
+        TreasureTier.gold => 'Gold',
+      };
 
-  // String get closedImg => switch (this) {
-  //   TreasureTier.bronze => 'assets/boxes/bronze_closed.png',
-  //   TreasureTier.silver => 'assets/boxes/silver_closed.png',
-  //   TreasureTier.gold => 'assets/boxes/gold_closed.png',
-  // };
-  //
-  // String get openImg => switch (this) {
-  //   TreasureTier.bronze => 'assets/boxes/bronze_open.png',
-  //   TreasureTier.silver => 'assets/boxes/silver_open.png',
-  //   TreasureTier.gold => 'assets/boxes/gold_open.png',
-  // };
+  String get closedImg =>
+      switch (this) {
+        TreasureTier.bronze => 'assets/img/bronze_closed.png',
+        TreasureTier.silver => 'assets/img/silver_closed.png',
+        TreasureTier.gold => 'assets/img/gold_closed.png',
+      };
 
-  String get closedImg => switch (this) {
-    TreasureTier.bronze => 'assets/img/ADs.png',
-    TreasureTier.silver => 'assets/img/ADs.png',
-    TreasureTier.gold => 'assets/img/ADs.png',
-  };
-
-  String get openImg => switch (this) {
-    TreasureTier.bronze => 'assets/img/ADs.png',
-    TreasureTier.silver => 'assets/img/ADs.png',
-    TreasureTier.gold => 'assets/img/ADs.png',
-  };
+  String get openImg =>
+      switch (this) {
+        TreasureTier.bronze => 'assets/img/bronze_open.png',
+        TreasureTier.silver => 'assets/img/silver_open.png',
+        TreasureTier.gold => 'assets/img/gold_open.png',
+      };
 }
+
+//   String get closedImg => switch (this) {
+//     TreasureTier.bronze => 'assets/img/ADs.png',
+//     TreasureTier.silver => 'assets/img/ADs.png',
+//     TreasureTier.gold => 'assets/img/ADs.png',
+//   };
+//
+//   String get openImg => switch (this) {
+//     TreasureTier.bronze => 'assets/img/ADs.png',
+//     TreasureTier.silver => 'assets/img/ADs.png',
+//     TreasureTier.gold => 'assets/img/ADs.png',
+//   };
+// }
 
 
 class BoxCondition {

@@ -104,6 +104,12 @@ flutter:
    - lib/l10n/intl_ar.arb
    - lib/l10n/intl_en.arb
    - assets/videos/intro.MP4
+   - assets/img/bronze_closed.png
+   - assets/img/silver_closed.png
+   - assets/img/gold_closed.png
+   - assets/img/bronze_open.png
+   - assets/img/silver_open.png
+   - assets/img/gold_open.png
 
 
 

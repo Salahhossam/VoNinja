@@ -1619,6 +1619,326 @@ class S {
       args: [],
     );
   }
+
+  /// `Treasure Boxes`
+  String get treasureBoxes {
+    return Intl.message(
+      'Treasure Boxes',
+      name: 'treasureBoxes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start New Cycle`
+  String get startNewCycle {
+    return Intl.message(
+      'Start New Cycle',
+      name: 'startNewCycle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🎯 Want to start a new adventure?`
+  String get wantNewAdventure {
+    return Intl.message(
+      '🎯 Want to start a new adventure?',
+      name: 'wantNewAdventure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can reset the cycle now and start with a reward of 500 points. Or continue as you are and keep your current points.`
+  String get newCycleDescription {
+    return Intl.message(
+      'You can reset the cycle now and start with a reward of 500 points. Or continue as you are and keep your current points.',
+      name: 'newCycleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `⚠️ Important warning:`
+  String get importantWarning {
+    return Intl.message(
+      '⚠️ Important warning:',
+      name: 'importantWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If your balance exceeds 25,000 points, you must first make a transfer request to receive cash in your wallet within 48 working hours. Then you can start a new cycle with a 500 point reward. If your current points are more than 500, they will be replaced with only 500 points.`
+  String get cycleWarning {
+    return Intl.message(
+      'If your balance exceeds 25,000 points, you must first make a transfer request to receive cash in your wallet within 48 working hours. Then you can start a new cycle with a 500 point reward. If your current points are more than 500, they will be replaced with only 500 points.',
+      name: 'cycleWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm starting new cycle`
+  String get confirmNewCycle {
+    return Intl.message(
+      'Confirm starting new cycle',
+      name: 'confirmNewCycle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you press "Confirm", a new cycle will start and your balance will become 500 points.\nIf you have many points, it's better to spend them first.\n⚠️ If your balance ≥ 25,000 points, you must make a transfer request first.`
+  String get confirmNewCycleDescription {
+    return Intl.message(
+      'If you press "Confirm", a new cycle will start and your balance will become 500 points.\nIf you have many points, it\'s better to spend them first.\n⚠️ If your balance ≥ 25,000 points, you must make a transfer request first.',
+      name: 'confirmNewCycleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete the current level first`
+  String get completeCurrentLevel {
+    return Intl.message(
+      'Complete the current level first',
+      name: 'completeCurrentLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Points`
+  String get yourPoints {
+    return Intl.message(
+      'Your Points',
+      name: 'yourPoints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cycle`
+  String get cycle {
+    return Intl.message(
+      'Cycle',
+      name: 'cycle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bronze`
+  String get bronze {
+    return Intl.message(
+      'Bronze',
+      name: 'bronze',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Silver`
+  String get silver {
+    return Intl.message(
+      'Silver',
+      name: 'silver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gold`
+  String get gold {
+    return Intl.message(
+      'Gold',
+      name: 'gold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ad is not currently available, try again in a moment.`
+  String get adNotAvailable {
+    return Intl.message(
+      'Ad is not currently available, try again in a moment.',
+      name: 'adNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You cannot access this level before completing the previous one.`
+  String get cannotAccessLevel {
+    return Intl.message(
+      'You cannot access this level before completing the previous one.',
+      name: 'cannotAccessLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need {points} additional points. `
+  String needPoints(Object points) {
+    return Intl.message(
+      'You need $points additional points. ',
+      name: 'needPoints',
+      desc: '',
+      args: [points],
+    );
+  }
+
+  /// `Watch {ads} ad(s).`
+  String watchAds(Object ads) {
+    return Intl.message(
+      'Watch $ads ad(s).',
+      name: 'watchAds',
+      desc: '',
+      args: [ads],
+    );
+  }
+
+  /// `You earned {points} points.`
+  String earnedPoints(Object points) {
+    return Intl.message(
+      'You earned $points points.',
+      name: 'earnedPoints',
+      desc: '',
+      args: [points],
+    );
+  }
+
+  /// `Congratulations! All boxes for cycle #{cycle} have been completed.`
+  String congratsAllBoxes(Object cycle) {
+    return Intl.message(
+      'Congratulations! All boxes for cycle #$cycle have been completed.',
+      name: 'congratsAllBoxes',
+      desc: '',
+      args: [cycle],
+    );
+  }
+
+  /// `Complete all boxes first.`
+  String get completeAllBoxesFirst {
+    return Intl.message(
+      'Complete all boxes first.',
+      name: 'completeAllBoxesFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New cycle started (#{cycle}). Good luck!`
+  String newCycleStarted(Object cycle) {
+    return Intl.message(
+      'New cycle started (#$cycle). Good luck!',
+      name: 'newCycleStarted',
+      desc: '',
+      args: [cycle],
+    );
+  }
+
+  /// `Treasure Boxes`
+  String get treasureBoxesCard {
+    return Intl.message(
+      'Treasure Boxes',
+      name: 'treasureBoxesCard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bronze • Silver • Gold`
+  String get treasureBoxesLevels {
+    return Intl.message(
+      'Bronze • Silver • Gold',
+      name: 'treasureBoxesLevels',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `#{number}`
+  String boxNumber(Object number) {
+    return Intl.message(
+      '#$number',
+      name: 'boxNumber',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `Reward + {points} pts`
+  String rewardPoints(Object points) {
+    return Intl.message(
+      'Reward + $points pts',
+      name: 'rewardPoints',
+      desc: '',
+      args: [points],
+    );
+  }
+
+  /// `Need {current}/{required} pts`
+  String needPoints2(Object current, Object required) {
+    return Intl.message(
+      'Need $current/$required pts',
+      name: 'needPoints2',
+      desc: '',
+      args: [current, required],
+    );
+  }
+
+  /// `Need {current}/{required} pts`
+  String needPointsRemaining(Object current, Object required) {
+    return Intl.message(
+      'Need $current/$required pts',
+      name: 'needPointsRemaining',
+      desc: '',
+      args: [current, required],
+    );
+  }
+
+  /// `Ads {current}/{required}`
+  String adsProgress(Object current, Object required) {
+    return Intl.message(
+      'Ads $current/$required',
+      name: 'adsProgress',
+      desc: '',
+      args: [current, required],
+    );
+  }
+
+  /// `Watch Ad`
+  String get watchAd {
+    return Intl.message(
+      'Watch Ad',
+      name: 'watchAd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open`
+  String get open {
+    return Intl.message(
+      'Open',
+      name: 'open',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

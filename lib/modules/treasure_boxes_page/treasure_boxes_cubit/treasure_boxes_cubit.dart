@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../models/treasure_model.dart';
 import 'treasure_boxes_state.dart';
 
@@ -12,8 +13,8 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
   static TreasureBoxCubit get(context) => BlocProvider.of(context);
 
   // ========= UI Flags =========
-  bool isLoading1 = false; // تحميل أولي لتهيئة الصفحة/الكونفيج/التقدم
-  bool isLoading2 = false; // أي عمليات لاحقة (فتح صندوق، مشاهدة إعلان، Reset...)
+  bool isLoading1 = false;
+  bool isLoading2 = false;
 
   // ========= تقدم المستخدم =========
   int userPoints = 0;
@@ -31,13 +32,14 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final String pointsField = 'pointsNumber';
 
-  // ========= تعريف الصناديق (دYNAMIC) =========
-  // تُقرأ من Firestore: treasure
+  // ========= تعريف الصناديق =========
   Map<TreasureTier, List<TreasureBox>> _tiers = {
     TreasureTier.bronze: const [],
     TreasureTier.silver: const [],
     TreasureTier.gold: const [],
   };
+
+  Map<TreasureTier, List<TreasureBox>> get tiers => _tiers;
 
   // ======== Helpers ========
   Future<String> _uid() async {
@@ -80,12 +82,11 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     final sLen = _tiers[TreasureTier.silver]?.length ?? 0;
     final gLen = _tiers[TreasureTier.gold]?.length ?? 0;
 
-    if (bLen == 0 && sLen == 0 && gLen == 0) return TreasureTier.bronze; // حماية
+    if (bLen == 0 && sLen == 0 && gLen == 0) return TreasureTier.bronze;
 
     if (bronzeIndex < bLen) return TreasureTier.bronze;
     if (silverIndex < sLen) return TreasureTier.silver;
     if (goldIndex < gLen) return TreasureTier.gold;
-    // لو الكل انتهى، يظل آخر مستوى (لن نعيد بناء الدورة تلقائيًا)
     return TreasureTier.gold;
   }
 
@@ -126,11 +127,9 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
         TreasureTier.gold: parseTier(List.from(tiers?['gold'] ?? const [])),
       };
     } catch (e, stack) {
-      // هنا تقدر تطبع أو تسجل الخطأ
       debugPrint('Error loading treasure: $e');
     }
   }
-
 
   // ======== حفظ/قراءة تقدم المستخدم ========
   Future<void> _saveProgress() async {
@@ -157,7 +156,6 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     final snap = await (await _progressDoc()).get();
     final p = snap.data();
 
-    // أطوال المستويات الديناميكية
     final bLen = _tiers[TreasureTier.bronze]?.length ?? 0;
     final sLen = _tiers[TreasureTier.silver]?.length ?? 0;
     final gLen = _tiers[TreasureTier.gold]?.length ?? 0;
@@ -176,7 +174,6 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     currentIndex = (p?['currentIndex'] ?? 0);
     currentAdsWatched = p?['currentAdsWatched'] ?? 0;
 
-    // اجبار المؤشر الحالي على مستوى مسموح + داخل الحدود
     final allowed = unlockedTier;
     currentTier = allowed;
     final nextIndex = switch (allowed) {
@@ -193,23 +190,22 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
   TreasureBox get currentBox {
     final list = _tiers[currentTier] ?? const [];
     if (list.isEmpty) {
-      // حماية: في حالة عدم وجود صناديق
       return const TreasureBox(index: 0, rewardPoints: 0, condition: BoxCondition());
     }
     final i = currentIndex.clamp(0, list.length - 1);
     return list[i];
   }
 
-  // ======== تحميل أولي للصفحة (isLoading1) ========
+  // ======== تحميل أولي للصفحة ========
   Future<void> load() async {
     try {
       isLoading1 = true;
-      emit(TreasureBoxUpdated()); // نحدث الواجهة لتُظهر التحميل الأول
+      emit(TreasureBoxUpdated());
 
-      await _loadTreasure();           // قراءة تعريف الصناديق من Firestore
-      await _loadProgressAndClamp(); // قراءة التقدم وضبط الحدود
+      await _loadTreasure();
+      await _loadProgressAndClamp();
 
-      await _saveProgress(); // تأكيد التناسق
+      await _saveProgress();
       isLoading1 = false;
       emit(TreasureBoxUpdated());
     } catch (e) {
@@ -218,15 +214,18 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     }
   }
 
-  // ======== مشاهدة إعلان (isLoading2) ========
-  Future<void> watchAdForCurrent({required Future<bool> Function() showAd}) async {
+  // ======== مشاهدة إعلان ========
+  Future<void> watchAdForCurrent({required Future<bool> Function() showAd, BuildContext? context}) async {
     try {
       isLoading2 = true;
       emit(TreasureBoxUpdated());
       final ok = await showAd();
       if (!ok) {
         isLoading2 = false;
-        emit(TreasureBoxMessage('الإعلان غير متاح حاليًا، حاول ثانيا بعد لحظات.'));
+        final message = context != null
+            ? S.of(context).adNotAvailable
+            : 'الإعلان غير متاح حاليًا، حاول ثانيا بعد لحظات.';
+        emit(TreasureBoxMessage(message));
         emit(TreasureBoxUpdated());
         return;
       }
@@ -240,16 +239,18 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     }
   }
 
-  // ======== فتح الصندوق الحالي (isLoading2) ========
-  Future<void> tryOpenCurrent() async {
+  // ======== فتح الصندوق الحالي ========
+  Future<void> tryOpenCurrent({BuildContext? context}) async {
     try {
       isLoading2 = true;
       emit(TreasureBoxUpdated());
 
-      // تأمين المستوى المسموح
       if (currentTier != unlockedTier) {
         isLoading2 = false;
-        emit(TreasureBoxMessage('لا يمكنك دخول هذا المستوى قبل إنهاء السابق.'));
+        final message = context != null
+            ? S.of(context).cannotAccessLevel
+            : 'لا يمكنك دخول هذا المستوى قبل إنهاء السابق.';
+        emit(TreasureBoxMessage(message));
         emit(TreasureBoxUpdated());
         return;
       }
@@ -262,23 +263,39 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
         isLoading2 = false;
         final needPts = box.condition.minPoints;
         final needAds = box.condition.minAds;
-        final msgPts = (needPts != null && userPoints < needPts) ? 'تحتاج ${needPts - userPoints} نقطة إضافية. ' : '';
-        final msgAds = (needAds != null && currentAdsWatched < needAds) ? 'شاهد ${needAds - currentAdsWatched} إعلان/إعلانات.' : '';
+
+        String msgPts = '';
+        String msgAds = '';
+
+        // في دالة tryOpenCurrent
+        if (context != null) {
+          msgPts = (needPts != null && userPoints < needPts)
+              ? S.of(context).needPoints(needPts - userPoints) // استخدام دالة بدلاً من خاصية
+              : '';
+          msgAds = (needAds != null && currentAdsWatched < needAds)
+              ? S.of(context).watchAds(needAds - currentAdsWatched) // استخدام دالة بدلاً من خاصية
+              : '';
+        } else {
+          msgPts = (needPts != null && userPoints < needPts)
+              ? 'تحتاج ${needPts - userPoints} نقطة إضافية. '
+              : '';
+          msgAds = (needAds != null && currentAdsWatched < needAds)
+              ? 'شاهد ${needAds - currentAdsWatched} إعلان/إعلانات.'
+              : '';
+        }
+
         emit(TreasureBoxMessage('$msgPts$msgAds'.trim()));
         emit(TreasureBoxUpdated());
         return;
       }
 
-      // صرف المكافأة
       await _addPoints(box.rewardPoints);
       userPoints += box.rewardPoints;
 
-      // أطوال المستويات الديناميكية
       final bLen = _tiers[TreasureTier.bronze]?.length ?? 0;
       final sLen = _tiers[TreasureTier.silver]?.length ?? 0;
       final gLen = _tiers[TreasureTier.gold]?.length ?? 0;
 
-      // تقدّم المؤشر
       switch (currentTier) {
         case TreasureTier.bronze:
           bronzeIndex = (bronzeIndex + 1).clamp(0, bLen);
@@ -291,7 +308,6 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
           break;
       }
 
-      // تحديد المستوى/المؤشر التالي بدون إعادة بناء تلقائي
       if (bronzeIndex < bLen) {
         currentTier = TreasureTier.bronze;
         currentIndex = bronzeIndex;
@@ -302,15 +318,20 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
         currentTier = TreasureTier.gold;
         currentIndex = goldIndex;
       } else {
-        // الكل منتهٍ — لا نعمل Reset تلقائيًا
-        emit(TreasureBoxMessage('أحسنت! اكتملت جميع الصناديق لهذه الدورة.'));
+        final message = context != null
+            ? S.of(context).congratsAllBoxes(cycle)
+            : 'أحسنت! اكتملت جميع الصناديق لهذه الدورة.';
+        emit(TreasureBoxMessage(message));
       }
 
       currentAdsWatched = 0;
       await _saveProgress();
 
+      final earnedMessage = context != null
+          ? S.of(context).earnedPoints(box.rewardPoints) // استخدام دالة بدلاً من خاصية
+          : 'حصلت على ${box.rewardPoints} نقطة.';
       isLoading2 = false;
-      emit(TreasureBoxMessage('حصلت على ${box.rewardPoints} نقطة.'));
+      emit(TreasureBoxMessage(earnedMessage));
       emit(TreasureBoxUpdated());
     } catch (e) {
       isLoading2 = false;
@@ -318,11 +339,14 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     }
   }
 
-  // ======== تبديل المستوى (مانيوال) ========
-  void requestSwitchTier(TreasureTier desired) {
+  // ======== تبديل المستوى ========
+  void requestSwitchTier(TreasureTier desired, {BuildContext? context}) {
     final allowed = unlockedTier;
     if (desired != allowed) {
-      emit(TreasureBoxMessage('أكمل المستوى الحالي أولًا.'));
+      final message = context != null
+          ? S.of(context).completeCurrentLevel
+          : 'أكمل المستوى الحالي أولًا.';
+      emit(TreasureBoxMessage(message));
       return;
     }
     currentTier = desired;
@@ -334,8 +358,8 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     emit(TreasureBoxUpdated());
   }
 
-  // ======== زر “بدء دورة جديدة” (Reset يدوي) (isLoading2) ========
-  Future<void> startNewCycleManually() async {
+  // ======== بدء دورة جديدة ========
+  Future<void> startNewCycleManually({BuildContext? context}) async {
     try {
       isLoading2 = true;
       emit(TreasureBoxUpdated());
@@ -344,12 +368,13 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       final sLen = _tiers[TreasureTier.silver]?.length ?? 0;
       final gLen = _tiers[TreasureTier.gold]?.length ?? 0;
 
-      // يبدأ من الصفر فقط إذا كان أنهى كل الصناديق (أكثر أمانًا)
       final finishedAll = (bronzeIndex >= bLen) && (silverIndex >= sLen) && (goldIndex >= gLen);
       if (!finishedAll) {
-        // يمكنك السماح بالإعادة في أي وقت، لكن هذا يمنع خسارة التقدم دون داعي
         isLoading2 = false;
-        emit(TreasureBoxMessage('أكمل كل الصناديق أولاً .'));
+        final message = context != null
+            ? S.of(context).completeAllBoxesFirst
+            : 'أكمل كل الصناديق أولاً .';
+        emit(TreasureBoxMessage(message));
         emit(TreasureBoxUpdated());
         return;
       }
@@ -366,8 +391,11 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       userPoints = 500;
       await _saveProgress();
 
+      final message = context != null
+          ? S.of(context).newCycleStarted(cycle)
+          : 'تم بدء دورة جديدة (#$cycle). بالتوفيق!';
       isLoading2 = false;
-      emit(TreasureBoxMessage('تم بدء دورة جديدة (#$cycle). بالتوفيق!'));
+      emit(TreasureBoxMessage(message));
       emit(TreasureBoxUpdated());
     } catch (e) {
       isLoading2 = false;
@@ -375,13 +403,10 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     }
   }
 
-  // ======== SEED: ترفع التعريف مرة واحدة فقط ========
-  // نادِها يدويًا مرة واحدة (مثلاً من شاشة أدوات الأدمن أو من زر مخفي)
+  // ======== SEED ========
   Future<void> seedDefaultBoxesOnce() async {
-    // مثال تكوين افتراضي — عدّله كما تحب، وسيتخزن في وثيقة واحدة
     List<Map<String, dynamic>> genTier(int basePts, int count) {
       final rewards = <int>[10,20,30,40,50,10,20,30,40,50,100,10,20,30,40,50,200,10,20,50];
-      // لو count أكبر/أصغر من 20، هنقص/نزود قائمة الـ rewards تلقائيًا
       List<int> r = [];
       for (int i = 0; i < count; i++) {
         r.add(rewards[i % rewards.length]);
@@ -389,7 +414,7 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
 
       return List.generate(count, (i) {
         final needPts = basePts + (i % 4) * 100;
-        final needAds = (i % 5 == 4) ? 2 : null; // مثال: كل خامس صندوق يحتاج 2 إعلان
+        final needAds = (i % 5 == 4) ? 2 : null;
         return {
           'index': i,
           'rewardPoints': r[i],
@@ -404,7 +429,7 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     final doc = _treasureDoc();
     await doc.set({
       'tiers': {
-        'bronze': genTier(400, 20), // عدّل الأعداد بحرية (مثلاً 15 أو 25 أو 30)
+        'bronze': genTier(400, 20),
         'silver': genTier(600, 20),
         'gold': genTier(800, 20),
       },
