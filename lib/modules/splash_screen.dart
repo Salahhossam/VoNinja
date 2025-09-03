@@ -40,19 +40,27 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<bool> _checkAppVersion() async {
     try {
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      final currentVersion = packageInfo.version;
-      final currentBuildNumber = int.tryParse(packageInfo.buildNumber) ?? 0;
+      // final currentVersion = packageInfo.version;
+      // final currentBuildNumber = int.tryParse(packageInfo.buildNumber) ?? 0;
+
+      final currentVersion =
+          int.tryParse(packageInfo.version.replaceAll('.', '')) ?? 0;
+      final currentBuildNumber =
+          int.tryParse(packageInfo.buildNumber) ?? 0;
 
       final doc = await _firestore.collection('utils').doc('app_version').get();
 
       if (doc.exists) {
         final data = doc.data() as Map<String, dynamic>;
-        final latestVersion = data['latest_version'] as String? ?? '1.0.0';
-        final latestBuildNumber = data['latest_build_number'] as String?  ?? '0';
+        // final latestVersion = data['latest_version'] as String? ?? '1.0.0';
+        // final latestBuildNumber = data['latest_build_number'] as String?  ?? '0';
+        final latestVersion = int.tryParse((data['latest_version'] as String? ?? '1.0.0').replaceAll('.', '')) ?? 0;
+        final latestBuildNumber = int.tryParse(data['latest_build_number'] as String?  ?? '0') ?? 0;
         final isMandatory = data['is_mandatory'] as bool? ?? false;
         final appStoreUrl = data['app_store_url'] as String? ?? '';
 
-        if (currentVersion!= latestVersion  || currentBuildNumber.toString()!= latestBuildNumber) {
+        if (currentVersion < latestVersion ||
+            (currentVersion == latestVersion && currentBuildNumber < latestBuildNumber)) {
           _showUpdateDialog(context, isMandatory, appStoreUrl);
           _controller.pause();
           return false;

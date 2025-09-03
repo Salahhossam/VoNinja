@@ -239,6 +239,7 @@ class EventCubit extends Cubit<EventState> {
 
       await ueRef.set({
         'eventType': 'welcome',
+        'eventId': welcomeTemplate.id,
         'status': 'in_progress',
         'userStartAt': Timestamp.fromDate(userStart),
         'userEndAt': Timestamp.fromDate(userEnd),
@@ -290,6 +291,7 @@ class EventCubit extends Cubit<EventState> {
       // للأحداث العامة
       final data = {
         'eventType': _toStringType(event.type),
+        'eventId': event.id,
         'status': 'in_progress',
         'progress': {
           'pointsAccumulated': 0,
