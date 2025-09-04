@@ -209,5 +209,7 @@
   "needPointsRemaining": "Need {current}/{required} pts",
   "adsProgress": "Ads {current}/{required}",
   "watchAd": "Watch Ad",
-  "open": "Open"
+  "open": "Open",
+  "congratulations": "🎉 Congratulations",
+  "ok": "OK"
 }

@@ -209,6 +209,7 @@
   "needPointsRemaining": "تحتاج {current}/{required} نقطة",
   "adsProgress": "إعلانات {current}/{required}",
   "watchAd": "شاهد إعلان",
-  "open": "افتح"
-  
+  "open": "افتح",
+  "congratulations": "🎉 مبروك",
+  "ok": "تمام"
 }

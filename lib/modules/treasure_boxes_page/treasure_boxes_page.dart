@@ -1,7 +1,8 @@
+
+import 'package:another_flushbar/flushbar.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:vo_ninja/modules/treasure_boxes_page/rewarded_ads_service.dart';
 import 'package:vo_ninja/modules/treasure_boxes_page/treasure_boxes_cubit/treasure_boxes_cubit.dart';
@@ -15,26 +16,37 @@ import 'box_card.dart';
 class TreasureBoxesPage extends StatelessWidget {
   const TreasureBoxesPage({super.key});
 
+  void showTopFlushBar(BuildContext context, String message) {
+    Flushbar(
+      message: message,
+      flushbarPosition: FlushbarPosition.TOP, // يخليه يظهر فوق
+      margin: const EdgeInsets.all(16),
+      borderRadius: BorderRadius.circular(12),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.black87,
+      icon: const Icon(
+        Icons.info_outline,
+        color: Colors.white,
+      ),
+    ).show(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => TreasureBoxCubit()..load(),
       child: Scaffold(
         backgroundColor: AppColors.lightColor,
-        appBar: AppBar(
-          backgroundColor: AppColors.mainColor,
-          title: Text(S.of(context).treasureBoxes, style: const TextStyle(color: Colors.white)),
-          iconTheme: const IconThemeData(color: Colors.white),
-        ),
+
         body: BlocConsumer<TreasureBoxCubit, TreasureBoxState>(
           listener: (context, state) {
             if (state is TreasureBoxMessage) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.message)));
+              showTopFlushBar(context, state.message);
             } else if (state is TreasureBoxFailure) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              showTopFlushBar(context, state.errorMessage);
             }
+
+
           },
           builder: (context, state) {
             final c = TreasureBoxCubit.get(context);
@@ -49,27 +61,23 @@ class TreasureBoxesPage extends StatelessWidget {
               );
             }
 
+            // داخل builder بعد ما تجيب c وتتحقق من الـ loading
             final unlocked = c.unlockedTier;
-
             return LoadingOverlay(
               isLoading: c.isLoading2,
-              progressIndicator:
-              Image.asset('assets/img/ninja_gif.gif', height: 100, width: 100),
+              progressIndicator: Image.asset('assets/img/ninja_gif.gif', height: 100, width: 100),
               child: DefaultTabController(
                 length: 3,
                 initialIndex: TreasureTier.values.indexOf(unlocked),
-                child: NestedScrollView(
-                  // كله Scroll واحد: الهيدر + التابات + محتوى التاب
-                  headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                    const SliverToBoxAdapter(child: SizedBox(height: 8)),
-                    // SliverToBoxAdapter(child: _fixedNewCycleBanner(context)),
-                    // const SliverToBoxAdapter(child: SizedBox(height: 8)),
-                    SliverToBoxAdapter(
-                        child: _header(userPoints: c.userPoints, cycle: c.cycle, context: context)),
-                    SliverToBoxAdapter(
-                      child: (c.bronzeIndex >= (c.tiers[TreasureTier.bronze]?.length ?? 0)) &&
-                          (c.silverIndex >= (c.tiers[TreasureTier.silver]?.length ?? 0)) &&
-                          (c.goldIndex >= (c.tiers[TreasureTier.gold]?.length ?? 0))?
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8),
+                    // ---------- الجزء الثابت (مش Scroll) ----------
+                    _header(userPoints: c.userPoints, cycle: c.cycle, context: context),
+
+                    if ((c.bronzeIndex >= (c.tiers[TreasureTier.bronze]?.length ?? 0)) &&
+                        (c.silverIndex >= (c.tiers[TreasureTier.silver]?.length ?? 0)) &&
+                        (c.goldIndex >= (c.tiers[TreasureTier.gold]?.length ?? 0)))
                       Padding(
                         padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
                         child: SizedBox(
@@ -81,66 +89,60 @@ class TreasureBoxesPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.mainColor,
                               foregroundColor: AppColors.whiteColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               elevation: 0,
                             ),
                             onPressed: () => _confirmStartNewCycle(context),
                           ),
                         ),
-                      ):Container(),
-                    ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 8)),
+                      ),
 
-                    // TabBar غير مثبت (هيتحرك مع الاسكرول)
-                    SliverToBoxAdapter(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: TabBar(
-                          isScrollable: false,
-                          labelColor: Colors.black,
-                          indicatorColor: AppColors.secondColor,
-                          onTap: (i) {
-                            final desired = TreasureTier.values[i];
-                            if (desired != unlocked) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(S.of(context).completeCurrentLevel)),
-                              );
-                              DefaultTabController.of(context).index =
-                                  TreasureTier.values.indexOf(unlocked);
-                            } else {
-                              c.requestSwitchTier(desired,context: context);
-                            }
-                          },
-                          tabs: [
-                            Tab(text: S.of(context).bronze),
-                            Tab(text: S.of(context).silver),
-                            Tab(text: S.of(context).gold),
-                          ],
-                        ),
+                    const SizedBox(height: 8),
+
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: TabBar(
+                        isScrollable: false,
+                        labelColor: Colors.black,
+                        indicatorColor: AppColors.secondColor,
+                        onTap: (i) {
+                          final desired = TreasureTier.values[i];
+                          c.requestSwitchTier(desired, context: context);
+                          // (اختياري) لو عايز تربط الحركة يدويًا:
+                          // DefaultTabController.of(context).animateTo(i);
+                        },
+                        tabs: [
+                          Tab(text: S.of(context).bronze),
+                          Tab(text: S.of(context).silver),
+                          Tab(text: S.of(context).gold),
+                        ],
+                      ),
+                    ),
+
+                    // ---------- الجزء المتحرّك فقط ----------
+                    Expanded(
+                      child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _tierSliverGrid(context, TreasureTier.bronze,
+                              locked: false),
+                          _tierSliverGrid(context, TreasureTier.silver,
+                              locked: unlocked != TreasureTier.silver && (unlocked != TreasureTier.gold) ),
+                          _tierSliverGrid(context, TreasureTier.gold,
+                              locked: unlocked != TreasureTier.gold),
+                        ],
                       ),
                     ),
                   ],
-
-                  // الجسم: كل تبويب = CustomScrollView + SliverGrid (مفيش Scroll داخل Scroll)
-                  body: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _tierSliverGrid(context, TreasureTier.bronze,
-                          locked: unlocked != TreasureTier.bronze),
-                      _tierSliverGrid(context, TreasureTier.silver,
-                          locked: unlocked != TreasureTier.silver),
-                      _tierSliverGrid(context, TreasureTier.gold,
-                          locked: unlocked != TreasureTier.gold),
-                    ],
-                  ),
                 ),
               ),
             );
+
+
           },
         ),
       ),

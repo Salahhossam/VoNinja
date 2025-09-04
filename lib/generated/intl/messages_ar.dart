@@ -118,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "congratsAllBoxes": m3,
+        "congratulations": MessageLookupByLibrary.simpleMessage("🎉 مبروك"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
             "استمر في جمع النقاط لتحويلها إلى مكافآت مالية"),
         "continueExam": MessageLookupByLibrary.simpleMessage("متابعة الامتحان"),
@@ -237,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noVocabulariesAvailable":
             MessageLookupByLibrary.simpleMessage("لا توجد مفردات متاحة"),
         "notActiveYet": MessageLookupByLibrary.simpleMessage("غير نشط بعد"),
+        "ok": MessageLookupByLibrary.simpleMessage("تمام"),
         "okay": MessageLookupByLibrary.simpleMessage("حسناً"),
         "open": MessageLookupByLibrary.simpleMessage("افتح"),
         "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(

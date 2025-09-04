@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -331,7 +332,19 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
           ? S.of(context).earnedPoints(box.rewardPoints) // استخدام دالة بدلاً من خاصية
           : 'حصلت على ${box.rewardPoints} نقطة.';
       isLoading2 = false;
-      emit(TreasureBoxMessage(earnedMessage));
+      if(context!=null) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.scale,
+          title: S.of(context).congratulations,
+          desc: earnedMessage,
+          btnOkText: S.of(context).ok,
+          btnOkOnPress: () {},
+        ).show();
+      } else{
+        emit(TreasureBoxMessage(earnedMessage));
+      }
       emit(TreasureBoxUpdated());
     } catch (e) {
       isLoading2 = false;
@@ -342,13 +355,14 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
   // ======== تبديل المستوى ========
   void requestSwitchTier(TreasureTier desired, {BuildContext? context}) {
     final allowed = unlockedTier;
-    if (desired != allowed) {
-      final message = context != null
-          ? S.of(context).completeCurrentLevel
-          : 'أكمل المستوى الحالي أولًا.';
-      emit(TreasureBoxMessage(message));
-      return;
-    }
+
+    // if (desired != allowed) {
+    //   final message = context != null
+    //       ? S.of(context).completeCurrentLevel
+    //       : 'أكمل المستوى الحالي أولًا.';
+    //   emit(TreasureBoxMessage(message));
+    //   return;
+    // }
     currentTier = desired;
     currentIndex = switch (desired) {
       TreasureTier.bronze => bronzeIndex,

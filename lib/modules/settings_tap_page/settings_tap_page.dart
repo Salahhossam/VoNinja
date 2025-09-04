@@ -95,33 +95,7 @@ class _SettingsTapPageState extends State<SettingsTapPage> {
                                   'v ${settingsTapCubit.appVersion}'),
                           const SizedBox(height: 20),
                           // داخل Column(...) قبل LogoutButton()
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Card(
-                              color: AppColors.mainColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              child: ListTile(
-                                selectedColor: AppColors.mainColor,
-                                leading: const Icon(Icons.card_giftcard, color: AppColors.secondColor),
-                                title: Text(
-                                  S.of(context).treasureBoxesCard,
-                                  style: const TextStyle(color: AppColors.whiteColor),
-                                ),
-                                subtitle: Text(
-                                  S.of(context).treasureBoxesLevels,
-                                  style: const TextStyle(color: Colors.grey),
-                                ),
-                                trailing: const Icon(Icons.chevron_right, color: AppColors.whiteColor),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (_) => const TreasureBoxesPage()),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
+
                           const LogoutButton(),
                           const SizedBox(height: 20),
                         ],

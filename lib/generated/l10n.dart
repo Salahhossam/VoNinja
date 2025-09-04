@@ -1939,6 +1939,26 @@ class S {
       args: [],
     );
   }
+
+  /// `🎉 Congratulations`
+  String get congratulations {
+    return Intl.message(
+      '🎉 Congratulations',
+      name: 'congratulations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -119,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "congratsAllBoxes": m3,
+        "congratulations":
+            MessageLookupByLibrary.simpleMessage("🎉 Congratulations"),
         "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
             "Continue collecting points to convert them into financial rewards"),
         "continueExam": MessageLookupByLibrary.simpleMessage("Continue Exam"),
@@ -236,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noVocabulariesAvailable":
             MessageLookupByLibrary.simpleMessage("No vocabularies available"),
         "notActiveYet": MessageLookupByLibrary.simpleMessage("Not active yet"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "okay": MessageLookupByLibrary.simpleMessage("Okay"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(

@@ -57,9 +57,14 @@ class TapsPage extends StatelessWidget {
                     isSelected: cubit.currentIndex == 2,
                   ),
                   _buildNavBarItem(
+                    icon: Icons.diamond,
+                    label: 'Treasure',
+                    isSelected: cubit.currentIndex == 3,
+                  ),
+                  _buildNavBarItem(
                     icon: Icons.settings,
                     label: 'Settings',
-                    isSelected: cubit.currentIndex == 3,
+                    isSelected: cubit.currentIndex == 4,
                   ),
                 ],
                 currentIndex: cubit.currentIndex,
