@@ -109,7 +109,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
         ConfettiController(duration: const Duration(seconds: 1));
     initData();
     final mainCubit = MainAppCubit.get(context);
-     //mainCubit.interstitialAd();
+     mainCubit.interstitialAd();
     _initBannerAds();
   }
   @override
