@@ -4,17 +4,11 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:vo_ninja/modules/events_page/event_cubit/event_cubit.dart';
-
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
-
 import '../../shared/network/local/cash_helper.dart';
 import '../library_page/library_screen.dart';
-import '../treasure_boxes_page/treasure_boxes_cubit/treasure_boxes_cubit.dart';
-import '../welcome_challenge_page/welcome_challenge_cubit/welcome_challenge_cubit.dart';
-import '../welcome_challenge_page/welcome_challenge_intro_page.dart';
-import '../welcome_challenge_page/welcome_challenge_page.dart';
+
 import 'home_tap_cubit/home_tap_cubit.dart';
 import 'home_tap_cubit/home_tap_state.dart';
 import 'progress_indicator_widget.dart';
