@@ -20,6 +20,7 @@ import 'modules/challenges_tap_page/challenges_cubit/challenges_tap_cubit.dart';
 import 'modules/home_tap_page/home_tap_cubit/home_tap_cubit.dart';
 import 'modules/lessons_page/lessons_cubit/lessons_cubit.dart';
 import 'modules/library_page/library_cubit/library_cubit.dart';
+import 'modules/welcome_challenge_page/welcome_challenge_cubit/welcome_challenge_cubit.dart';
 import 'shared/main_cubit/bloc_observer.dart';
 import 'modules/taps_page/taps_cubit/taps_cubit.dart';
 import 'shared/main_cubit/cubit.dart';
@@ -342,6 +343,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => LibraryCubit()),
         BlocProvider(create: (context) => EventCubit()),
         BlocProvider(create: (context) => TreasureBoxCubit()),
+        BlocProvider(create: (context) => WelcomeChallengeCubit()),
       ],
       child: BlocConsumer<MainAppCubit, MainAppState>(
         listener: (context, state) {},

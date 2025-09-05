@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -41,6 +42,7 @@ class _QuizPageState extends State<QuizPage> {
   bool isTopBannerLoaded = false;
   bool isBottomBannerLoaded = false;
 
+  late ConfettiController _confettiController;
   void _initBannerAds() {
     // Top Banner
     myBannerTop = BannerAd(
@@ -88,10 +90,18 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 1));
     initData();
     final mainCubit = MainAppCubit.get(context);
-    //mainCubit.interstitialAd();
+    mainCubit.interstitialAd();
     _initBannerAds();
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
   }
 
   DateTime now = DateTime.now();
@@ -176,410 +186,443 @@ class _QuizPageState extends State<QuizPage> {
                                 {}, // Return an empty map instead of null
                           );
                           bool isPreviouslySelected = selectedAnswer.isNotEmpty;
-                          return Column(
+                          return Stack(
                             children: [
-                              if (isTopBannerLoaded && myBannerTop != null)
-                                Container(
-                                  height: 60,
-                                  width: double.infinity,
-                                  alignment: Alignment.center,
-                                  child: AdWidget(ad: myBannerTop!),
-                                ),
-                              Expanded(
-                                child: Container(
-                                  width: double.infinity,
-                                  //height: MediaQuery.of(context).size.height * .75,
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.mainColor,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(30),
-                                      bottomRight: Radius.circular(30),
+                              Column(
+                                children: [
+                                  if (isTopBannerLoaded && myBannerTop != null)
+                                    Container(
+                                      height: 60,
+                                      width: double.infinity,
+                                      alignment: Alignment.center,
+                                      child: AdWidget(ad: myBannerTop!),
                                     ),
-                                  ),
-                                  child: Center(
-                                    child: ListView(
-                                      padding: const EdgeInsets.all(16.0),
-                                      children: [
-                                        Row(
-
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      //height: MediaQuery.of(context).size.height * .75,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.mainColor,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(30),
+                                          bottomRight: Radius.circular(30),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: ListView(
+                                          padding: const EdgeInsets.all(16.0),
                                           children: [
-                                            IconButton(
-                                              icon: const Icon(Icons.close,
-                                                  color: Colors.white),
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const EventsPage()),
-                                                );
+                                            Row(
 
-                                              },
-                                            ),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Text(
-                                                  "${eventCubit.currentQuestionIndex + 1} / ${eventCubit.questions.length}",
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16),
+                                                IconButton(
+                                                  icon: const Icon(Icons.close,
+                                                      color: Colors.white),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const EventsPage()),
+                                                    );
+
+                                                  },
                                                 ),
-                                                SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      .6,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8.0),
-                                                    child:
-                                                        LinearProgressIndicator(
-                                                      value: progress,
-                                                      backgroundColor:
-                                                          const Color.fromRGBO(
-                                                              168, 168, 168, 1),
-                                                      color:
-                                                          AppColors.secondColor,
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "${eventCubit.currentQuestionIndex + 1} / ${eventCubit.questions.length}",
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16),
                                                     ),
-                                                  ),
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          .6,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 8.0),
+                                                        child:
+                                                            LinearProgressIndicator(
+                                                          value: progress,
+                                                          backgroundColor:
+                                                              const Color.fromRGBO(
+                                                                  168, 168, 168, 1),
+                                                          color:
+                                                              AppColors.secondColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                        if (currentQuestion.imageUrl != null &&
-                                            currentQuestion.imageUrl != '')
-                                          const SizedBox(height: 10)
-                                        else
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .15,
-                                          ),
-                                        if (currentQuestion.imageUrl != null &&
-                                            currentQuestion.imageUrl != '')
-                                          Center(
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  currentQuestion.imageUrl ??
-                                                      'http/',
-                                              height: 200,
-                                              width: 200,
-                                              placeholder: (context, url) =>
-                                                  const SizedBox(
-                                                height:
-                                                    30, // Adjust the size as needed
-                                                width: 30,
-                                                child: Center(
-                                                    child: Image(
-                                                  image: AssetImage(
-                                                      'assets/img/ninja_gif.gif'),
-                                                  height: 100,
-                                                  width: 100,
-                                                )
-                                                    // Thinner indicator
-                                                    ),
+                                            if (currentQuestion.imageUrl != null &&
+                                                currentQuestion.imageUrl != '')
+                                              const SizedBox(height: 10)
+                                            else
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .15,
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      const Icon(Icons.error,
-                                                          color: Colors.red,
-                                                          size: 30),
-                                            ),
-                                          ),
-                                        const SizedBox(height: 6),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                currentQuestion.content,
-                                                style: const TextStyle(
-                                                  color: AppColors.whiteColor,
-                                                  fontSize: 16,
+                                            if (currentQuestion.imageUrl != null &&
+                                                currentQuestion.imageUrl != '')
+                                              Center(
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      currentQuestion.imageUrl ??
+                                                          'http/',
+                                                  height: 200,
+                                                  width: 200,
+                                                  placeholder: (context, url) =>
+                                                      const SizedBox(
+                                                    height:
+                                                        30, // Adjust the size as needed
+                                                    width: 30,
+                                                    child: Center(
+                                                        child: Image(
+                                                      image: AssetImage(
+                                                          'assets/img/ninja_gif.gif'),
+                                                      height: 100,
+                                                      width: 100,
+                                                    )
+                                                        // Thinner indicator
+                                                        ),
+                                                  ),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          const Icon(Icons.error,
+                                                              color: Colors.red,
+                                                              size: 30),
                                                 ),
-                                                textAlign: TextAlign.left,
-                                                softWrap: true,
-                                                overflow: TextOverflow.visible,
                                               ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                eventCubit.speak(
+                                            const SizedBox(height: 6),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
                                                     currentQuestion.content,
-                                                    "en-US");
-                                              },
-                                              icon: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
+                                                    style: const TextStyle(
+                                                      color: AppColors.whiteColor,
+                                                      fontSize: 16,
+                                                    ),
+                                                    textAlign: TextAlign.left,
+                                                    softWrap: true,
+                                                    overflow: TextOverflow.visible,
+                                                  ),
                                                 ),
-                                                child: const Icon(
-                                                  Icons.volume_up,
-                                                  color: Color(0xff0a0a0a),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(height: 50),
-                                        ListView.builder(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: shuffledChoices.length,
-                                          itemBuilder: (context, index) {
-                                            final choice =
-                                                shuffledChoices[index];
+                                                IconButton(
+                                                  onPressed: () {
+                                                    eventCubit.speak(
+                                                        currentQuestion.content,
+                                                        "en-US");
+                                                  },
+                                                  icon: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(50),
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.volume_up,
+                                                      color: Color(0xff0a0a0a),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 50),
+                                            ListView.builder(
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount: shuffledChoices.length,
+                                              itemBuilder: (context, index) {
+                                                final choice =
+                                                    shuffledChoices[index];
 
-                                            Color borderColor =
-                                                AppColors.lightColor;
-                                            Color textColor = Colors.white;
-                                            Color backgroundColor =
-                                                Colors.transparent;
+                                                Color borderColor =
+                                                    AppColors.lightColor;
+                                                Color textColor = Colors.white;
+                                                Color backgroundColor =
+                                                    Colors.transparent;
 
-                                            if (isPreviouslySelected) {
-                                              if (choice.trim() ==
-                                                  selectedAnswer[
-                                                          "answerContent"]
-                                                      .trim()) {
-                                                if (selectedAnswer["correct"]) {
-                                                  borderColor = Colors.green;
-                                                  textColor = Colors.green;
-                                                  backgroundColor = Colors.green
-                                                      .withOpacity(0.1);
-                                                } else {
-                                                  borderColor = Colors.red;
-                                                  textColor = Colors.red;
-                                                  backgroundColor = Colors.red
-                                                      .withOpacity(0.1);
+                                                if (isPreviouslySelected) {
+                                                  if (choice.trim() ==
+                                                      selectedAnswer[
+                                                              "answerContent"]
+                                                          .trim()) {
+                                                    if (selectedAnswer["correct"]) {
+                                                      borderColor = Colors.green;
+                                                      textColor = Colors.green;
+                                                      backgroundColor = Colors.green
+                                                          .withOpacity(0.1);
+                                                    } else {
+                                                      borderColor = Colors.red;
+                                                      textColor = Colors.red;
+                                                      backgroundColor = Colors.red
+                                                          .withOpacity(0.1);
+                                                    }
+                                                  } else if (choice.trim() ==
+                                                      currentQuestion.correctAnswer
+                                                          .trim()) {
+                                                    borderColor = Colors.green;
+                                                    textColor = Colors.green;
+                                                    backgroundColor = Colors.green
+                                                        .withOpacity(0.1);
+                                                  }
                                                 }
-                                              } else if (choice.trim() ==
-                                                  currentQuestion.correctAnswer
-                                                      .trim()) {
-                                                borderColor = Colors.green;
-                                                textColor = Colors.green;
-                                                backgroundColor = Colors.green
-                                                    .withOpacity(0.1);
-                                              }
-                                            }
 
-                                            return InkWell(
-                                              onTap: isPreviouslySelected
-                                                  ? null
-                                                  : () async {
-                                                      setState(() {
-                                                        isLoadingAnswer = true;
-                                                      });
-                                                      bool isCorrect =
-                                                          choice.trim() ==
-                                                              currentQuestion
-                                                                  .correctAnswer
-                                                                  .trim();
+                                                return InkWell(
+                                                  onTap: isPreviouslySelected
+                                                      ? null
+                                                      : () async {
+                                                          setState(() {
+                                                            isLoadingAnswer = true;
+                                                          });
+                                                          bool isCorrect =
+                                                              choice.trim() ==
+                                                                  currentQuestion
+                                                                      .correctAnswer
+                                                                      .trim();
 
-                                                      eventCubit
-                                                          .previousAnswers
-                                                          .add({
-                                                        "id": currentQuestion
-                                                            .questionId,
-                                                        "questionId":
+                                                          eventCubit
+                                                              .previousAnswers
+                                                              .add({
+                                                            "id": currentQuestion
+                                                                .questionId,
+                                                            "questionId":
+                                                                currentQuestion
+                                                                    .questionId,
+                                                            "answerContent":
+                                                                choice.trim(),
+                                                            "correct": choice
+                                                                    .trim() ==
+                                                                currentQuestion
+                                                                    .correctAnswer
+                                                                    .trim(),
+                                                          });
+
+                                                          eventCubit
+                                                              .selectOption(index);
+                                                          await eventCubit
+                                                              .postUserExamAnswers(
+                                                            uid!,
                                                             currentQuestion
                                                                 .questionId,
-                                                        "answerContent":
                                                             choice.trim(),
-                                                        "correct": choice
-                                                                .trim() ==
-                                                            currentQuestion
-                                                                .correctAnswer
-                                                                .trim(),
-                                                      });
+                                                            choice.trim() ==
+                                                                currentQuestion
+                                                                    .correctAnswer
+                                                                    .trim(),
+                                                            widget.event,
+                                                          );
 
-                                                      eventCubit
-                                                          .selectOption(index);
-                                                      await eventCubit
-                                                          .postUserExamAnswers(
-                                                        uid!,
-                                                        currentQuestion
-                                                            .questionId,
-                                                        choice.trim(),
-                                                        choice.trim() ==
-                                                            currentQuestion
-                                                                .correctAnswer
-                                                                .trim(),
-                                                        widget.event,
-                                                      );
-
-                                                      setState(() {
-                                                        isLoadingAnswer = false;
-                                                      });
-                                                    },
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 16),
-                                                width: 200,
-                                                decoration: BoxDecoration(
-                                                  color: backgroundColor,
-                                                  border: Border.all(
-                                                    color: borderColor,
-                                                    width: 3,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    choice,
-                                                    style: TextStyle(
-                                                      color: textColor,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                          setState(() {
+                                                            if (isCorrect) {
+                                                              _confettiController
+                                                                  .play();
+                                                            }
+                                                            isLoadingAnswer = false;
+                                                          });
+                                                        },
+                                                  child: Container(
+                                                    margin: const EdgeInsets.only(
+                                                        bottom: 10),
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                            vertical: 16),
+                                                    width: 200,
+                                                    decoration: BoxDecoration(
+                                                      color: backgroundColor,
+                                                      border: Border.all(
+                                                        color: borderColor,
+                                                        width: 3,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(8),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        choice,
+                                                        style: TextStyle(
+                                                          color: textColor,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 8, right: 8, bottom: 8),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                eventCubit.moveToPastQuestion(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.mainColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
                                                 ),
+                                                padding: const EdgeInsets.all(15),
                                               ),
-                                            );
-                                          },
+                                              child: Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  Center(
+                                                    child: Text(
+                                                      S.of(context).back,
+                                                      style: const TextStyle(
+                                                          color:
+                                                              AppColors.whiteColor,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.height *
+                                                  .01,
+                                        ),
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                if (eventCubit.currentQuestionIndex %10==0 || eventCubit.currentQuestionIndex + 3 == eventCubit.questions.length) {
+                                                  final mainCubit =
+                                                      MainAppCubit.get(context);
+                                                  mainCubit.interstitialAd();
+                                                }
+                                                // Check if current question is answered
+                                                bool isAnswered = eventCubit
+                                                    .previousAnswers
+                                                    .any((answer) =>
+                                                        answer["questionId"] ==
+                                                        eventCubit
+                                                            .questions[eventCubit.currentQuestionIndex]
+                                                            .questionId);
+
+                                                if (!isAnswered) {
+                                                  // Show AwesomeDialog if not answered
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    dialogType: DialogType.warning,
+                                                    animType: AnimType.bottomSlide,
+                                                    title: S.of(context).warning,
+                                                    desc: S
+                                                        .of(context)
+                                                        .pleaseAnswerTheQuestionFirst,
+                                                    btnCancelOnPress: () {},
+                                                    btnCancelText:
+                                                        S.of(context).okay,
+                                                  ).show();
+                                                  return;
+                                                }
+                                                eventCubit.moveToNextQuestion(context,);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.mainColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                padding: const EdgeInsets.all(15),
+                                              ),
+                                              child: Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  Center(
+                                                    child: Text(
+                                                      S.of(context).continueExams,
+                                                      style: const TextStyle(
+                                                          color:
+                                                              AppColors.whiteColor,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
+                                  if (isBottomBannerLoaded &&
+                                      myBannerBottom != null)
+                                    Container(
+                                      height: 60,
+                                      width: double.infinity,
+                                      alignment: Alignment.center,
+                                      child: AdWidget(ad: myBannerBottom!),
+                                    )
+                                  else
+                                    const SizedBox(height: 60)
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20, left: 8, right: 8, bottom: 8),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            eventCubit.moveToPastQuestion(context);
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                AppColors.mainColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            padding: const EdgeInsets.all(15),
-                                          ),
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Center(
-                                                child: Text(
-                                                  S.of(context).back,
-                                                  style: const TextStyle(
-                                                      color:
-                                                          AppColors.whiteColor,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              .01,
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            if (eventCubit.currentQuestionIndex %10==0 || eventCubit.currentQuestionIndex + 3 == eventCubit.questions.length) {
-                                              final mainCubit =
-                                                  MainAppCubit.get(context);
-                                              mainCubit.interstitialAd();
-                                            }
-                                            // Check if current question is answered
-                                            bool isAnswered = eventCubit
-                                                .previousAnswers
-                                                .any((answer) =>
-                                                    answer["questionId"] ==
-                                                    eventCubit
-                                                        .questions[eventCubit.currentQuestionIndex]
-                                                        .questionId);
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 50),
+                                  child: ConfettiWidget(
+                                    confettiController: _confettiController,
+                                    blastDirection: pi / 2,
+                                    // ينزل لتحت
+                                    blastDirectionality:
+                                    BlastDirectionality.directional,
+                                    emissionFrequency: 0.05,
+                                    numberOfParticles: 20,
+                                    maxBlastForce: 12,
+                                    minBlastForce: 5,
+                                    gravity: 0.3,
 
-                                            if (!isAnswered) {
-                                              // Show AwesomeDialog if not answered
-                                              AwesomeDialog(
-                                                context: context,
-                                                dialogType: DialogType.warning,
-                                                animType: AnimType.bottomSlide,
-                                                title: S.of(context).warning,
-                                                desc: S
-                                                    .of(context)
-                                                    .pleaseAnswerTheQuestionFirst,
-                                                btnCancelOnPress: () {},
-                                                btnCancelText:
-                                                    S.of(context).okay,
-                                              ).show();
-                                              return;
-                                            }
-                                            eventCubit.moveToNextQuestion(context,);
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                AppColors.mainColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            padding: const EdgeInsets.all(15),
-                                          ),
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Center(
-                                                child: Text(
-                                                  S.of(context).continueExams,
-                                                  style: const TextStyle(
-                                                      color:
-                                                          AppColors.whiteColor,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    colors: const [
+                                      Colors.green,
+                                      Colors.blue,
+                                      Colors.pink,
+                                      Colors.orange,
+                                    ],
+                                  ),
                                 ),
                               ),
-                              if (isBottomBannerLoaded &&
-                                  myBannerBottom != null)
-                                Container(
-                                  height: 60,
-                                  width: double.infinity,
-                                  alignment: Alignment.center,
-                                  child: AdWidget(ad: myBannerBottom!),
-                                )
-                              else
-                                const SizedBox(height: 60)
                             ],
                           );
                         },

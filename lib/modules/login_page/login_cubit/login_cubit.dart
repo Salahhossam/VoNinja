@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:vo_ninja/modules/taps_page/taps_page.dart';
 import 'package:vo_ninja/shared/constant/constant.dart';
 import '../../../shared/network/local/cash_helper.dart';
+import '../../welcome_challenge_page/welcome_challenge_intro_page.dart';
 import 'login_state.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
@@ -37,34 +39,63 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> login(
-      context, String emailOrUserName, String password, String fcmToken) async {
+      BuildContext context,
+      String emailOrUserName,
+      String password,
+      String fcmToken,
+      ) async {
     emit(LoginLoading());
     try {
-      await firebaseAuth
-          .signInWithEmailAndPassword(
-              email: emailOrUserName, password: password)
-          .then((UserCredential userCredential) async {
-        String uid = userCredential.user!.uid;
+      final userCredential = await firebaseAuth.signInWithEmailAndPassword(
+        email: emailOrUserName,
+        password: password,
+      );
 
-          if (_rememberMe) {
-            await CashHelper.saveData(key: 'userToken', value: fcmToken);
-          }
-          await CashHelper.saveData(key: 'uid', value: uid);
-          await fireStore
-              .collection(USERS)
-              .doc(uid)
-              .update({'fcmToken': fcmToken});
-          await requestPermission();
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const TapsPage()),
-          );
-          emit(LoginSuccess());
+      final uid = userCredential.user!.uid;
 
-      });
+      if (_rememberMe) {
+        await CashHelper.saveData(key: 'userToken', value: fcmToken);
+      }
+      await CashHelper.saveData(key: 'uid', value: uid);
+
+      final docRef = fireStore.collection(USERS).doc(uid);
+
+      // Always keep FCM token fresh
+      await docRef.set({'fcmToken': fcmToken}, SetOptions(merge: true));
+
+      await requestPermission();
+
+      // Fetch user doc to check `isFirst`
+      final snap = await docRef.get();
+      final data = snap.data();
+
+      final bool isFirstMissingOrNull =
+          !snap.exists ||
+              data == null ||
+              !data.containsKey('isFirst') ||
+              data['isFirst'] == null;
+
+      if (isFirstMissingOrNull) {
+        // First time (field missing/null): mark it and show the welcome flow
+        await docRef.set({'isFirst': true}, SetOptions(merge: true));
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const WelcomeChallengeIntroPage()),
+              (route) => false,
+        );
+
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const TapsPage()),
+              (route) => false,
+        );
+      }
+
+      emit(LoginSuccess());
     } catch (e) {
       emit(LoginFailure("Wrong email or UserName or password"));
     }
   }
+
 
   Future<void> forgotPassword(String emailOrUserName, context) async {
     emit(ForgotPasswordLoading());

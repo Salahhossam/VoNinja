@@ -185,7 +185,7 @@
   "importantWarning": "⚠️ Important warning:",
   "cycleWarning": "If your balance exceeds 25,000 points, you must first make a transfer request to receive cash in your wallet within 48 working hours. Then you can start a new cycle with a 500 point reward. If your current points are more than 500, they will be replaced with only 500 points.",
   "confirmNewCycle": "Confirm starting new cycle",
-  "confirmNewCycleDescription": "If you press \"Confirm\", a new cycle will start and your balance will become 500 points.\nIf you have many points, it's better to spend them first.\n⚠️ If your balance ≥ 25,000 points, you must make a transfer request first.",
+  "confirmNewCycleDescription": "By pressing \"Confirm\", a new cycle will begin and your balance will be reset to 500 points.\nWe recommend using your existing points before starting a new cycle.\n⚠️ If your balance is 25,000 points or more, you must submit a transfer request first.",
   "confirm": "Confirm",
   "completeCurrentLevel": "Complete the current level first",
   "yourPoints": "Your Points",
@@ -211,5 +211,20 @@
   "watchAd": "Watch Ad",
   "open": "Open",
   "congratulations": "🎉 Congratulations",
-  "ok": "OK"
+  "ok": "OK",
+  "cannotStartNewCycle": "Cannot start a new cycle",
+  "mustTransferPointsFirst": "Your balance is above 25,000 points. Please submit a transfer request first before starting a new cycle.",
+  "intro_appBarTitle": "Welcome Challenge Instructions",
+  "intro_title": "Welcome to VoNinja! This is a welcome challenge:",
+  "intro_bullet_all_questions": "Answer all the challenge questions.",
+  "intro_bullet_five_minutes": "You have only 5 minutes from the moment you start.",
+  "intro_bullet_reward": "If you answer all questions correctly before time runs out, you will earn 500 points!",
+  "intro_startButton": "Start Challenge",
+
+  "final_congrats_title": "Congratulations!",
+  "final_congrats_desc": "You finished all questions correctly within {minutes} minutes. 500 points have been added to your balance.",
+  "final_tryAgain_title": "Better luck next time",
+  "final_tryAgain_desc_inTimeWrong": "You finished before time, but some answers were incorrect.\nTry again!",
+  "final_tryAgain_desc_timeOver": "Time ended before completing all answers correctly.\nTry again!",
+  "final_ok": "OK"
 }

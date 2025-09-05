@@ -181,25 +181,44 @@ class TreasureBoxesPage extends StatelessWidget {
   static void _confirmStartNewCycle(BuildContext context) {
     final c = TreasureBoxCubit.get(context);
 
-    AwesomeDialog(
-      context: context,
-      dialogType: DialogType.warning,
-      animType: AnimType.scale,
-      headerAnimationLoop: false,
-      dismissOnBackKeyPress: true,
-      dismissOnTouchOutside: false,
-      btnOkText: S.of(context).confirm,
-      btnCancelText: S.of(context).back,
-      btnOkColor: AppColors.mainColor,
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {
-        // سيطبّق القيود داخل الكيوبت (إنهاء كل الصناديق + حد 25K)
-        c.startNewCycleManually(context: context);
-      },
-      title: S.of(context).confirmNewCycle,
-      desc: S.of(context).confirmNewCycleDescription,
-    ).show();
+    if (c.userPoints >= 25000) {
+      // ممنوع يبدأ دورة جديدة
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        animType: AnimType.scale,
+        headerAnimationLoop: true,
+        dismissOnBackKeyPress: true,
+        dismissOnTouchOutside: true,
+        btnOkText: S.of(context).ok, // زر واحد فقط
+        btnOkColor: AppColors.mainColor,
+        btnOkOnPress: () {},
+        title: S.of(context).cannotStartNewCycle,
+        desc: S.of(context).mustTransferPointsFirst,
+      ).show();
+    } else {
+      // يقدر يبدأ دورة جديدة
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        animType: AnimType.scale,
+        headerAnimationLoop: true,
+        dismissOnBackKeyPress: true,
+        dismissOnTouchOutside: true,
+        btnOkText: S.of(context).confirm,
+        btnCancelText: S.of(context).back,
+        btnOkColor: AppColors.mainColor,
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {
+          // سيطبّق القيود داخل الكيوبت (إنهاء كل الصناديق + حد 25K)
+          c.startNewCycleManually(context: context);
+        },
+        title: S.of(context).confirmNewCycle,
+        desc: S.of(context).confirmNewCycleDescription,
+      ).show();
+    }
   }
+
 
   static Widget _header({required int userPoints, required int cycle, required BuildContext context}) {
     return Padding(

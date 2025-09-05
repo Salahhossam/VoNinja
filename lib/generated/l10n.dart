@@ -1690,10 +1690,10 @@ class S {
     );
   }
 
-  /// `If you press "Confirm", a new cycle will start and your balance will become 500 points.\nIf you have many points, it's better to spend them first.\n⚠️ If your balance ≥ 25,000 points, you must make a transfer request first.`
+  /// `By pressing "Confirm", a new cycle will begin and your balance will be reset to 500 points.\nWe recommend using your existing points before starting a new cycle.\n⚠️ If your balance is 25,000 points or more, you must submit a transfer request first.`
   String get confirmNewCycleDescription {
     return Intl.message(
-      'If you press "Confirm", a new cycle will start and your balance will become 500 points.\nIf you have many points, it\'s better to spend them first.\n⚠️ If your balance ≥ 25,000 points, you must make a transfer request first.',
+      'By pressing "Confirm", a new cycle will begin and your balance will be reset to 500 points.\nWe recommend using your existing points before starting a new cycle.\n⚠️ If your balance is 25,000 points or more, you must submit a transfer request first.',
       name: 'confirmNewCycleDescription',
       desc: '',
       args: [],
@@ -1955,6 +1955,146 @@ class S {
     return Intl.message(
       'OK',
       name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot start a new cycle`
+  String get cannotStartNewCycle {
+    return Intl.message(
+      'Cannot start a new cycle',
+      name: 'cannotStartNewCycle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your balance is above 25,000 points. Please submit a transfer request first before starting a new cycle.`
+  String get mustTransferPointsFirst {
+    return Intl.message(
+      'Your balance is above 25,000 points. Please submit a transfer request first before starting a new cycle.',
+      name: 'mustTransferPointsFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Challenge Instructions`
+  String get intro_appBarTitle {
+    return Intl.message(
+      'Welcome Challenge Instructions',
+      name: 'intro_appBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to VoNinja! This is a welcome challenge:`
+  String get intro_title {
+    return Intl.message(
+      'Welcome to VoNinja! This is a welcome challenge:',
+      name: 'intro_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Answer all the challenge questions.`
+  String get intro_bullet_all_questions {
+    return Intl.message(
+      'Answer all the challenge questions.',
+      name: 'intro_bullet_all_questions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have only 5 minutes from the moment you start.`
+  String get intro_bullet_five_minutes {
+    return Intl.message(
+      'You have only 5 minutes from the moment you start.',
+      name: 'intro_bullet_five_minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you answer all questions correctly before time runs out, you will earn 500 points!`
+  String get intro_bullet_reward {
+    return Intl.message(
+      'If you answer all questions correctly before time runs out, you will earn 500 points!',
+      name: 'intro_bullet_reward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Challenge`
+  String get intro_startButton {
+    return Intl.message(
+      'Start Challenge',
+      name: 'intro_startButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulations!`
+  String get final_congrats_title {
+    return Intl.message(
+      'Congratulations!',
+      name: 'final_congrats_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You finished all questions correctly within {minutes} minutes. 500 points have been added to your balance.`
+  String final_congrats_desc(Object minutes) {
+    return Intl.message(
+      'You finished all questions correctly within $minutes minutes. 500 points have been added to your balance.',
+      name: 'final_congrats_desc',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `Better luck next time`
+  String get final_tryAgain_title {
+    return Intl.message(
+      'Better luck next time',
+      name: 'final_tryAgain_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You finished before time, but some answers were incorrect.\nTry again!`
+  String get final_tryAgain_desc_inTimeWrong {
+    return Intl.message(
+      'You finished before time, but some answers were incorrect.\nTry again!',
+      name: 'final_tryAgain_desc_inTimeWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time ended before completing all answers correctly.\nTry again!`
+  String get final_tryAgain_desc_timeOver {
+    return Intl.message(
+      'Time ended before completing all answers correctly.\nTry again!',
+      name: 'final_tryAgain_desc_timeOver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get final_ok {
+    return Intl.message(
+      'OK',
+      name: 'final_ok',
       desc: '',
       args: [],
     );

@@ -39,34 +39,37 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(label) => "Please enter your ${label}";
 
-  static String m9(level) => "Level ${level}";
+  static String m9(minutes) =>
+      "You finished all questions correctly within ${minutes} minutes. 500 points have been added to your balance.";
 
-  static String m10(subscriptionCostPoints) =>
+  static String m10(level) => "Level ${level}";
+
+  static String m11(subscriptionCostPoints) =>
       "You must have ${subscriptionCostPoints} points to enter this challenge";
 
-  static String m11(previousLessonTitle) =>
+  static String m12(previousLessonTitle) =>
       "You must complete all questions in lesson ${previousLessonTitle} before starting this lesson.";
 
-  static String m12(level) =>
+  static String m13(level) =>
       "You must complete level ${level} first to unlock this content";
 
-  static String m13(points) => "You need ${points} additional points. ";
-
-  static String m14(current, required) => "Need ${current}/${required} pts";
+  static String m14(points) => "You need ${points} additional points. ";
 
   static String m15(current, required) => "Need ${current}/${required} pts";
 
-  static String m16(cycle) => "New cycle started (#${cycle}). Good luck!";
+  static String m16(current, required) => "Need ${current}/${required} pts";
 
-  static String m17(current, goal) => "Points: ${current}/${goal}";
+  static String m17(cycle) => "New cycle started (#${cycle}). Good luck!";
 
-  static String m18(points) => "Reward + ${points} pts";
+  static String m18(current, goal) => "Points: ${current}/${goal}";
 
-  static String m19(time) => "Starts in ${time}";
+  static String m19(points) => "Reward + ${points} pts";
 
-  static String m20(current, total) => "Total answers: ${current}/${total}";
+  static String m20(time) => "Starts in ${time}";
 
-  static String m21(ads) => "Watch ${ads} ad(s).";
+  static String m21(current, total) => "Total answers: ${current}/${total}";
+
+  static String m22(ads) => "Watch ${ads} ad(s).";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -89,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bronze": MessageLookupByLibrary.simpleMessage("Bronze"),
         "cannotAccessLevel": MessageLookupByLibrary.simpleMessage(
             "You cannot access this level before completing the previous one."),
+        "cannotStartNewCycle":
+            MessageLookupByLibrary.simpleMessage("Cannot start a new cycle"),
         "cash": MessageLookupByLibrary.simpleMessage("Cash"),
         "challenges": MessageLookupByLibrary.simpleMessage("Challenges"),
         "changePassword":
@@ -115,7 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmNewCycle":
             MessageLookupByLibrary.simpleMessage("Confirm starting new cycle"),
         "confirmNewCycleDescription": MessageLookupByLibrary.simpleMessage(
-            "If you press \"Confirm\", a new cycle will start and your balance will become 500 points.\nIf you have many points, it\'s better to spend them first.\n⚠️ If your balance ≥ 25,000 points, you must make a transfer request first."),
+            "By pressing \"Confirm\", a new cycle will begin and your balance will be reset to 500 points.\nWe recommend using your existing points before starting a new cycle.\n⚠️ If your balance is 25,000 points or more, you must submit a transfer request first."),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "congratsAllBoxes": m3,
@@ -170,6 +175,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "exit": MessageLookupByLibrary.simpleMessage("Press again to exit"),
         "exitPrompt":
             MessageLookupByLibrary.simpleMessage("Press again to exit"),
+        "final_congrats_desc": m9,
+        "final_congrats_title":
+            MessageLookupByLibrary.simpleMessage("Congratulations!"),
+        "final_ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "final_tryAgain_desc_inTimeWrong": MessageLookupByLibrary.simpleMessage(
+            "You finished before time, but some answers were incorrect.\nTry again!"),
+        "final_tryAgain_desc_timeOver": MessageLookupByLibrary.simpleMessage(
+            "Time ended before completing all answers correctly.\nTry again!"),
+        "final_tryAgain_title":
+            MessageLookupByLibrary.simpleMessage("Better luck next time"),
         "firstPlace": MessageLookupByLibrary.simpleMessage("1st"),
         "followOurSocialMedia":
             MessageLookupByLibrary.simpleMessage("Follow our social media"),
@@ -196,6 +211,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "inProgress": MessageLookupByLibrary.simpleMessage("In progress"),
         "incompleteLesson":
             MessageLookupByLibrary.simpleMessage("Lesson Incomplete"),
+        "intro_appBarTitle": MessageLookupByLibrary.simpleMessage(
+            "Welcome Challenge Instructions"),
+        "intro_bullet_all_questions": MessageLookupByLibrary.simpleMessage(
+            "Answer all the challenge questions."),
+        "intro_bullet_five_minutes": MessageLookupByLibrary.simpleMessage(
+            "You have only 5 minutes from the moment you start."),
+        "intro_bullet_reward": MessageLookupByLibrary.simpleMessage(
+            "If you answer all questions correctly before time runs out, you will earn 500 points!"),
+        "intro_startButton":
+            MessageLookupByLibrary.simpleMessage("Start Challenge"),
+        "intro_title": MessageLookupByLibrary.simpleMessage(
+            "Welcome to VoNinja! This is a welcome challenge:"),
         "inviteFriend":
             MessageLookupByLibrary.simpleMessage("Invite your friend"),
         "join": MessageLookupByLibrary.simpleMessage("Join"),
@@ -208,7 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lessons": MessageLookupByLibrary.simpleMessage("Lessons"),
         "lessonsLearningVocabulary": MessageLookupByLibrary.simpleMessage(
             "This is your first step in learning English vocabulary.\nGo on ninja!"),
-        "levelNumber": m9,
+        "levelNumber": m10,
         "librarySubtitle": MessageLookupByLibrary.simpleMessage(
             "Browse English learning books"),
         "libraryTitle": MessageLookupByLibrary.simpleMessage("Voninja Library"),
@@ -219,15 +246,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Username cannot exceed 20 characters"),
         "minUserName": MessageLookupByLibrary.simpleMessage(
             "Username must be at least 3 characters long"),
-        "minmaPoints": m10,
-        "mustCompleteLesson": m11,
-        "mustCompleteLevel": m12,
-        "needPoints": m13,
-        "needPoints2": m14,
-        "needPointsRemaining": m15,
+        "minmaPoints": m11,
+        "mustCompleteLesson": m12,
+        "mustCompleteLevel": m13,
+        "mustTransferPointsFirst": MessageLookupByLibrary.simpleMessage(
+            "Your balance is above 25,000 points. Please submit a transfer request first before starting a new cycle."),
+        "needPoints": m14,
+        "needPoints2": m15,
+        "needPointsRemaining": m16,
         "newCycleDescription": MessageLookupByLibrary.simpleMessage(
             "You can reset the cycle now and start with a reward of 500 points. Or continue as you are and keep your current points."),
-        "newCycleStarted": m16,
+        "newCycleStarted": m17,
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
         "nextLesson": MessageLookupByLibrary.simpleMessage("Next Lesson"),
         "nextTask": MessageLookupByLibrary.simpleMessage("Next Task"),
@@ -255,7 +284,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("+ 1 point | - 1 point"),
         "pointNumber": MessageLookupByLibrary.simpleMessage("Point"),
         "points": MessageLookupByLibrary.simpleMessage("Points"),
-        "points2": m17,
+        "points2": m18,
         "progress": MessageLookupByLibrary.simpleMessage("Progress"),
         "pts": MessageLookupByLibrary.simpleMessage("pts"),
         "questionsNumber": MessageLookupByLibrary.simpleMessage("Questions"),
@@ -268,7 +297,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rewardClaimed": MessageLookupByLibrary.simpleMessage("Reward Claimed"),
         "rewardClaimedMessage":
             MessageLookupByLibrary.simpleMessage("Reward claimed!"),
-        "rewardPoints": m18,
+        "rewardPoints": m19,
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
         "secondPlace": MessageLookupByLibrary.simpleMessage("2nd"),
         "sendDetails": MessageLookupByLibrary.simpleMessage("Send Details"),
@@ -290,7 +319,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startLearning": MessageLookupByLibrary.simpleMessage("Start Learning"),
         "startNewCycle":
             MessageLookupByLibrary.simpleMessage("Start New Cycle"),
-        "startsIn": m19,
+        "startsIn": m20,
         "subscribeInChallenge":
             MessageLookupByLibrary.simpleMessage("Subscribe Now"),
         "successfullyCompleted":
@@ -302,7 +331,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tasks": MessageLookupByLibrary.simpleMessage("Tasks"),
         "thirdPlace": MessageLookupByLibrary.simpleMessage("3rd"),
         "topTen": MessageLookupByLibrary.simpleMessage("Top 10"),
-        "totalAnswers": m20,
+        "totalAnswers": m21,
         "totalBalance": MessageLookupByLibrary.simpleMessage("Total Balance"),
         "totalPoints": MessageLookupByLibrary.simpleMessage("Total Points"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transaction"),
@@ -332,7 +361,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "🎯 Want to start a new adventure?"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
         "watchAd": MessageLookupByLibrary.simpleMessage("Watch Ad"),
-        "watchAds": m21,
+        "watchAds": m22,
         "wrongCredentials":
             MessageLookupByLibrary.simpleMessage("Wrong email or password"),
         "wrongResetPassword":
