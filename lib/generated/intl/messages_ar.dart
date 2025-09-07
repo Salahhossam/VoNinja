@@ -75,6 +75,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "WithdrawPoints": MessageLookupByLibrary.simpleMessage(
             "سحب النقاط يقلل من تصنيفك الإجمالي."),
         "about": MessageLookupByLibrary.simpleMessage("معلومات عننا"),
+        "aboutUs": MessageLookupByLibrary.simpleMessage("من نحن"),
+        "about_intro_1": MessageLookupByLibrary.simpleMessage(
+            "Voninja هو تطبيق تعليمي مبتكر لتعلم كلمات ومفردات اللغة الإنجليزية بطريقة ممتعة وتفاعلية."),
+        "about_intro_2": MessageLookupByLibrary.simpleMessage(
+            "بيجمع ما بين التعلم + التحديات + المكافآت المادية علشان يخلي تجربة التعلم مختلفة ومشوقة."),
+        "about_title": MessageLookupByLibrary.simpleMessage("📖 حول Voninja"),
         "adNotAvailable": MessageLookupByLibrary.simpleMessage(
             "الإعلان غير متاح حاليًا، حاول ثانيا بعد لحظات."),
         "adsProgress": m0,
@@ -132,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("استمر في التعلم"),
         "continueQuiz":
             MessageLookupByLibrary.simpleMessage("استمر في الاختبار"),
+        "copied": MessageLookupByLibrary.simpleMessage("تم النسخ"),
+        "copy": MessageLookupByLibrary.simpleMessage("نسخ"),
         "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
             "لكل إجابة صحيحة، سوف تكسب نقاطًا، ولكن إذا أجبت بشكل غير صحيح، فسوف تخسر نقاطًا"),
         "correctAnswers": m4,
@@ -176,6 +184,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "exit": MessageLookupByLibrary.simpleMessage("اضغط مرة أخرى للخروج"),
         "exitPrompt":
             MessageLookupByLibrary.simpleMessage("اضغط مرة أخرى للخروج"),
+        "faq_a1": MessageLookupByLibrary.simpleMessage(
+            "عادةً بنرد خلال ساعات قليلة، وأثناء الفعاليات أو الضغط ممكن يتأخر الرد قليلًا."),
+        "faq_a2": MessageLookupByLibrary.simpleMessage(
+            "من فضلك اذكر نوع جهازك، إصدار التطبيق، ووصف مختصر أو لقطة شاشة للمشكلة."),
+        "faq_a3": MessageLookupByLibrary.simpleMessage(
+            "نعم، نرحب بالرسائل 24/7 وسنعاود التواصل في أول نافذة مناسبة."),
+        "faq_q1":
+            MessageLookupByLibrary.simpleMessage("في خلال قد إيه بتردوا؟"),
+        "faq_q2": MessageLookupByLibrary.simpleMessage(
+            "إيه المعلومات اللي أبعتهالكم؟"),
+        "faq_q3": MessageLookupByLibrary.simpleMessage(
+            "هل أقدر أتواصل خارج أوقات العمل؟"),
+        "faq_title": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
+        "feature_challenges": MessageLookupByLibrary.simpleMessage(
+            "🏆 Challenges: مهام مختلفة بنقاط محددة علشان تحفزك تتقدم خطوة بخطوة."),
+        "feature_events": MessageLookupByLibrary.simpleMessage(
+            "📅 Events مميزة: فعاليات محدودة الوقت بتشجعك تتفاعل بشكل أكبر وتحصل على جوائز ضخمة."),
+        "feature_interactive_lessons": MessageLookupByLibrary.simpleMessage(
+            "🎯 دروس تفاعلية: تتعلم كلمات جديدة من خلال أسئلة قصيرة وسهلة."),
+        "feature_library": MessageLookupByLibrary.simpleMessage(
+            "📚 Voninja Library: مكتبة تعليمية تحتوي على ملفات PDF متنوعة تساعدك على توسيع حصيلتك اللغوية."),
+        "feature_treasure": MessageLookupByLibrary.simpleMessage(
+            "🎁 نظام الصناديق (Treasure Boxes Page): صفحة خاصة فيها صناديق متدرجة المستويات (Bronze – Silver – Gold) تفتح تدريجيًا وتكافئك بنقاط وهدايا."),
+        "features_title":
+            MessageLookupByLibrary.simpleMessage("مميزات Voninja:"),
         "final_congrats_desc": m9,
         "final_congrats_title": MessageLookupByLibrary.simpleMessage("مبروك!"),
         "final_ok": MessageLookupByLibrary.simpleMessage("تم"),
@@ -202,6 +235,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اذهب إلى الفعاليات"),
         "goToPreviousLesson":
             MessageLookupByLibrary.simpleMessage("الذهاب للدرس السابق"),
+        "goal_body": MessageLookupByLibrary.simpleMessage(
+            "نخلي تعلم اللغة الإنجليزية عملية سهلة، ممتعة، ومربحة ماديًا في نفس الوقت. مع Voninja، كل دقيقة بتتعلم فيها بتقربك من تحقيق هدفك في اللغة، وفي نفس الوقت بتحقق دخل إضافي من مجهودك."),
+        "goal_title": MessageLookupByLibrary.simpleMessage("هدفنا:"),
         "gold": MessageLookupByLibrary.simpleMessage("ذهبية"),
         "goodLuck": MessageLookupByLibrary.simpleMessage(
             "حظًا موفقًا! راجع إجاباتك وحاول مرة أخرى في الحدث القادم."),
@@ -238,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "librarySubtitle":
             MessageLookupByLibrary.simpleMessage("تصفح كتب تعلم الإنجليزية"),
         "libraryTitle": MessageLookupByLibrary.simpleMessage("مكتبة فونينجا"),
+        "locked": MessageLookupByLibrary.simpleMessage("مقفول"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginButton": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -250,6 +287,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "mustCompleteLevel": m13,
         "mustTransferPointsFirst": MessageLookupByLibrary.simpleMessage(
             "رصيدك أكبر من ٢٥,٠٠٠ نقطة. يجب تقديم طلب تحويل النقاط أولًا قبل بدء دورة جديدة."),
+        "nav_challenges": MessageLookupByLibrary.simpleMessage("التحديات"),
+        "nav_home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+        "nav_leaderboard": MessageLookupByLibrary.simpleMessage("لوحة الصدارة"),
+        "nav_learn": MessageLookupByLibrary.simpleMessage("التعلم"),
+        "nav_settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+        "nav_treasure": MessageLookupByLibrary.simpleMessage("الكنز"),
         "needPoints": m14,
         "needPoints2": m15,
         "needPointsRemaining": m16,
@@ -298,8 +341,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "rewardClaimedMessage":
             MessageLookupByLibrary.simpleMessage("تم المطالبة بالمكافأة!"),
         "rewardPoints": m19,
+        "rewards_cash": MessageLookupByLibrary.simpleMessage(
+            "عند تجميع 25,000 نقطة، تقدر تحولهم مباشرة إلى 100 جنيه كاش."),
+        "rewards_intro": MessageLookupByLibrary.simpleMessage(
+            "مع Voninja، كل نقطة بتتعلمها ليها قيمة حقيقية 💰"),
+        "rewards_time": MessageLookupByLibrary.simpleMessage(
+            "في حالة استخدام التطبيق ساعتين يوميًا، هتقدر توصل لـ 25,000 نقطة في فترة قصيرة من 3 لـ 5 أيام فقط."),
+        "rewards_title": MessageLookupByLibrary.simpleMessage("نظام المكافآت:"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
         "secondPlace": MessageLookupByLibrary.simpleMessage("الثاني"),
+        "select_tap_error":
+            MessageLookupByLibrary.simpleMessage("تعذّر التبديل بين الألسنة"),
         "sendDetails": MessageLookupByLibrary.simpleMessage("إرسال التفاصيل"),
         "showMyAnswers": MessageLookupByLibrary.simpleMessage("عرض إجاباتي"),
         "showRanks": MessageLookupByLibrary.simpleMessage("اظهر الترتيب"),
@@ -324,9 +376,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyCompleted": MessageLookupByLibrary.simpleMessage("مبروك!"),
         "successfullyPoints": MessageLookupByLibrary.simpleMessage(
             "لقد أكملت الدرس بنجاح \nواكتسبت النقاط"),
+        "support_email_label":
+            MessageLookupByLibrary.simpleMessage("البريد الإلكتروني للدعم"),
+        "support_email_value":
+            MessageLookupByLibrary.simpleMessage("voninja15@gmail.com"),
+        "support_intro": MessageLookupByLibrary.simpleMessage(
+            "لو واجهتك أي مشكلة أو عندك استفسار بخصوص استخدام Voninja، فريق الدعم الفني جاهز يساعدك في أي وقت."),
+        "support_note": MessageLookupByLibrary.simpleMessage(
+            "تقدر تتواصل معانا في أي وقت، وهتلاقي فريقنا بيرد عليك في أسرع وقت علشان يحل مشكلتك أو يجاوب على أسئلتك."),
+        "support_title":
+            MessageLookupByLibrary.simpleMessage("🛠️ الدعم الفني"),
+        "support_whatsapp_label":
+            MessageLookupByLibrary.simpleMessage("واتساب الدعم"),
+        "support_whatsapp_value":
+            MessageLookupByLibrary.simpleMessage("+20 1034672064"),
         "switchIcons": MessageLookupByLibrary.simpleMessage("تبديل الأيقونات"),
         "taskNumber": MessageLookupByLibrary.simpleMessage("المهمة"),
         "tasks": MessageLookupByLibrary.simpleMessage("المهام"),
+        "technicalSupport": MessageLookupByLibrary.simpleMessage("الدعم الفني"),
         "thirdPlace": MessageLookupByLibrary.simpleMessage("الثالث"),
         "topTen": MessageLookupByLibrary.simpleMessage("افضل 10 مقاتلين!"),
         "totalAnswers": m21,
@@ -342,6 +409,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الأسئلة غير المجابة: "),
         "unansweredQuestionsTitle": MessageLookupByLibrary.simpleMessage(
             "الأسئلة التي لم يتم الإجابة عليها:"),
+        "userGuide": MessageLookupByLibrary.simpleMessage("دليل المستخدم"),
         "userName": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "validFristName": MessageLookupByLibrary.simpleMessage(
             "يجب أن يتكون الاسم الأول من حرفين على الأقل"),

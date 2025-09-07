@@ -100,7 +100,40 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                     ))
                   : ListView(
                       children: [
-                        // Top Banner Section
+                        const SizedBox(height: 24,),
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0),
+                          itemCount: challengeTapCubit.levelsData.length,
+                          itemBuilder: (context, index) {
+                            final challengesTap =
+                            challengeTapCubit.levelsData[index];
+                            return Column(
+                              children: [
+                                ChallengesTapCard(
+                                  levelId: challengesTap.levelId,
+                                  levelDifficulty:
+                                  challengesTap.levelDifficulty,
+                                  rewardedPoints:
+                                  challengesTap.rewardedPoints,
+                                  numberOfLessons:
+                                  challengesTap.numberOfLessons,
+                                  levelProgress:
+                                  challengesTap.levelProgress,
+                                  canTab: index == 0 ||
+                                      challengesTap.levelProgress == 1.0 ||
+                                      (challengesTap.canTap != null && challengesTap.canTap!) ||
+                                      (index > 0 &&
+                                          challengeTapCubit.levelsData[index - 1].levelProgress == 1.0),
+                                  previousTile: index != 0?challengeTapCubit.levelsData[index-1].levelDifficulty:null,
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            );
+                          },
+                        ),
                         InkWell(
                           onTap: () => Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
@@ -314,40 +347,6 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                               ),
                             ),
                           ),
-                        ),
-                        // Progress Cards with data from Cubit
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0),
-                          itemCount: challengeTapCubit.levelsData.length,
-                          itemBuilder: (context, index) {
-                            final challengesTap =
-                                challengeTapCubit.levelsData[index];
-                            return Column(
-                              children: [
-                                ChallengesTapCard(
-                                  levelId: challengesTap.levelId,
-                                  levelDifficulty:
-                                      challengesTap.levelDifficulty,
-                                  rewardedPoints:
-                                      challengesTap.rewardedPoints,
-                                  numberOfLessons:
-                                      challengesTap.numberOfLessons,
-                                  levelProgress:
-                                      challengesTap.levelProgress,
-                                  canTab: index == 0 ||
-                                      challengesTap.levelProgress == 1.0 ||
-                                      (challengesTap.canTap != null && challengesTap.canTap!) ||
-                                      (index > 0 &&
-                                          challengeTapCubit.levelsData[index - 1].levelProgress == 1.0),
-                                  previousTile: index != 0?challengeTapCubit.levelsData[index-1].levelDifficulty:null,
-                                ),
-                                const SizedBox(height: 16),
-                              ],
-                            );
-                          },
                         ),
                       ],
                     ),

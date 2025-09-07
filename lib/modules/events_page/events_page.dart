@@ -303,9 +303,9 @@ class _EventsPageState extends State<EventsPage> {
                               ),
                               child: CachedNetworkImage(
                                 imageUrl: e.imageUrl ?? 'http/',
-                                height: 160,
+                                height: 220,
                                 width: double.infinity,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                                 placeholder: (context, url) =>
                                     Container(
                                       height: 160,

@@ -76,6 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "WithdrawPoints": MessageLookupByLibrary.simpleMessage(
             "Withdrawing points reduces your overall ranking"),
         "about": MessageLookupByLibrary.simpleMessage("About Us"),
+        "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
+        "about_intro_1": MessageLookupByLibrary.simpleMessage(
+            "Voninja is an innovative learning app for mastering English words and vocabulary in a fun, interactive way."),
+        "about_intro_2": MessageLookupByLibrary.simpleMessage(
+            "It combines learning + challenges + real rewards to make your learning experience engaging and exciting."),
+        "about_title": MessageLookupByLibrary.simpleMessage("📖 About Voninja"),
         "adNotAvailable": MessageLookupByLibrary.simpleMessage(
             "Ad is not currently available, try again in a moment."),
         "adsProgress": m0,
@@ -133,6 +139,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueLearning":
             MessageLookupByLibrary.simpleMessage("Continue Learning"),
         "continueQuiz": MessageLookupByLibrary.simpleMessage("Continue Quiz"),
+        "copied": MessageLookupByLibrary.simpleMessage("Copied"),
+        "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
             "For each correct answer, you will earn points, but if you answer incorrectly, you will lose points"),
         "correctAnswers": m4,
@@ -175,6 +183,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "exit": MessageLookupByLibrary.simpleMessage("Press again to exit"),
         "exitPrompt":
             MessageLookupByLibrary.simpleMessage("Press again to exit"),
+        "faq_a1": MessageLookupByLibrary.simpleMessage(
+            "We usually reply within a few hours. During events and peak times, it may take a little longer."),
+        "faq_a2": MessageLookupByLibrary.simpleMessage(
+            "Please share your device type, app version, and a brief description or a screenshot of the issue."),
+        "faq_a3": MessageLookupByLibrary.simpleMessage(
+            "Yes, messages are accepted 24/7. Our team will get back to you in the next available window."),
+        "faq_q1":
+            MessageLookupByLibrary.simpleMessage("How fast do you respond?"),
+        "faq_q2": MessageLookupByLibrary.simpleMessage(
+            "What info should I include in my message?"),
+        "faq_q3": MessageLookupByLibrary.simpleMessage(
+            "Can I contact you outside business hours?"),
+        "faq_title":
+            MessageLookupByLibrary.simpleMessage("Frequently Asked Questions"),
+        "feature_challenges": MessageLookupByLibrary.simpleMessage(
+            "🏆 Challenges: tasks with specific points to keep you progressing step by step."),
+        "feature_events": MessageLookupByLibrary.simpleMessage(
+            "📅 Special Events: time-limited events that boost your engagement and unlock big rewards."),
+        "feature_interactive_lessons": MessageLookupByLibrary.simpleMessage(
+            "🎯 Interactive lessons: learn new words through short, easy questions."),
+        "feature_library": MessageLookupByLibrary.simpleMessage(
+            "📚 Voninja Library: a collection of PDF files to expand your vocabulary."),
+        "feature_treasure": MessageLookupByLibrary.simpleMessage(
+            "🎁 Treasure Boxes Page: progressive boxes (Bronze – Silver – Gold) that unlock gradually and reward you with points and gifts."),
+        "features_title":
+            MessageLookupByLibrary.simpleMessage("Voninja Features:"),
         "final_congrats_desc": m9,
         "final_congrats_title":
             MessageLookupByLibrary.simpleMessage("Congratulations!"),
@@ -202,6 +236,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "goToEvents": MessageLookupByLibrary.simpleMessage("Go to Events"),
         "goToPreviousLesson":
             MessageLookupByLibrary.simpleMessage("Go to previous lesson"),
+        "goal_body": MessageLookupByLibrary.simpleMessage(
+            "Make learning English easy, enjoyable, and financially rewarding at the same time. With Voninja, every minute you learn brings you closer to your language goal—and helps you earn extra income from your effort."),
+        "goal_title": MessageLookupByLibrary.simpleMessage("Our Goal:"),
         "gold": MessageLookupByLibrary.simpleMessage("Gold"),
         "goodLuck": MessageLookupByLibrary.simpleMessage(
             "Good luck! Review your answers and try again in the next event."),
@@ -239,6 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "librarySubtitle": MessageLookupByLibrary.simpleMessage(
             "Browse English learning books"),
         "libraryTitle": MessageLookupByLibrary.simpleMessage("Voninja Library"),
+        "locked": MessageLookupByLibrary.simpleMessage("Locked"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginButton": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -251,6 +289,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "mustCompleteLevel": m13,
         "mustTransferPointsFirst": MessageLookupByLibrary.simpleMessage(
             "Your balance is above 25,000 points. Please submit a transfer request first before starting a new cycle."),
+        "nav_challenges": MessageLookupByLibrary.simpleMessage("Challenges"),
+        "nav_home": MessageLookupByLibrary.simpleMessage("Home"),
+        "nav_leaderboard": MessageLookupByLibrary.simpleMessage("Leaderboard"),
+        "nav_learn": MessageLookupByLibrary.simpleMessage("Learn"),
+        "nav_settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "nav_treasure": MessageLookupByLibrary.simpleMessage("Treasure"),
         "needPoints": m14,
         "needPoints2": m15,
         "needPointsRemaining": m16,
@@ -298,8 +342,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "rewardClaimedMessage":
             MessageLookupByLibrary.simpleMessage("Reward claimed!"),
         "rewardPoints": m19,
+        "rewards_cash": MessageLookupByLibrary.simpleMessage(
+            "When you collect 25,000 points, you can convert them directly to 100 EGP cash."),
+        "rewards_intro": MessageLookupByLibrary.simpleMessage(
+            "With Voninja, every point you learn has real value 💰"),
+        "rewards_time": MessageLookupByLibrary.simpleMessage(
+            "If you use the app for two hours daily, you can reach 25,000 points in a short period of only 3–5 days."),
+        "rewards_title":
+            MessageLookupByLibrary.simpleMessage("Rewards System:"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
         "secondPlace": MessageLookupByLibrary.simpleMessage("2nd"),
+        "select_tap_error":
+            MessageLookupByLibrary.simpleMessage("Could not switch tab"),
         "sendDetails": MessageLookupByLibrary.simpleMessage("Send Details"),
         "showMyAnswers":
             MessageLookupByLibrary.simpleMessage("Show my answers"),
@@ -326,9 +380,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Congratulations!"),
         "successfullyPoints": MessageLookupByLibrary.simpleMessage(
             "You have Successfully \nCompleted the lesson"),
+        "support_email_label":
+            MessageLookupByLibrary.simpleMessage("Support Email"),
+        "support_email_value":
+            MessageLookupByLibrary.simpleMessage("voninja15@gmail.com"),
+        "support_intro": MessageLookupByLibrary.simpleMessage(
+            "If you face any issue or have a question about using Voninja, our support team is ready to help anytime."),
+        "support_note": MessageLookupByLibrary.simpleMessage(
+            "You can contact us at any time, and our team will get back to you as soon as possible to solve your problem or answer your questions."),
+        "support_title":
+            MessageLookupByLibrary.simpleMessage("🛠️ Technical Support"),
+        "support_whatsapp_label":
+            MessageLookupByLibrary.simpleMessage("WhatsApp Support"),
+        "support_whatsapp_value":
+            MessageLookupByLibrary.simpleMessage("+20 1034672064"),
         "switchIcons": MessageLookupByLibrary.simpleMessage("Switch icons"),
         "taskNumber": MessageLookupByLibrary.simpleMessage("Task"),
         "tasks": MessageLookupByLibrary.simpleMessage("Tasks"),
+        "technicalSupport":
+            MessageLookupByLibrary.simpleMessage("Technical Support"),
         "thirdPlace": MessageLookupByLibrary.simpleMessage("3rd"),
         "topTen": MessageLookupByLibrary.simpleMessage("Top 10"),
         "totalAnswers": m21,
@@ -344,6 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unanswered questions: "),
         "unansweredQuestionsTitle":
             MessageLookupByLibrary.simpleMessage("Questions not answered:"),
+        "userGuide": MessageLookupByLibrary.simpleMessage("User Guide"),
         "userName": MessageLookupByLibrary.simpleMessage("User Name"),
         "validFristName": MessageLookupByLibrary.simpleMessage(
             "First name must be at least 2 characters"),

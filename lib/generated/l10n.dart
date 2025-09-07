@@ -2099,6 +2099,426 @@ class S {
       args: [],
     );
   }
+
+  /// `Home`
+  String get nav_home {
+    return Intl.message(
+      'Home',
+      name: 'nav_home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Challenges`
+  String get nav_challenges {
+    return Intl.message(
+      'Challenges',
+      name: 'nav_challenges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leaderboard`
+  String get nav_leaderboard {
+    return Intl.message(
+      'Leaderboard',
+      name: 'nav_leaderboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Treasure`
+  String get nav_treasure {
+    return Intl.message(
+      'Treasure',
+      name: 'nav_treasure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get nav_settings {
+    return Intl.message(
+      'Settings',
+      name: 'nav_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Could not switch tab`
+  String get select_tap_error {
+    return Intl.message(
+      'Could not switch tab',
+      name: 'select_tap_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Learn`
+  String get nav_learn {
+    return Intl.message(
+      'Learn',
+      name: 'nav_learn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Locked`
+  String get locked {
+    return Intl.message(
+      'Locked',
+      name: 'locked',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About Us`
+  String get aboutUs {
+    return Intl.message(
+      'About Us',
+      name: 'aboutUs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Technical Support`
+  String get technicalSupport {
+    return Intl.message(
+      'Technical Support',
+      name: 'technicalSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `📖 About Voninja`
+  String get about_title {
+    return Intl.message(
+      '📖 About Voninja',
+      name: 'about_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja is an innovative learning app for mastering English words and vocabulary in a fun, interactive way.`
+  String get about_intro_1 {
+    return Intl.message(
+      'Voninja is an innovative learning app for mastering English words and vocabulary in a fun, interactive way.',
+      name: 'about_intro_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It combines learning + challenges + real rewards to make your learning experience engaging and exciting.`
+  String get about_intro_2 {
+    return Intl.message(
+      'It combines learning + challenges + real rewards to make your learning experience engaging and exciting.',
+      name: 'about_intro_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja Features:`
+  String get features_title {
+    return Intl.message(
+      'Voninja Features:',
+      name: 'features_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🎯 Interactive lessons: learn new words through short, easy questions.`
+  String get feature_interactive_lessons {
+    return Intl.message(
+      '🎯 Interactive lessons: learn new words through short, easy questions.',
+      name: 'feature_interactive_lessons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🏆 Challenges: tasks with specific points to keep you progressing step by step.`
+  String get feature_challenges {
+    return Intl.message(
+      '🏆 Challenges: tasks with specific points to keep you progressing step by step.',
+      name: 'feature_challenges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `📚 Voninja Library: a collection of PDF files to expand your vocabulary.`
+  String get feature_library {
+    return Intl.message(
+      '📚 Voninja Library: a collection of PDF files to expand your vocabulary.',
+      name: 'feature_library',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🎁 Treasure Boxes Page: progressive boxes (Bronze – Silver – Gold) that unlock gradually and reward you with points and gifts.`
+  String get feature_treasure {
+    return Intl.message(
+      '🎁 Treasure Boxes Page: progressive boxes (Bronze – Silver – Gold) that unlock gradually and reward you with points and gifts.',
+      name: 'feature_treasure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `📅 Special Events: time-limited events that boost your engagement and unlock big rewards.`
+  String get feature_events {
+    return Intl.message(
+      '📅 Special Events: time-limited events that boost your engagement and unlock big rewards.',
+      name: 'feature_events',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rewards System:`
+  String get rewards_title {
+    return Intl.message(
+      'Rewards System:',
+      name: 'rewards_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `With Voninja, every point you learn has real value 💰`
+  String get rewards_intro {
+    return Intl.message(
+      'With Voninja, every point you learn has real value 💰',
+      name: 'rewards_intro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `When you collect 25,000 points, you can convert them directly to 100 EGP cash.`
+  String get rewards_cash {
+    return Intl.message(
+      'When you collect 25,000 points, you can convert them directly to 100 EGP cash.',
+      name: 'rewards_cash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you use the app for two hours daily, you can reach 25,000 points in a short period of only 3–5 days.`
+  String get rewards_time {
+    return Intl.message(
+      'If you use the app for two hours daily, you can reach 25,000 points in a short period of only 3–5 days.',
+      name: 'rewards_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Our Goal:`
+  String get goal_title {
+    return Intl.message(
+      'Our Goal:',
+      name: 'goal_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make learning English easy, enjoyable, and financially rewarding at the same time. With Voninja, every minute you learn brings you closer to your language goal—and helps you earn extra income from your effort.`
+  String get goal_body {
+    return Intl.message(
+      'Make learning English easy, enjoyable, and financially rewarding at the same time. With Voninja, every minute you learn brings you closer to your language goal—and helps you earn extra income from your effort.',
+      name: 'goal_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🛠️ Technical Support`
+  String get support_title {
+    return Intl.message(
+      '🛠️ Technical Support',
+      name: 'support_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you face any issue or have a question about using Voninja, our support team is ready to help anytime.`
+  String get support_intro {
+    return Intl.message(
+      'If you face any issue or have a question about using Voninja, our support team is ready to help anytime.',
+      name: 'support_intro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support Email`
+  String get support_email_label {
+    return Intl.message(
+      'Support Email',
+      name: 'support_email_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `voninja15@gmail.com`
+  String get support_email_value {
+    return Intl.message(
+      'voninja15@gmail.com',
+      name: 'support_email_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp Support`
+  String get support_whatsapp_label {
+    return Intl.message(
+      'WhatsApp Support',
+      name: 'support_whatsapp_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+20 1034672064`
+  String get support_whatsapp_value {
+    return Intl.message(
+      '+20 1034672064',
+      name: 'support_whatsapp_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can contact us at any time, and our team will get back to you as soon as possible to solve your problem or answer your questions.`
+  String get support_note {
+    return Intl.message(
+      'You can contact us at any time, and our team will get back to you as soon as possible to solve your problem or answer your questions.',
+      name: 'support_note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequently Asked Questions`
+  String get faq_title {
+    return Intl.message(
+      'Frequently Asked Questions',
+      name: 'faq_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How fast do you respond?`
+  String get faq_q1 {
+    return Intl.message(
+      'How fast do you respond?',
+      name: 'faq_q1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We usually reply within a few hours. During events and peak times, it may take a little longer.`
+  String get faq_a1 {
+    return Intl.message(
+      'We usually reply within a few hours. During events and peak times, it may take a little longer.',
+      name: 'faq_a1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What info should I include in my message?`
+  String get faq_q2 {
+    return Intl.message(
+      'What info should I include in my message?',
+      name: 'faq_q2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please share your device type, app version, and a brief description or a screenshot of the issue.`
+  String get faq_a2 {
+    return Intl.message(
+      'Please share your device type, app version, and a brief description or a screenshot of the issue.',
+      name: 'faq_a2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can I contact you outside business hours?`
+  String get faq_q3 {
+    return Intl.message(
+      'Can I contact you outside business hours?',
+      name: 'faq_q3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes, messages are accepted 24/7. Our team will get back to you in the next available window.`
+  String get faq_a3 {
+    return Intl.message(
+      'Yes, messages are accepted 24/7. Our team will get back to you in the next available window.',
+      name: 'faq_a3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copied`
+  String get copied {
+    return Intl.message(
+      'Copied',
+      name: 'copied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy`
+  String get copy {
+    return Intl.message(
+      'Copy',
+      name: 'copy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Guide`
+  String get userGuide {
+    return Intl.message(
+      'User Guide',
+      name: 'userGuide',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -32,163 +32,146 @@ class FollowUs extends StatelessWidget {
               resizeToAvoidBottomInset: true,
               backgroundColor: AppColors.lightColor,
               appBar: AppBar(
-                backgroundColor: AppColors.lightColor,
+                backgroundColor: AppColors.mainColor,
                 scrolledUnderElevation: 0,
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: AppColors.mainColor,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const TapsPage()));
-                  },
+                iconTheme: const IconThemeData(
+                  color: AppColors.whiteColor, // makes leading icons white
                 ),
-                centerTitle: true,
                 title: Text(
                   S.of(context).socialMedia,
                   style: const TextStyle(
-                      color: AppColors.mainColor, fontWeight: FontWeight.bold),
+                      color: AppColors.whiteColor),
                 ),
               ),
-              body: WillPopScope(
-                onWillPop: () async {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const TapsPage()),
-                  );
-                  return true;
-                },
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          TextFormField(
-                            controller: settingsTapCubit.rewardCodeController,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              hintText:
-                                  '  ${S.of(context).enterYourRewardCode}',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                                borderSide: const BorderSide(
-                                    color: Color(0xFF535555), width: 1),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                                borderSide: const BorderSide(
-                                    color: Color(0xFF535555), width: 2),
-                              ),
+              body: Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: settingsTapCubit.rewardCodeController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText:
+                                '  ${S.of(context).enterYourRewardCode}',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF535555), width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF535555), width: 2),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          state is PostRewardCodeLoading
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ))
-                              : SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      String result =
-                                          await settingsTapCubit.postRewardCode(
-                                              settingsTapCubit
-                                                  .rewardCodeController.text,
-                                              settingsTapCubit
-                                                      .userData?.userId ??
-                                                  '');
-                                      if (result == 'Success') {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.success,
-                                          animType: AnimType.rightSlide,
-                                          title: 'Success',
-                                          desc:
-                                              'Transaction completed successfully!',
-                                          btnOkOnPress: () {},
-                                        ).show();
-                                      } else {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.error,
-                                          animType: AnimType.rightSlide,
-                                          title: 'Error',
-                                          desc: result,
-                                          btnOkOnPress: () {},
-                                        ).show();
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.mainColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 20),
+                        ),
+                        const SizedBox(height: 20),
+                        state is PostRewardCodeLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                            : SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    String result =
+                                        await settingsTapCubit.postRewardCode(
+                                            settingsTapCubit
+                                                .rewardCodeController.text,
+                                            settingsTapCubit
+                                                    .userData?.userId ??
+                                                '');
+                                    if (result == 'Success') {
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.success,
+                                        animType: AnimType.rightSlide,
+                                        title: 'Success',
+                                        desc:
+                                            'Transaction completed successfully!',
+                                        btnOkOnPress: () {},
+                                      ).show();
+                                    } else {
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.error,
+                                        animType: AnimType.rightSlide,
+                                        title: 'Error',
+                                        desc: result,
+                                        btnOkOnPress: () {},
+                                      ).show();
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.mainColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: Text(
-                                      S.of(context).getPoints,
-                                      style: const TextStyle(
-                                          color: AppColors.whiteColor,
-                                          fontSize: 16),
-                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 20),
+                                  ),
+                                  child: Text(
+                                    S.of(context).getPoints,
+                                    style: const TextStyle(
+                                        color: AppColors.whiteColor,
+                                        fontSize: 16),
                                   ),
                                 ),
-                          const SizedBox(height: 100),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  _launchURL('https://www.facebook.com/share/16TodybiRP/');
-                                },
-                                child: Image.asset(
-                                  'assets/img/facebook.png',
-                                  width: 40,
-                                  height: 40,
-                                ),
                               ),
-                              const SizedBox(width: 20),
-                              InkWell(
-                                onTap: () {
-                                  _launchURL('https://www.instagram.com/vo_nin_ja?igsh=MmVtZDlvMGF3eHNy');
-                                },
-                                child: Image.asset(
-                                  'assets/img/instagram.png',
-                                  width: 40,
-                                  height: 40,
-                                ),
+                        const SizedBox(height: 100),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                _launchURL('https://www.facebook.com/share/16TodybiRP/');
+                              },
+                              child: Image.asset(
+                                'assets/img/facebook.png',
+                                width: 40,
+                                height: 40,
                               ),
-                              const SizedBox(width: 20),
-                              InkWell(
-                                onTap: () {
-                                  _launchURL('https://www.tiktok.com/@vo.ninja.app?_t=ZS-8xE13Dsqbnr&_r=1');
-                                },
-                                child: Image.asset(
-                                  'assets/img/tiktok.png',
-                                  width: 40,
-                                  height: 40,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            S.of(context).followOurSocialMedia,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(128, 128, 128, 1),
                             ),
+                            const SizedBox(width: 20),
+                            InkWell(
+                              onTap: () {
+                                _launchURL('https://www.instagram.com/vo_nin_ja?igsh=MmVtZDlvMGF3eHNy');
+                              },
+                              child: Image.asset(
+                                'assets/img/instagram.png',
+                                width: 40,
+                                height: 40,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            InkWell(
+                              onTap: () {
+                                _launchURL('https://www.tiktok.com/@vo.ninja.app?_t=ZS-8xE13Dsqbnr&_r=1');
+                              },
+                              child: Image.asset(
+                                'assets/img/tiktok.png',
+                                width: 40,
+                                height: 40,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          S.of(context).followOurSocialMedia,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Color.fromRGBO(128, 128, 128, 1),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

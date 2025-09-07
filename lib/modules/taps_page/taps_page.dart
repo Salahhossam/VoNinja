@@ -2,32 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:vo_ninja/shared/style/color.dart';
-
+import '../../generated/l10n.dart';
 import 'taps_cubit/taps_cubit.dart';
 import 'taps_cubit/taps_state.dart';
+
 
 class TapsPage extends StatelessWidget {
   const TapsPage({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
-    var cubit = TapsCubit.get(context);
+    final cubit = TapsCubit.get(context);
+    final s = S.of(context); // <-- convenience
 
     return BlocConsumer<TapsCubit, TapsState>(
       listener: (context, state) {
         if (state is SelectTapError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+            SnackBar(content: Text(s.select_tap_error)), // localized
           );
         }
       },
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-              backgroundColor: AppColors.lightColor,
-
+            backgroundColor: AppColors.lightColor,
             body: cubit.pages[cubit.currentIndex],
             bottomNavigationBar: ClipRRect(
               borderRadius: const BorderRadius.only(
@@ -35,42 +34,41 @@ class TapsPage extends StatelessWidget {
                 topRight: Radius.circular(30),
               ),
               child: BottomNavigationBar(
-                showUnselectedLabels: false,
+                showUnselectedLabels: true,
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: const Color(0xFF1A3037),
-                unselectedItemColor:  const Color(0xFFDBDEDE),
-                showSelectedLabels: false,
+                unselectedItemColor: const Color(0xFFDBDEDE),
+                selectedItemColor: AppColors.secondColor,
+                showSelectedLabels: true,
                 items: <BottomNavigationBarItem>[
                   _buildNavBarItem(
                     icon: Icons.home,
-                    label: 'Home',
+                    label: s.nav_home,           // <-- localized
                     isSelected: cubit.currentIndex == 0,
                   ),
                   _buildNavBarItem(
                     icon: Icons.school,
-                    label: 'Challenges',
+                    label: s.nav_learn,     // <-- localized
                     isSelected: cubit.currentIndex == 1,
                   ),
                   _buildNavBarItem(
                     icon: Icons.leaderboard,
-                    label: 'Leaderboard',
+                    label: s.nav_leaderboard,    // <-- localized
                     isSelected: cubit.currentIndex == 2,
                   ),
                   _buildNavBarItem(
                     icon: Icons.diamond,
-                    label: 'Treasure',
+                    label: s.nav_treasure,       // <-- localized
                     isSelected: cubit.currentIndex == 3,
                   ),
                   _buildNavBarItem(
                     icon: Icons.settings,
-                    label: 'Settings',
+                    label: s.nav_settings,       // <-- localized
                     isSelected: cubit.currentIndex == 4,
                   ),
                 ],
                 currentIndex: cubit.currentIndex,
-                onTap: (index) {
-                    cubit.selectTab(index);
-                },
+                onTap: (index) => cubit.selectTab(index),
               ),
             ),
           ),
@@ -87,17 +85,17 @@ class TapsPage extends StatelessWidget {
     return BottomNavigationBarItem(
       icon: isSelected
           ? Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                      color: Color(0xFFDBDEDE), // Circle color
-              ),
-              child: Icon(
-                icon,
-                      color: const Color(0xFF1A3037), // Icon color to match the design
-              ),
-            )
-          : Icon(icon), // Default icon
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFFDBDEDE),
+        ),
+        child: Icon(
+          icon,
+          color: const Color(0xFF1A3037),
+        ),
+      )
+          : Icon(icon),
       label: label,
     );
   }

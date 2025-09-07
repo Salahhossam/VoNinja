@@ -69,8 +69,8 @@ class SettingsOptionsList extends StatelessWidget {
                       builder: (context) => TransactionsPage()));
                 }),
             Divider(color: Colors.grey[600]),
-            // SettingsOption(title: S.of(context).about, onTap: () {}),
-            // Divider(color: Colors.grey[600]),
+            SettingsOption(title: S.of(context).userGuide, onTap: () {}),
+            Divider(color: Colors.grey[600]),
             SettingsOption(
                 title: S.of(context).version,
                 trailing: Text(versionNumber,
@@ -97,14 +97,20 @@ class SettingsOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(title,
-          style: const TextStyle(color: Colors.white, fontSize: 20)),
-      trailing:
-          trailing ?? const Icon(Icons.arrow_forward_ios, color: Colors.white),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0), // تقليل الحواف
+      minVerticalPadding: 0, // يلغي الفراغ العمودي
+      visualDensity: const VisualDensity(horizontal: 0, vertical: -2), // يقلل الارتفاع
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.white, fontSize: 18),
+      ),
+      trailing: trailing ??
+          const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 18),
       onTap: onTap,
     );
   }
 }
+
 
 class LogoutButton extends StatefulWidget {
   const LogoutButton({super.key});

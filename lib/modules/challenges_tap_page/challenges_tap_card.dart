@@ -269,7 +269,7 @@ class ChallengesTapCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        (canTab!=null&&!canTab!) ? 'Locked' : '${(levelProgress! * 100).toInt()}%',
+                        (canTab!=null&&!canTab!) ? S.of(context).locked : '${(levelProgress! * 100).toInt()}%',
                         style: const TextStyle(
                             color: AppColors.whiteColor,
                             fontSize: 12,
