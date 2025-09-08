@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/modules/challenges_page/task_cubit/task_cubit.dart';
 import 'package:vo_ninja/modules/challenges_page/task_cubit/task_state.dart';
@@ -59,8 +62,12 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
   bool isTopBannerLoaded = false;
   bool isBottomBannerLoaded = false;
 
-  late ConfettiController _confettiController;
+  // ----- Reward overlay state -----
   String? _flyingPointsText;
+  bool _showRewardUI = false;
+  int _recentPointsAdded = 0;
+  Timer? _hideRewardTimer;
+
   void _initBannerAds() {
     // Top Banner
     myBannerTop = BannerAd(
@@ -105,8 +112,6 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
   @override
   void initState() {
     super.initState();
-    _confettiController =
-        ConfettiController(duration: const Duration(seconds: 1));
     initData();
     final mainCubit = MainAppCubit.get(context);
      mainCubit.interstitialAd();
@@ -114,7 +119,9 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
   }
   @override
   void dispose() {
-    _confettiController.dispose();
+    _hideRewardTimer?.cancel();
+    myBannerTop?.dispose();
+    myBannerBottom?.dispose();
     super.dispose();
   }
   DateTime now = DateTime.now();
@@ -144,11 +151,34 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
     });
   }
 
+  void _showRewardOverlay(int addedPoints) {
+    if (addedPoints <= 0) return;
+
+    // Cancel any previous timer to avoid race conditions
+    _hideRewardTimer?.cancel();
+
+    setState(() {
+      _recentPointsAdded = addedPoints;
+      _flyingPointsText = '+$addedPoints';
+      _showRewardUI = true;
+    });
+
+    // Auto-hide overlay (except the flying text which hides itself in onEnd)
+    _hideRewardTimer = Timer(const Duration(milliseconds: 2400), () {
+      if (mounted) {
+        setState(() {
+          _showRewardUI = false;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final taskCubit = TaskCubit.get(context);
     final learningCubit = LearningCubit.get(context);
     final eventCubit = EventCubit.get(context);
+    final mainCubit = MainAppCubit.get(context);
     return BlocConsumer<TaskCubit, TaskState>(
       listener: (BuildContext context, TaskState state) {},
       builder: (BuildContext context, TaskState state) {
@@ -567,17 +597,10 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
 
 
                                                               setState(() {
-                                                                if (eventCubit
-                                                                    .pointsAdded >
-                                                                    0) {
-                                                                  _flyingPointsText =
-                                                                  '+${eventCubit.pointsAdded}';
-                                                                  _confettiController
-                                                                      .play();
-                                                                }
                                                                 isLoadingAnswer =
                                                                     false;
                                                               });
+                                                              _showRewardOverlay(eventCubit.pointsAdded);
                                                             },
                                                   child: Container(
                                                     margin: const EdgeInsets
@@ -778,46 +801,84 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                   const SizedBox(height:60)
                               ],
                             ),
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 50),
-                                child: ConfettiWidget(
-                                  confettiController: _confettiController,
-                                  blastDirection: pi / 2,
-                                  // ينزل لتحت
-                                  blastDirectionality:
-                                  BlastDirectionality.directional,
-                                  emissionFrequency: 0.05,
-                                  numberOfParticles: 20,
-                                  maxBlastForce: 12,
-                                  minBlastForce: 5,
-                                  gravity: 0.3,
 
-                                  colors: const [
-                                    Colors.green,
-                                    Colors.blue,
-                                    Colors.pink,
-                                    Colors.orange,
-                                  ],
+
+                            // ====== Reward Overlay (shows ONLY when points are added) ======
+
+                            // Coin burst (top-center)
+                            if (_showRewardUI)
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 50),
+                                  child: Lottie.asset(
+                                    'assets/anim/coin_burst.json',
+                                    width: 200,
+                                    height: 200,
+                                    repeat: false,
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            // داخل Stack فوق Scaffold
+                            // Compact badge (top-right) with animate in/out
+                            if (_showRewardUI)
+                              Positioned(
+                                top: kToolbarHeight + 12 + (myBannerTop != null ? 40 : 0),
+                                right: mainCubit.language=='en'?16:null,
+                                left:mainCubit.language!='en'?16:null,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(.55),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.stars,
+                                          size: 16, color: Colors.white),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        '+$_recentPointsAdded',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                    .animate()
+                                    .fadeIn(duration: 280.ms)
+                                    .scale(
+                                  begin: const Offset(0.85, 0.85),
+                                  end: const Offset(1, 1),
+                                  duration: 320.ms,
+                                  curve: Curves.easeOut,
+                                )
+                                    .then(delay: 1500.ms)
+                                    .fadeOut(duration: 320.ms),
+                              ),
+
+                            // Flying big text (center) — slower & smoother
                             if (_flyingPointsText != null)
                               Center(
                                 child: TweenAnimationBuilder<double>(
-                                  tween: Tween(begin: 0.0, end: -150.0),
-                                  // يتحرك لفوق 150 بكسل
+                                  tween: Tween(begin: 0.0, end: -220.0),
+                                  // moves up 220px
                                   duration:
-                                  const Duration(milliseconds: 1000),
+                                  const Duration(milliseconds: 5000),
+                                  curve: Curves.easeOutCubic,
                                   builder: (context, value, child) {
                                     return Transform.translate(
                                       offset: Offset(0, value),
                                       child: Opacity(
-                                        opacity: 1 - (value.abs() / 150),
-                                        // يقل تدريجيًا
+                                        // fade out gradually (slower)
+                                        opacity:
+                                        (1 - (value.abs() / 220)).clamp(
+                                          0.0,
+                                          1.0,
+                                        ),
                                         child: Text(
                                           _flyingPointsText!,
                                           style: const TextStyle(
@@ -826,9 +887,10 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                             color: Colors.green,
                                             shadows: [
                                               Shadow(
-                                                  blurRadius: 6,
-                                                  color: Colors.black45,
-                                                  offset: Offset(0, 2))
+                                                blurRadius: 6,
+                                                color: Colors.black45,
+                                                offset: Offset(0, 2),
+                                              )
                                             ],
                                           ),
                                         ),
@@ -836,13 +898,15 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
                                     );
                                   },
                                   onEnd: () {
-                                    setState(() {
-                                      _flyingPointsText =
-                                      null; // يخفي النص بعد الأنيميشن
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        _flyingPointsText = null;
+                                      });
+                                    }
                                   },
                                 ),
                               ),
+
                           ],
                         );
                       },

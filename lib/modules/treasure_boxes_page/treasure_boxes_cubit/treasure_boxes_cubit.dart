@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/treasure_model.dart';
+import '../../../shared/network/local/cash_helper.dart';
 import 'treasure_boxes_state.dart';
 
 class TreasureBoxCubit extends Cubit<TreasureBoxState> {
@@ -30,7 +31,6 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
 
   // ========= Firebase =========
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final String pointsField = 'pointsNumber';
 
   // ========= تعريف الصناديق =========
@@ -42,20 +42,15 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
 
   Map<TreasureTier, List<TreasureBox>> get tiers => _tiers;
 
-  // ======== Helpers ========
-  Future<String> _uid() async {
-    final u = _auth.currentUser;
-    if (u != null) return u.uid;
-    throw Exception('No Firebase user signed in');
-  }
+
 
   Future<DocumentReference<Map<String, dynamic>>> _userDoc() async {
-    final uid = await _uid();
+    final uid = await CashHelper.getData(key: 'uid');
     return _db.collection('users').doc(uid);
   }
 
   Future<DocumentReference<Map<String, dynamic>>> _progressDoc() async {
-    final uid = await _uid();
+    final uid = await CashHelper.getData(key: 'uid');
     return _db.collection('users').doc(uid).collection('treasure').doc('progress');
   }
 

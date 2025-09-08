@@ -50,6 +50,8 @@ dependencies:
   facebook_app_events: ^0.20.1
   another_flushbar: ^1.12.31
   confetti: ^0.8.0
+  flutter_animate: ^4.5.0
+  lottie: ^3.3.1
 
 
   
@@ -112,6 +114,7 @@ flutter:
    - assets/img/bronze_open.png
    - assets/img/silver_open.png
    - assets/img/gold_open.png
+   - assets/anim/coin_burst.json
 
 
 

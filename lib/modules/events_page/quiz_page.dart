@@ -42,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
   bool isTopBannerLoaded = false;
   bool isBottomBannerLoaded = false;
 
-  late ConfettiController _confettiController;
+
   void _initBannerAds() {
     // Top Banner
     myBannerTop = BannerAd(
@@ -90,8 +90,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    _confettiController =
-        ConfettiController(duration: const Duration(seconds: 1));
+
     initData();
     final mainCubit = MainAppCubit.get(context);
     mainCubit.interstitialAd();
@@ -100,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   void dispose() {
-    _confettiController.dispose();
+
     super.dispose();
   }
 
@@ -431,8 +430,6 @@ class _QuizPageState extends State<QuizPage> {
 
                                                           setState(() {
                                                             if (isCorrect) {
-                                                              _confettiController
-                                                                  .play();
                                                             }
                                                             isLoadingAnswer = false;
                                                           });
@@ -597,31 +594,6 @@ class _QuizPageState extends State<QuizPage> {
                                   else
                                     const SizedBox(height: 60)
                                 ],
-                              ),
-                              Align(
-                                alignment: Alignment.topCenter,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 50),
-                                  child: ConfettiWidget(
-                                    confettiController: _confettiController,
-                                    blastDirection: pi / 2,
-                                    // ينزل لتحت
-                                    blastDirectionality:
-                                    BlastDirectionality.directional,
-                                    emissionFrequency: 0.05,
-                                    numberOfParticles: 20,
-                                    maxBlastForce: 12,
-                                    minBlastForce: 5,
-                                    gravity: 0.3,
-
-                                    colors: const [
-                                      Colors.green,
-                                      Colors.blue,
-                                      Colors.pink,
-                                      Colors.orange,
-                                    ],
-                                  ),
-                                ),
                               ),
                             ],
                           );
