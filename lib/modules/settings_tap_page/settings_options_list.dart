@@ -7,6 +7,7 @@ import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../login_page/login_page.dart';
+import '../user_guide_page/user_guide_page.dart';
 import 'language_selection_widget.dart';
 
 class SettingsOptionsList extends StatelessWidget {
@@ -69,7 +70,11 @@ class SettingsOptionsList extends StatelessWidget {
                       builder: (context) => TransactionsPage()));
                 }),
             Divider(color: Colors.grey[600]),
-            SettingsOption(title: S.of(context).userGuide, onTap: () {}),
+            SettingsOption(title: S.of(context).userGuide, onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const UserGuidePage()),
+              );
+            }),
             Divider(color: Colors.grey[600]),
             SettingsOption(
                 title: S.of(context).version,

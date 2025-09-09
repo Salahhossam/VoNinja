@@ -115,6 +115,10 @@ flutter:
    - assets/img/silver_open.png
    - assets/img/gold_open.png
    - assets/anim/coin_burst.json
+   - assets/img/ug_social_codes_1.jpeg
+   - assets/img/ug_social_codes_2.jpeg
+   - assets/img/ug_cashout_1.jpeg
+   - assets/img/ug_cashout_2.jpeg
 
 
 

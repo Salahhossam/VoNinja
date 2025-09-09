@@ -395,9 +395,6 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       currentTier = TreasureTier.bronze;
       currentIndex = 0;
       currentAdsWatched = 0;
-      final ref = await _userDoc();
-      await ref.set({pointsField: 500}, SetOptions(merge: true));
-      userPoints = 500;
       await _saveProgress();
 
       final message = context != null

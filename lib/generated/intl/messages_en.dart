@@ -294,7 +294,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nav_leaderboard": MessageLookupByLibrary.simpleMessage("Leaderboard"),
         "nav_learn": MessageLookupByLibrary.simpleMessage("Learn"),
         "nav_settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "nav_treasure": MessageLookupByLibrary.simpleMessage("Treasure"),
+        "nav_treasure": MessageLookupByLibrary.simpleMessage("Treasures"),
         "needPoints": m14,
         "needPoints2": m15,
         "needPointsRemaining": m16,
@@ -410,11 +410,62 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Treasure Boxes"),
         "treasureBoxesLevels":
             MessageLookupByLibrary.simpleMessage("Bronze • Silver • Gold"),
+        "ug_10_body": MessageLookupByLibrary.simpleMessage(
+            "Every 25,000 points = 100 EGP, processed within 24–48 hours after submitting a request. Go to Settings → “Get your coins now”, enter your wallet or a contact number, and track the transfer via the WhatsApp number listed under Technical Support. Cashouts are currently available for Egyptian wallets/numbers only, with plans to expand globally."),
+        "ug_10_title":
+            MessageLookupByLibrary.simpleMessage("How do I cash out?"),
+        "ug_11_body": MessageLookupByLibrary.simpleMessage(
+            "Voninja combines fun learning with real incentives. Three lesson levels suit all learners; challenges, events, and treasure boxes keep you motivated; and points convert quickly into real rewards."),
+        "ug_11_title":
+            MessageLookupByLibrary.simpleMessage("Why choose Voninja?"),
+        "ug_1_body": MessageLookupByLibrary.simpleMessage(
+            "Voninja is an interactive learning app for English using short lessons, quizzes, challenges, and a points system. Every learning activity grants points that can be converted into real cash rewards."),
+        "ug_1_title": MessageLookupByLibrary.simpleMessage("What is Voninja?"),
+        "ug_2_body": MessageLookupByLibrary.simpleMessage(
+            "The app offers three learning levels:\n• Basic: each lesson = 1 point.\n• Intermediate: each lesson = 2 points.\n• Advanced: each lesson = 3 points.\nAfter every lesson, a short quiz evaluates your recall and adds points automatically."),
+        "ug_2_title":
+            MessageLookupByLibrary.simpleMessage("What levels are available?"),
+        "ug_3_body": MessageLookupByLibrary.simpleMessage(
+            "Challenges are multi-question tasks. Each correct answer can grant 3, 5, 10, 20, 25 points or more. To join a challenge, you must meet the entry requirement (e.g., have 2,000 points)."),
+        "ug_3_title":
+            MessageLookupByLibrary.simpleMessage("What are \"Challenges\"?"),
+        "ug_4_body": MessageLookupByLibrary.simpleMessage(
+            "Time-limited events that grant extra rewards, such as:\n• Double Points Day: all points earned double for 24 hours.\n• Kickstart Challenge: earn 1,000 points in your first 48 hours to get +3,000 points.\n• Quiz Master 100: answer 100 questions correctly within 48 hours to get +1,000 points."),
+        "ug_4_title":
+            MessageLookupByLibrary.simpleMessage("What are \"Events\"?"),
+        "ug_5_body": MessageLookupByLibrary.simpleMessage(
+            "Voninja Treasures include Bronze, Silver, and Gold boxes. Each box requires a minimum points balance and ad views to enter, and grants increasing point rewards."),
+        "ug_5_title":
+            MessageLookupByLibrary.simpleMessage("How do Treasure Boxes work?"),
+        "ug_6_body": MessageLookupByLibrary.simpleMessage(
+            "Yes. Watch a short ad to get +10 extra points, or claim bonus points after each quiz via a rewarded ad."),
+        "ug_6_title": MessageLookupByLibrary.simpleMessage(
+            "Can I boost points with ads?"),
+        "ug_7_body": MessageLookupByLibrary.simpleMessage(
+            "An in-app library of educational PDF books. You can unlock and read books directly after paying with points."),
+        "ug_7_title": MessageLookupByLibrary.simpleMessage(
+            "What is the Voninja Library?"),
+        "ug_8_body": MessageLookupByLibrary.simpleMessage(
+            "After finishing Bronze + Silver + Gold boxes and reaching 25,000 points, you can request a 100 EGP cashout by entering your wallet number in the transfer screen. Your points then reset to 0 so you can re-enter Voninja Treasures and start the cycle again."),
+        "ug_8_title": MessageLookupByLibrary.simpleMessage(
+            "How does the \"Treasure Recycle\" work?"),
+        "ug_9_body": MessageLookupByLibrary.simpleMessage(
+            "Follow our social pages for questions and giveaways. Winners receive a special code. Go to Settings → Social Media and enter your reward code to redeem."),
+        "ug_9_title": MessageLookupByLibrary.simpleMessage(
+            "How do I get reward codes from social media?"),
+        "ug_image_alt_cashout":
+            MessageLookupByLibrary.simpleMessage("Cashout flow example"),
+        "ug_image_alt_social":
+            MessageLookupByLibrary.simpleMessage("Social reward code example"),
         "unansweredQuestions":
             MessageLookupByLibrary.simpleMessage("Unanswered questions: "),
         "unansweredQuestionsTitle":
             MessageLookupByLibrary.simpleMessage("Questions not answered:"),
         "userGuide": MessageLookupByLibrary.simpleMessage("User Guide"),
+        "userGuide_headerSubtitle": MessageLookupByLibrary.simpleMessage(
+            "Short lessons, quizzes, challenges, treasure boxes, and real cash rewards."),
+        "userGuide_headerTitle":
+            MessageLookupByLibrary.simpleMessage("Voninja — Learn & Earn"),
         "userName": MessageLookupByLibrary.simpleMessage("User Name"),
         "validFristName": MessageLookupByLibrary.simpleMessage(
             "First name must be at least 2 characters"),

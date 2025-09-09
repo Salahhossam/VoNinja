@@ -856,8 +856,8 @@ class _ExamPageState extends State<ExamPage> {
                               padding: const EdgeInsets.only(top: 50),
                               child: Lottie.asset(
                                 'assets/anim/coin_burst.json',
-                                width: 200,
-                                height: 200,
+                                width: MediaQuery.sizeOf(context).width *0.9,
+                                height: MediaQuery.sizeOf(context).height *0.7,
                                 repeat: false,
                               ),
                             ),

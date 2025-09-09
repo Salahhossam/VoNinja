@@ -292,7 +292,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nav_leaderboard": MessageLookupByLibrary.simpleMessage("لوحة الصدارة"),
         "nav_learn": MessageLookupByLibrary.simpleMessage("التعلم"),
         "nav_settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
-        "nav_treasure": MessageLookupByLibrary.simpleMessage("الكنز"),
+        "nav_treasure": MessageLookupByLibrary.simpleMessage("الكنوز"),
         "needPoints": m14,
         "needPoints2": m15,
         "needPointsRemaining": m16,
@@ -405,11 +405,63 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("صناديق الكنوز"),
         "treasureBoxesLevels":
             MessageLookupByLibrary.simpleMessage("برونزية • فضية • ذهبية"),
+        "ug_10_body": MessageLookupByLibrary.simpleMessage(
+            "كل 25,000 نقطة = 100 جنيه خلال 24–48 ساعة من تقديم الطلب. اذهب إلى الإعدادات ← \"احصل على عملاتك الآن\"، ثم أدخل رقم المحفظة أو رقم تواصل، ويمكنك متابعة التحويل عبر رقم الواتساب الموجود في الدعم الفني. التحويل متاح حاليًا للأرقام والمحافظ المصرية فقط مع خطة للتوسع لاحقًا."),
+        "ug_10_title":
+            MessageLookupByLibrary.simpleMessage("ما هي طرق سحب المكافآت؟"),
+        "ug_11_body": MessageLookupByLibrary.simpleMessage(
+            "لأنه يجمع بين متعة التعلم والتحفيز المالي. ثلاثة مستويات تناسب الجميع، والتحديات والأحداث والصناديق تحافظ على الحماس، والنقاط تتحول بسرعة إلى مكافآت حقيقية."),
+        "ug_11_title":
+            MessageLookupByLibrary.simpleMessage("لماذا أختار فونينجا؟"),
+        "ug_1_body": MessageLookupByLibrary.simpleMessage(
+            "فونينجا تطبيق تعلّم تفاعلي للغة الإنجليزية قائم على الدروس القصيرة والاختبارات والتحديات ونظام النقاط. كل نشاط تعليمي يمنحك نقاطًا يمكن تحويلها إلى مكافآت مالية حقيقية."),
+        "ug_1_title":
+            MessageLookupByLibrary.simpleMessage("ما هو تطبيق فونينجا؟"),
+        "ug_2_body": MessageLookupByLibrary.simpleMessage(
+            "يوفر التطبيق ثلاثة مستويات:\n• Basic (أساسي): كل درس = نقطة واحدة.\n• Intermediate (متوسط): كل درس = نقطتان.\n• Advanced (متقدم): كل درس = ثلاث نقاط.\nبعد كل درس يوجد اختبار قصير لتقييم الحفظ وإضافة النقاط تلقائيًا."),
+        "ug_2_title":
+            MessageLookupByLibrary.simpleMessage("ما هي المستويات المتاحة؟"),
+        "ug_3_body": MessageLookupByLibrary.simpleMessage(
+            "التحديات مهام متعددة الأسئلة؛ كل إجابة صحيحة قد تمنح 3 أو 5 أو 10 أو 20 أو 25 نقطة أو أكثر. للدخول يلزم توفر شرط نقاط معين (مثال: امتلاك 2000 نقطة)."),
+        "ug_3_title":
+            MessageLookupByLibrary.simpleMessage("ما هي \"التحديات\"؟"),
+        "ug_4_body": MessageLookupByLibrary.simpleMessage(
+            "فعاليات محدودة المدة بمكافآت إضافية، مثل:\n• Double Points Day: تتضاعف نقاطك لمدة 24 ساعة.\n• Kickstart Challenge: اجمع 1000 نقطة خلال أول 48 ساعة لتحصل على 3000 نقطة إضافية.\n• Quiz Master 100: أجب 100 سؤالًا بشكل صحيح خلال 48 ساعة لتحصل على 1000 نقطة."),
+        "ug_4_title":
+            MessageLookupByLibrary.simpleMessage("ما هي \"الأحداث\"؟"),
+        "ug_5_body": MessageLookupByLibrary.simpleMessage(
+            "تشمل Voninja Treasures صناديق Bronze وSilver وGold. لكل صندوق شرط دخول بعدد نقاط ومشاهدة إعلانات، ويمنح مكافآت نقاط متصاعدة."),
+        "ug_5_title": MessageLookupByLibrary.simpleMessage(
+            "كيف يعمل نظام صناديق الكنوز؟"),
+        "ug_6_body": MessageLookupByLibrary.simpleMessage(
+            "نعم. يمكنك مشاهدة إعلان قصير للحصول على +10 نقاط إضافية، أو إضافة نقاط بعد كل اختبار عبر إعلان مكافأة."),
+        "ug_6_title": MessageLookupByLibrary.simpleMessage(
+            "هل يمكن مضاعفة النقاط بالإعلانات؟"),
+        "ug_7_body": MessageLookupByLibrary.simpleMessage(
+            "مكتبة داخل التطبيق تضم كتب PDF تعليمية متنوعة. تستطيع فتح الكتب وقراءتها مباشرة بعد الدفع بالنقاط."),
+        "ug_7_title":
+            MessageLookupByLibrary.simpleMessage("ما هي مكتبة فونينجا؟"),
+        "ug_8_body": MessageLookupByLibrary.simpleMessage(
+            "بعد إنهاء الصناديق البرونزية والفضية والذهبية والوصول إلى 25,000 نقطة، يمكنك طلب تحويل 100 جنيه بإدخال رقم المحفظة في شاشة التحويل. بعدها تُعاد نقاطك إلى 0 لتبدأ دورة جديدة وتفتح الصناديق مجددًا."),
+        "ug_8_title": MessageLookupByLibrary.simpleMessage(
+            "كيف تعمل إعادة الدورة في الكنوز؟"),
+        "ug_9_body": MessageLookupByLibrary.simpleMessage(
+            "تابع صفحاتنا على وسائل التواصل لأسئلة وجوائز. يُرسل الكود للفائز. ادخل إلى الإعدادات ← وسائل التواصل الاجتماعي وأدخل رمز المكافأة لاسترداده."),
+        "ug_9_title": MessageLookupByLibrary.simpleMessage(
+            "كيف أحصل على أكواد المكافآت من السوشيال؟"),
+        "ug_image_alt_cashout":
+            MessageLookupByLibrary.simpleMessage("مثال لمسار السحب والتحويل"),
+        "ug_image_alt_social": MessageLookupByLibrary.simpleMessage(
+            "مثال على كود مكافأة من السوشيال"),
         "unansweredQuestions":
             MessageLookupByLibrary.simpleMessage("الأسئلة غير المجابة: "),
         "unansweredQuestionsTitle": MessageLookupByLibrary.simpleMessage(
             "الأسئلة التي لم يتم الإجابة عليها:"),
         "userGuide": MessageLookupByLibrary.simpleMessage("دليل المستخدم"),
+        "userGuide_headerSubtitle": MessageLookupByLibrary.simpleMessage(
+            "دروس قصيرة، اختبارات، تحديات، صناديق كنوز، ومكافآت مالية حقيقية."),
+        "userGuide_headerTitle":
+            MessageLookupByLibrary.simpleMessage("فونينجا — تعلم واربح"),
         "userName": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "validFristName": MessageLookupByLibrary.simpleMessage(
             "يجب أن يتكون الاسم الأول من حرفين على الأقل"),

@@ -230,7 +230,7 @@
   "nav_home": "Home",
   "nav_challenges": "Challenges",
   "nav_leaderboard": "Leaderboard",
-  "nav_treasure": "Treasure",
+  "nav_treasure": "Treasures",
   "nav_settings": "Settings",
   "select_tap_error": "Could not switch tab",
   "nav_learn": "Learn",
@@ -269,5 +269,42 @@
   "faq_a3": "Yes, messages are accepted 24/7. Our team will get back to you in the next available window.",
   "copied": "Copied",
   "copy": "Copy",
-  "userGuide": "User Guide"
+  "userGuide": "User Guide",
+  "userGuide_headerTitle": "Voninja — Learn & Earn",
+  "userGuide_headerSubtitle": "Short lessons, quizzes, challenges, treasure boxes, and real cash rewards.",
+
+  "ug_1_title": "What is Voninja?",
+  "ug_1_body": "Voninja is an interactive learning app for English using short lessons, quizzes, challenges, and a points system. Every learning activity grants points that can be converted into real cash rewards.",
+
+  "ug_2_title": "What levels are available?",
+  "ug_2_body": "The app offers three learning levels:\n• Basic: each lesson = 1 point.\n• Intermediate: each lesson = 2 points.\n• Advanced: each lesson = 3 points.\nAfter every lesson, a short quiz evaluates your recall and adds points automatically.",
+
+  "ug_3_title": "What are \"Challenges\"?",
+  "ug_3_body": "Challenges are multi-question tasks. Each correct answer can grant 3, 5, 10, 20, 25 points or more. To join a challenge, you must meet the entry requirement (e.g., have 2,000 points).",
+
+  "ug_4_title": "What are \"Events\"?",
+  "ug_4_body": "Time-limited events that grant extra rewards, such as:\n• Double Points Day: all points earned double for 24 hours.\n• Kickstart Challenge: earn 1,000 points in your first 48 hours to get +3,000 points.\n• Quiz Master 100: answer 100 questions correctly within 48 hours to get +1,000 points.",
+
+  "ug_5_title": "How do Treasure Boxes work?",
+  "ug_5_body": "Voninja Treasures include Bronze, Silver, and Gold boxes. Each box requires a minimum points balance and ad views to enter, and grants increasing point rewards.",
+
+  "ug_6_title": "Can I boost points with ads?",
+  "ug_6_body": "Yes. Watch a short ad to get +10 extra points, or claim bonus points after each quiz via a rewarded ad.",
+
+  "ug_7_title": "What is the Voninja Library?",
+  "ug_7_body": "An in-app library of educational PDF books. You can unlock and read books directly after paying with points.",
+
+  "ug_8_title": "How does the \"Treasure Recycle\" work?",
+  "ug_8_body": "After finishing Bronze + Silver + Gold boxes and reaching 25,000 points, you can request a 100 EGP cashout by entering your wallet number in the transfer screen. Your points then reset to 0 so you can re-enter Voninja Treasures and start the cycle again.",
+
+  "ug_9_title": "How do I get reward codes from social media?",
+  "ug_9_body": "Follow our social pages for questions and giveaways. Winners receive a special code. Go to Settings → Social Media and enter your reward code to redeem.",
+  "ug_image_alt_social": "Social reward code example",
+
+  "ug_10_title": "How do I cash out?",
+  "ug_10_body": "Every 25,000 points = 100 EGP, processed within 24–48 hours after submitting a request. Go to Settings → “Get your coins now”, enter your wallet or a contact number, and track the transfer via the WhatsApp number listed under Technical Support. Cashouts are currently available for Egyptian wallets/numbers only, with plans to expand globally.",
+  "ug_image_alt_cashout": "Cashout flow example",
+
+  "ug_11_title": "Why choose Voninja?",
+  "ug_11_body": "Voninja combines fun learning with real incentives. Three lesson levels suit all learners; challenges, events, and treasure boxes keep you motivated; and points convert quickly into real rewards."
 }

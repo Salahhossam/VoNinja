@@ -92,7 +92,7 @@ class TreasureBoxesPage extends StatelessWidget {
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               elevation: 0,
                             ),
-                            onPressed: () => _confirmStartNewCycle(context),
+                            onPressed: () => c.startNewCycleManually(context: context),
                           ),
                         ),
                       ),

@@ -2130,10 +2130,10 @@ class S {
     );
   }
 
-  /// `Treasure`
+  /// `Treasures`
   String get nav_treasure {
     return Intl.message(
-      'Treasure',
+      'Treasures',
       name: 'nav_treasure',
       desc: '',
       args: [],
@@ -2515,6 +2515,266 @@ class S {
     return Intl.message(
       'User Guide',
       name: 'userGuide',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja — Learn & Earn`
+  String get userGuide_headerTitle {
+    return Intl.message(
+      'Voninja — Learn & Earn',
+      name: 'userGuide_headerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Short lessons, quizzes, challenges, treasure boxes, and real cash rewards.`
+  String get userGuide_headerSubtitle {
+    return Intl.message(
+      'Short lessons, quizzes, challenges, treasure boxes, and real cash rewards.',
+      name: 'userGuide_headerSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What is Voninja?`
+  String get ug_1_title {
+    return Intl.message(
+      'What is Voninja?',
+      name: 'ug_1_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja is an interactive learning app for English using short lessons, quizzes, challenges, and a points system. Every learning activity grants points that can be converted into real cash rewards.`
+  String get ug_1_body {
+    return Intl.message(
+      'Voninja is an interactive learning app for English using short lessons, quizzes, challenges, and a points system. Every learning activity grants points that can be converted into real cash rewards.',
+      name: 'ug_1_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What levels are available?`
+  String get ug_2_title {
+    return Intl.message(
+      'What levels are available?',
+      name: 'ug_2_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The app offers three learning levels:\n• Basic: each lesson = 1 point.\n• Intermediate: each lesson = 2 points.\n• Advanced: each lesson = 3 points.\nAfter every lesson, a short quiz evaluates your recall and adds points automatically.`
+  String get ug_2_body {
+    return Intl.message(
+      'The app offers three learning levels:\n• Basic: each lesson = 1 point.\n• Intermediate: each lesson = 2 points.\n• Advanced: each lesson = 3 points.\nAfter every lesson, a short quiz evaluates your recall and adds points automatically.',
+      name: 'ug_2_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What are "Challenges"?`
+  String get ug_3_title {
+    return Intl.message(
+      'What are "Challenges"?',
+      name: 'ug_3_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Challenges are multi-question tasks. Each correct answer can grant 3, 5, 10, 20, 25 points or more. To join a challenge, you must meet the entry requirement (e.g., have 2,000 points).`
+  String get ug_3_body {
+    return Intl.message(
+      'Challenges are multi-question tasks. Each correct answer can grant 3, 5, 10, 20, 25 points or more. To join a challenge, you must meet the entry requirement (e.g., have 2,000 points).',
+      name: 'ug_3_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What are "Events"?`
+  String get ug_4_title {
+    return Intl.message(
+      'What are "Events"?',
+      name: 'ug_4_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time-limited events that grant extra rewards, such as:\n• Double Points Day: all points earned double for 24 hours.\n• Kickstart Challenge: earn 1,000 points in your first 48 hours to get +3,000 points.\n• Quiz Master 100: answer 100 questions correctly within 48 hours to get +1,000 points.`
+  String get ug_4_body {
+    return Intl.message(
+      'Time-limited events that grant extra rewards, such as:\n• Double Points Day: all points earned double for 24 hours.\n• Kickstart Challenge: earn 1,000 points in your first 48 hours to get +3,000 points.\n• Quiz Master 100: answer 100 questions correctly within 48 hours to get +1,000 points.',
+      name: 'ug_4_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How do Treasure Boxes work?`
+  String get ug_5_title {
+    return Intl.message(
+      'How do Treasure Boxes work?',
+      name: 'ug_5_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja Treasures include Bronze, Silver, and Gold boxes. Each box requires a minimum points balance and ad views to enter, and grants increasing point rewards.`
+  String get ug_5_body {
+    return Intl.message(
+      'Voninja Treasures include Bronze, Silver, and Gold boxes. Each box requires a minimum points balance and ad views to enter, and grants increasing point rewards.',
+      name: 'ug_5_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can I boost points with ads?`
+  String get ug_6_title {
+    return Intl.message(
+      'Can I boost points with ads?',
+      name: 'ug_6_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes. Watch a short ad to get +10 extra points, or claim bonus points after each quiz via a rewarded ad.`
+  String get ug_6_body {
+    return Intl.message(
+      'Yes. Watch a short ad to get +10 extra points, or claim bonus points after each quiz via a rewarded ad.',
+      name: 'ug_6_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What is the Voninja Library?`
+  String get ug_7_title {
+    return Intl.message(
+      'What is the Voninja Library?',
+      name: 'ug_7_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An in-app library of educational PDF books. You can unlock and read books directly after paying with points.`
+  String get ug_7_body {
+    return Intl.message(
+      'An in-app library of educational PDF books. You can unlock and read books directly after paying with points.',
+      name: 'ug_7_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How does the "Treasure Recycle" work?`
+  String get ug_8_title {
+    return Intl.message(
+      'How does the "Treasure Recycle" work?',
+      name: 'ug_8_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After finishing Bronze + Silver + Gold boxes and reaching 25,000 points, you can request a 100 EGP cashout by entering your wallet number in the transfer screen. Your points then reset to 0 so you can re-enter Voninja Treasures and start the cycle again.`
+  String get ug_8_body {
+    return Intl.message(
+      'After finishing Bronze + Silver + Gold boxes and reaching 25,000 points, you can request a 100 EGP cashout by entering your wallet number in the transfer screen. Your points then reset to 0 so you can re-enter Voninja Treasures and start the cycle again.',
+      name: 'ug_8_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How do I get reward codes from social media?`
+  String get ug_9_title {
+    return Intl.message(
+      'How do I get reward codes from social media?',
+      name: 'ug_9_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow our social pages for questions and giveaways. Winners receive a special code. Go to Settings → Social Media and enter your reward code to redeem.`
+  String get ug_9_body {
+    return Intl.message(
+      'Follow our social pages for questions and giveaways. Winners receive a special code. Go to Settings → Social Media and enter your reward code to redeem.',
+      name: 'ug_9_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Social reward code example`
+  String get ug_image_alt_social {
+    return Intl.message(
+      'Social reward code example',
+      name: 'ug_image_alt_social',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How do I cash out?`
+  String get ug_10_title {
+    return Intl.message(
+      'How do I cash out?',
+      name: 'ug_10_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every 25,000 points = 100 EGP, processed within 24–48 hours after submitting a request. Go to Settings → “Get your coins now”, enter your wallet or a contact number, and track the transfer via the WhatsApp number listed under Technical Support. Cashouts are currently available for Egyptian wallets/numbers only, with plans to expand globally.`
+  String get ug_10_body {
+    return Intl.message(
+      'Every 25,000 points = 100 EGP, processed within 24–48 hours after submitting a request. Go to Settings → “Get your coins now”, enter your wallet or a contact number, and track the transfer via the WhatsApp number listed under Technical Support. Cashouts are currently available for Egyptian wallets/numbers only, with plans to expand globally.',
+      name: 'ug_10_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cashout flow example`
+  String get ug_image_alt_cashout {
+    return Intl.message(
+      'Cashout flow example',
+      name: 'ug_image_alt_cashout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Why choose Voninja?`
+  String get ug_11_title {
+    return Intl.message(
+      'Why choose Voninja?',
+      name: 'ug_11_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voninja combines fun learning with real incentives. Three lesson levels suit all learners; challenges, events, and treasure boxes keep you motivated; and points convert quickly into real rewards.`
+  String get ug_11_body {
+    return Intl.message(
+      'Voninja combines fun learning with real incentives. Three lesson levels suit all learners; challenges, events, and treasure boxes keep you motivated; and points convert quickly into real rewards.',
+      name: 'ug_11_body',
       desc: '',
       args: [],
     );
