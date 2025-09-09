@@ -114,7 +114,7 @@
 
   "lessons": "Lessons",
   "lessonsLearningVocabulary": "This is your first step in learning English vocabulary.\nGo on ninja!",
-  "correctAnswerPoints": "For each correct answer, you will earn points, but if you answer incorrectly, you will lose points",
+  "correctAnswerPoints": "For each correct answer, you will earn points",
   "lessonNumber": "Lesson",
   "pointNumber": "Point",
   "questionsNumber": "Questions",

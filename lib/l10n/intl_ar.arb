@@ -112,7 +112,7 @@
 
   "lessons": "الدروس",
   "lessonsLearningVocabulary": "هذه هي خطوتك الأولى في تعلم مفردات اللغة الإنجليزية.\nاستمر، يا نينجا!",
-  "correctAnswerPoints": "لكل إجابة صحيحة، سوف تكسب نقاطًا، ولكن إذا أجبت بشكل غير صحيح، فسوف تخسر نقاطًا",
+  "correctAnswerPoints": "لكل إجابة صحيحة، سوف تكسب نقاطًا",
   "lessonNumber": "الدرس",
   "pointNumber": "نقطة",
   "questionsNumber": "الأسئلة",

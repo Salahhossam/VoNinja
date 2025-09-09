@@ -141,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "copied": MessageLookupByLibrary.simpleMessage("تم النسخ"),
         "copy": MessageLookupByLibrary.simpleMessage("نسخ"),
         "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
-            "لكل إجابة صحيحة، سوف تكسب نقاطًا، ولكن إذا أجبت بشكل غير صحيح، فسوف تخسر نقاطًا"),
+            "لكل إجابة صحيحة، سوف تكسب نقاطًا"),
         "correctAnswers": m4,
         "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "currentPassword":

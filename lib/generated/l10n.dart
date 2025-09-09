@@ -990,10 +990,10 @@ class S {
     );
   }
 
-  /// `For each correct answer, you will earn points, but if you answer incorrectly, you will lose points`
+  /// `For each correct answer, you will earn points`
   String get correctAnswerPoints {
     return Intl.message(
-      'For each correct answer, you will earn points, but if you answer incorrectly, you will lose points',
+      'For each correct answer, you will earn points',
       name: 'correctAnswerPoints',
       desc: '',
       args: [],

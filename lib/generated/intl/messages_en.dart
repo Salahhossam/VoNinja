@@ -142,7 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "copied": MessageLookupByLibrary.simpleMessage("Copied"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
-            "For each correct answer, you will earn points, but if you answer incorrectly, you will lose points"),
+            "For each correct answer, you will earn points"),
         "correctAnswers": m4,
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "currentPassword":
