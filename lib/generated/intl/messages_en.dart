@@ -291,6 +291,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mustCompleteLevel": m13,
         "mustTransferPointsFirst": MessageLookupByLibrary.simpleMessage(
             "Your balance is above 25,000 points. Please submit a transfer request first before starting a new cycle."),
+        "mustTransferPointsFirst2": MessageLookupByLibrary.simpleMessage(
+            "You must complete a withdrawal transaction before starting a new cycle."),
         "nav_challenges": MessageLookupByLibrary.simpleMessage("Challenges"),
         "nav_home": MessageLookupByLibrary.simpleMessage("Home"),
         "nav_leaderboard": MessageLookupByLibrary.simpleMessage("Leaderboard"),

@@ -2789,6 +2789,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You must complete a withdrawal transaction before starting a new cycle.`
+  String get mustTransferPointsFirst2 {
+    return Intl.message(
+      'You must complete a withdrawal transaction before starting a new cycle.',
+      name: 'mustTransferPointsFirst2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

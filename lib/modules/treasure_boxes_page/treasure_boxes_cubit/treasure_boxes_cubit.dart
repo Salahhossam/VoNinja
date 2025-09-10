@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/treasure_model.dart';
 import '../../../shared/network/local/cash_helper.dart';
+import '../../../shared/style/color.dart';
 import 'treasure_boxes_state.dart';
 
 class TreasureBoxCubit extends Cubit<TreasureBoxState> {
@@ -128,9 +129,10 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
   }
 
   // ======== حفظ/قراءة تقدم المستخدم ========
-  Future<void> _saveProgress() async {
+  Future<void> _saveProgress({bool setUpdatedAt = true}) async {
     final ref = await _progressDoc();
-    await ref.set({
+
+    final data = {
       'bronzeIndex': bronzeIndex,
       'silverIndex': silverIndex,
       'goldIndex': goldIndex,
@@ -142,16 +144,22 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       },
       'currentIndex': currentIndex,
       'currentAdsWatched': currentAdsWatched,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    };
+
+    if (setUpdatedAt) {
+      data['updatedAt'] = FieldValue.serverTimestamp();
+    }
+
+    await ref.set(data, SetOptions(merge: true));
   }
+
 
   Future<void> _loadProgressAndClamp() async {
     userPoints = await _getUserPoints();
 
     final snap = await (await _progressDoc()).get();
     final p = snap.data();
-
+    hasUpdatedAt = p != null && p.containsKey('updatedAt');
     final bLen = _tiers[TreasureTier.bronze]?.length ?? 0;
     final sLen = _tiers[TreasureTier.silver]?.length ?? 0;
     final gLen = _tiers[TreasureTier.gold]?.length ?? 0;
@@ -191,8 +199,7 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     final i = currentIndex.clamp(0, list.length - 1);
     return list[i];
   }
-
-  // ======== تحميل أولي للصفحة ========
+   bool hasUpdatedAt=false;
   Future<void> load() async {
     try {
       isLoading1 = true;
@@ -201,7 +208,9 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       await _loadTreasure();
       await _loadProgressAndClamp();
 
-      await _saveProgress();
+      // --- حفظ التقدم مع شرط updatedAt ---
+      await _saveProgress(setUpdatedAt: !hasUpdatedAt);
+
       isLoading1 = false;
       emit(TreasureBoxUpdated());
     } catch (e) {
@@ -209,6 +218,7 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       emit(TreasureBoxFailure(e.toString()));
     }
   }
+
 
   // ======== مشاهدة إعلان ========
   Future<void> watchAdForCurrent({required Future<bool> Function() showAd, BuildContext? context}) async {
@@ -372,12 +382,15 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
     try {
       isLoading2 = true;
       emit(TreasureBoxUpdated());
-
+      final uid = await CashHelper.getData(key: 'uid');
       final bLen = _tiers[TreasureTier.bronze]?.length ?? 0;
       final sLen = _tiers[TreasureTier.silver]?.length ?? 0;
       final gLen = _tiers[TreasureTier.gold]?.length ?? 0;
 
-      final finishedAll = (bronzeIndex >= bLen) && (silverIndex >= sLen) && (goldIndex >= gLen);
+      final finishedAll = (bronzeIndex >= bLen) &&
+          (silverIndex >= sLen) &&
+          (goldIndex >= gLen);
+
       if (!finishedAll) {
         isLoading2 = false;
         final message = context != null
@@ -388,6 +401,50 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
         return;
       }
 
+      // 🔹 تحقق من وجود عملية سحب بعد آخر تحديث للتقدم
+
+      final progressDoc = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('treasure')
+          .doc('progress')
+          .get();
+
+      final updatedAt = (progressDoc.data()?['updatedAt'] as Timestamp?)?.toDate();
+
+      final transactionsSnap = await _db
+          .collection('transaction')
+          .where('userId', isEqualTo: uid)
+          .orderBy('createdAt', descending: true)
+          .limit(1)
+          .get();
+
+      if (transactionsSnap.docs.isEmpty ||
+          updatedAt == null ||
+          (transactionsSnap.docs.first.data()['createdAt'] as Timestamp)
+              .toDate()
+              .isBefore(updatedAt)) {
+        isLoading2 = false;
+        emit(TreasureBoxUpdated());
+        if (context != null) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.scale,
+            headerAnimationLoop: true,
+            dismissOnBackKeyPress: true,
+            dismissOnTouchOutside: true,
+            btnOkText: S.of(context).ok,
+            btnOkColor: AppColors.mainColor,
+            btnOkOnPress: () {},
+            title: S.of(context).cannotStartNewCycle,
+            desc: S.of(context).mustTransferPointsFirst2,
+          ).show();
+        }
+        return;
+      }
+
+      // 🔹 كمل الدورة الجديدة
       bronzeIndex = 0;
       silverIndex = 0;
       goldIndex = 0;
@@ -408,6 +465,7 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
       emit(TreasureBoxFailure(e.toString()));
     }
   }
+
 
   // ======== SEED ========
   Future<void> seedDefaultBoxesOnce() async {

@@ -289,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mustCompleteLevel": m13,
         "mustTransferPointsFirst": MessageLookupByLibrary.simpleMessage(
             "رصيدك أكبر من ٢٥,٠٠٠ نقطة. يجب تقديم طلب تحويل النقاط أولًا قبل بدء دورة جديدة."),
+        "mustTransferPointsFirst2": MessageLookupByLibrary.simpleMessage(
+            "يجب عليك إجراء عملية سحب أولاً قبل بدء دورة جديدة."),
         "nav_challenges": MessageLookupByLibrary.simpleMessage("التحديات"),
         "nav_home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "nav_leaderboard": MessageLookupByLibrary.simpleMessage("لوحة الصدارة"),
