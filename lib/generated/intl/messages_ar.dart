@@ -124,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmNewCycle":
             MessageLookupByLibrary.simpleMessage("تأكيد بدء دورة جديدة"),
+        "confirmNewCycleDesc": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد أنك تريد بدء دورة جديدة؟ هذا الإجراء سيعيد تعيين كل الصناديق."),
         "confirmNewCycleDescription": MessageLookupByLibrary.simpleMessage(
             "عند الضغط على \"تأكيد\"، سيتم بدء دورة جديدة وسيُعاد رصيدك إلى ٥٠٠ نقطة.\nننصحك باستخدام نقاطك الحالية قبل البدء بدورة جديدة.\n⚠️ في حال كان رصيدك ٢٥,٠٠٠ نقطة أو أكثر، يجب تقديم طلب تحويل أولًا."),
         "confirmPassword":

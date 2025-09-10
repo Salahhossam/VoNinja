@@ -2779,6 +2779,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure you want to start a new cycle? This action will reset all boxes.`
+  String get confirmNewCycleDesc {
+    return Intl.message(
+      'Are you sure you want to start a new cycle? This action will reset all boxes.',
+      name: 'confirmNewCycleDesc',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -125,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmNewCycle":
             MessageLookupByLibrary.simpleMessage("Confirm starting new cycle"),
+        "confirmNewCycleDesc": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to start a new cycle? This action will reset all boxes."),
         "confirmNewCycleDescription": MessageLookupByLibrary.simpleMessage(
             "By pressing \"Confirm\", a new cycle will begin and your balance will be reset to 500 points.\nWe recommend using your existing points before starting a new cycle.\n⚠️ If your balance is 25,000 points or more, you must submit a transfer request first."),
         "confirmPassword":

@@ -306,5 +306,6 @@
   "ug_image_alt_cashout": "Cashout flow example",
 
   "ug_11_title": "Why choose Voninja?",
-  "ug_11_body": "Voninja combines fun learning with real incentives. Three lesson levels suit all learners; challenges, events, and treasure boxes keep you motivated; and points convert quickly into real rewards."
+  "ug_11_body": "Voninja combines fun learning with real incentives. Three lesson levels suit all learners; challenges, events, and treasure boxes keep you motivated; and points convert quickly into real rewards.",
+  "confirmNewCycleDesc": "Are you sure you want to start a new cycle? This action will reset all boxes."
 }
