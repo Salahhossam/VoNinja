@@ -21,15 +21,22 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.ahmed.vo_ninja"
     compileSdk = 35
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "28.0.12674087"
+
+    packaging {
+        jniLibs {
+            // مهم جداً لدعم 16KB page size
+            useLegacyPackaging = false
+        }
+    }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     defaultConfig {
