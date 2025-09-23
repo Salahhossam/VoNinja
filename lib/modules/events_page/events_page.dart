@@ -374,6 +374,7 @@ class _EventsPageState extends State<EventsPage> {
                                                     .of(context)
                                                     .endsIn(_fmtRemain(endAt)),
                                                 AppColors.secondColor,
+                                              text2: DateFormat('dd/MM/yyyy hh:mm a').format(endAt),
                                             )
                                           else if (endAt != null)
                                             _buildInfoRow(
@@ -381,7 +382,9 @@ class _EventsPageState extends State<EventsPage> {
                                                 now.isBefore(endAt)
                                                     ? S.of(context).notActiveYet
                                                     : S.of(context).ended,
-                                                Colors.grey),
+                                                Colors.grey,
+                                              text2: DateFormat('dd/MM/yyyy hh:mm a').format(endAt),
+                                            ),
 
                                           const SizedBox(height: 12),
 
