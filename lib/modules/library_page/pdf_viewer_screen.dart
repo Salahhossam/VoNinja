@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:vo_ninja/models/pdf_book_model.dart';
 
 import '../../shared/main_cubit/cubit.dart';
@@ -18,10 +19,12 @@ class PDFScreen extends StatefulWidget {
 class _PDFScreenState extends State<PDFScreen> {
   bool _isLoading = true;
   String? _error;
+  String? _localPath;
   BannerAd? myBannerTop;
   BannerAd? myBannerBottom;
   bool isTopBannerLoaded = false;
   bool isBottomBannerLoaded = false;
+
   void _initBannerAds() {
     // Top Banner
     myBannerTop = BannerAd(
@@ -35,9 +38,6 @@ class _PDFScreenState extends State<PDFScreen> {
           });
         },
         onAdFailedToLoad: (ad, error) {
-          // print('Failed to load a banner ad: ${error.message}');
-          // print('Error code: ${error.code}');
-          // print('Error domain: ${error.domain}');
           ad.dispose();
         },
       ),
@@ -55,20 +55,41 @@ class _PDFScreenState extends State<PDFScreen> {
           });
         },
         onAdFailedToLoad: (ad, error) {
-          // print('Failed to load a banner ad: ${error.message}');
-          // print('Error code: ${error.code}');
-          // print('Error domain: ${error.domain}');
           ad.dispose();
         },
       ),
     )..load();
   }
+
+  Future<void> _cachePDF(String url) async {
+    try {
+      final file = await DefaultCacheManager().getSingleFile(url);
+      setState(() {
+        _localPath = file.path;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = 'Failed to load PDF: $e';
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     final mainCubit = MainAppCubit.get(context);
-    mainCubit.interstitialAd();
+    //mainCubit.interstitialAd();
     _initBannerAds();
+    if (widget.pdfBook.url != null && widget.pdfBook.url!.isNotEmpty) {
+      _cachePDF(widget.pdfBook.url!);
+    } else {
+      setState(() {
+        _error = 'PDF URL is empty';
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -111,12 +132,30 @@ class _PDFScreenState extends State<PDFScreen> {
                   _error = null;
                   _isLoading = true;
                 });
+                _cachePDF(url);
               },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(AppColors.mainColor),
               ),
               child: const Text('Retry', style: TextStyle(color: Colors.white)),
             ),
+          ],
+        ),
+      );
+    }
+
+    if (_isLoading || _localPath == null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Image(
+              image: AssetImage('assets/img/ninja_gif.gif'),
+              height: 100,
+              width: 100,
+            ),
+            const SizedBox(height: 20),
+            const Text('Loading...'),
           ],
         ),
       );
@@ -132,11 +171,12 @@ class _PDFScreenState extends State<PDFScreen> {
             child: AdWidget(ad: myBannerTop!),
           ),
         Expanded(
-          child: PDF(
+          child: PDFView(
+            filePath: _localPath!,
             enableSwipe: true,
             swipeHorizontal: false,
-            autoSpacing: false,
-            pageFling: true,
+            autoSpacing: false, // Try setting this to 'true'
+            pageFling: false,
             onError: (error) {
               setState(() {
                 _error = error.toString();
@@ -152,25 +192,8 @@ class _PDFScreenState extends State<PDFScreen> {
                 _isLoading = false;
               });
             },
-          ).cachedFromUrl(
-            url,
-            placeholder: (progress) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Image(
-                    image: AssetImage('assets/img/ninja_gif.gif'),
-                    height: 100,
-                    width: 100,
-                  ),
-                  const SizedBox(height: 20),
-                  Text('Loading... $progress%'),
-                ],
-              ),
-            ),
           ),
         ),
-
         if (isBottomBannerLoaded && myBannerBottom != null)
           Container(
             height: 60,
@@ -180,5 +203,12 @@ class _PDFScreenState extends State<PDFScreen> {
           ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    myBannerTop?.dispose();
+    myBannerBottom?.dispose();
+    super.dispose();
   }
 }

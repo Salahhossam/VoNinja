@@ -520,7 +520,7 @@ class _QuizPageState extends State<QuizPage> {
                                             width: double.infinity,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                if (eventCubit.currentQuestionIndex %10==0 || eventCubit.currentQuestionIndex + 3 == eventCubit.questions.length) {
+                                                if (eventCubit.currentQuestionIndex %7==0 || eventCubit.currentQuestionIndex + 3 == eventCubit.questions.length) {
                                                   final mainCubit =
                                                       MainAppCubit.get(context);
                                                   mainCubit.interstitialAd();
