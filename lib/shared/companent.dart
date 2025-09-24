@@ -379,26 +379,6 @@ Future<void> showInfoDialog(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Cancel Button (optional)
-              if (isDismissible)
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.mainColor,
-                    side: BorderSide(color: AppColors.mainColor),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: () {
-                    SmartDialog.dismiss(result: false); // Dismiss without OK
-                  },
-                  child: Text(
-                    S.of(context).back,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-              if (isDismissible) const SizedBox(width: 16),
-              // OK Button
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.secondColor,
