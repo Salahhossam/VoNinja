@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import 'package:vo_ninja/modules/challenges_page/task_cubit/task_cubit.dart';
 import 'package:vo_ninja/modules/challenges_page/task_cubit/task_state.dart';
 import 'package:vo_ninja/modules/challenges_page/task_page.dart';
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import '../../shared/main_cubit/cubit.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
@@ -726,15 +726,12 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
 
                                               if (!isAnswered) {
                                                 // Show AwesomeDialog if not answered
-                                                AwesomeDialog(
-                                                  context: context,
-                                                  dialogType: DialogType.warning,
-                                                  animType: AnimType.bottomSlide,
+                                                showWarningDialog(
+                                                  context,
                                                   title: S.of(context).warning,
                                                   desc: S.of(context).pleaseAnswerTheQuestionFirst,
-                                                  btnCancelOnPress: () {},
-                                                  btnCancelText: S.of(context).okay,
-                                                ).show();
+                                                  onOkPressed: () {},
+                                                );
                                                 return;
                                               }
                                               taskCubit.moveToNextQuestion(

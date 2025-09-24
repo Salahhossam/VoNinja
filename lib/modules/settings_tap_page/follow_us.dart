@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,6 +6,7 @@ import 'package:vo_ninja/modules/settings_tap_page/settings_tap_cubit/settings_t
 import 'package:vo_ninja/shared/style/color.dart';
 
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import '../taps_page/taps_page.dart';
 import 'settings_tap_cubit/settings_tap_cubit.dart';
 
@@ -89,24 +90,19 @@ class FollowUs extends StatelessWidget {
                                                     .userData?.userId ??
                                                 '');
                                     if (result == 'Success') {
-                                      AwesomeDialog(
-                                        context: context,
-                                        dialogType: DialogType.success,
-                                        animType: AnimType.rightSlide,
+                                      showSuccessDialog(
+                                        context,
                                         title: 'Success',
-                                        desc:
-                                            'Transaction completed successfully!',
-                                        btnOkOnPress: () {},
-                                      ).show();
+                                        desc: 'Transaction completed successfully!',
+                                        onOkPressed: () {},
+                                      );
                                     } else {
-                                      AwesomeDialog(
-                                        context: context,
-                                        dialogType: DialogType.error,
-                                        animType: AnimType.rightSlide,
+                                      showErrorDialog(
+                                        context,
                                         title: 'Error',
                                         desc: result,
-                                        btnOkOnPress: () {},
-                                      ).show();
+                                        onOkPressed: () {},
+                                      );
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

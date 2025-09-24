@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ import 'package:vo_ninja/modules/welcome_challenge_page/welcome_challenge_cubit/
 import 'package:vo_ninja/modules/welcome_challenge_page/welcome_challenge_cubit/welcome_challenge_state.dart';
 import 'package:vo_ninja/shared/main_cubit/cubit.dart';
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
 
@@ -506,18 +506,12 @@ class _WelcomeChallengePageState extends State<WelcomeChallengePage> {
 
                                           if (!isAnswered) {
                                             // Show AwesomeDialog if not answered
-                                            AwesomeDialog(
-                                              context: context,
-                                              dialogType: DialogType.warning,
-                                              animType: AnimType.bottomSlide,
+                                            showWarningDialog(
+                                              context,
                                               title: S.of(context).warning,
-                                              desc: S
-                                                  .of(context)
-                                                  .pleaseAnswerTheQuestionFirst,
-                                              btnCancelOnPress: () {},
-                                              btnCancelText:
-                                              S.of(context).okay,
-                                            ).show();
+                                              desc: S.of(context).pleaseAnswerTheQuestionFirst,
+                                              onOkPressed: () {},
+                                            );
                                             return;
                                           }
                                           welcomeChallengeCubit.moveToNextQuestion(context,);

@@ -1,9 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vo_ninja/modules/taps_page/taps_page.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import 'settings_tap_cubit/settings_tap_cubit.dart';
 import 'settings_tap_cubit/settings_tap_state.dart';
 
@@ -233,15 +234,12 @@ class _SwitchCoinsPageState extends State<SwitchCoinsPage> {
                                         if (double.tryParse(switchCoinsCubit
                                                 .pointNumberController.text)! <
                                             25000) {
-                                          AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.error,
-                                            animType: AnimType.rightSlide,
+                                          showErrorDialog(
+                                            context,
                                             title: 'Error',
-                                            desc:
-                                                'Transaction failed! Minimum transaction amount is 25000 points',
-                                            btnOkOnPress: () {},
-                                          ).show();
+                                            desc: 'Transaction failed! Minimum transaction amount is 25000 points',
+                                            onOkPressed: () {},
+                                          );
                                         } else {
                                           bool success = await switchCoinsCubit
                                               .postTransactionsPhoneNumber(
@@ -257,28 +255,22 @@ class _SwitchCoinsPageState extends State<SwitchCoinsPage> {
                                           );
                                           FocusScope.of(context).unfocus();
                                           if (success) {
-                                            AwesomeDialog(
-                                              context: context,
-                                              dialogType: DialogType.success,
-                                              animType: AnimType.rightSlide,
+                                            showSuccessDialog(
+                                              context,
                                               title: 'Success',
-                                              desc:
-                                                  'Transaction completed successfully!',
-                                              btnOkOnPress: () {},
-                                            ).show();
+                                              desc: 'Transaction completed successfully!',
+                                              onOkPressed: () {},
+                                            );
                                           }
                                         }
                                       } catch (e) {
                                         FocusScope.of(context).unfocus();
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.error,
-                                          animType: AnimType.rightSlide,
+                                        showErrorDialog(
+                                          context,
                                           title: 'Error',
-                                          desc:
-                                              'Transaction failed! Please try again.',
-                                          btnOkOnPress: () {},
-                                        ).show();
+                                          desc: 'Transaction failed! Please try again.',
+                                          onOkPressed: () {},
+                                        );
                                       }
                                     }
                                   },

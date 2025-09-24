@@ -1,9 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vo_ninja/modules/settings_tap_page/edit_profile.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import 'settings_tap_cubit/settings_tap_cubit.dart';
 import 'settings_tap_cubit/settings_tap_state.dart';
 
@@ -120,25 +121,19 @@ class EditPasswordPage extends StatelessWidget {
                                               settingsTapCubit
                                                   .newPasswordController.text);
                                       if (result) {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.success,
-                                          animType: AnimType.rightSlide,
+                                        showSuccessDialog(
+                                          context,
                                           title: 'Success',
-                                          desc:
-                                              'Password changed successfully!',
-                                          btnOkOnPress: () {},
-                                        ).show();
+                                          desc: 'Password changed successfully!',
+                                          onOkPressed: () {},
+                                        );
                                       } else {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.error,
-                                          animType: AnimType.rightSlide,
+                                        showErrorDialog(
+                                          context,
                                           title: 'Error',
-                                          desc:
-                                              'Failed to update password. The current password is incorrect.',
-                                          btnOkOnPress: () {},
-                                        ).show();
+                                          desc: 'Failed to update password. The current password is incorrect.',
+                                          onOkPressed: () {},
+                                        );
                                       }
                                     }
                                   },

@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +9,7 @@ import 'package:vo_ninja/models/transaction.dart';
 import 'package:vo_ninja/models/user_data_model.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../shared/companent.dart';
 import '../../../shared/constant/constant.dart';
 import '../../../shared/style/color.dart';
 import 'settings_tap_state.dart';
@@ -468,24 +469,19 @@ class SettingsTapCubit extends Cubit<SettingsTapState> {
                                   var result = await postReferralsFriendLink(
                                       friendLinkController.text);
                                   if (result == 'Success') {
-                                    AwesomeDialog(
-                                      context: context,
-                                      dialogType: DialogType.success,
-                                      animType: AnimType.rightSlide,
+                                    showSuccessDialog(
+                                      context,
                                       title: 'Success',
-                                      desc:
-                                          'Transaction completed successfully!',
-                                      btnOkOnPress: () {},
-                                    ).show();
+                                      desc: 'Transaction completed successfully!',
+                                      onOkPressed: () {},
+                                    );
                                   } else {
-                                    AwesomeDialog(
-                                      context: context,
-                                      dialogType: DialogType.error,
-                                      animType: AnimType.rightSlide,
+                                    showErrorDialog(
+                                      context,
                                       title: 'Error',
                                       desc: result,
-                                      btnOkOnPress: () {},
-                                    ).show();
+                                      onOkPressed: () {},
+                                    );
                                   }
                                 },
                                 child: Text(

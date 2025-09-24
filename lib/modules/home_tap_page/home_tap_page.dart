@@ -1,11 +1,10 @@
 import 'dart:developer';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../library_page/library_screen.dart';
 
@@ -306,25 +305,30 @@ class _HomeTapPageState extends State<HomeTapPage> {
               ? null
               : () async {
             if(!homeTapCubit.isProfileIconEnabled){
-              AwesomeDialog(
-                context: context,
-                dialogType: DialogType.warning,
-                animType: AnimType.rightSlide,
+              showWarningDialog(
+                context,
                 title: 'Warning',
                 desc: 'Ad is not ready now try again later',
-                btnOkOnPress: () {},
-              ).show();
+                onOkPressed: () {},
+              );
             }
             else{
               final result = await homeTapCubit.showAds(uid);
-              AwesomeDialog(
-                context: context,
-                dialogType: result['success'] ? DialogType.success : DialogType.error,
-                animType: AnimType.rightSlide,
-                title: result['title'],
-                desc: result['message'],
-                btnOkOnPress: () {},
-              ).show();
+              if (result['success']) {
+                showSuccessDialog(
+                  context,
+                  title: result['title'],
+                  desc: result['message'],
+                  onOkPressed: () {},
+                );
+              } else {
+                showErrorDialog(
+                  context,
+                  title: result['title'],
+                  desc: result['message'],
+                  onOkPressed: () {},
+                );
+              }
             }
 
           },

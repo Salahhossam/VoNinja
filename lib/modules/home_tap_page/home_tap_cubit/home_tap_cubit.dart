@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +7,7 @@ import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/models/level_progress_model.dart';
 import 'package:vo_ninja/models/user_data_model.dart';
 import '../../../generated/l10n.dart';
+import '../../../shared/companent.dart';
 import '../../../shared/constant/constant.dart';
 import 'home_tap_state.dart';
 import 'dart:async';
@@ -261,14 +262,12 @@ class HomeTapCubit extends Cubit<HomeTapState> {
 
 
         // Show awesome dialog
-        AwesomeDialog(
-          context: context, // You'll need to pass context to this function or get it another way
-          dialogType: DialogType.success,
-          animType: AnimType.bottomSlide,
+        showSuccessDialog(
+          context,
           title: 'Daily Reward!',
           desc: 'You received 10 points for today!',
-          btnOkOnPress: () {},
-        ).show();
+          onOkPressed: () {},
+        );
       }
 
       emit(HomeTapLoaded(userData!, levelsData));

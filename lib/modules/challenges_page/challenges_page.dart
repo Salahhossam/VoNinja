@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -9,6 +9,7 @@ import 'package:vo_ninja/modules/taps_page/taps_page.dart';
 
 import '../../generated/l10n.dart';
 import '../../models/challenge_model.dart';
+import '../../shared/companent.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../home_tap_page/home_tap_cubit/home_tap_cubit.dart';
 import 'challenges_card.dart';
@@ -342,15 +343,12 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                 setState(() {
                                   isLoading3 = false;
                                 });
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.error,
-                                  animType: AnimType.rightSlide,
+                                showErrorDialog(
+                                  context,
                                   title: 'Insufficient Points',
-                                  desc:
-                                      'You don’t have enough points to subscribe!',
-                                  btnOkOnPress: () {},
-                                ).show();
+                                  desc: 'You don’t have enough points to subscribe!',
+                                  onOkPressed: () {},
+                                );
                               }
                             }, Colors.white)
                     ],

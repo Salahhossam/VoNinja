@@ -14,7 +14,6 @@
 #include <firebase_storage/firebase_storage_plugin_c_api.h>
 #include <flutter_tts/flutter_tts_plugin.h>
 #include <flutter_udid/flutter_udid_plugin_c_api.h>
-#include <rive_common/rive_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
@@ -34,8 +33,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FlutterTtsPlugin"));
   FlutterUdidPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterUdidPluginCApi"));
-  RivePluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("RivePlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
 }

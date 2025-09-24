@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ import 'package:lottie/lottie.dart';
 import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/shared/main_cubit/cubit.dart';
 import '../../generated/l10n.dart';
+import '../../shared/companent.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
 import '../events_page/event_cubit/event_cubit.dart';
@@ -766,21 +766,12 @@ class _ExamPageState extends State<ExamPage> {
                                           );
 
                                           if (!isAnswered) {
-                                            AwesomeDialog(
-                                              context: context,
-                                              dialogType:
-                                              DialogType.warning,
-                                              animType:
-                                              AnimType.bottomSlide,
-                                              title:
-                                              S.of(context).warning,
-                                              desc: S
-                                                  .of(context)
-                                                  .pleaseAnswerTheQuestionFirst,
-                                              btnCancelOnPress: () {},
-                                              btnCancelText:
-                                              S.of(context).okay,
-                                            ).show();
+                                            showWarningDialog(
+                                              context,
+                                              title: S.of(context).warning,
+                                              desc: S.of(context).pleaseAnswerTheQuestionFirst,
+                                              onOkPressed: () {},
+                                            );
                                             return;
                                           }
                                           learningCubit

@@ -6,10 +6,9 @@ import 'package:vo_ninja/modules/library_page/library_cubit/library_state.dart';
 import 'package:vo_ninja/modules/library_page/pdf_viewer_screen.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-
 import '../../generated/l10n.dart';
 import '../../models/pdf_book_model.dart';
+import '../../shared/companent.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../taps_page/taps_page.dart';
 
@@ -198,40 +197,24 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final cubit = LibraryCubit.get(context);
     final hasEnoughPoints = cubit.userPoints >= book.requiredPoint!;
 
-    AwesomeDialog(
-      context: context,
-      dialogType: DialogType.question,
-      animType: AnimType.rightSlide,
+    showWarningDialog(
+      context,
       title: 'Book Locked',
       desc: 'You need ${book.requiredPoint} points to unlock this book.\n'
-          'Your current points: ${cubit.userPoints}\n\n'
+          'Your current points: ${cubit.userPoints.toInt()}\n\n'
           '${hasEnoughPoints ? 'Do you want to unlock it using your points?' : 'You don\'t have enough points to unlock this book.'}',
-      btnOkText: 'Unlock',
-      btnCancelText: 'Cancel',
-      btnOkColor: hasEnoughPoints ? AppColors.mainColor : Colors.grey,
-      btnCancelColor: Colors.grey,
-      btnOkOnPress: hasEnoughPoints ? () async {
-        // Show loading dialog
-
-
+      onOkPressed: hasEnoughPoints
+          ? () async {
         try {
           String uid = await CashHelper.getData(key: 'uid');
           await cubit.deductUserPoints(uid, book.requiredPoint!, book.id!);
 
-
-          // Show success dialog
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.success,
-            animType: AnimType.rightSlide,
+          showSuccessDialog(
+            context,
             title: 'Book Unlocked!',
             desc: '${book.requiredPoint} points have been deducted.\nYou can now access the book.',
-            btnOkOnPress: () {
-              // Update the book status to unlocked
-              setState(() {
-                book.isLocked = false;
-              });
-              // Open the book
+            onOkPressed: () {
+              book.isLocked = false;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -239,24 +222,17 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 ),
               );
             },
-            btnOkColor: AppColors.mainColor,
-          ).show();
+          );
         } catch (error) {
-          // Close loading dialog
-          Navigator.of(context).pop();
-
-          // Show error dialog
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.rightSlide,
+          showErrorDialog(
+            context,
             title: 'Error',
             desc: 'Failed to unlock book: ${error.toString()}',
-            btnOkColor: AppColors.mainColor,
-          ).show();
+            onOkPressed: () {},
+          );
         }
-      } : null,
-      btnCancelOnPress: () {},
-    ).show();
+      }
+          : () {},
+    );
   }
 }

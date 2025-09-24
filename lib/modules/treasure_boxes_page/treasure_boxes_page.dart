@@ -1,6 +1,5 @@
 
 import 'package:another_flushbar/flushbar.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -10,6 +9,7 @@ import 'package:vo_ninja/modules/treasure_boxes_page/treasure_boxes_cubit/treasu
 import '../../../shared/style/color.dart';
 import '../../generated/l10n.dart';
 import '../../models/treasure_model.dart';
+import '../../shared/companent.dart';
 import 'box_card.dart';
 
 
@@ -182,40 +182,23 @@ class TreasureBoxesPage extends StatelessWidget {
     final c = TreasureBoxCubit.get(context);
 
     if (c.userPoints >= 25000) {
-      // ممنوع يبدأ دورة جديدة
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.warning,
-        animType: AnimType.scale,
-        headerAnimationLoop: true,
-        dismissOnBackKeyPress: true,
-        dismissOnTouchOutside: true,
-        btnOkText: S.of(context).ok, // زر واحد فقط
-        btnOkColor: AppColors.mainColor,
-        btnOkOnPress: () {},
+      showWarningDialog(
+        context,
         title: S.of(context).cannotStartNewCycle,
         desc: S.of(context).mustTransferPointsFirst,
-      ).show();
+        onOkPressed: () {},
+      );
     } else {
       // يقدر يبدأ دورة جديدة
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.warning,
-        animType: AnimType.scale,
-        headerAnimationLoop: true,
-        dismissOnBackKeyPress: true,
-        dismissOnTouchOutside: true,
-        btnOkText: S.of(context).confirm,
-        btnCancelText: S.of(context).back,
-        btnOkColor: AppColors.mainColor,
-        btnCancelOnPress: () {},
-        btnOkOnPress: () {
+      showWarningDialog(
+        context,
+        title: S.of(context).confirmNewCycle,
+        desc: S.of(context).confirmNewCycleDesc,
+        onOkPressed: () {
           // سيطبّق القيود داخل الكيوبت (إنهاء كل الصناديق + حد 25K)
           c.startNewCycleManually(context: context);
         },
-        title: S.of(context).confirmNewCycle,
-        desc: S.of(context).confirmNewCycleDesc,
-      ).show();
+      );
     }
   }
 

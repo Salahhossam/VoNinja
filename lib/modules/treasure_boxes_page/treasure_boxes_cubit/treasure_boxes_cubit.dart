@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/treasure_model.dart';
+import '../../../shared/companent.dart';
 import '../../../shared/network/local/cash_helper.dart';
 import '../../../shared/style/color.dart';
 import 'treasure_boxes_state.dart';
@@ -338,15 +339,12 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
           : 'حصلت على ${box.rewardPoints} نقطة.';
       isLoading2 = false;
       if(context!=null) {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.success,
-          animType: AnimType.scale,
+        showSuccessDialog(
+          context,
           title: S.of(context).congratulations,
           desc: earnedMessage,
-          btnOkText: S.of(context).ok,
-          btnOkOnPress: () {},
-        ).show();
+          onOkPressed: () {},
+        );
       } else{
         emit(TreasureBoxMessage(earnedMessage));
       }
@@ -427,19 +425,12 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
         isLoading2 = false;
         emit(TreasureBoxUpdated());
         if (context != null) {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.scale,
-            headerAnimationLoop: true,
-            dismissOnBackKeyPress: true,
-            dismissOnTouchOutside: true,
-            btnOkText: S.of(context).ok,
-            btnOkColor: AppColors.mainColor,
-            btnOkOnPress: () {},
+          showErrorDialog(
+            context,
             title: S.of(context).cannotStartNewCycle,
             desc: S.of(context).mustTransferPointsFirst2,
-          ).show();
+            onOkPressed: () {},
+          );
         }
         return;
       }
