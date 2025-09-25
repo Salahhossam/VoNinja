@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vo_ninja/modules/challenges_page/challenges_cubit/challenges_cubit.dart';
@@ -39,7 +40,7 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
 
   WidgetsFlutterBinding.ensureInitialized();
-
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   // Initialize connectivity service
   connectivityService.initialize();
 
