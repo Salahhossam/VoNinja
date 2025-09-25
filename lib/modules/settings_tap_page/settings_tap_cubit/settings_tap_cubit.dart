@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +10,7 @@ import 'package:vo_ninja/models/user_data_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../shared/constant/constant.dart';
+import '../../../shared/local_awesome_dialog.dart';
 import '../../../shared/style/color.dart';
 import 'settings_tap_state.dart';
 
@@ -468,20 +469,18 @@ class SettingsTapCubit extends Cubit<SettingsTapState> {
                                   var result = await postReferralsFriendLink(
                                       friendLinkController.text);
                                   if (result == 'Success') {
-                                    AwesomeDialog(
+                                    LocalAwesomeDialog(
                                       context: context,
-                                      dialogType: DialogType.success,
-                                      animType: AnimType.rightSlide,
+                                      dialogType: LocalDialogType.success,
                                       title: 'Success',
                                       desc:
                                           'Transaction completed successfully!',
                                       btnOkOnPress: () {},
                                     ).show();
                                   } else {
-                                    AwesomeDialog(
+                                    LocalAwesomeDialog(
                                       context: context,
-                                      dialogType: DialogType.error,
-                                      animType: AnimType.rightSlide,
+                                      dialogType: LocalDialogType.error,
                                       title: 'Error',
                                       desc: result,
                                       btnOkOnPress: () {},

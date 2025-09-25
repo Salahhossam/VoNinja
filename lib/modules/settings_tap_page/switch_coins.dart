@@ -1,9 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vo_ninja/modules/taps_page/taps_page.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/local_awesome_dialog.dart';
 import 'settings_tap_cubit/settings_tap_cubit.dart';
 import 'settings_tap_cubit/settings_tap_state.dart';
 
@@ -233,10 +234,9 @@ class _SwitchCoinsPageState extends State<SwitchCoinsPage> {
                                         if (double.tryParse(switchCoinsCubit
                                                 .pointNumberController.text)! <
                                             25000) {
-                                          AwesomeDialog(
+                                          LocalAwesomeDialog(
                                             context: context,
-                                            dialogType: DialogType.error,
-                                            animType: AnimType.rightSlide,
+                                            dialogType: LocalDialogType.error,
                                             title: 'Error',
                                             desc:
                                                 'Transaction failed! Minimum transaction amount is 25000 points',
@@ -257,10 +257,9 @@ class _SwitchCoinsPageState extends State<SwitchCoinsPage> {
                                           );
                                           FocusScope.of(context).unfocus();
                                           if (success) {
-                                            AwesomeDialog(
+                                            LocalAwesomeDialog(
                                               context: context,
-                                              dialogType: DialogType.success,
-                                              animType: AnimType.rightSlide,
+                                              dialogType: LocalDialogType.success,
                                               title: 'Success',
                                               desc:
                                                   'Transaction completed successfully!',
@@ -270,10 +269,9 @@ class _SwitchCoinsPageState extends State<SwitchCoinsPage> {
                                         }
                                       } catch (e) {
                                         FocusScope.of(context).unfocus();
-                                        AwesomeDialog(
+                                        LocalAwesomeDialog(
                                           context: context,
-                                          dialogType: DialogType.error,
-                                          animType: AnimType.rightSlide,
+                                          dialogType: LocalDialogType.error,
                                           title: 'Error',
                                           desc:
                                               'Transaction failed! Please try again.',

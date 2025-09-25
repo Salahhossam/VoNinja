@@ -6,10 +6,11 @@ import 'package:vo_ninja/modules/library_page/library_cubit/library_state.dart';
 import 'package:vo_ninja/modules/library_page/pdf_viewer_screen.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 
 import '../../generated/l10n.dart';
 import '../../models/pdf_book_model.dart';
+import '../../shared/local_awesome_dialog.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../taps_page/taps_page.dart';
 
@@ -198,10 +199,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final cubit = LibraryCubit.get(context);
     final hasEnoughPoints = cubit.userPoints >= book.requiredPoint!;
 
-    AwesomeDialog(
+    LocalAwesomeDialog(
       context: context,
-      dialogType: DialogType.question,
-      animType: AnimType.rightSlide,
+      dialogType: LocalDialogType.question,
       title: 'Book Locked',
       desc: 'You need ${book.requiredPoint} points to unlock this book.\n'
           'Your current points: ${cubit.userPoints}\n\n'
@@ -220,10 +220,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
 
           // Show success dialog
-          AwesomeDialog(
+          LocalAwesomeDialog(
             context: context,
-            dialogType: DialogType.success,
-            animType: AnimType.rightSlide,
+            dialogType: LocalDialogType.success,
             title: 'Book Unlocked!',
             desc: '${book.requiredPoint} points have been deducted.\nYou can now access the book.',
             btnOkOnPress: () {
@@ -246,10 +245,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
           Navigator.of(context).pop();
 
           // Show error dialog
-          AwesomeDialog(
+          LocalAwesomeDialog(
             context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.rightSlide,
+            dialogType: LocalDialogType.error,
             title: 'Error',
             desc: 'Failed to unlock book: ${error.toString()}',
             btnOkColor: AppColors.mainColor,

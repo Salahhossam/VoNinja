@@ -11,7 +11,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_storage
   flutter_tts
   flutter_udid
-  rive_common
   url_launcher_windows
 )
 

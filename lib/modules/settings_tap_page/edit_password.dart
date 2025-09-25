@@ -1,9 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vo_ninja/modules/settings_tap_page/edit_profile.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/local_awesome_dialog.dart';
 import 'settings_tap_cubit/settings_tap_cubit.dart';
 import 'settings_tap_cubit/settings_tap_state.dart';
 
@@ -120,20 +121,18 @@ class EditPasswordPage extends StatelessWidget {
                                               settingsTapCubit
                                                   .newPasswordController.text);
                                       if (result) {
-                                        AwesomeDialog(
+                                        LocalAwesomeDialog(
                                           context: context,
-                                          dialogType: DialogType.success,
-                                          animType: AnimType.rightSlide,
+                                          dialogType: LocalDialogType.success,
                                           title: 'Success',
                                           desc:
                                               'Password changed successfully!',
                                           btnOkOnPress: () {},
                                         ).show();
                                       } else {
-                                        AwesomeDialog(
+                                        LocalAwesomeDialog(
                                           context: context,
-                                          dialogType: DialogType.error,
-                                          animType: AnimType.rightSlide,
+                                          dialogType: LocalDialogType.error,
                                           title: 'Error',
                                           desc:
                                               'Failed to update password. The current password is incorrect.',

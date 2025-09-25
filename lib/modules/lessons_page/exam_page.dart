@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ import 'package:lottie/lottie.dart';
 import 'package:ntp/ntp.dart';
 import 'package:vo_ninja/shared/main_cubit/cubit.dart';
 import '../../generated/l10n.dart';
+import '../../shared/local_awesome_dialog.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
 import '../events_page/event_cubit/event_cubit.dart';
@@ -766,12 +766,10 @@ class _ExamPageState extends State<ExamPage> {
                                           );
 
                                           if (!isAnswered) {
-                                            AwesomeDialog(
+                                            LocalAwesomeDialog(
                                               context: context,
                                               dialogType:
-                                              DialogType.warning,
-                                              animType:
-                                              AnimType.bottomSlide,
+                                              LocalDialogType.warning,
                                               title:
                                               S.of(context).warning,
                                               desc: S

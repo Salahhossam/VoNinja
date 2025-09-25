@@ -1,6 +1,4 @@
 
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +9,7 @@ import 'package:vo_ninja/shared/constant/constant.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/lesson_details_model.dart';
+import '../../../shared/local_awesome_dialog.dart';
 import '../../../shared/network/local/cash_helper.dart';
 import '../../taps_page/taps_page.dart';
 
@@ -170,10 +169,9 @@ class WelcomeChallengeCubit extends Cubit<WelcomeChallengeState> {
             .set({'pointsNumber': FieldValue.increment(500)}, SetOptions(merge: true));
       }
 
-      await AwesomeDialog(
+      await LocalAwesomeDialog(
         context: context,
-        dialogType: win ? DialogType.success : DialogType.infoReverse,
-        animType: AnimType.scale,
+        dialogType: win ? LocalDialogType.success : LocalDialogType.infoReverse,
         title: win
             ? S.of(context).final_congrats_title
             : S.of(context).final_tryAgain_title,

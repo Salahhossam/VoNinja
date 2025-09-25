@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/treasure_model.dart';
+import '../../../shared/local_awesome_dialog.dart';
 import '../../../shared/network/local/cash_helper.dart';
 import '../../../shared/style/color.dart';
 import 'treasure_boxes_state.dart';
@@ -338,10 +339,9 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
           : 'حصلت على ${box.rewardPoints} نقطة.';
       isLoading2 = false;
       if(context!=null) {
-        AwesomeDialog(
+        LocalAwesomeDialog(
           context: context,
-          dialogType: DialogType.success,
-          animType: AnimType.scale,
+          dialogType: LocalDialogType.success,
           title: S.of(context).congratulations,
           desc: earnedMessage,
           btnOkText: S.of(context).ok,
@@ -427,11 +427,9 @@ class TreasureBoxCubit extends Cubit<TreasureBoxState> {
         isLoading2 = false;
         emit(TreasureBoxUpdated());
         if (context != null) {
-          AwesomeDialog(
+          LocalAwesomeDialog(
             context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.scale,
-            headerAnimationLoop: true,
+            dialogType: LocalDialogType.error,
             dismissOnBackKeyPress: true,
             dismissOnTouchOutside: true,
             btnOkText: S.of(context).ok,

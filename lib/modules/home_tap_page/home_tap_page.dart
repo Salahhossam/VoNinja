@@ -1,11 +1,10 @@
 import 'dart:developer';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/local_awesome_dialog.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../library_page/library_screen.dart';
 
@@ -306,10 +305,9 @@ class _HomeTapPageState extends State<HomeTapPage> {
               ? null
               : () async {
             if(!homeTapCubit.isProfileIconEnabled){
-              AwesomeDialog(
+              LocalAwesomeDialog(
                 context: context,
-                dialogType: DialogType.warning,
-                animType: AnimType.rightSlide,
+                dialogType: LocalDialogType.warning,
                 title: 'Warning',
                 desc: 'Ad is not ready now try again later',
                 btnOkOnPress: () {},
@@ -317,10 +315,9 @@ class _HomeTapPageState extends State<HomeTapPage> {
             }
             else{
               final result = await homeTapCubit.showAds(uid);
-              AwesomeDialog(
+              LocalAwesomeDialog(
                 context: context,
-                dialogType: result['success'] ? DialogType.success : DialogType.error,
-                animType: AnimType.rightSlide,
+                dialogType: result['success'] ? LocalDialogType.success : LocalDialogType.error,
                 title: result['title'],
                 desc: result['message'],
                 btnOkOnPress: () {},

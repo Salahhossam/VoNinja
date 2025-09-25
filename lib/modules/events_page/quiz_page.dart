@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +11,7 @@ import 'package:vo_ninja/modules/events_page/event_cubit/event_state.dart';
 import 'package:vo_ninja/modules/events_page/events_page.dart';
 import 'package:vo_ninja/shared/main_cubit/cubit.dart';
 import '../../generated/l10n.dart';
+import '../../shared/local_awesome_dialog.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
 import '../events_page/event_cubit/event_cubit.dart';
@@ -536,10 +535,9 @@ class _QuizPageState extends State<QuizPage> {
 
                                                 if (!isAnswered) {
                                                   // Show AwesomeDialog if not answered
-                                                  AwesomeDialog(
+                                                  LocalAwesomeDialog(
                                                     context: context,
-                                                    dialogType: DialogType.warning,
-                                                    animType: AnimType.bottomSlide,
+                                                    dialogType: LocalDialogType.warning,
                                                     title: S.of(context).warning,
                                                     desc: S
                                                         .of(context)

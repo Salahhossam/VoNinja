@@ -1,10 +1,10 @@
 import 'dart:developer';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/local_awesome_dialog.dart';
 import '../taps_page/taps_page.dart';
 import 'edit_password.dart';
 import 'settings_tap_cubit/settings_tap_cubit.dart';
@@ -462,20 +462,18 @@ class EditProfilePage extends StatelessWidget {
                                               .phoneNumberController.text,
                                         );
                                         if (result) {
-                                          AwesomeDialog(
+                                          LocalAwesomeDialog(
                                             context: context,
-                                            dialogType: DialogType.success,
-                                            animType: AnimType.rightSlide,
+                                            dialogType: LocalDialogType.success,
                                             title: 'Success',
                                             desc:
                                                 'Profile updated successfully!',
                                             btnOkOnPress: () {},
                                           ).show();
                                         } else {
-                                          AwesomeDialog(
+                                          LocalAwesomeDialog(
                                             context: context,
-                                            dialogType: DialogType.error,
-                                            animType: AnimType.rightSlide,
+                                            dialogType: LocalDialogType.error,
                                             title: 'Error',
                                             desc:
                                                 'Failed to update profile. Please try again.',
