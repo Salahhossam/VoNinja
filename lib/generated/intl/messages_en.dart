@@ -373,10 +373,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "noVocabulariesAvailable": MessageLookupByLibrary.simpleMessage(
       "No vocabularies available",
     ),
+    "no_email_provided": MessageLookupByLibrary.simpleMessage(
+      "No email provided",
+    ),
     "notActiveYet": MessageLookupByLibrary.simpleMessage("Not active yet"),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "okay": MessageLookupByLibrary.simpleMessage("Okay"),
     "open": MessageLookupByLibrary.simpleMessage("Open"),
+    "operationFailed": MessageLookupByLibrary.simpleMessage("Operation failed"),
+    "operationSuccessful": MessageLookupByLibrary.simpleMessage(
+      "Operation successful",
+    ),
     "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(
       "Participate in special events for exclusive rewards",
     ),
@@ -449,6 +456,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "subscribeInChallenge": MessageLookupByLibrary.simpleMessage(
       "Subscribe Now",
     ),
+    "success": MessageLookupByLibrary.simpleMessage("Success"),
     "successfullyCompleted": MessageLookupByLibrary.simpleMessage(
       "Congratulations!",
     ),
@@ -493,6 +501,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "treasureBoxesLevels": MessageLookupByLibrary.simpleMessage(
       "Bronze • Silver • Gold",
     ),
+    "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
     "ug_10_body": MessageLookupByLibrary.simpleMessage(
       "Every 25,000 points = 100 EGP, processed within 24–48 hours after submitting a request. Go to Settings → “Get your coins now”, enter your wallet or a contact number, and track the transfer via the WhatsApp number listed under Technical Support. Cashouts are currently available for Egyptian wallets/numbers only, with plans to expand globally.",
     ),

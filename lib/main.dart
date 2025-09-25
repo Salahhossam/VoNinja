@@ -4,6 +4,7 @@ import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:vo_ninja/modules/challenges_page/challenges_cubit/challenges_cubit.dart';
 import 'package:vo_ninja/modules/events_page/event_cubit/event_cubit.dart';
 import 'package:vo_ninja/modules/leaderboard_tap_page/leaderboard_tap_cubit/leaderboard_tap_cubit.dart';
@@ -351,6 +352,8 @@ class _MyAppState extends State<MyApp> {
           final language = MainAppCubit.get(context).language;
           return MaterialApp(
             key: Key(MainAppCubit.get(context).language),
+            navigatorObservers: [FlutterSmartDialog.observer],
+            builder: FlutterSmartDialog.init(),
             // Use the navigatorKey from connectivity service
             navigatorKey: connectivityService.navigatorKey,
             locale: Locale(language),

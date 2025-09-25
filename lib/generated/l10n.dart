@@ -2423,6 +2423,46 @@ class S {
       args: [],
     );
   }
+
+  /// `No email provided`
+  String get no_email_provided {
+    return Intl.message(
+      'No email provided',
+      name: 'no_email_provided',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message('Success', name: 'success', desc: '', args: []);
+  }
+
+  /// `Operation successful`
+  String get operationSuccessful {
+    return Intl.message(
+      'Operation successful',
+      name: 'operationSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operation failed`
+  String get operationFailed {
+    return Intl.message(
+      'Operation failed',
+      name: 'operationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get tryAgain {
+    return Intl.message('Try again', name: 'tryAgain', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -55,6 +55,8 @@ dependencies:
   wakelock_plus: ^1.4.0
   flutter_pdfview: ^1.4.3
   flutter_cache_manager: ^3.4.1
+  flutter_smart_dialog: ^4.9.8+9
+
 
 
   

@@ -360,10 +360,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "noVocabulariesAvailable": MessageLookupByLibrary.simpleMessage(
       "لا توجد مفردات متاحة",
     ),
+    "no_email_provided": MessageLookupByLibrary.simpleMessage(
+      "لم يتم تقديم بريد إلكتروني",
+    ),
     "notActiveYet": MessageLookupByLibrary.simpleMessage("غير نشط بعد"),
     "ok": MessageLookupByLibrary.simpleMessage("تمام"),
     "okay": MessageLookupByLibrary.simpleMessage("حسناً"),
     "open": MessageLookupByLibrary.simpleMessage("افتح"),
+    "operationFailed": MessageLookupByLibrary.simpleMessage("فشلت العملية"),
+    "operationSuccessful": MessageLookupByLibrary.simpleMessage(
+      "تمت العملية بنجاح",
+    ),
     "participateSpecialEvents": MessageLookupByLibrary.simpleMessage(
       "شارك في الأحداث الخاصة للحصول على مكافآت حصرية",
     ),
@@ -436,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "startNewCycle": MessageLookupByLibrary.simpleMessage("ابدأ دورة جديدة"),
     "startsIn": m20,
     "subscribeInChallenge": MessageLookupByLibrary.simpleMessage("اشترك الآن"),
+    "success": MessageLookupByLibrary.simpleMessage("نجاح"),
     "successfullyCompleted": MessageLookupByLibrary.simpleMessage("مبروك!"),
     "successfullyPoints": MessageLookupByLibrary.simpleMessage(
       "لقد أكملت الدرس بنجاح \nواكتسبت النقاط",
@@ -474,6 +482,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "treasureBoxesLevels": MessageLookupByLibrary.simpleMessage(
       "برونزية • فضية • ذهبية",
     ),
+    "tryAgain": MessageLookupByLibrary.simpleMessage("حاول مرة أخرى"),
     "ug_10_body": MessageLookupByLibrary.simpleMessage(
       "كل 25,000 نقطة = 100 جنيه خلال 24–48 ساعة من تقديم الطلب. اذهب إلى الإعدادات ← \"احصل على عملاتك الآن\"، ثم أدخل رقم المحفظة أو رقم تواصل، ويمكنك متابعة التحويل عبر رقم الواتساب الموجود في الدعم الفني. التحويل متاح حاليًا للأرقام والمحافظ المصرية فقط مع خطة للتوسع لاحقًا.",
     ),
