@@ -5,8 +5,6 @@ import '../../shared/style/color.dart';
 import '../../generated/l10n.dart';
 import '../home_tap_page/home_tap_cubit/home_tap_cubit.dart'; // مهم
 
-
-
 class WelcomeChallengeIntroPage extends StatelessWidget {
   const WelcomeChallengeIntroPage({super.key});
 
@@ -152,8 +150,8 @@ class WelcomeChallengeIntroPage extends StatelessWidget {
                             const SizedBox(width: 10),
                             const _InfoChip(
                               icon: Icons.stars_rounded,
-                              label: '500',
-                              sub: 'Points',
+                              label: '500 Points',
+                              sub: '',
                             ),
                           ],
                         ),
@@ -172,7 +170,8 @@ class WelcomeChallengeIntroPage extends StatelessWidget {
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.mainColor,
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 18),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),
@@ -180,14 +179,19 @@ class WelcomeChallengeIntroPage extends StatelessWidget {
                       ),
                       onPressed: () async {
                         Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (_) => const WelcomeChallengePage()),
-                              (route) => false,
+                          MaterialPageRoute(
+                              builder: (_) => const WelcomeChallengePage()),
+                          (route) => false,
                         );
                       },
-                      icon: const Icon(Icons.play_arrow_rounded, color: Colors.white),
+                      icon: const Icon(Icons.play_arrow_rounded,
+                          color: Colors.white),
                       label: Text(
                         S.of(context).intro_startButton,
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -204,6 +208,7 @@ class WelcomeChallengeIntroPage extends StatelessWidget {
 class _RuleTile extends StatelessWidget {
   final IconData icon;
   final String text;
+
   const _RuleTile({required this.icon, required this.text});
 
   @override
@@ -240,6 +245,7 @@ class _InfoChip extends StatelessWidget {
   final IconData icon;
   final String label;
   final String? sub;
+
   const _InfoChip({required this.icon, required this.label, this.sub});
 
   @override
@@ -255,30 +261,37 @@ class _InfoChip extends StatelessWidget {
             color: isDark ? const Color(0xFF2E2E2E) : const Color(0xFFE9ECEF),
           ),
         ),
-        child: Row(
-          children: [
-            Icon(icon, size: 20, color: AppColors.mainColor),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                    )),
-                // if (sub != null)
-                //   Text(sub!,
-                //       style: TextStyle(
-                //         fontSize: 11.5,
-                //         color: Colors.black.withOpacity(.55),
-                //       )),
-              ],
-            ),
-          ],
+        child: Expanded(
+          child: Row(
+            children: [
+              Icon(icon, size: 20, color: AppColors.mainColor),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                          label,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                          )),
+                    ),
+                    // if (sub != null)
+                    //   Text(sub!,
+                    //       style: TextStyle(
+                    //         fontSize: 11.5,
+                    //         color: Colors.black.withOpacity(.55),
+                    //       )),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-

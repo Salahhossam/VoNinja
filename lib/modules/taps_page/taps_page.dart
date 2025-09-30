@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
+import '../../shared/constant/constant.dart';
 import 'taps_cubit/taps_cubit.dart';
 import 'taps_cubit/taps_state.dart';
 
 
-class TapsPage extends StatelessWidget {
+class TapsPage extends StatefulWidget {
   const TapsPage({super.key});
 
+  @override
+  State<TapsPage> createState() => _TapsPageState();
+}
+
+class _TapsPageState extends State<TapsPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final cubit = TapsCubit.get(context);
+    cubit.updateActiveStatus(true);
+    SystemChannels.lifecycle.setMessageHandler((message) {
+      if (firebaseAuth.currentUser != null) {
+        if (message.toString().contains('resume')) {
+          cubit.updateActiveStatus(true).then((value) => null);
+        }
+        if (message.toString().contains('pause')) {
+          cubit.updateActiveStatus(false).then((value) => null);
+        }
+      }
+
+      return Future.value(message);
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final cubit = TapsCubit.get(context);

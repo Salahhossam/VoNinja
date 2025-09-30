@@ -94,18 +94,20 @@ class _PDFScreenState extends State<PDFScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.lightColor,
-      appBar: AppBar(
-        title: Text(
-          widget.pdfBook.title ?? 'PDF Viewer',
-          style: const TextStyle(color: Colors.white),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.lightColor,
+        appBar: AppBar(
+          title: Text(
+            widget.pdfBook.title ?? 'PDF Viewer',
+            style: const TextStyle(color: Colors.white),
+          ),
+          centerTitle: true,
+          backgroundColor: AppColors.mainColor,
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
-        centerTitle: true,
-        backgroundColor: AppColors.mainColor,
-        iconTheme: const IconThemeData(color: Colors.white),
+        body: _buildPDFView(widget.pdfBook.url),
       ),
-      body: _buildPDFView(widget.pdfBook.url),
     );
   }
 

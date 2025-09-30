@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../shared/constant/constant.dart';
+import '../../../shared/network/local/cash_helper.dart';
 import '../../challenges_tap_page/challenges_tap_page.dart';
 import '../../home_tap_page/home_tap_page.dart';
 import '../../leaderboard_tap_page/leaderboard_tap_page.dart';
@@ -29,4 +31,14 @@ class TapsCubit extends Cubit<TapsState> {
   }
 
   int get currentIndex => _currentIndex;
+
+  Future<void> updateActiveStatus(bool isOnline) async {
+    String uid = await CashHelper.getData(key: 'uid');
+    await fireStore.collection('users').doc(uid).update({
+      'isOnline': isOnline,
+      'lastActive': DateTime.now()
+
+    });
+    emit(UpdateActiveStatusSuccess());
+  }
 }
