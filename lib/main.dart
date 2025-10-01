@@ -352,7 +352,6 @@ class _MyAppState extends State<MyApp> {
           final language = MainAppCubit.get(context).language;
           return MaterialApp(
             key: Key(MainAppCubit.get(context).language),
-            // Use the navigatorKey from connectivity service
             navigatorKey: connectivityService.navigatorKey,
             locale: Locale(language),
             localizationsDelegates: const [
@@ -367,7 +366,15 @@ class _MyAppState extends State<MyApp> {
             routes: {
               NoInternetScreen.routeName: (context) => const NoInternetScreen(),
             },
+
+            // هنا تضيف الـ SafeArea
+            builder: (context, child) {
+              return SafeArea(
+                child: child!,
+              );
+            },
           );
+
         },
       ),
     );
