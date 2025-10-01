@@ -40,7 +40,6 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
 
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   // Initialize connectivity service
   connectivityService.initialize();
 
@@ -365,13 +364,6 @@ class _MyAppState extends State<MyApp> {
             home: SplashPage(initialRoute: widget.initialRoute),
             routes: {
               NoInternetScreen.routeName: (context) => const NoInternetScreen(),
-            },
-
-            // هنا تضيف الـ SafeArea
-            builder: (context, child) {
-              return SafeArea(
-                child: child!,
-              );
             },
           );
 
