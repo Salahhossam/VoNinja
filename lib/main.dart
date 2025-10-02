@@ -59,6 +59,8 @@ Future<void> main() async {
   await CashHelper.init();
   final String? userToken = CashHelper.getData(key: 'userToken');
   String language = await CashHelper.getData(key: 'language') ?? 'en';
+  // await CashHelper.saveData(key: 'onBoarding', value: false);
+  final bool? onBoarding = CashHelper.getData(key: 'onBoarding');
 
   try {
     final metaSdk = FacebookAppEvents();
@@ -71,8 +73,7 @@ Future<void> main() async {
 
   runApp(MyApp(
       language: language,
-      initialRoute:
-          userToken != null && userToken != '' ? '/TapsPage' : '/LoginPage'));
+      initialRoute: (userToken != null && userToken != '')  ? 'TapsPage' :( onBoarding != null && onBoarding) ?'LoginPage':'onBoarding'));
 }
 
 /// Connectivity service that monitors network status throughout the app
@@ -421,9 +422,7 @@ class _SplashPageState extends State<SplashPage> {
         if (mounted) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (_) => widget.initialRoute == '/TapsPage'
-                  ? const SplashScreen(login: false)
-                  : const SplashScreen(login: true),
+              builder: (_) => SplashScreen(route: widget.initialRoute,)
             ),
           );
         }

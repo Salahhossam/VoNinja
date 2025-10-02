@@ -8,11 +8,12 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/modules/taps_page/taps_page.dart';
 import 'login_page/login_page.dart';
 import '../shared/style/color.dart';
+import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  final bool login;
+  final String route;
 
-  const SplashScreen({super.key, required this.login});
+  const SplashScreen({super.key, required this.route});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -123,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if(valid){
       await Future.delayed(const Duration(seconds: 3));
       _controller.pause();
-      if (widget.login) {
+      if (widget.route=='LoginPage'||widget.route=='onBoarding') {
         _navigateToNextScreen();
       } else {
         _loadAd();
@@ -160,12 +161,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigateToNextScreen() {
     if (mounted) {
-      if (widget.login) {
+      if (widget.route=='LoginPage') {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const LoginPage()),
         );
-      } else {
+      } else if(widget.route=='onBoarding'){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+        );
+      }
+      else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const TapsPage()),

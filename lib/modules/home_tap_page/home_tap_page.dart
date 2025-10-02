@@ -77,7 +77,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
         });
 
         // --- Show tutorial once (NEW) ---
-        final seen = false;//await CashHelper.getData(key: 'seen_tutorial_v1') == true;
+        final seen = true;//await CashHelper.getData(key: 'seen_tutorial_v1') == true;
         if (!seen && mounted) {
           // ندي فرصة للـ UI يترسم بالكامل
           await Future.delayed(const Duration(milliseconds: 350));
