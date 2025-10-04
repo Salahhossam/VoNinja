@@ -144,7 +144,7 @@ class _ExamPageState extends State<ExamPage> {
         if (learningCubit.lessonDetails != null) {
           await learningCubit.getUserPreviousAnswers(uid, widget.lessonId);
         }
-
+        learningCubit.currentQuestionIndex=learningCubit.lessonDetails?.questions?.length!=learningCubit.previousAnswers.length?learningCubit.previousAnswers.length:0;
         DateTime ntpNow = await NTP.now();
         await eventCubit.fetchActiveAndUpcomingEvents(ntpNow);
         await eventCubit.fetchUserEventsProgress(uid!);

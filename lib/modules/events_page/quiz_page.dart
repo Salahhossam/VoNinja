@@ -92,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
 
     initData();
     final mainCubit = MainAppCubit.get(context);
-    mainCubit.interstitialAd();
+    //mainCubit.interstitialAd();
     _initBannerAds();
   }
 
@@ -120,6 +120,7 @@ class _QuizPageState extends State<QuizPage> {
         );
 
         await eventCubit.getUserPreviousAnswers(uid, widget.event.id);
+        eventCubit.currentQuestionIndex=eventCubit.questions.length!=eventCubit.previousAnswers.length?eventCubit.previousAnswers.length:0;
         DateTime now = await NTP.now();
         setState(() {
           isLoading = false;
@@ -522,7 +523,7 @@ class _QuizPageState extends State<QuizPage> {
                                                 if (eventCubit.currentQuestionIndex %7==0 || eventCubit.currentQuestionIndex + 3 == eventCubit.questions.length) {
                                                   final mainCubit =
                                                       MainAppCubit.get(context);
-                                                  mainCubit.interstitialAd();
+                                                 // mainCubit.interstitialAd();
                                                 }
                                                 // Check if current question is answered
                                                 bool isAnswered = eventCubit

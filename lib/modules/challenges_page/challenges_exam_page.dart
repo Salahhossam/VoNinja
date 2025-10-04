@@ -139,6 +139,7 @@ class _ChallengesExamPageState extends State<ChallengesExamPage> {
         await taskCubit.getTasksDetailsData(
             uid!, widget.challengeId, widget.taskId);
         await taskCubit.getUserPreviousAnswers(uid!, widget.taskId);
+        taskCubit.currentQuestionIndex=taskCubit.questions.length!=taskCubit.previousAnswers.length?taskCubit.previousAnswers.length:0;
         await taskCubit.getUserPoints(uid!, widget.challengeId);
         DateTime now = await NTP.now();
         await eventCubit.fetchActiveAndUpcomingEvents(now);
