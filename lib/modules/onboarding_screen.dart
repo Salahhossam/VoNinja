@@ -110,20 +110,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         body: Column(
           children: [
             Expanded(
-              child: PageView.builder(
-                allowImplicitScrolling: true,
-                controller: _controller,
-                itemCount: slides.length,
-                onPageChanged: (i) => setState(() => _index = i),
-                itemBuilder: (context, i) {
-                  final slide = slides[i];
-                  return _SlideCard(slide: slide);
-                },
+              child:Directionality(
+                textDirection: TextDirection.rtl,
+                child: PageView.builder(
+                  allowImplicitScrolling: true,
+                  controller: _controller,
+                  itemCount: slides.length,
+                  onPageChanged: (i) => setState(() => _index = i),
+                  itemBuilder: (context, i) {
+                    final slide = slides[i];
+                    return _SlideCard(slide: slide);
+                  },
+                ),
               ),
             ),
 
             Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: TextDirection.ltr,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Row(
@@ -178,13 +181,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       InkWell(
                           onTap: _next,
                           child:
-                          Image(image: AssetImage('assets/onboarding/rightArrow.png'),width: 40,height: 40,)
+                          Image(image: AssetImage('assets/onboarding/leftArrow.png'),width: 40,height: 40,)
                       ),
                     if(_index!=0)
                       InkWell(
                           onTap: _previous,
                           child:
-                          Image(image: AssetImage('assets/onboarding/leftArrow.png'),width: 40,height: 40,)
+                          Image(image: AssetImage('assets/onboarding/rightArrow.png'),width: 40,height: 40,)
                       ),
 
                   ],

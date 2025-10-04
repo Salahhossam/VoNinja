@@ -154,7 +154,14 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
     _step = 1;
 
 
-    final all = [ (key: k?.basicLearnLevelKey,title: ":Basic قسم �",body: " !هذه خطوتك الأولي في رحلة التعلم .Voninja ابدأ أول دروسك من هنا وادخل عالم"),];
+    final all = [
+      (
+      key: k?.basicLearnLevelKey,
+      title: "الانطلاقة",
+      body:
+      "ابدأ أول دروس الـ Basic وتعلّم كلمات وجمل أساسية تقوي لغتك من أول يوم.\nابدأ رحلتك التعليمية يا نينجا!"
+      ),
+    ];
 
 
     const total = 1;

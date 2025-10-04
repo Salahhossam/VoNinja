@@ -135,20 +135,56 @@ class _TapsPageState extends State<TapsPage> {
   Future<void> _showUnifiedTutorial(BuildContext context) async {
     _step = 1;
     final cubit = TapsCubit.get(context);
-    // --- 3 خطوات للهوم ---
+// --- 3 خطوات للهوم ---
     final homeItems = [
-      (key: k.scoreCardKey, title: "نقاطك & ترتيبك", body: "ملخص نقاطك (Score) وترتيبك (Rank). كل إجابة صحيحة تزود الرصيد."),
-      (key: k.adsIconKey,   title: "مكافآت الإعلانات", body: "لو الإعلان متاح، شغّله وخد مكافأة فورية حسب القواعد."),
-      (key: k.libraryKey,   title: "Voninja Library",   body: "محتوى إضافي يساعدك تتعلم أسرع وبأسلوب ممتع."),
+      (
+      key: k.scoreCardKey,
+      title: "رصيد نقاطك",
+      body:
+      "كل سؤال تحله صح = نقاط بتزيد، والـ Rank بتاعك يعلى!\nاجمع أكبر عدد عشان تسبق غيرك وتوصل للجوائز."
+      ),
+      (
+      key: k.adsIconKey,
+      title: "إعلانات المكافأة",
+      body:
+      "عاوز تزود نقاطك بسرعة؟ اضغط هنا وشوف إعلان قصير … وخد نقاط مجانية فورية!"
+      ),
+      (
+      key: k.libraryKey,
+      title: "Voninja Library",
+      body:
+      "هنا هتلاقي مكتبة Voninja … فيها ملفات مهمة زي 100 كلمة يومية، دروس وجمل عملية.\nتقدر تفتحها بالنقاط اللي بتجمعها وتتعلم أكتر."
+      ),
     ];
 
-    // --- 4 خطوات للتابس ---
+// --- 4 خطوات للتابس ---
     final tabsItems = [
-      (key: k.navLearnKey,       title: "Learn (التعلّم)",         body: "هنا المستويات، التحديات، والفعاليات."),
-      (key: k.navLeaderboardKey, title: "Leaderboard (المتصدرون)", body: "تابع ترتيبك، واطلب كوبون لو وصلت #1 (التفاصيل في الإعدادات)."),
-      (key: k.navTreasureKey,    title: "Treasures (الكنوز)",       body: "افتح كنوز عشوائية لمكافآت مختلفة."),
-      (key: k.navSettingsKey,    title: "Settings (الإعدادات)",     body: "حوّل النقاط لفلوس، واقرأ الدليل، وتواصل مع الدعم."),
+      (
+      key: k.navLearnKey,
+      title: "التعلّم والمستويات",
+      body:
+      "من هنا تبدأ رحلتك …\n\nLevels: دروس وأسئلة هتتعلم منها كلمات جديدة.\n\nChallenges: مهام خاصة تجمع منها نقاط.\n\nEvents: مسابقات محدودة تكسب فيها مكافآت ضخمة."
+      ),
+      (
+      key: k.navLeaderboardKey,
+      title: "Leaderboard",
+      body:
+      "شوف ترتيبك بين كل اللاعبين … كل ما تجيب نقاط أكتر، رتبتك تعلى!\nلو وصلت لأول تلت مراكز:\n\nخد Screenshot وابعتها على رقم الواتساب اللي هتلاقيه في Technical Support داخل الإعدادات.\n\nهتاخد فورًا كوبون نقاط مكافئة إضافية وجائزة مادية."
+      ),
+      (
+      key: k.navTreasureKey,
+      title: "Treasures (الكنوز)",
+      body:
+      "هنا هتفتح الكنوز … كل ما تجمع نقاط أو تكمل أنشطة، تلاقي نقاط إضافية تحفزك تكمل أكتر.\nكل صندوق بيخليك أقرب للجوائز الحقيقية."
+      ),
+      (
+      key: k.navSettingsKey,
+      title: "الإعدادات",
+      body:
+      "من هنا تقدر تدير كل حاجة بسهولة:\n\n• تحويل نقاطك لفلوس وسحبها.\n\n• User Guide: شرح كامل يوضح إزاي تستخدم Voninja خطوة بخطوة.\n\n• Technical Support: لو محتاج مساعدة، تواصل مع فريق Voninja مباشرة عبر الواتساب أو الإيميل."
+      ),
     ];
+
 
     final all = <({GlobalKey key, String title, String body})>[
       for (var it in homeItems) (key: it.key, title: it.title, body: it.body),
