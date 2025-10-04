@@ -28,11 +28,13 @@ class _TapsPageState extends State<TapsPage> {
   int _step = 1;
   static const int kUnifiedSteps = 7; // 3 (Home) + 4 (Tabs)
   bool _unifiedScheduled = false;
-
+  late final TutorialKeysBundle k;
   @override
   void initState() {
     super.initState();
+    k = TutorialKeysBundle();
     final cubit = TapsCubit.get(context);
+    cubit.bindTutorialKeys(k); // <-- دي الأهم
     cubit.updateActiveStatus(true);
 
     SystemChannels.lifecycle.setMessageHandler((message) {
@@ -49,7 +51,7 @@ class _TapsPageState extends State<TapsPage> {
     if (!force && _unifiedScheduled) return;
     _unifiedScheduled = true;
 
-    final seen = await CashHelper.getData(key: 'tutorial1') == true;
+    final seen =await CashHelper.getData(key: 'tutorial1') == true;
     if (seen && !force) return;
 
     final cubit = TapsCubit.get(context);
@@ -135,17 +137,17 @@ class _TapsPageState extends State<TapsPage> {
     final cubit = TapsCubit.get(context);
     // --- 3 خطوات للهوم ---
     final homeItems = [
-      (key: scoreCardKey, title: "نقاطك & ترتيبك", body: "ملخص نقاطك (Score) وترتيبك (Rank). كل إجابة صحيحة تزود الرصيد."),
-      (key: adsIconKey,   title: "مكافآت الإعلانات", body: "لو الإعلان متاح، شغّله وخد مكافأة فورية حسب القواعد."),
-      (key: libraryKey,   title: "Voninja Library",   body: "محتوى إضافي يساعدك تتعلم أسرع وبأسلوب ممتع."),
+      (key: k.scoreCardKey, title: "نقاطك & ترتيبك", body: "ملخص نقاطك (Score) وترتيبك (Rank). كل إجابة صحيحة تزود الرصيد."),
+      (key: k.adsIconKey,   title: "مكافآت الإعلانات", body: "لو الإعلان متاح، شغّله وخد مكافأة فورية حسب القواعد."),
+      (key: k.libraryKey,   title: "Voninja Library",   body: "محتوى إضافي يساعدك تتعلم أسرع وبأسلوب ممتع."),
     ];
 
     // --- 4 خطوات للتابس ---
     final tabsItems = [
-      (key: navLearnKey,       title: "Learn (التعلّم)",         body: "هنا المستويات، التحديات، والفعاليات."),
-      (key: navLeaderboardKey, title: "Leaderboard (المتصدرون)", body: "تابع ترتيبك، واطلب كوبون لو وصلت #1 (التفاصيل في الإعدادات)."),
-      (key: navTreasureKey,    title: "Treasures (الكنوز)",       body: "افتح كنوز عشوائية لمكافآت مختلفة."),
-      (key: navSettingsKey,    title: "Settings (الإعدادات)",     body: "حوّل النقاط لفلوس، واقرأ الدليل، وتواصل مع الدعم."),
+      (key: k.navLearnKey,       title: "Learn (التعلّم)",         body: "هنا المستويات، التحديات، والفعاليات."),
+      (key: k.navLeaderboardKey, title: "Leaderboard (المتصدرون)", body: "تابع ترتيبك، واطلب كوبون لو وصلت #1 (التفاصيل في الإعدادات)."),
+      (key: k.navTreasureKey,    title: "Treasures (الكنوز)",       body: "افتح كنوز عشوائية لمكافآت مختلفة."),
+      (key: k.navSettingsKey,    title: "Settings (الإعدادات)",     body: "حوّل النقاط لفلوس، واقرأ الدليل، وتواصل مع الدعم."),
     ];
 
     final all = <({GlobalKey key, String title, String body})>[
@@ -249,10 +251,10 @@ class _TapsPageState extends State<TapsPage> {
                 showSelectedLabels: true,
                 items: <BottomNavigationBarItem>[
                   _buildNavBarItem(icon: Icons.home,        label: s.nav_home,        isSelected: cubit.currentIndex == 0),
-                  _buildNavBarItem(icon: Icons.school,      label: s.nav_learn,       isSelected: cubit.currentIndex == 1, itemKey: navLearnKey),
-                  _buildNavBarItem(icon: Icons.leaderboard, label: s.nav_leaderboard, isSelected: cubit.currentIndex == 2, itemKey: navLeaderboardKey),
-                  _buildNavBarItem(icon: Icons.diamond,     label: s.nav_treasure,    isSelected: cubit.currentIndex == 3, itemKey: navTreasureKey),
-                  _buildNavBarItem(icon: Icons.settings,    label: s.nav_settings,    isSelected: cubit.currentIndex == 4, itemKey: navSettingsKey),
+                  _buildNavBarItem(icon: Icons.school,      label: s.nav_learn,       isSelected: cubit.currentIndex == 1, itemKey: k.navLearnKey),
+                  _buildNavBarItem(icon: Icons.leaderboard, label: s.nav_leaderboard, isSelected: cubit.currentIndex == 2, itemKey: k.navLeaderboardKey),
+                  _buildNavBarItem(icon: Icons.diamond,     label: s.nav_treasure,    isSelected: cubit.currentIndex == 3, itemKey: k.navTreasureKey),
+                  _buildNavBarItem(icon: Icons.settings,    label: s.nav_settings,    isSelected: cubit.currentIndex == 4, itemKey: k.navSettingsKey),
                 ],
                 currentIndex: cubit.currentIndex,
                 onTap: (index) => cubit.selectTab(index),

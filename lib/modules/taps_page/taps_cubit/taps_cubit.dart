@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../shared/constant/constant.dart';
 import '../../../shared/network/local/cash_helper.dart';
+import '../../../shared/tutorial_keys.dart';
 import '../../challenges_tap_page/challenges_tap_page.dart';
 import '../../home_tap_page/home_tap_page.dart';
 import '../../leaderboard_tap_page/leaderboard_tap_page.dart';
@@ -45,4 +46,11 @@ class TapsCubit extends Cubit<TapsState> {
   void requestUnifiedTutorial() {
     emit(UnifiedTutorialRequested());
   }
+
+  TutorialKeysBundle? tutorialKeys;
+  void bindTutorialKeys(TutorialKeysBundle bundle) {
+    tutorialKeys = bundle;
+    emit(TutorialKeysBound());
+  }
+
 }

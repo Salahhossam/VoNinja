@@ -64,8 +64,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const TapsPage()),
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const TapsPage()),
+                        (route) => false,  // يزيل كل الصفحات السابقة
                   );
                 },
               ),

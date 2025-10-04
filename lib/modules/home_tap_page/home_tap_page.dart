@@ -30,10 +30,12 @@ class _HomeTapPageState extends State<HomeTapPage> {
   BannerAd? _bannerAd;
 
   final ScrollController _scroll = ScrollController();
-
+  late final TutorialKeysBundle ? k;
   @override
   void initState() {
     super.initState();
+    final cubit = TapsCubit.get(context);
+    k = cubit.tutorialKeys;
     initData();
     HomeTapCubit.get(context).loadRewardAds();
 
@@ -126,7 +128,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const LibraryScreen()));
                         },
                         child: Container(
-                          key: libraryKey, // NEW (موحّد)
+                          key: k?.libraryKey, // NEW (موحّد)
                           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -294,7 +296,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
             }
           },
           child: Container(
-            key: adsIconKey, // NEW (موحّد)
+            key: k?.adsIconKey, // NEW (موحّد)
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 2),
@@ -320,7 +322,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
       child: Positioned(
         bottom: -50, left: 55, right: 55,
         child: Container(
-          key: scoreCardKey, // NEW (موحّد)
+          key: k?.scoreCardKey, // NEW (موحّد)
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: AppColors.lightColor,

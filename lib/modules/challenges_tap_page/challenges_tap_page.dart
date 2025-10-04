@@ -30,9 +30,12 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
 
   TutorialCoachMark? _coach;
   int _step = 1;
+  late final TutorialKeysBundle ?k;
   @override
   void initState() {
     super.initState();
+    final cubit = TapsCubit.get(context);
+    k = cubit.tutorialKeys;
     initData();
 
     // Initialize the animation controller
@@ -151,7 +154,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
     _step = 1;
 
 
-    final all = [ (key: basicLearnLevelKey,title: ":Basic قسم �",body: " !هذه خطوتك الأولي في رحلة التعلم .Voninja ابدأ أول دروسك من هنا وادخل عالم"),];
+    final all = [ (key: k?.basicLearnLevelKey,title: ":Basic قسم �",body: " !هذه خطوتك الأولي في رحلة التعلم .Voninja ابدأ أول دروسك من هنا وادخل عالم"),];
 
 
     const total = 1;
@@ -257,7 +260,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                             final challengesTap =
                             challengeTapCubit.levelsData[index];
                             return Container(
-                              key: index == 0 ? basicLearnLevelKey : null,
+                              key: index == 0 ? k?.basicLearnLevelKey : null,
                               child: Column(
                                 children: [
                                   ChallengesTapCard(
