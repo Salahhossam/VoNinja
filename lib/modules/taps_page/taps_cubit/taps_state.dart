@@ -17,3 +17,5 @@ class SelectTapError extends TapsState {
 class Success extends TapsState {}
 
 class UpdateActiveStatusSuccess extends TapsState {}
+
+class UnifiedTutorialRequested extends TapsState {}

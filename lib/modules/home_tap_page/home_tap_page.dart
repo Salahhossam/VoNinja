@@ -2,21 +2,23 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart'; // NEW
 import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
 import '../../shared/local_awesome_dialog.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../library_page/library_screen.dart';
-
 import '../onboarding_screen.dart';
+import '../taps_page/taps_cubit/taps_cubit.dart';
 import 'home_tap_cubit/home_tap_cubit.dart';
 import 'home_tap_cubit/home_tap_state.dart';
 import 'progress_indicator_widget.dart';
 
+// NEW: مفاتيح التوتريال
+import 'package:vo_ninja/shared/tutorial_keys.dart';
+
+
 class HomeTapPage extends StatefulWidget {
   const HomeTapPage({super.key});
-
   @override
   State<HomeTapPage> createState() => _HomeTapPageState();
 }
@@ -27,12 +29,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
   bool isBannerAdLoaded = false;
   BannerAd? _bannerAd;
 
-  // --- Tutorial keys & objects (NEW) ---
-  final GlobalKey _scoreCardKey = GlobalKey();
-  final GlobalKey _adsIconKey   = GlobalKey();
-  final GlobalKey _libraryKey   = GlobalKey();
   final ScrollController _scroll = ScrollController();
-  TutorialCoachMark? _homeCoachMark;
 
   @override
   void initState() {
@@ -47,9 +44,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           log('Banner ad loaded successfully');
-          setState(() {
-            isBannerAdLoaded = true;
-          });
+          setState(() => isBannerAdLoaded = true);
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           log('Banner ad failed to load: $error');
@@ -61,147 +56,36 @@ class _HomeTapPageState extends State<HomeTapPage> {
 
   Future<void> initData() async {
     final homeTapCubit = HomeTapCubit.get(context);
-    setState(() {
-      isLoading = true;
-    });
+    setState(() { isLoading = true; });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() async {
         uid = await CashHelper.getData(key: 'uid');
         homeTapCubit.levelsData = [];
-        await homeTapCubit.checkUserDailyReward(uid!, context);
+        final seenUnified = await CashHelper.getData(key: 'tutorial1') == true;
+        await homeTapCubit.checkUserDailyReward(uid!, context,seenUnified);
         if (homeTapCubit.userData != null) {
           await homeTapCubit.getUserRank(uid!);
         }
-        setState(() {
-          isLoading = false;
-        });
+        setState(() { isLoading = false; });
 
-        // --- Show tutorial once (NEW) ---
-        final seen = true;//await CashHelper.getData(key: 'seen_tutorial_v1') == true;
-        if (!seen && mounted) {
-          // ندي فرصة للـ UI يترسم بالكامل
+        // --- Trigger unified tutorial from HOME after data loaded ---
+
+        if (!seenUnified && mounted) {
+          // سيب الـ UI يترسم كويس
           await Future.delayed(const Duration(milliseconds: 350));
-          _showHomeTutorial();
+          // ابعت سيجنال لـ TapsPage إنه يعرِض التوتريال الموحّد
+          context.read<TapsCubit>().requestUnifiedTutorial();
         }
       });
     });
   }
 
-  // --- Build & show tutorial (NEW) ---
-  Future<void> _showHomeTutorial() async {
-    final targets = <TargetFocus>[
-      TargetFocus(
-        identify: "score_card",
-        keyTarget: _scoreCardKey,
-        enableOverlayTab: true,
-        shape: ShapeLightFocus.RRect,
-        radius: 16,
-        color: AppColors.mainColor.withOpacity(0.80), // overlay بنفس ألوانك
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: _bubble(
-              title: "نقاطك & ترتيبك",
-              body: "ده ملخص نقاطك وترتيبك (Rank). كل إجابة صحيحة بتزوّد رصيدك هنا.",
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "ads_icon",
-        keyTarget: _adsIconKey,
-        enableOverlayTab: true,
-        shape: ShapeLightFocus.Circle,
-        color: AppColors.mainColor.withOpacity(0.80),
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: _bubble(
-              title: "مكافآت الإعلانات",
-              body: "من هنا تقدر تشوف إعلان — لو متاح — وتاخد مكافأة فورية حسب القواعد.",
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "library_block",
-        keyTarget: _libraryKey,
-        enableOverlayTab: true,
-        shape: ShapeLightFocus.RRect,
-        radius: 12,
-        color: AppColors.mainColor.withOpacity(0.80),
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            child: _bubble(
-              title: "Voninja Library",
-              body: "مكتبة فيها محتوى إضافي يساعدك تتعلم أسرع وبشكل ممتع.",
-            ),
-          ),
-        ],
-      ),
-    ];
-
-    _homeCoachMark = TutorialCoachMark(
-      targets: targets,
-      textSkip: "تخطي",
-      hideSkip: false,
-      // لون الـ shadow متظبط بالفعل في كل TargetFocus
-      onFinish: () async {
-        // علّم إن الجولة اتشافت مرّة
-        // await CashHelper.saveData(key: 'seen_tutorial_v1', value: true);
-        // // اطلب فتح تبويب Learn في TapsPage
-        // await CashHelper.saveData(key: 'start_learn_tour', value: true);
-      },
-      onSkip: () {
-        // fire-and-forget
-        // CashHelper.saveData(key: 'seen_tutorial_v1', value: true);
-        return true; // لازم ترجع bool
-      },
-
-    );
-
-    _homeCoachMark!.show(context: context);
-  }
-
-  Widget _bubble({required String title, required String body}) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor, // أبيض من ألوانك
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.secondColor.withOpacity(.25), width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.06),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: AppColors.mainColor, // عنوان باللون الأساسي
-              )),
-          const SizedBox(height: 8),
-          Text(body,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black87,
-              )),
-          const SizedBox(height: 8),
-          Text(
-            "اضغط في أي مكان للمتابعة",
-            style: TextStyle(fontSize: 12, color: Colors.black.withOpacity(.45)),
-          ),
-        ],
-      ),
-    );
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    _scroll.dispose();
+    super.dispose();
   }
 
   @override
@@ -212,7 +96,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
       listeners: [
         BlocListener<HomeTapCubit, HomeTapState>(
           listener: (context, state) {
-            // You can add specific logic if needed
+            // لو محتاج لوجيك إضافي
           },
         ),
       ],
@@ -225,14 +109,13 @@ class _HomeTapPageState extends State<HomeTapPage> {
                   ? const Center(
                 child: Image(
                   image: AssetImage('assets/img/ninja_gif.gif'),
-                  height: 100,
-                  width: 100,
+                  height: 100, width: 100,
                 ),
               )
                   : WillPopScope(
                 onWillPop: () async => homeTapCubit.doubleBack(context),
                 child: SingleChildScrollView(
-                  controller: _scroll, // NEW
+                  controller: _scroll,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -240,10 +123,10 @@ class _HomeTapPageState extends State<HomeTapPage> {
                       const SizedBox(height: 80),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LibraryScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LibraryScreen()));
                         },
                         child: Container(
-                          key: _libraryKey, // NEW (لـ Library)
+                          key: libraryKey, // NEW (موحّد)
                           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -268,25 +151,14 @@ class _HomeTapPageState extends State<HomeTapPage> {
                                     Text(
                                       S.of(context).libraryTitle,
                                       style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [
-                                          Shadow(
-                                            blurRadius: 4,
-                                            color: Colors.black26,
-                                            offset: Offset(1, 1),
-                                          ),
-                                        ],
+                                        color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold,
+                                        shadows: [ Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1, 1)) ],
                                       ),
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
                                       S.of(context).librarySubtitle,
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.9),
-                                        fontSize: 14,
-                                      ),
+                                      style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 14),
                                     ),
                                   ],
                                 ),
@@ -303,8 +175,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
                           width: double.infinity,
                           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: AppColors.secondColor,
-                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.secondColor, borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Padding(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -318,12 +189,8 @@ class _HomeTapPageState extends State<HomeTapPage> {
                                     child: Text(
                                       'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ وَالصَّلَاةِ المَفْرُوضَهْ وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُم',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
+                                      style: TextStyle(color: Colors.white, fontSize: 16),
+                                      softWrap: true, overflow: TextOverflow.visible,
                                     ),
                                   ),
                                 ],
@@ -370,8 +237,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
               decoration: const BoxDecoration(
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
+                  bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50),
                 ),
               ),
               child: Column(
@@ -384,18 +250,11 @@ class _HomeTapPageState extends State<HomeTapPage> {
                         children: [
                           Text(
                             '${S.of(context).hi}, ${homeTapCubit.userData?.firstName}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '@${homeTapCubit.userData?.userName}',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 20,
-                            ),
+                            style: const TextStyle(color: Colors.grey, fontSize: 20),
                           ),
                         ],
                       ),
@@ -412,21 +271,16 @@ class _HomeTapPageState extends State<HomeTapPage> {
     );
   }
 
-  // Profile icon widget
   Widget _buildProfileIcon(BuildContext context) {
     final homeTapCubit = HomeTapCubit.get(context);
     return BlocBuilder<HomeTapCubit, HomeTapState>(
       builder: (context, state) {
         return InkWell(
-          onTap: homeTapCubit.isAdShowing
-              ? null
-              : () async {
+          onTap: homeTapCubit.isAdShowing ? null : () async {
             if (!homeTapCubit.isProfileIconEnabled) {
               LocalAwesomeDialog(
-                context: context,
-                dialogType: LocalDialogType.warning,
-                title: 'Warning',
-                desc: 'Ad is not ready now try again later',
+                context: context, dialogType: LocalDialogType.warning,
+                title: 'Warning', desc: 'Ad is not ready now try again later',
                 btnOkOnPress: () {},
               ).show();
             } else {
@@ -434,27 +288,18 @@ class _HomeTapPageState extends State<HomeTapPage> {
               LocalAwesomeDialog(
                 context: context,
                 dialogType: result['success'] ? LocalDialogType.success : LocalDialogType.error,
-                title: result['title'],
-                desc: result['message'],
+                title: result['title'], desc: result['message'],
                 btnOkOnPress: () {},
               ).show();
             }
           },
           child: Container(
-            key: _adsIconKey, // NEW
+            key: adsIconKey, // NEW (موحّد)
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              ),
+              shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 2),
             ),
-            child: Image.asset(
-              'assets/img/ADs.png',
-              width: 40,
-              height: 40,
-            ),
+            child: Image.asset('assets/img/ADs.png', width: 40, height: 40),
           ),
         );
       },
@@ -465,54 +310,34 @@ class _HomeTapPageState extends State<HomeTapPage> {
     final homeTapCubit = HomeTapCubit.get(context);
     return MultiBlocListener(
       listeners: [
-        BlocListener<HomeTapCubit, HomeTapState>(
-          listener: (context, state) {
-            if (state is HomeTapPointsLoaded) {}
-          },
-        ),
-        BlocListener<HomeTapCubit, HomeTapState>(
-          listener: (context, state) {
-            if (state is HomeTapRankLoaded) {}
-          },
-        ),
+        BlocListener<HomeTapCubit, HomeTapState>(listener: (context, state) {
+          if (state is HomeTapPointsLoaded) {}
+        }),
+        BlocListener<HomeTapCubit, HomeTapState>(listener: (context, state) {
+          if (state is HomeTapRankLoaded) {}
+        }),
       ],
       child: Positioned(
-        bottom: -50,
-        left: 55,
-        right: 55,
+        bottom: -50, left: 55, right: 55,
         child: Container(
-          key: _scoreCardKey, // NEW
+          key: scoreCardKey, // NEW (موحّد)
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: AppColors.lightColor,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Colors.black,
-              width: 2,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 50,
-                offset: Offset(0, 4),
-              ),
-            ],
+            border: Border.all(color: Colors.black, width: 2),
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 50, offset: Offset(0, 4))],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                'assets/img/face.png',
-                width: 60,
-                height: 60,
-              ),
+              Image.asset('assets/img/face.png', width: 60, height: 60),
               Flexible(
                 child: BlocBuilder<HomeTapCubit, HomeTapState>(
                   builder: (context, state) {
                     return _buildStatCard(
                       '${homeTapCubit.userData?.pointsNumber?.toInt()}',
-                      S.of(context).points,
-                      context,
+                      S.of(context).points, context,
                     );
                   },
                 ),
@@ -522,8 +347,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
                   builder: (context, state) {
                     return _buildStatCard(
                       '${homeTapCubit.rank.toInt()}',
-                      S.of(context).rank,
-                      context,
+                      S.of(context).rank, context,
                     );
                   },
                 ),
@@ -544,23 +368,11 @@ class _HomeTapPageState extends State<HomeTapPage> {
           child: Text(
             value,
             maxLines: 2,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis,
-            ),
+            style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
             textAlign: TextAlign.center,
           ),
         ),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 17, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -572,14 +384,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            S.of(context).progress,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(S.of(context).progress, style: const TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
           BlocBuilder<HomeTapCubit, HomeTapState>(
             builder: (context, state) {
@@ -590,8 +395,7 @@ class _HomeTapPageState extends State<HomeTapPage> {
                     return Padding(
                       padding: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10.0),
                       child: ProgressIndicatorWidget(
-                        label: levelData.levelDifficulty,
-                        percentage: levelData.levelProgress,
+                        label: levelData.levelDifficulty, percentage: levelData.levelProgress,
                       ),
                     );
                   }).toList(),

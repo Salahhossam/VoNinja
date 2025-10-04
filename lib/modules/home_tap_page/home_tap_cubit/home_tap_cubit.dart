@@ -236,7 +236,7 @@ class HomeTapCubit extends Cubit<HomeTapState> {
         date1.day == date2.day;
   }
 
-  Future<void> checkUserDailyReward(String uid,context) async {
+  Future<void> checkUserDailyReward(String uid,context,bool showDialog) async {
     emit(HomeTapLoading());
     try {
       var response = await fireStore.collection(USERS).doc(uid).get();
@@ -260,8 +260,8 @@ class HomeTapCubit extends Cubit<HomeTapState> {
         userData = userData!.copyWith(pointsNumber: newPoints);
 
 
-
-        // Show awesome dialog
+        if(showDialog) {
+          // Show awesome dialog
         LocalAwesomeDialog(
           context: context, // You'll need to pass context to this function or get it another way
           dialogType: LocalDialogType.success,
@@ -269,6 +269,7 @@ class HomeTapCubit extends Cubit<HomeTapState> {
           desc: 'You received 10 points for today!',
           btnOkOnPress: () {},
         ).show();
+        }
       }
 
       emit(HomeTapLoaded(userData!, levelsData));

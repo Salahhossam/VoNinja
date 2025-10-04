@@ -41,4 +41,8 @@ class TapsCubit extends Cubit<TapsState> {
     });
     emit(UpdateActiveStatusSuccess());
   }
+
+  void requestUnifiedTutorial() {
+    emit(UnifiedTutorialRequested());
+  }
 }
