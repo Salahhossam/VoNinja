@@ -92,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
 
     initData();
     final mainCubit = MainAppCubit.get(context);
-    //mainCubit.interstitialAd();
+    mainCubit.interstitialAd();
     _initBannerAds();
   }
 
@@ -523,7 +523,7 @@ class _QuizPageState extends State<QuizPage> {
                                                 if (eventCubit.currentQuestionIndex %7==0 || eventCubit.currentQuestionIndex + 3 == eventCubit.questions.length) {
                                                   final mainCubit =
                                                       MainAppCubit.get(context);
-                                                 // mainCubit.interstitialAd();
+                                                  mainCubit.interstitialAd();
                                                 }
                                                 // Check if current question is answered
                                                 bool isAnswered = eventCubit
