@@ -81,13 +81,13 @@ class HomeTapCubit extends Cubit<HomeTapState> {
 
       isAdShowing = true;
 
-      rewardedAd!.show(
+      await rewardedAd!.show(
         onUserEarnedReward: (AdWithoutView ad, RewardItem reward) async {
           try {
             await userDocRef.update({
               'pointsNumber': FieldValue.increment(10),
               'adsViewedToday': (lastAdDate == null || lastAdDate.isBefore(today))?1:FieldValue.increment(1),
-              'lastAdDate': Timestamp.fromDate(now),
+              'lastAdDate': now,
             });
 
             await getUserData(uid);
@@ -243,7 +243,7 @@ class HomeTapCubit extends Cubit<HomeTapState> {
       userData = UserDataModel.fromJson(response.data() as Map<String, dynamic>);
 
 
-      final lastRewardDate = userData?.lastRewardDate;
+      final lastRewardDate = userData?.lastDailyReward;
       final today = await NTP.now(); // YYYY-MM-DD
 
       if (lastRewardDate ==null || !_isSameDay(lastRewardDate, today)) {
@@ -253,7 +253,7 @@ class HomeTapCubit extends Cubit<HomeTapState> {
         // Update in Firestore
         await fireStore.collection(USERS).doc(uid).update({
           'pointsNumber': newPoints,
-          'lastAdDate':today
+          'lastDailyReward':today
         });
 
         // Update local model

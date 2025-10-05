@@ -17,7 +17,7 @@ class UserDataModel {
   final String? versionNumber;
   final double? userBalance;
   final DateTime ? lastRewardDate;
-
+  final DateTime ? lastDailyReward;
   UserDataModel(
       {this.userId,
       this.firstName,
@@ -35,6 +35,7 @@ class UserDataModel {
       this.rankNumber,
       this.fcmToken,
         this.lastRewardDate,
+        this.lastDailyReward,
       this.role});
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
     return UserDataModel(
@@ -52,6 +53,7 @@ class UserDataModel {
       pointsNumber: double.tryParse(json['pointsNumber'].toString()) ?? 0,
       fcmToken: json['fcmToken'] as String? ?? '',
       lastRewardDate: json['lastAdDate']?.toDate(),
+      lastDailyReward: json['lastDailyReward']?.toDate(),
     );
   }
   // Simulated JSON response
