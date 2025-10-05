@@ -24,6 +24,9 @@
     <application
         android:label="Voninja"
         android:name="${applicationName}"
+        android:allowBackup="false"
+        tools:replace="android:allowBackup"
+        android:fullBackupOnly="false"
         android:icon="@mipmap/ic_launcher">
 
 
