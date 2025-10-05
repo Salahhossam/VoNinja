@@ -19,185 +19,187 @@ class WelcomeChallengeIntroPage extends StatelessWidget {
       body: WillPopScope(
         onWillPop: () async => HomeTapCubit.get(context).doubleBack(context),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // ======= Header =======
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.fromLTRB(20, 28, 20, 90),
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFF1A3037), // main
-                            Color(0xFF206E7D), // tint of second
-                          ],
-                        ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(28),
-                          bottomRight: Radius.circular(28),
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // عنوان
-                          Text(
-                            S.of(context).intro_appBarTitle,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          // سطر تعريفي
-                          Text(
-                            S.of(context).intro_title,
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                              height: 1.4,
-                            ),
-                          ),
+          child: ListView(
+            children: [
+              // ======= Header =======
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.fromLTRB(20, 28, 20, 90),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF1A3037), // main
+                          Color(0xFF206E7D), // tint of second
                         ],
                       ),
-                    ),
-
-                    // أفاتار / صورة في النص
-                    Positioned.fill(
-                      top: null,
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Transform.translate(
-                          offset: const Offset(0, 40),
-                          child: Container(
-                            height: 96,
-                            width: 96,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(.15),
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 10),
-                                ),
-                              ],
-                              image: const DecorationImage(
-                                image: AssetImage('assets/img/avatar7.png'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(28),
+                        bottomRight: Radius.circular(28),
                       ),
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 56),
-
-                // ======= Content Card =======
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1F1F1F) : Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.06),
-                          blurRadius: 16,
-                          offset: const Offset(0, 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // عنوان
+                        Text(
+                          S.of(context).intro_appBarTitle,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        // سطر تعريفي
+                        Text(
+                          S.of(context).intro_title,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                            height: 1.4,
+                          ),
                         ),
                       ],
                     ),
-                    child: Column(
-                      children: [
-                        _RuleTile(
-                          icon: Icons.check_circle_rounded,
-                          text: S.of(context).intro_bullet_all_questions,
-                        ),
-                        const SizedBox(height: 8),
-                        _RuleTile(
-                          icon: Icons.timer_rounded,
-                          text: S.of(context).intro_bullet_five_minutes,
-                        ),
-                        const SizedBox(height: 8),
-                        _RuleTile(
-                          icon: Icons.local_fire_department_rounded,
-                          text: S.of(context).intro_bullet_reward,
-                        ),
+                  ),
 
-                        const SizedBox(height: 18),
+                  // أفاتار / صورة في النص
+                  Positioned.fill(
+                    top: null,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Transform.translate(
+                        offset: const Offset(0, 40),
+                        child: Container(
+                          height: 96,
+                          width: 96,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 4),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(.15),
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                            image: const DecorationImage(
+                              image: AssetImage('assets/img/avatar7.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
 
-                        // Chips: الوقت + النقاط
-                        Row(
-                          children: [
-                            _InfoChip(
+              const SizedBox(height: 56),
+
+              // ======= Content Card =======
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: isDark ? const Color(0xFF1F1F1F) : Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.06),
+                        blurRadius: 16,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      _RuleTile(
+                        icon: Icons.check_circle_rounded,
+                        text: S.of(context).intro_bullet_all_questions,
+                      ),
+                      const SizedBox(height: 8),
+                      _RuleTile(
+                        icon: Icons.timer_rounded,
+                        text: S.of(context).intro_bullet_five_minutes,
+                      ),
+                      const SizedBox(height: 8),
+                      _RuleTile(
+                        icon: Icons.local_fire_department_rounded,
+                        text: S.of(context).intro_bullet_reward,
+                      ),
+
+                      const SizedBox(height: 18),
+
+                      // Chips: الوقت + النقاط
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _InfoChip(
                               icon: Icons.access_time_filled_rounded,
                               label: '05:00',
                               sub: S.of(context).intro_bullet_five_minutes,
                             ),
-                            const SizedBox(width: 10),
-                            const _InfoChip(
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: const _InfoChip(
                               icon: Icons.stars_rounded,
                               label: '500 Points',
                               sub: '',
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // ======= CTA Button =======
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.mainColor,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      elevation: 2,
+                    ),
+                    onPressed: () async {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (_) => const WelcomeChallengePage()),
+                        (route) => false,
+                      );
+                    },
+                    icon: const Icon(Icons.play_arrow_rounded,
+                        color: Colors.white),
+                    label: Text(
+                      S.of(context).intro_startButton,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 24),
-
-                // ======= CTA Button =======
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.mainColor,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 18),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 2,
-                      ),
-                      onPressed: () async {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (_) => const WelcomeChallengePage()),
-                          (route) => false,
-                        );
-                      },
-                      icon: const Icon(Icons.play_arrow_rounded,
-                          color: Colors.white),
-                      label: Text(
-                        S.of(context).intro_startButton,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -250,47 +252,31 @@ class _InfoChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF262B2E) : const Color(0xFFF6F7F8),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isDark ? const Color(0xFF2E2E2E) : const Color(0xFFE9ECEF),
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF6F7F8),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFFE9ECEF),
         ),
-        child: Expanded(
-          child: Row(
-            children: [
-              Icon(icon, size: 20, color: AppColors.mainColor),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: Text(
-                          label,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                          )),
-                    ),
-                    // if (sub != null)
-                    //   Text(sub!,
-                    //       style: TextStyle(
-                    //         fontSize: 11.5,
-                    //         color: Colors.black.withOpacity(.55),
-                    //       )),
-                  ],
-                ),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: AppColors.mainColor),
+          const SizedBox(width: 10),
+          Flexible(
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                overflow: TextOverflow.ellipsis
               ),
-            ],
+              maxLines: 2,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
