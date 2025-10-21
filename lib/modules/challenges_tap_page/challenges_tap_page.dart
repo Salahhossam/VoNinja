@@ -69,9 +69,13 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
         uid = await CashHelper.getData(key: 'uid');
 
         await challengeTapCubit.getLevelsData(uid!);
+
+        final seenUnified = await CashHelper.getData(key: 'tutorial2') == true;
+        while(challengeTapCubit.isFetching){
+          await Future.delayed(Duration(milliseconds: 250));
+        }
         // print(challengeTapCubit.levelsData.length);
         // print('777777777777777777777');
-        final seenUnified = await CashHelper.getData(key: 'tutorial2') == true;
         setState(() {
           isLoading = false;
         });
