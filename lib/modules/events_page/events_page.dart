@@ -14,6 +14,9 @@ import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
 import '../taps_page/taps_page.dart';
 import 'event_cubit/event_cubit.dart';
+import 'event_leader_board_page.dart';
+import 'leader_board_quiz_Instructions_page.dart';
+import 'leader_board_quiz_page.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({super.key});
@@ -262,15 +265,24 @@ class _EventsPageState extends State<EventsPage> {
                               // تحديد الـ CTA
                               String cta;
                               final st = up?.status ?? 'not_joined';
-                              if (st == 'reward_claimed') {
+
+                              if (e.type == EventType.leaderboardQuiz) {
+                                final joined = up != null;
+                                final participated = joined &&
+                                    ((up.answerCount > 0) || (up.eventScore > 0) || st == 'in_progress');
+
+                                if (active) {
+                                  cta = joined ? 'ContinueLeaderboardQuiz' : 'JoinLeaderboardQuiz';
+                                } else {
+                                  cta = participated ? 'ShowDashboard' : 'In progress';
+                                }
+                              } else if (st == 'reward_claimed') {
                                 cta = 'Completed';
                               } else if (st == 'completed') {
                                 cta = 'Claim';
                               } else if (st == 'in_progress') {
                                 if (e.type == EventType.quiz) {
-                                  // لو جاوب كل الأسئلة ولم يحقق الحد الأدنى ⇒ ShowAnswers
-                                  if (allQuestionsAnswered &&
-                                      !correctAnswersMet) {
+                                  if (allQuestionsAnswered && !correctAnswersMet) {
                                     cta = 'ShowAnswers';
                                   } else {
                                     cta = 'Continue';
@@ -298,7 +310,7 @@ class _EventsPageState extends State<EventsPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (e.imageUrl.isNotEmpty)
+                                    if (e.imageUrl!.isNotEmpty)
                                       ClipRRect(
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(16),
@@ -696,6 +708,80 @@ class _EventsPageState extends State<EventsPage> {
                 ),
               ),
             ],
+          ),
+        );
+
+      case 'JoinLeaderboardQuiz':
+        return ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => LeaderboardQuizInstructionsPage(event: e),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.secondColor,
+            foregroundColor: AppColors.whiteColor,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: Text(
+            S.of(context).join,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        );
+
+      case 'ContinueLeaderboardQuiz':
+        return ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => LeaderboardQuizPage(event: e),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.greenColor,
+            foregroundColor: AppColors.whiteColor,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: Text(
+            S.of(context).continueQuiz,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        );
+
+      case 'ShowDashboard':
+        return OutlinedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EventLeaderboardPage(event: e),
+              ),
+            );
+          },
+          style: OutlinedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            side: const BorderSide(color: AppColors.secondColor),
+          ),
+          child: const Text(
+            "Show Dashboard",
+            style: TextStyle(
+              color: AppColors.secondColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         );
 
