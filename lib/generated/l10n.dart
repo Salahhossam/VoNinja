@@ -2463,6 +2463,76 @@ class S {
   String get tryAgain {
     return Intl.message('Try again', name: 'tryAgain', desc: '', args: []);
   }
+
+  /// `Q`
+  String get q {
+    return Intl.message('Q', name: 'q', desc: '', args: []);
+  }
+
+  /// `Golden Question`
+  String get goldenQuestion {
+    return Intl.message(
+      'Golden Question',
+      name: 'goldenQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Watch Ad To Double Points`
+  String get watchAdToDoublePoints {
+    return Intl.message(
+      'Watch Ad To Double Points',
+      name: 'watchAdToDoublePoints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ad Watched`
+  String get adWatched {
+    return Intl.message('Ad Watched', name: 'adWatched', desc: '', args: []);
+  }
+
+  /// `Your Dashboard`
+  String get yourDashboard {
+    return Intl.message(
+      'Your Dashboard',
+      name: 'yourDashboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Score`
+  String get yourScore {
+    return Intl.message('Your Score', name: 'yourScore', desc: '', args: []);
+  }
+
+  /// `Correct`
+  String get correct {
+    return Intl.message('Correct', name: 'correct', desc: '', args: []);
+  }
+
+  /// `Answered`
+  String get answered {
+    return Intl.message('Answered', name: 'answered', desc: '', args: []);
+  }
+
+  /// `Top 3 Winners`
+  String get top3Winners {
+    return Intl.message(
+      'Top 3 Winners',
+      name: 'top3Winners',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dashboard`
+  String get dashboard {
+    return Intl.message('Dashboard', name: 'dashboard', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

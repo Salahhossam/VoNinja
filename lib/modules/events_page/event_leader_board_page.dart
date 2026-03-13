@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/event_model.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
@@ -121,32 +122,11 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
     );
   }
 
-  LinearGradient _topCardGradient(int rank) {
-    if (rank == 1) {
-      return const LinearGradient(
-        colors: [Color(0xFFFFE082), Color(0xFFFFC107)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
-    }
-    if (rank == 2) {
-      return const LinearGradient(
-        colors: [Color(0xFFF4F7FA), Color(0xFFB7C1CB)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
-    }
-    return const LinearGradient(
-      colors: [Color(0xFFD9A27C), Color(0xFFB87333)],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    );
-  }
+
 
   Widget _buildMyStatsCard(EventCubit cubit) {
     if (cubit.myLeaderboardEntry == null) return const SizedBox.shrink();
 
-    final myPrize = _prizeForRank(cubit.myRank ?? 0);
     final myEntry = cubit.myLeaderboardEntry!;
 
     return Container(
@@ -178,9 +158,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                   color: Colors.white.withOpacity(.14),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const Text(
-                  "Your Dashboard",
-                  style: TextStyle(
+                child:  Text(
+                  S.of(context).yourDashboard,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                     fontSize: 12,
@@ -195,7 +175,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
-                  "Rank #${cubit.myRank ?? '-'}",
+                  "${S.of(context).rank} #${cubit.myRank ?? '-'}",
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -206,9 +186,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
             ],
           ),
           const SizedBox(height: 14),
-          const Text(
-            "Your Score",
-            style: TextStyle(
+          Text(
+            S.of(context).yourScore,
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -232,17 +212,17 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
             children: [
               _statChip(
                 icon: Icons.check_circle_outline,
-                label: "Correct",
+                label: S.of(context).correct,
                 value: _formatNumber(myEntry.correctAnswers),
               ),
               const SizedBox(width: 10),
               _statChip(
                 icon: Icons.quiz_outlined,
-                label: "Answered",
+                label: S.of(context).answered,
                 value: _formatNumber(myEntry.answerCount),
               ),
             ],
-          ),
+          )
         ],
       ),
     );
@@ -314,9 +294,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Top 3 Winners",
-            style: TextStyle(
+          Text(
+            S.of(context).top3Winners,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: AppColors.mainColor,
@@ -386,7 +366,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                     Expanded(
                       child: Text(
                         item.name.isEmpty ? item.uid : item.name,
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
@@ -405,9 +385,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                           color: AppColors.secondColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Text(
-                          "YOU",
-                          style: TextStyle(
+                        child: Text(
+                          S.of(context).you,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
@@ -421,7 +401,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "${_formatNumber(item.score)} pts",
+                    "${_formatNumber(item.score)} ${S.of(context).pts}",
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.black87,
@@ -534,9 +514,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                           color: AppColors.secondColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Text(
-                          "You",
-                          style: TextStyle(
+                        child:  Text(
+                          S.of(context).you,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
@@ -547,7 +527,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Answered: ${_formatNumber(item.answerCount)}",
+                  "${S.of(context).answered}: ${_formatNumber(item.answerCount)}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -557,7 +537,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Correct: ${_formatNumber(item.correctAnswers)}",
+                  "${S.of(context).correct}: ${_formatNumber(item.correctAnswers)}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -577,7 +557,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    "${_formatNumber(item.score)} pts",
+                    "${_formatNumber(item.score)} ${S.of(context).pts}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppColors.secondColor,
@@ -622,9 +602,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
               },
             ),
             backgroundColor: AppColors.mainColor,
-            title: const Text(
-              "Dashboard",
-              style: TextStyle(
+            title:  Text(
+              S.of(context).dashboard,
+              style: const TextStyle(
                 color: AppColors.whiteColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -643,9 +623,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
             children: [
               _buildMyStatsCard(cubit),
               _buildPodium(top3),
-              const Text(
-                "Leaderboard",
-                style: TextStyle(
+              Text(
+                S.of(context).leaderboard,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: AppColors.mainColor,

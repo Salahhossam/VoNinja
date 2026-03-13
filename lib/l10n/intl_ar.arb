@@ -312,6 +312,16 @@
   "success": "نجاح",
   "operationSuccessful": "تمت العملية بنجاح",
   "operationFailed": "فشلت العملية",
-  "tryAgain": "حاول مرة أخرى"
+  "tryAgain": "حاول مرة أخرى",
+  "q": "س",
+  "goldenQuestion": "السؤال الذهبي",
+  "watchAdToDoublePoints": "شاهد إعلان لمضاعفة النقاط",
+  "adWatched": "تم مشاهدة الإعلان",
+  "yourDashboard": "لوحة التحكم",
+  "yourScore": "نقاطك",
+  "correct": "الإجابات الصحيحة",
+  "answered": "تمت الإجابة",
+  "top3Winners": "أفضل 3 فائزين",
+  "dashboard": "لوحة الصدارة"
 
 }

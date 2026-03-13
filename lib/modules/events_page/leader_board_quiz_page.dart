@@ -64,19 +64,19 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
       ),
     )..load();
 
-    myBannerBottom = BannerAd(
-      adUnitId: 'ca-app-pub-7223929122163665/1831803488',
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() => isBottomBannerLoaded = true);
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    )..load();
+    // myBannerBottom = BannerAd(
+    //   adUnitId: 'ca-app-pub-7223929122163665/1831803488',
+    //   size: AdSize.banner,
+    //   request: const AdRequest(),
+    //   listener: BannerAdListener(
+    //     onAdLoaded: (_) {
+    //       setState(() => isBottomBannerLoaded = true);
+    //     },
+    //     onAdFailedToLoad: (ad, error) {
+    //       ad.dispose();
+    //     },
+    //   ),
+    // )..load();
   }
 
 
@@ -350,13 +350,13 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                       children: [
                         Column(
                           children: [
-                            if (isTopBannerLoaded && myBannerTop != null)
-                              Container(
-                                height: 60,
-                                width: double.infinity,
-                                alignment: Alignment.center,
-                                child: AdWidget(ad: myBannerTop!),
-                              ),
+                            // if (isTopBannerLoaded && myBannerTop != null)
+                            //   Container(
+                            //     height: 60,
+                            //     width: double.infinity,
+                            //     alignment: Alignment.center,
+                            //     child: AdWidget(ad: myBannerTop!),
+                            //   ),
                             Expanded(
                               child: Container(
                                 width: double.infinity,
@@ -372,54 +372,78 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                     padding: const EdgeInsets.all(16.0),
                                     controller: _scrollController,
                                     children: [
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(Icons.close, color: Colors.white),
-                                            onPressed: () {
-                                              Navigator.of(context).pushReplacement(
-                                                MaterialPageRoute(builder: (_) => const EventsPage()),
-                                              );
-                                            },
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.18),
+                                          borderRadius: BorderRadius.circular(16),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Row(
                                               children: [
-                                                Text(
-                                                  "Q ${currentQuestion.order}",
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
+                                                IconButton(
+                                                  icon: const Icon(Icons.close, color: Colors.white),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pushReplacement(
+                                                      MaterialPageRoute(builder: (_) => const EventsPage()),
+                                                    );
+                                                  },
+                                                ),
+                                                Expanded(
+                                                  child:Text(
+                                                    "${S.of(context).q} ${currentQuestion.order}",
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
                                                   ),
+                                                ),
+                                                IconButton(
+                                                  icon: const Icon(Icons.leaderboard, color: Colors.white),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (_) => EventLeaderboardPage(event: widget.event),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(Icons.leaderboard, color: Colors.white),
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (_) => EventLeaderboardPage(event: widget.event),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                          Column(
-                                            children: [
-                                              const Icon(Icons.emoji_events, color: Colors.amber),
-                                              Text(
-                                                "${eventProgress?.eventScore ?? 0}",
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                            const SizedBox(height: 8),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withOpacity(0.12),
+                                                borderRadius: BorderRadius.circular(14),
+                                                border: Border.all(color: Colors.white.withOpacity(0.15)),
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  const Icon(Icons.emoji_events, color: Colors.amber, size: 20),
+                                                  const SizedBox(width: 8),
+                                                  Flexible(
+                                                    child: Text(
+                                                      "${eventProgress?.eventScore ?? 0}",
+                                                      textAlign: TextAlign.center,
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       if (currentQuestion.imageUrl !=
                                           null &&
@@ -482,13 +506,13 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              const Row(
+                                               Row(
                                                 children: [
                                                   Icon(Icons.star, color: Colors.amber),
                                                   SizedBox(width: 8),
                                                   Text(
-                                                    "Golden Question",
-                                                    style: TextStyle(
+                                                    S.of(context).goldenQuestion,
+                                                    style: const TextStyle(
                                                       color: Colors.amber,
                                                       fontWeight: FontWeight.bold,
                                                     ),
@@ -498,8 +522,8 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                               const SizedBox(height: 8),
                                               Text(
                                                 rewardedApplied
-                                                    ? "Points: ${widget.event.goldenQuestionPoints * widget.event.rewardedAdMultiplier}"
-                                                    : "Points: ${widget.event.goldenQuestionPoints}",
+                                                    ? "${S.of(context).points}: ${widget.event.goldenQuestionPoints * widget.event.rewardedAdMultiplier}"
+                                                    : "${S.of(context).points}: ${widget.event.goldenQuestionPoints}",
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                 ),
@@ -515,7 +539,9 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                                       backgroundColor: Colors.amber,
                                                       foregroundColor: Colors.black,
                                                     ),
-                                                    child: const Text("Watch Ad To Double Points"),
+                                                    child:  Text(
+                                                      S.of(context).watchAdToDoublePoints,
+                                                    ),
                                                   ),
                                                 )
                                               else if (!isPreviouslySelected && rewardedApplied)
@@ -527,10 +553,10 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                                     borderRadius: BorderRadius.circular(8),
                                                     border: Border.all(color: Colors.amber),
                                                   ),
-                                                  child: const Center(
+                                                  child:  Center(
                                                     child: Text(
-                                                      "Ad Watched",
-                                                      style: TextStyle(
+                                                      S.of(context).adWatched,
+                                                      style: const TextStyle(
                                                         color: Colors.amber,
                                                         fontWeight: FontWeight.bold,
                                                       ),
@@ -927,7 +953,7 @@ class _InlineNativeAdCardState extends State<InlineNativeAdCard> {
 
   void _loadAd() {
     _nativeAd = NativeAd(
-      adUnitId: 'ca-app-pub-3940256099942544/2247696110', // test native android
+      adUnitId: 'ca-app-pub-7223929122163665/4814580348',
       request: const AdRequest(),
       listener: NativeAdListener(
         onAdLoaded: (ad) {

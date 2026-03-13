@@ -87,11 +87,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "adNotAvailable": MessageLookupByLibrary.simpleMessage(
       "الإعلان غير متاح حاليًا، حاول ثانيا بعد لحظات.",
     ),
+    "adWatched": MessageLookupByLibrary.simpleMessage("تم مشاهدة الإعلان"),
     "adsProgress": m0,
     "allQuestionsAnswered": MessageLookupByLibrary.simpleMessage(
       "لقد أتممت جميع أسئلة هذا الدرس بنجاح",
     ),
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage("هل لديك حساب؟"),
+    "answered": MessageLookupByLibrary.simpleMessage("تمت الإجابة"),
     "appTitle": MessageLookupByLibrary.simpleMessage("فونينجا"),
     "back": MessageLookupByLibrary.simpleMessage("رجوع"),
     "backToHome": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
@@ -157,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "continueQuiz": MessageLookupByLibrary.simpleMessage("استمر في الاختبار"),
     "copied": MessageLookupByLibrary.simpleMessage("تم النسخ"),
     "copy": MessageLookupByLibrary.simpleMessage("نسخ"),
+    "correct": MessageLookupByLibrary.simpleMessage("الإجابات الصحيحة"),
     "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
       "لكل إجابة صحيحة، سوف تكسب نقاطًا",
     ),
@@ -169,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cycleWarning": MessageLookupByLibrary.simpleMessage(
       "لو رصيدك عدى ٢٥,٠٠٠ نقطة، لازم الأول تعمل طلب تحويل عشان تستلم الكاش في محفظتك خلال ٤٨ ساعة عمل و تقدر تبدأ دورة جديدة بـ ٥٠٠ نقطة مكافأة و لو نقاطك الحالية أكتر من ٥٠٠، هيتم استبدالها بـ ٥٠٠ نقطة فقط .",
     ),
+    "dashboard": MessageLookupByLibrary.simpleMessage("لوحة الصدارة"),
     "discoverExcitingEvents": MessageLookupByLibrary.simpleMessage(
       "اكتشف الأحداث المثيرة",
     ),
@@ -277,6 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "goal_title": MessageLookupByLibrary.simpleMessage("هدفنا:"),
     "gold": MessageLookupByLibrary.simpleMessage("ذهبية"),
+    "goldenQuestion": MessageLookupByLibrary.simpleMessage("السؤال الذهبي"),
     "goodLuck": MessageLookupByLibrary.simpleMessage(
       "حظًا موفقًا! راجع إجاباتك وحاول مرة أخرى في الحدث القادم.",
     ),
@@ -392,6 +397,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "points2": m18,
     "progress": MessageLookupByLibrary.simpleMessage("التقدم"),
     "pts": MessageLookupByLibrary.simpleMessage("نقطة"),
+    "q": MessageLookupByLibrary.simpleMessage("س"),
     "questionsNumber": MessageLookupByLibrary.simpleMessage("الأسئلة"),
     "rank": MessageLookupByLibrary.simpleMessage("التصنيف"),
     "rankPointsNumber": MessageLookupByLibrary.simpleMessage("نقاط"),
@@ -472,6 +478,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tasks": MessageLookupByLibrary.simpleMessage("المهام"),
     "technicalSupport": MessageLookupByLibrary.simpleMessage("الدعم الفني"),
     "thirdPlace": MessageLookupByLibrary.simpleMessage("الثالث"),
+    "top3Winners": MessageLookupByLibrary.simpleMessage("أفضل 3 فائزين"),
     "topTen": MessageLookupByLibrary.simpleMessage("افضل 10 مقاتلين!"),
     "totalAnswers": m21,
     "totalBalance": MessageLookupByLibrary.simpleMessage("إجمالي الرصيد"),
@@ -579,6 +586,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "warning": MessageLookupByLibrary.simpleMessage("تحذير"),
     "watchAd": MessageLookupByLibrary.simpleMessage("شاهد إعلان"),
+    "watchAdToDoublePoints": MessageLookupByLibrary.simpleMessage(
+      "شاهد إعلان لمضاعفة النقاط",
+    ),
     "watchAds": m22,
     "wrongCredentials": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني أو كلمة المرور غير صحيحة",
@@ -591,6 +601,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "youLearned30NewwordsToday": MessageLookupByLibrary.simpleMessage(
       "لقد تعلمت 30 كلمة جديدة اليوم...",
     ),
+    "yourDashboard": MessageLookupByLibrary.simpleMessage("لوحة التحكم"),
     "yourPoints": MessageLookupByLibrary.simpleMessage("نقاطك"),
+    "yourScore": MessageLookupByLibrary.simpleMessage("نقاطك"),
   };
 }

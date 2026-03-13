@@ -313,5 +313,15 @@
   "success": "Success",
   "operationSuccessful": "Operation successful",
   "operationFailed": "Operation failed",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "q": "Q",
+  "goldenQuestion": "Golden Question",
+  "watchAdToDoublePoints": "Watch Ad To Double Points",
+  "adWatched": "Ad Watched",
+  "yourDashboard": "Your Dashboard",
+  "yourScore": "Your Score",
+  "correct": "Correct",
+  "answered": "Answered",
+  "top3Winners": "Top 3 Winners",
+  "dashboard": "Dashboard"
 }

@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "adNotAvailable": MessageLookupByLibrary.simpleMessage(
       "Ad is not currently available, try again in a moment.",
     ),
+    "adWatched": MessageLookupByLibrary.simpleMessage("Ad Watched"),
     "adsProgress": m0,
     "allQuestionsAnswered": MessageLookupByLibrary.simpleMessage(
       "You have successfully completed all questions in this lesson",
@@ -95,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
+    "answered": MessageLookupByLibrary.simpleMessage("Answered"),
     "appTitle": MessageLookupByLibrary.simpleMessage("Voninja"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "backToHome": MessageLookupByLibrary.simpleMessage("Back to home"),
@@ -160,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "continueQuiz": MessageLookupByLibrary.simpleMessage("Continue Quiz"),
     "copied": MessageLookupByLibrary.simpleMessage("Copied"),
     "copy": MessageLookupByLibrary.simpleMessage("Copy"),
+    "correct": MessageLookupByLibrary.simpleMessage("Correct"),
     "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
       "For each correct answer, you will earn points",
     ),
@@ -170,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cycleWarning": MessageLookupByLibrary.simpleMessage(
       "If your balance exceeds 25,000 points, you must first make a transfer request to receive cash in your wallet within 48 working hours. Then you can start a new cycle with a 500 point reward. If your current points are more than 500, they will be replaced with only 500 points.",
     ),
+    "dashboard": MessageLookupByLibrary.simpleMessage("Dashboard"),
     "discoverExcitingEvents": MessageLookupByLibrary.simpleMessage(
       "Discover Exciting Events",
     ),
@@ -282,6 +286,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "goal_title": MessageLookupByLibrary.simpleMessage("Our Goal:"),
     "gold": MessageLookupByLibrary.simpleMessage("Gold"),
+    "goldenQuestion": MessageLookupByLibrary.simpleMessage("Golden Question"),
     "goodLuck": MessageLookupByLibrary.simpleMessage(
       "Good luck! Review your answers and try again in the next event.",
     ),
@@ -405,6 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "points2": m18,
     "progress": MessageLookupByLibrary.simpleMessage("Progress"),
     "pts": MessageLookupByLibrary.simpleMessage("pts"),
+    "q": MessageLookupByLibrary.simpleMessage("Q"),
     "questionsNumber": MessageLookupByLibrary.simpleMessage("Questions"),
     "rank": MessageLookupByLibrary.simpleMessage("Rank"),
     "rankPointsNumber": MessageLookupByLibrary.simpleMessage("pts"),
@@ -491,6 +497,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Technical Support",
     ),
     "thirdPlace": MessageLookupByLibrary.simpleMessage("3rd"),
+    "top3Winners": MessageLookupByLibrary.simpleMessage("Top 3 Winners"),
     "topTen": MessageLookupByLibrary.simpleMessage("Top 10"),
     "totalAnswers": m21,
     "totalBalance": MessageLookupByLibrary.simpleMessage("Total Balance"),
@@ -600,6 +607,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "warning": MessageLookupByLibrary.simpleMessage("Warning"),
     "watchAd": MessageLookupByLibrary.simpleMessage("Watch Ad"),
+    "watchAdToDoublePoints": MessageLookupByLibrary.simpleMessage(
+      "Watch Ad To Double Points",
+    ),
     "watchAds": m22,
     "wrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Wrong email or password",
@@ -612,6 +622,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "youLearned30NewwordsToday": MessageLookupByLibrary.simpleMessage(
       "You learned 30 new words Today...",
     ),
+    "yourDashboard": MessageLookupByLibrary.simpleMessage("Your Dashboard"),
     "yourPoints": MessageLookupByLibrary.simpleMessage("Your Points"),
+    "yourScore": MessageLookupByLibrary.simpleMessage("Your Score"),
   };
 }
