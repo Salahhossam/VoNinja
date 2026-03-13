@@ -19,7 +19,7 @@ class TapsCubit extends Cubit<TapsState> {
   final List<Widget> pages = [
     const HomeTapPage(),
     const ChallengesTapPage(),
-    const LeaderboardPage(),
+    //const LeaderboardPage(),
     const TreasureBoxesPage(),
     const SettingsTapPage(),
   ];

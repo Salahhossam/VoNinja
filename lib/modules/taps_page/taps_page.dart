@@ -288,9 +288,9 @@ class _TapsPageState extends State<TapsPage> {
                 items: <BottomNavigationBarItem>[
                   _buildNavBarItem(icon: Icons.home,        label: s.nav_home,        isSelected: cubit.currentIndex == 0),
                   _buildNavBarItem(icon: Icons.school,      label: s.nav_learn,       isSelected: cubit.currentIndex == 1, itemKey: k.navLearnKey),
-                  _buildNavBarItem(icon: Icons.leaderboard, label: s.nav_leaderboard, isSelected: cubit.currentIndex == 2, itemKey: k.navLeaderboardKey),
-                  _buildNavBarItem(icon: Icons.diamond,     label: s.nav_treasure,    isSelected: cubit.currentIndex == 3, itemKey: k.navTreasureKey),
-                  _buildNavBarItem(icon: Icons.settings,    label: s.nav_settings,    isSelected: cubit.currentIndex == 4, itemKey: k.navSettingsKey),
+                  //_buildNavBarItem(icon: Icons.leaderboard, label: s.nav_leaderboard, isSelected: cubit.currentIndex == 2, itemKey: k.navLeaderboardKey),
+                  _buildNavBarItem(icon: Icons.diamond,     label: s.nav_treasure,    isSelected: cubit.currentIndex == 2, itemKey: k.navTreasureKey),
+                  _buildNavBarItem(icon: Icons.settings,    label: s.nav_settings,    isSelected: cubit.currentIndex == 3, itemKey: k.navSettingsKey),
                 ],
                 currentIndex: cubit.currentIndex,
                 onTap: (index) => cubit.selectTab(index),

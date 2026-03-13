@@ -78,8 +78,12 @@ class LoginCubit extends Cubit<LoginState> {
       if (isFirstMissingOrNull) {
         // First time (field missing/null): mark it and show the welcome flow
         await docRef.set({'isFirst': true}, SetOptions(merge: true));
+        // Navigator.of(context).pushAndRemoveUntil(
+        //   MaterialPageRoute(builder: (_) => const WelcomeChallengeIntroPage()),
+        //       (route) => false,
+        // );
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const WelcomeChallengeIntroPage()),
+          MaterialPageRoute(builder: (_) => const TapsPage()),
               (route) => false,
         );
 
