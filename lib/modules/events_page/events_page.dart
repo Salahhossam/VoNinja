@@ -741,7 +741,7 @@ class _EventsPageState extends State<EventsPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => LeaderboardQuizInstructionsPage(event: e),
+                builder: (_) => LeaderboardQuizPage(event: e),
               ),
             );
           },
