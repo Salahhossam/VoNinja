@@ -323,5 +323,8 @@
   "correct": "Correct",
   "answered": "Answered",
   "top3Winners": "Top 3 Winners",
-  "dashboard": "Dashboard"
+  "dashboard": "Dashboard",
+  "instructions": "Instructions",
+  "startEvent": "Start Event",
+  "continueEvent": "Continue Event"
 }

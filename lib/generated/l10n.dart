@@ -2533,6 +2533,31 @@ class S {
   String get dashboard {
     return Intl.message('Dashboard', name: 'dashboard', desc: '', args: []);
   }
+
+  /// `Instructions`
+  String get instructions {
+    return Intl.message(
+      'Instructions',
+      name: 'instructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Event`
+  String get startEvent {
+    return Intl.message('Start Event', name: 'startEvent', desc: '', args: []);
+  }
+
+  /// `Continue Event`
+  String get continueEvent {
+    return Intl.message(
+      'Continue Event',
+      name: 'continueEvent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

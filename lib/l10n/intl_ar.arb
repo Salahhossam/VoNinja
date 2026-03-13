@@ -322,6 +322,9 @@
   "correct": "الإجابات الصحيحة",
   "answered": "تمت الإجابة",
   "top3Winners": "أفضل 3 فائزين",
-  "dashboard": "لوحة الصدارة"
+  "dashboard": "لوحة الصدارة",
+  "instructions": "التعليمات",
+  "startEvent": "ابدأ الحدث",
+  "continueEvent": "استمر في الحدث"
 
 }

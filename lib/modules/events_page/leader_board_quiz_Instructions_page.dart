@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/event_model.dart';
 import '../../shared/network/local/cash_helper.dart';
 import '../../shared/style/color.dart';
@@ -109,9 +110,9 @@ class _LeaderboardQuizInstructionsPageState
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    "Instructions",
-                    style: TextStyle(
+                  Text(
+                    S.of(context).instructions,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: AppColors.mainColor,
@@ -172,9 +173,13 @@ class _LeaderboardQuizInstructionsPageState
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text(
-                  hasStarted ? "Continue Event" : "Start Event",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                child:Text(
+                  hasStarted
+                      ? S.of(context).continueEvent
+                      : S.of(context).startEvent,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

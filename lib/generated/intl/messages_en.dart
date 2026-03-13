@@ -154,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
       "Continue collecting points to convert them into financial rewards",
     ),
+    "continueEvent": MessageLookupByLibrary.simpleMessage("Continue Event"),
     "continueExam": MessageLookupByLibrary.simpleMessage("Continue Exam"),
     "continueExams": MessageLookupByLibrary.simpleMessage("Continue"),
     "continueLearning": MessageLookupByLibrary.simpleMessage(
@@ -298,6 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "incompleteLesson": MessageLookupByLibrary.simpleMessage(
       "Lesson Incomplete",
     ),
+    "instructions": MessageLookupByLibrary.simpleMessage("Instructions"),
     "intro_appBarTitle": MessageLookupByLibrary.simpleMessage(
       "Welcome Challenge Instructions",
     ),
@@ -455,6 +457,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Be Ninja In English Vocabulary!",
     ),
     "startChallenge": MessageLookupByLibrary.simpleMessage("Start Challenge"),
+    "startEvent": MessageLookupByLibrary.simpleMessage("Start Event"),
     "startExam": MessageLookupByLibrary.simpleMessage("Start Exam"),
     "startLearning": MessageLookupByLibrary.simpleMessage("Start Learning"),
     "startNewCycle": MessageLookupByLibrary.simpleMessage("Start New Cycle"),

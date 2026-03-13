@@ -153,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "continueCollectingPoints": MessageLookupByLibrary.simpleMessage(
       "استمر في جمع النقاط لتحويلها إلى مكافآت مالية",
     ),
+    "continueEvent": MessageLookupByLibrary.simpleMessage("استمر في الحدث"),
     "continueExam": MessageLookupByLibrary.simpleMessage("متابعة الامتحان"),
     "continueExams": MessageLookupByLibrary.simpleMessage("استمر"),
     "continueLearning": MessageLookupByLibrary.simpleMessage("استمر في التعلم"),
@@ -289,6 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "importantWarning": MessageLookupByLibrary.simpleMessage("⚠️ تنبيه مهم:"),
     "inProgress": MessageLookupByLibrary.simpleMessage("قيد التقدم"),
     "incompleteLesson": MessageLookupByLibrary.simpleMessage("الدرس غير مكتمل"),
+    "instructions": MessageLookupByLibrary.simpleMessage("التعليمات"),
     "intro_appBarTitle": MessageLookupByLibrary.simpleMessage(
       "تعليمات التحدي الترحيبي",
     ),
@@ -444,6 +446,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "كن خبيرًا بارعًا في مفردات اللغة الإنجليزية!",
     ),
     "startChallenge": MessageLookupByLibrary.simpleMessage("ابدأ التحدي"),
+    "startEvent": MessageLookupByLibrary.simpleMessage("ابدأ الحدث"),
     "startExam": MessageLookupByLibrary.simpleMessage("ابدأ الامتحان"),
     "startLearning": MessageLookupByLibrary.simpleMessage("ابدأ التعلم"),
     "startNewCycle": MessageLookupByLibrary.simpleMessage("ابدأ دورة جديدة"),
