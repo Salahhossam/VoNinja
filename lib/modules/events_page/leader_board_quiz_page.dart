@@ -219,7 +219,7 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
     super.initState();
     initData();
     final mainCubit = MainAppCubit.get(context);
-    //mainCubit.interstitialAd();
+    mainCubit.interstitialAd();
     _initBannerAds();
     _loadRewardedAd();
   }
@@ -846,6 +846,11 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                               ),
                                             );
                                             return;
+                                          }
+
+                                          if (eventCubit.leaderboardCurrentQuestionIndex %7==0 || eventCubit.leaderboardCurrentQuestionIndex + 3 == eventCubit.leaderboardQuestions.length) {
+                                            final mainCubit = MainAppCubit.get(context);
+                                            mainCubit.interstitialAd();
                                           }
 
                                           final isLastQuestionInPage =
