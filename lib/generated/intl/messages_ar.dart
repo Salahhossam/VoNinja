@@ -161,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "copied": MessageLookupByLibrary.simpleMessage("تم النسخ"),
     "copy": MessageLookupByLibrary.simpleMessage("نسخ"),
     "correct": MessageLookupByLibrary.simpleMessage("الإجابات الصحيحة"),
+    "correctAnswer": MessageLookupByLibrary.simpleMessage("الإجابة الصحيحة"),
     "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
       "لكل إجابة صحيحة، سوف تكسب نقاطًا",
     ),
@@ -408,6 +409,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "تم إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني",
     ),
+    "reward": MessageLookupByLibrary.simpleMessage("المكافأة"),
     "rewardClaimed": MessageLookupByLibrary.simpleMessage(
       "تم المطالبة بالمكافأة",
     ),
@@ -593,6 +595,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "شاهد إعلان لمضاعفة النقاط",
     ),
     "watchAds": m22,
+    "wrong": MessageLookupByLibrary.simpleMessage("خطأ"),
     "wrongCredentials": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني أو كلمة المرور غير صحيحة",
     ),

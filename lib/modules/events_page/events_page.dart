@@ -403,11 +403,15 @@ class _EventsPageState extends State<EventsPage> {
                                           // معلومات التقدم
                                           if (up != null && goal > 0)
                                             Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 if (e.type == EventType.quiz)
                                                   Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                     children: [
                                                       Text(
                                                         S
@@ -805,32 +809,18 @@ class _EventsPageState extends State<EventsPage> {
     if (e.type == EventType.quiz) {
       final totalQuestions = (e.rules['quizTotal'] ?? 0) as int;
       final requiredCorrect =
-          (e.rules['quizMinCorrect'] ?? totalQuestions) as int;
+      (e.rules['quizMinCorrect'] ?? totalQuestions) as int;
       final correctAnswers = up?.correctAnswers ?? 0;
-      final answeredQuestions = up?.answerCount ?? 0;
 
-      if (totalQuestions <= 0) return 0;
+      if (totalQuestions <= 0 || requiredCorrect <= 0) return 0;
 
-      final allQuestionsAnswered = answeredQuestions == totalQuestions;
       final correctAnswersMet = correctAnswers >= requiredCorrect;
 
-      if (!allQuestionsAnswered) {
-        // حساب التقدم من عدد الأسئلة المجابة + التقدم في الإجابات الصحيحة
-        final progressFromAnswered = answeredQuestions / totalQuestions * 0.5;
-        final progressFromCorrect = (correctAnswers / requiredCorrect * 0.5);
-
-        return (progressFromAnswered + progressFromCorrect).clamp(0.0, 1.0);
-      }
-
-      if (allQuestionsAnswered && !correctAnswersMet) {
-        return 0.5 + (correctAnswers / requiredCorrect * 0.5).clamp(0.0, 0.5);
-      }
-
-      if (allQuestionsAnswered && correctAnswersMet) {
+      if (correctAnswersMet) {
         return 1.0;
       }
 
-      return 0;
+      return (correctAnswers / requiredCorrect).clamp(0.0, 1.0);
     }
     return 0;
   }

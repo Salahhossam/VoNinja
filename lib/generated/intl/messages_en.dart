@@ -164,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "copied": MessageLookupByLibrary.simpleMessage("Copied"),
     "copy": MessageLookupByLibrary.simpleMessage("Copy"),
     "correct": MessageLookupByLibrary.simpleMessage("Correct"),
+    "correctAnswer": MessageLookupByLibrary.simpleMessage("Correct Answer"),
     "correctAnswerPoints": MessageLookupByLibrary.simpleMessage(
       "For each correct answer, you will earn points",
     ),
@@ -421,6 +422,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "Password reset link sent to email",
     ),
+    "reward": MessageLookupByLibrary.simpleMessage("Reward"),
     "rewardClaimed": MessageLookupByLibrary.simpleMessage("Reward Claimed"),
     "rewardClaimedMessage": MessageLookupByLibrary.simpleMessage(
       "Reward claimed!",
@@ -614,6 +616,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Watch Ad To Double Points",
     ),
     "watchAds": m22,
+    "wrong": MessageLookupByLibrary.simpleMessage("Wrong"),
     "wrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Wrong email or password",
     ),

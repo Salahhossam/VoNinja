@@ -2558,6 +2558,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Wrong`
+  String get wrong {
+    return Intl.message('Wrong', name: 'wrong', desc: '', args: []);
+  }
+
+  /// `Correct Answer`
+  String get correctAnswer {
+    return Intl.message(
+      'Correct Answer',
+      name: 'correctAnswer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward`
+  String get reward {
+    return Intl.message('Reward', name: 'reward', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

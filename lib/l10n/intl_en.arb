@@ -326,5 +326,8 @@
   "dashboard": "Dashboard",
   "instructions": "Instructions",
   "startEvent": "Start Event",
-  "continueEvent": "Continue Event"
+  "continueEvent": "Continue Event",
+  "wrong": "Wrong",
+  "correctAnswer": "Correct Answer",
+  "reward": "Reward"
 }

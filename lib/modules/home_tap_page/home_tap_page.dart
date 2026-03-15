@@ -40,8 +40,9 @@ class _HomeTapPageState extends State<HomeTapPage> {
     HomeTapCubit.get(context).loadRewardAds();
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-7223929122163665/1831803488', // Test ID
-      size: AdSize.banner,
+      adUnitId: 'ca-app-pub-7223929122163665/1831803488',
+      //adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      size: AdSize.mediumRectangle, // أو AdSize.largeBanner
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
@@ -72,7 +73,6 @@ class _HomeTapPageState extends State<HomeTapPage> {
         setState(() { isLoading = false; });
 
         // --- Trigger unified tutorial from HOME after data loaded ---
-
         if (!seenUnified && mounted) {
           // سيب الـ UI يترسم كويس
           await Future.delayed(const Duration(milliseconds: 350));
@@ -104,120 +104,118 @@ class _HomeTapPageState extends State<HomeTapPage> {
       ],
       child: BlocBuilder<HomeTapCubit, HomeTapState>(
         builder: (BuildContext context, HomeTapState state) {
-          return SafeArea(
-            child: Scaffold(
-              backgroundColor: AppColors.lightColor,
-              body: isLoading
-                  ? const Center(
-                child: Image(
-                  image: AssetImage('assets/img/ninja_gif.gif'),
-                  height: 100, width: 100,
-                ),
-              )
-                  : WillPopScope(
-                onWillPop: () async => homeTapCubit.doubleBack(context),
-                child: SingleChildScrollView(
-                  controller: _scroll,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeader(context),
-                      const SizedBox(height: 80),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LibraryScreen()));
-                        },
-                        child: Container(
-                          key: k?.libraryKey, // NEW (موحّد)
-                          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: AppColors.secondColor,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(Icons.auto_stories_rounded, color: Colors.white, size: 30),
-                              ),
-                              const SizedBox(width: 20),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).libraryTitle,
-                                      style: const TextStyle(
-                                        color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold,
-                                        shadows: [ Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1, 1)) ],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      S.of(context).librarySubtitle,
-                                      style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Icon(Icons.chevron_right_rounded, color: Colors.white, size: 30),
-                            ],
-                          ),
+          return Scaffold(
+            backgroundColor: AppColors.lightColor,
+            body: isLoading
+                ? const Center(
+              child: Image(
+                image: AssetImage('assets/img/ninja_gif.gif'),
+                height: 100, width: 100,
+              ),
+            )
+                : WillPopScope(
+              onWillPop: () async => homeTapCubit.doubleBack(context),
+              child: SingleChildScrollView(
+                controller: _scroll,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(context),
+                    const SizedBox(height: 70),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LibraryScreen()));
+                      },
+                      child: Container(
+                        key: k?.libraryKey, // NEW (موحّد)
+                        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: AppColors.secondColor,
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      ),
-                      const SizedBox(height: 15),
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: AppColors.secondColor, borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.auto_stories_rounded, color: Colors.white, size: 30),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ وَالصَّلَاةِ المَفْرُوضَهْ وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُم',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white, fontSize: 16),
-                                      softWrap: true, overflow: TextOverflow.visible,
+                                  Text(
+                                    S.of(context).libraryTitle,
+                                    style: const TextStyle(
+                                      color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold,
+                                      shadows: [ Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1, 1)) ],
                                     ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    S.of(context).librarySubtitle,
+                                    style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 14),
                                   ),
                                 ],
                               ),
                             ),
+                            const Icon(Icons.chevron_right_rounded, color: Colors.white, size: 30),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: AppColors.secondColor, borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'لَا تَدَعُوا التَّطْبِيقَ يُلْهِيكُمْ عَنْ العِبَادَاتِ وَالصَّلَاةِ المَفْرُوضَهْ وَإِذَا وَجَدْتُمْ مَا يُخَالِفُ الدَّيْنَ فَغُضُّوا أَبْصَارَكُم',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.white, fontSize: 16),
+                                    softWrap: true, overflow: TextOverflow.visible,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      BlocBuilder<HomeTapCubit, HomeTapState>(
-                        builder: (context, state) {
-                          return Center(
-                            child: isBannerAdLoaded && _bannerAd != null
-                                ? SizedBox(
-                              height: _bannerAd!.size.height.toDouble(),
-                              width: MediaQuery.of(context).size.width * .9,
-                              child: AdWidget(ad: _bannerAd!),
-                            )
-                                : null,
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 5),
+                    BlocBuilder<HomeTapCubit, HomeTapState>(
+                      builder: (context, state) {
+                        return Center(
+                          child: isBannerAdLoaded && _bannerAd != null
+                              ? SizedBox(
+                            height: _bannerAd!.size.height.toDouble(),
+                            width: _bannerAd!.size.width.toDouble(),
+                            child: AdWidget(ad: _bannerAd!),
+                          )
+                              : const SizedBox(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 30),
+                  ],
                 ),
               ),
             ),

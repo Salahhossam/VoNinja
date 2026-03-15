@@ -325,6 +325,9 @@
   "dashboard": "لوحة الصدارة",
   "instructions": "التعليمات",
   "startEvent": "ابدأ الحدث",
-  "continueEvent": "استمر في الحدث"
+  "continueEvent": "استمر في الحدث",
+  "wrong": "خطأ",
+  "correctAnswer": "الإجابة الصحيحة",
+  "reward": "المكافأة"
 
 }

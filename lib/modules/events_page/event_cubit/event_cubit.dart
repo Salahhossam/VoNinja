@@ -78,14 +78,14 @@ class EventCubit extends Cubit<EventState> {
         'type': 'quiz',
         'title': 'General Knowledge Marathon',
         'description':
-        'أجب عن كل الأسئلة والصح المطلوب 90/100 لتحصل على 2000 نقطة.',
+        'أجب عن كل الأسئلة والصح المطلوب 90/100 لتحصل على 1 نقطة.',
         'imageUrl': '${_placeholderImg}4',
         'startAt': Timestamp.fromDate(quizStart),
         'endAt': Timestamp.fromDate(quizEnd),
         'rules': {
           'quizTotal': 10,
           'quizMinCorrect': 5,
-          'quizReward': 2000,
+          'quizReward': 1,
         },
         'createdAt': FieldValue.serverTimestamp(),
       });
@@ -93,7 +93,7 @@ class EventCubit extends Cubit<EventState> {
       // رفع أسئلة تجريبية للكويز (10 كفاية كعينة — كررها/ولّدها حتى 100 لو حابب)
       await seedQuizQuestionsWithAdd(quizRef.id, total: 10);
 
-      // 5) مثال لإيفنت "قريب" يبدأ بعد 3 ساعات (لإظهار "Starts in")
+      // // 5) مثال لإيفنت "قريب" يبدأ بعد 3 ساعات (لإظهار "Starts in")
       final upcomingStart = now.add(const Duration(hours: 3));
       final upcomingEnd = now.add(const Duration(days: 3));
       await fs.collection('events').add({
@@ -611,12 +611,9 @@ class EventCubit extends Cubit<EventState> {
 
       // تحقق وصول الهدف
       final goal = (e.rules['quizMinCorrect'] ?? 0) as int;
-      final goal2 = (e.rules['quizTotal'] ?? 0) as int;
       final currentAccum = (up?.correctAnswers ?? 0) + add;
-      final totalAnswer= (up?.answerCount ?? 0) + 1;
       if (goal > 0 &&
           currentAccum >= goal &&
-          totalAnswer==goal2 &&
           (up?.status) != 'reward_claimed') {
         updateData['status'] = 'completed';
       }
@@ -996,6 +993,7 @@ class EventCubit extends Cubit<EventState> {
       emit(PostUserExamAnswersError("Submit answer failed: ${e.toString()}"));
     }
   }
+
   Future<void> moveToNextLeaderboardQuestion(
       BuildContext context,
       AppEvent event,

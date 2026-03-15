@@ -51,7 +51,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
   }
 
   String _formatMoney(num value) {
-    return 'EGP ${NumberFormat.decimalPattern().format(value)}';
+    return '${NumberFormat.decimalPattern().format(value)} EGP';
   }
 
   int _prizeForRank(int rank) {
@@ -68,9 +68,10 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
   }
 
   Color _rankColor(int rank) {
-    if (rank == 1) return const Color(0xFFFFC107); // Gold
-    if (rank == 2) return const Color(0xFF9EA7B3); // Silver واضح
-    if (rank == 3) return const Color(0xFFB87333); // Bronze
+    if (rank == 1) return const Color(0xFFFFC107);
+    if (rank == 2) return const Color(0xFF9EA7B3);
+    if (rank == 3) return const Color(0xFFB87333);
+    if (rank >= 4 && rank <= 10) return const Color(0xFF1F6FEB);
     return AppColors.mainColor;
   }
 
@@ -78,6 +79,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
     if (rank == 1) return const Color(0xFFFFF8E1);
     if (rank == 2) return const Color(0xFFF1F4F8);
     if (rank == 3) return const Color(0xFFFBE9E0);
+    if (rank >= 4 && rank <= 10) return const Color(0xFFF4F8FF);
     return Colors.white;
   }
 
@@ -122,8 +124,6 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
     );
   }
 
-
-
   Widget _buildMyStatsCard(EventCubit cubit) {
     if (cubit.myLeaderboardEntry == null) return const SizedBox.shrink();
 
@@ -158,7 +158,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                   color: Colors.white.withOpacity(.14),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child:  Text(
+                child: Text(
                   S.of(context).yourDashboard,
                   style: const TextStyle(
                     color: Colors.white,
@@ -273,7 +273,6 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
     );
   }
 
-
   Widget _buildPodium(List<LeaderboardEntry> top3) {
     if (top3.isEmpty) return const SizedBox.shrink();
 
@@ -375,7 +374,22 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                         ),
                       ),
                     ),
-                    if (isMe)
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "${_formatNumber(item.score)} ${S.of(context).pts}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (isMe) ...[
+                      const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
@@ -394,32 +408,16 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                           ),
                         ),
                       ),
+                    ],
                   ],
                 ),
-                const SizedBox(height: 6),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${_formatNumber(item.score)} ${S.of(context).pts}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    prize > 0 ? _formatMoney(prize) : "-",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 13,
-                    ),
+                const SizedBox(height: 8),
+                Text(
+                  "${S.of(context).reward}: ${prize > 0 ? _formatMoney(prize) : '0 EGP'}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    fontSize: 13,
                   ),
                 ),
               ],
@@ -439,23 +437,29 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
   Widget _buildRankRow(LeaderboardEntry item, int rank) {
     final isMe = item.uid == currentUid;
     final prize = _prizeForRank(rank);
+    final isTopTen = rank >= 4 && rank <= 10;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: BoxDecoration(
-        color:
-        isMe ? AppColors.secondColor.withOpacity(.10) : _rankBgColor(rank),
+        color: isMe
+            ? AppColors.secondColor.withOpacity(.10)
+            : _rankBgColor(rank),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isMe
               ? AppColors.secondColor
-              : (rank <= 3 ? _rankColor(rank) : Colors.transparent),
-          width: isMe || rank <= 3 ? 1.4 : 0,
+              : isTopTen
+              ? _rankColor(rank).withOpacity(.35)
+              : Colors.grey.withOpacity(.10),
+          width: isMe ? 1.5 : (isTopTen ? 1.1 : 0.8),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.04),
+            color: isTopTen
+                ? _rankColor(rank).withOpacity(.06)
+                : Colors.black.withOpacity(.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -467,21 +471,23 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
             width: 46,
             height: 46,
             decoration: BoxDecoration(
-              color: _rankColor(rank).withOpacity(.16),
+              color: isTopTen
+                  ? _rankColor(rank).withOpacity(.10)
+                  : Colors.grey.withOpacity(.08),
               shape: BoxShape.circle,
               border: Border.all(
-                color: rank <= 3 ? _rankColor(rank) : Colors.transparent,
+                color: isTopTen
+                    ? _rankColor(rank).withOpacity(.35)
+                    : Colors.transparent,
               ),
             ),
             child: Center(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  "$rank",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _rankColor(rank),
-                  ),
+              child: Text(
+                "$rank",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: isTopTen ? _rankColor(rank) : Colors.black87,
                 ),
               ),
             ),
@@ -500,11 +506,27 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 14,
                           color: isMe ? AppColors.mainColor : Colors.black87,
                         ),
                       ),
                     ),
-                    if (isMe)
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        "${_formatNumber(item.score)} ${S.of(context).pts}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12.5,
+                          color:
+                          isTopTen ? _rankColor(rank) : AppColors.secondColor,
+                        ),
+                      ),
+                    ),
+                    if (isMe) ...[
+                      const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
@@ -514,7 +536,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                           color: AppColors.secondColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child:  Text(
+                        child: Text(
                           S.of(context).you,
                           style: const TextStyle(
                             color: Colors.white,
@@ -523,58 +545,42 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                           ),
                         ),
                       ),
+                    ],
                   ],
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 8),
                 Text(
-                  "${S.of(context).answered}: ${_formatNumber(item.answerCount)}",
+                  "${S.of(context).reward}: ${prize > 0 ? _formatMoney(prize) : '0 EGP'}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color: Colors.black54,
+                    fontWeight: FontWeight.w700,
+                    color: prize > 0
+                        ? (isTopTen ? _rankColor(rank) : Colors.black54)
+                        : Colors.black45,
                   ),
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  "${S.of(context).correct}: ${_formatNumber(item.correctAnswers)}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 105),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    "${_formatNumber(item.score)} ${S.of(context).pts}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.secondColor,
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 4,
+                  children: [
+                    Text(
+                      "${S.of(context).answered}: ${_formatNumber(item.answerCount)}",
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        color: Colors.black54,
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    prize > 0 ? _formatMoney(prize) : "",
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: prize > 0 ? _rankColor(rank) : Colors.black38,
+                    Text(
+                      "${S.of(context).correct}: ${_formatNumber(item.correctAnswers)}",
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        color: Colors.black54,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -588,6 +594,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
   Widget build(BuildContext context) {
     final cubit = EventCubit.get(context);
     final top3 = cubit.leaderboardTop100.take(3).toList();
+    final rest = cubit.leaderboardTop100.length > 3
+        ? cubit.leaderboardTop100.skip(3).toList()
+        : <LeaderboardEntry>[];
 
     return BlocBuilder<EventCubit, EventState>(
       builder: (context, state) {
@@ -602,7 +611,7 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
               },
             ),
             backgroundColor: AppColors.mainColor,
-            title:  Text(
+            title: Text(
               S.of(context).dashboard,
               style: const TextStyle(
                 color: AppColors.whiteColor,
@@ -632,9 +641,9 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
                 ),
               ),
               const SizedBox(height: 12),
-              ...List.generate(cubit.leaderboardTop100.length, (index) {
-                final item = cubit.leaderboardTop100[index];
-                final rank = index + 1;
+              ...List.generate(rest.length, (index) {
+                final item = rest[index];
+                final rank = index + 4;
                 return _buildRankRow(item, rank);
               }),
             ],
