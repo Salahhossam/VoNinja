@@ -40,6 +40,17 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
 
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.black,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ),
+  );
+
   // Initialize connectivity service
   connectivityService.initialize();
 
@@ -362,6 +373,11 @@ class _MyAppState extends State<MyApp> {
             ],
             supportedLocales: S.delegate.supportedLocales,
             debugShowCheckedModeBanner: false,
+            builder: (context, child) {
+              return SafeArea(
+                child: child ?? const SizedBox(),
+              );
+            },
             home: SplashPage(initialRoute: widget.initialRoute),
             routes: {
               NoInternetScreen.routeName: (context) => const NoInternetScreen(),
