@@ -70,7 +70,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
 
         await challengeTapCubit.getLevelsData(uid!);
 
-        final seenUnified = await CashHelper.getData(key: 'tutorial2') == true;
+       final seenUnified = await CashHelper.getData(key: 'tutorial2') == true;
         while(challengeTapCubit.isFetching){
           await Future.delayed(Duration(milliseconds: 250));
         }
@@ -153,61 +153,70 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
       ),
     );
   }
-
   Future<void> _showUnifiedTutorial(BuildContext context) async {
     _step = 1;
 
+    // نخلي الصفحة تنزل لحد كارت الـ events الأول
+    if (_scrollController.hasClients) {
+      await _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 700),
+        curve: Curves.easeInOut,
+      );
+
+      await Future.delayed(const Duration(milliseconds: 300));
+    }
 
     final all = [
       (
-      key: k?.basicLearnLevelKey,
-      title: "الانطلاقة",
-      body:
-      "ابدأ أول دروس الـ Basic وتعلّم كلمات وجمل أساسية تقوي لغتك من أول يوم.\nابدأ رحلتك التعليمية يا نينجا!"
+      key: k?.eventsKey,
+      title: "إيفنت جديد",
+      body: "مسابقات و جوائز نقدية بانتظارك من هنا.\nتقدر تتابع كل الـ events وتشارك فيها بسهولة.",
       ),
     ];
-
 
     const total = 1;
 
     final targets = List<TargetFocus>.generate(all.length, (i) {
       final idx = i + 1;
       final isFirst = idx == 1;
-      final isLast  = idx == total;
+      final isLast = idx == total;
       final it = all[i];
-
-
-      final shape = ShapeLightFocus.Circle;
 
       return TargetFocus(
         identify: "unified_step_$idx",
         keyTarget: it.key,
         enableOverlayTab: false,
-        shape: shape,
-        radius: null,
+        shape: ShapeLightFocus.RRect,
+        radius: 20,
         color: AppColors.mainColor.withOpacity(.80),
         contents: [
           TargetContent(
-            align: ContentAlign.bottom,
-            child: _rtlBubble(
-              title: it.title,
-              body: it.body,
-              stepText: "$idx/$total",
-              isFirst: isFirst,
-              isLast: isLast,
-              onSkip: () => _coach?.skip(),
-              onBack: isFirst ? null : () {
-                setState(() => _step--);
-                _coach?.previous();
-              },
-              onNext: () {
-                if (isLast) {
-                  _coach?.finish();
-                } else {
-                  setState(() => _step++);
-                  _coach?.next();
-                }
-              },
+            align: ContentAlign.top,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: _rtlBubble(
+                title: it.title,
+                body: it.body,
+                stepText: "$idx/$total",
+                isFirst: isFirst,
+                isLast: isLast,
+                onSkip: () => _coach?.skip(),
+                onBack: isFirst
+                    ? null
+                    : () {
+                  setState(() => _step--);
+                  _coach?.previous();
+                },
+                onNext: () {
+                  if (isLast) {
+                    _coach?.finish();
+                  } else {
+                    setState(() => _step++);
+                    _coach?.next();
+                  }
+                },
+              ),
             ),
           ),
         ],
@@ -219,10 +228,10 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
       hideSkip: true,
       textSkip: "تخطي",
       onFinish: () async {
-        await CashHelper.saveData(key: 'tutorial2', value: true);
+        await CashHelper.saveData(key: 'tutorialmdkf2', value: true);
       },
-      onSkip: ()  {
-        unawaited(CashHelper.saveData(key: 'tutorial2', value: true)) ;
+      onSkip: () {
+        unawaited(CashHelper.saveData(key: 'tutorialmdkf2', value: true));
         return true;
       },
     );
@@ -235,7 +244,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
     _animationController.dispose(); // Dispose the animation controller
     super.dispose();
   }
-
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     final challengeTapCubit = ChallengeTapCubit.get(context);
@@ -259,6 +268,7 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                       width: 100,
                     ))
                   : ListView(
+                      controller: _scrollController,
                       children: [
                         const SizedBox(height: 24,),
                         ListView.builder(
@@ -404,109 +414,112 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: () => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const EventsPage(),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
-                            child: Container(
-                              padding: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: AppColors.mainColor,
-                                borderRadius: BorderRadius.circular(20),
+                        Container(
+                          key: k?.eventsKey,
+                          child: InkWell(
+                            onTap: () => Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const EventsPage(),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text and Icon Row
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // Text Section
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              S.of(context).discoverExcitingEvents,
-                                              style: const TextStyle(
-                                                color: AppColors.whiteColor,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: AppColors.mainColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Text and Icon Row
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // Text Section
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                S.of(context).discoverExcitingEvents,
+                                                style: const TextStyle(
+                                                  color: AppColors.whiteColor,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(height: 8),
-                                            Text(
-                                              S.of(context).participateSpecialEvents,
-                                              style: const TextStyle(
-                                                color: AppColors.whiteColor,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      // Star Icon Section
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(50),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: AppColors.secondColor.withOpacity(0.7),
-                                                spreadRadius: 0,
-                                                blurRadius: 15,
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                S.of(context).participateSpecialEvents,
+                                                style: const TextStyle(
+                                                  color: AppColors.whiteColor,
+                                                  fontSize: 14,
+                                                ),
                                               ),
                                             ],
                                           ),
-                                          child: AnimatedBuilder(
-                                            animation: _animationController,
-                                            builder: (context, child) {
-                                              return Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(50),
-                                                    color: _imageBackgroundColorAnimation.value,
-                                                  ),
-                                                  child: Icon(
-                                                    FontAwesomeIcons.dragon,
-                                                    color: Colors.yellow,
-                                                    size: MediaQuery.of(context).size.width * 0.12,
-                                                  )
-                                              );
-                                            },
+                                        ),
+                                        // Star Icon Section
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(50),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: AppColors.secondColor.withOpacity(0.7),
+                                                  spreadRadius: 0,
+                                                  blurRadius: 15,
+                                                ),
+                                              ],
+                                            ),
+                                            child: AnimatedBuilder(
+                                              animation: _animationController,
+                                              builder: (context, child) {
+                                                return Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(50),
+                                                      color: _imageBackgroundColorAnimation.value,
+                                                    ),
+                                                    child: Icon(
+                                                      FontAwesomeIcons.dragon,
+                                                      color: Colors.yellow,
+                                                      size: MediaQuery.of(context).size.width * 0.12,
+                                                    )
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
+                                      ],
+                                    ),
+                                    // Button Section
+                                    const SizedBox(height: 16),
+                                    ElevatedButton(
+                                      onPressed: () => Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) => const EventsPage(),
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                  // Button Section
-                                  const SizedBox(height: 16),
-                                  ElevatedButton(
-                                    onPressed: () => Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) => const EventsPage(),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.secondColor,
+                                        foregroundColor: AppColors.whiteColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                      ),
+                                      child: Text(
+                                        S.of(context).viewAllEvents,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.secondColor,
-                                      foregroundColor: AppColors.whiteColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                    ),
-                                    child: Text(
-                                      S.of(context).viewAllEvents,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

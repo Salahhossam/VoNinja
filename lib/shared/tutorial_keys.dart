@@ -14,5 +14,6 @@ class TutorialKeysBundle {
   final GlobalKey navSettingsKey    = GlobalKey(debugLabel: 'navSettings');
 
   final GlobalKey basicLearnLevelKey    = GlobalKey(debugLabel: 'basicLearnLevelKey');
+  final GlobalKey eventsKey          = GlobalKey(debugLabel: 'eventsKey');
 
 }
