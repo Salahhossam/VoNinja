@@ -245,7 +245,7 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
     super.initState();
     initData();
     final mainCubit = MainAppCubit.get(context);
-    // mainCubit.interstitialAd();
+    mainCubit.interstitialAd();
     _initBannerAds();
     _loadRewardedAd();
     _hideRewardTimer?.cancel();
