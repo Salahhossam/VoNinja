@@ -2578,6 +2578,36 @@ class S {
   String get reward {
     return Intl.message('Reward', name: 'reward', desc: '', args: []);
   }
+
+  /// `I Agree`
+  String get iAgree {
+    return Intl.message('I Agree', name: 'iAgree', desc: '', args: []);
+  }
+
+  /// `⚖️ Terms & Conditions for {eventName}`
+  String eventTermsTitle(Object eventName) {
+    return Intl.message(
+      '⚖️ Terms & Conditions for $eventName',
+      name: 'eventTermsTitle',
+      desc: '',
+      args: [eventName],
+    );
+  }
+
+  /// `By participating in {eventName}, you agree to comply with the following terms:\n\n1. Eligibility and Registration:\n• Participation is completely free and requires no payment.\n• The user must register for the event through the app using valid information (name and mobile phone number).\n• Only one account is allowed per user. Any attempt to create multiple accounts for the same person may result in immediate disqualification and suspension of all related accounts.\n\n2. Points Calculation and Fair Play:\n• Points are calculated according to the approved in-app system.\n• If any attempt of cheating, manipulation, or exploiting technical loopholes to unfairly increase points is detected, Voninja management has the right to cancel the user’s points and permanently disqualify them without prior notice.\n\n3. Winner Selection and Prize Distribution:\n• Winners are determined based on the Leaderboard ranking at the end of the event.\n• Winners will only be contacted through the phone number registered in the app account.\n• The app is not responsible if a winner cannot be reached because the registered number is incorrect or unavailable.\n• To secure the prize, top winners are advised to contact the app administration after the competition ends through the official channels.\n• Prizes may be sent through mobile wallets or any other method deemed suitable by management within the announced period after the competition ends.\n\n4. Privacy and Management Rights:\n• By accepting the prize, you agree that your name or username may be announced on the honor board or on the app’s social media platforms for transparency purposes.\n• The app management reserves the right to amend the competition terms or suspend/cancel the competition in cases of force majeure or technical issues beyond its control, while informing users appropriately.\n\n5. Legal Disclaimer:\n• This competition is a promotional and educational activity and does not constitute betting or gambling in any way, as winning depends entirely on language skill and the effort exerted in answering the questions.`
+  String eventTermsContent(Object eventName) {
+    return Intl.message(
+      'By participating in $eventName, you agree to comply with the following terms:\n\n1. Eligibility and Registration:\n• Participation is completely free and requires no payment.\n• The user must register for the event through the app using valid information (name and mobile phone number).\n• Only one account is allowed per user. Any attempt to create multiple accounts for the same person may result in immediate disqualification and suspension of all related accounts.\n\n2. Points Calculation and Fair Play:\n• Points are calculated according to the approved in-app system.\n• If any attempt of cheating, manipulation, or exploiting technical loopholes to unfairly increase points is detected, Voninja management has the right to cancel the user’s points and permanently disqualify them without prior notice.\n\n3. Winner Selection and Prize Distribution:\n• Winners are determined based on the Leaderboard ranking at the end of the event.\n• Winners will only be contacted through the phone number registered in the app account.\n• The app is not responsible if a winner cannot be reached because the registered number is incorrect or unavailable.\n• To secure the prize, top winners are advised to contact the app administration after the competition ends through the official channels.\n• Prizes may be sent through mobile wallets or any other method deemed suitable by management within the announced period after the competition ends.\n\n4. Privacy and Management Rights:\n• By accepting the prize, you agree that your name or username may be announced on the honor board or on the app’s social media platforms for transparency purposes.\n• The app management reserves the right to amend the competition terms or suspend/cancel the competition in cases of force majeure or technical issues beyond its control, while informing users appropriately.\n\n5. Legal Disclaimer:\n• This competition is a promotional and educational activity and does not constitute betting or gambling in any way, as winning depends entirely on language skill and the effort exerted in answering the questions.',
+      name: 'eventTermsContent',
+      desc: '',
+      args: [eventName],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -228,10 +228,10 @@ class _ChallengesTapPageState extends State<ChallengesTapPage>
       hideSkip: true,
       textSkip: "تخطي",
       onFinish: () async {
-        await CashHelper.saveData(key: 'tutorialmdkf2', value: true);
+        await CashHelper.saveData(key: 'tutorial2', value: true);
       },
       onSkip: () {
-        unawaited(CashHelper.saveData(key: 'tutorialmdkf2', value: true));
+        unawaited(CashHelper.saveData(key: 'tutorial2', value: true));
         return true;
       },
     );

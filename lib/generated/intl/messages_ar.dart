@@ -38,37 +38,42 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(label) => "من فضلك أدخل ${label}";
 
-  static String m9(minutes) =>
+  static String m9(eventName) =>
+      "بمشاركتك في ${eventName}، فإنك توافق على الالتزام بالشروط التالية:\n\n1. شروط الأهلية والتسجيل:\n• المشاركة مجانية تماماً ولا تتطلب دفع أي رسوم.\n• يجب على المستخدم التسجيل في الإيفنت من داخل التطبيق باستخدام بيانات صحيحة مثل الاسم ورقم الهاتف المحمول.\n• يُسمح لكل مستخدم بامتلاك حساب واحد فقط، وأي محاولة لإنشاء حسابات متعددة لنفس الشخص قد تؤدي إلى استبعاده فوراً من المسابقة وحظر حساباته.\n\n2. آلية احتساب النقاط والنزاهة:\n• تُحسب النقاط بناءً على النظام البرمجي المعتمد داخل التطبيق.\n• في حال اكتشاف أي محاولة للتلاعب أو الغش أو استغلال ثغرات تقنية لزيادة النقاط بطريقة غير شرعية، يحق لإدارة Voninja إلغاء نقاط المستخدم واستبعاده نهائياً دون الرجوع إليه.\n\n3. تحديد الفائزين وصرف الجوائز:\n• يتم تحديد الفائزين بناءً على ترتيب لوحة الصدارة عند انتهاء الوقت المحدد للإيفنت.\n• سيتم التواصل مع الفائزين حصراً من خلال رقم الهاتف المسجل في حساب التطبيق.\n• التطبيق غير مسؤول عن عدم القدرة على التواصل مع الفائز إذا كان الرقم المسجل خاطئاً أو غير متاح.\n• لضمان استلام الجائزة، يُنصح الفائزون الأوائل بالتواصل مع إدارة التطبيق فور انتهاء المسابقة عبر القنوات الرسمية.\n• يتم إرسال الجوائز من خلال المحافظ الإلكترونية أو أي وسيلة أخرى تراها الإدارة مناسبة خلال المدة المعلنة بعد انتهاء المسابقة.\n\n4. الخصوصية وحقوق الإدارة:\n• بقبولك الجائزة، توافق على إعلان اسمك أو اسم المستخدم الخاص بك في لوحة الشرف أو على منصات التواصل الاجتماعي الخاصة بالتطبيق لتعزيز الشفافية.\n• يحق لإدارة التطبيق تعديل شروط المسابقة أو إيقافها في حالات القوة القاهرة أو المشاكل التقنية الخارجة عن الإرادة، مع توضيح ذلك للمستخدمين.\n\n5. إبراء الذمة القانونية:\n• تعتبر هذه المسابقة نشاطاً ترويجياً وتعليمياً، ولا تُعد بأي حال من الأحوال شكلاً من أشكال المراهنات أو القمار، حيث يعتمد الفوز كلياً على المهارة اللغوية والجهد المبذول في حل الأسئلة.";
+
+  static String m10(eventName) => "⚖️ الشروط والأحكام الخاصة بـ ${eventName}";
+
+  static String m11(minutes) =>
       "أنهيت كل الأسئلة بشكل صحيح خلال ${minutes} دقيقة. تم إضافة 500 نقطة إلى رصيدك.";
 
-  static String m10(level) => "المستوى ${level}";
+  static String m12(level) => "المستوى ${level}";
 
-  static String m11(subscriptionCostPoints) =>
+  static String m13(subscriptionCostPoints) =>
       "يجب أن يكون لديك ${subscriptionCostPoints} نقطة لدخول هذا التحدي";
 
-  static String m12(previousLessonTitle) =>
+  static String m14(previousLessonTitle) =>
       "يجب عليك إكمال جميع أسئلة الدرس ${previousLessonTitle} قبل أن تبدأ هذا الدرس.";
 
-  static String m13(level) =>
+  static String m15(level) =>
       "يجب عليك إكمال المستوى ${level} أولاً لفتح هذا المحتوى";
 
-  static String m14(points) => "تحتاج ${points} نقطة إضافية. ";
+  static String m16(points) => "تحتاج ${points} نقطة إضافية. ";
 
-  static String m15(current, required) => "تحتاج ${current}/${required} نقطة";
+  static String m17(current, required) => "تحتاج ${current}/${required} نقطة";
 
-  static String m16(current, required) => "تحتاج ${current}/${required} نقطة";
+  static String m18(current, required) => "تحتاج ${current}/${required} نقطة";
 
-  static String m17(cycle) => "تم بدء دورة جديدة (#${cycle}). بالتوفيق!";
+  static String m19(cycle) => "تم بدء دورة جديدة (#${cycle}). بالتوفيق!";
 
-  static String m18(current, goal) => "النقاط: ${current}/${goal}";
+  static String m20(current, goal) => "النقاط: ${current}/${goal}";
 
-  static String m19(points) => "مكافأة + ${points} نقطة";
+  static String m21(points) => "مكافأة + ${points} نقطة";
 
-  static String m20(time) => "يبدأ بعد ${time}";
+  static String m22(time) => "يبدأ بعد ${time}";
 
-  static String m21(current, total) => "إجمالي الإجابات: ${current}/${total}";
+  static String m23(current, total) => "إجمالي الإجابات: ${current}/${total}";
 
-  static String m22(ads) => "شاهد ${ads} إعلان/إعلانات.";
+  static String m24(ads) => "شاهد ${ads} إعلان/إعلانات.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -100,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "boxNumber": m1,
     "bringYourSword": MessageLookupByLibrary.simpleMessage("حضر سيفك!"),
     "bronze": MessageLookupByLibrary.simpleMessage("برونزية"),
+    "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cannotAccessLevel": MessageLookupByLibrary.simpleMessage(
       "لا يمكنك دخول هذا المستوى قبل إنهاء السابق.",
     ),
@@ -211,6 +217,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "أدخل رمز المكافأة الخاص بك",
     ),
     "error": MessageLookupByLibrary.simpleMessage("خطأ"),
+    "eventTermsContent": m9,
+    "eventTermsTitle": m10,
     "events": MessageLookupByLibrary.simpleMessage("الأحداث"),
     "exit": MessageLookupByLibrary.simpleMessage("اضغط مرة أخرى للخروج"),
     "exitPrompt": MessageLookupByLibrary.simpleMessage("اضغط مرة أخرى للخروج"),
@@ -247,7 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "🎁 نظام الصناديق (Treasure Boxes Page): صفحة خاصة فيها صناديق متدرجة المستويات (Bronze – Silver – Gold) تفتح تدريجيًا وتكافئك بنقاط وهدايا.",
     ),
     "features_title": MessageLookupByLibrary.simpleMessage("مميزات Voninja:"),
-    "final_congrats_desc": m9,
+    "final_congrats_desc": m11,
     "final_congrats_title": MessageLookupByLibrary.simpleMessage("مبروك!"),
     "final_ok": MessageLookupByLibrary.simpleMessage("تم"),
     "final_tryAgain_desc_inTimeWrong": MessageLookupByLibrary.simpleMessage(
@@ -288,6 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "حظًا موفقًا! راجع إجاباتك وحاول مرة أخرى في الحدث القادم.",
     ),
     "hi": MessageLookupByLibrary.simpleMessage("مرحبًا"),
+    "iAgree": MessageLookupByLibrary.simpleMessage("أوافق"),
     "importantWarning": MessageLookupByLibrary.simpleMessage("⚠️ تنبيه مهم:"),
     "inProgress": MessageLookupByLibrary.simpleMessage("قيد التقدم"),
     "incompleteLesson": MessageLookupByLibrary.simpleMessage("الدرس غير مكتمل"),
@@ -321,7 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lessonsLearningVocabulary": MessageLookupByLibrary.simpleMessage(
       "هذه هي خطوتك الأولى في تعلم مفردات اللغة الإنجليزية.\nاستمر، يا نينجا!",
     ),
-    "levelNumber": m10,
+    "levelNumber": m12,
     "librarySubtitle": MessageLookupByLibrary.simpleMessage(
       "تصفح كتب تعلم الإنجليزية",
     ),
@@ -336,9 +345,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "minUserName": MessageLookupByLibrary.simpleMessage(
       "يجب أن يتكون اسم المستخدم من 3 أحرف على الأقل",
     ),
-    "minmaPoints": m11,
-    "mustCompleteLesson": m12,
-    "mustCompleteLevel": m13,
+    "minmaPoints": m13,
+    "mustCompleteLesson": m14,
+    "mustCompleteLevel": m15,
     "mustTransferPointsFirst": MessageLookupByLibrary.simpleMessage(
       "رصيدك أكبر من ٢٥,٠٠٠ نقطة. يجب تقديم طلب تحويل النقاط أولًا قبل بدء دورة جديدة.",
     ),
@@ -351,13 +360,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "nav_learn": MessageLookupByLibrary.simpleMessage("التعلم"),
     "nav_settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "nav_treasure": MessageLookupByLibrary.simpleMessage("الكنوز"),
-    "needPoints": m14,
-    "needPoints2": m15,
-    "needPointsRemaining": m16,
+    "needPoints": m16,
+    "needPoints2": m17,
+    "needPointsRemaining": m18,
     "newCycleDescription": MessageLookupByLibrary.simpleMessage(
       "بإمكانك إعادة الدورة دلوقتي وهتبدأ برصيد ٥٠٠ نقطة مكافأة. أو كمل زي ما إنت واحتفظ بنقاطك الحالية.",
     ),
-    "newCycleStarted": m17,
+    "newCycleStarted": m19,
     "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "nextLesson": MessageLookupByLibrary.simpleMessage("الدرس التالي"),
     "nextTask": MessageLookupByLibrary.simpleMessage("المهمة التالية"),
@@ -397,7 +406,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "pointNumber": MessageLookupByLibrary.simpleMessage("نقطة"),
     "points": MessageLookupByLibrary.simpleMessage("النقاط"),
-    "points2": m18,
+    "points2": m20,
     "progress": MessageLookupByLibrary.simpleMessage("التقدم"),
     "pts": MessageLookupByLibrary.simpleMessage("نقطة"),
     "q": MessageLookupByLibrary.simpleMessage("س"),
@@ -416,7 +425,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rewardClaimedMessage": MessageLookupByLibrary.simpleMessage(
       "تم المطالبة بالمكافأة!",
     ),
-    "rewardPoints": m19,
+    "rewardPoints": m21,
     "rewards_cash": MessageLookupByLibrary.simpleMessage(
       "عند تجميع 25,000 نقطة، تقدر تحولهم مباشرة إلى 100 جنيه كاش.",
     ),
@@ -452,7 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "startExam": MessageLookupByLibrary.simpleMessage("ابدأ الامتحان"),
     "startLearning": MessageLookupByLibrary.simpleMessage("ابدأ التعلم"),
     "startNewCycle": MessageLookupByLibrary.simpleMessage("ابدأ دورة جديدة"),
-    "startsIn": m20,
+    "startsIn": m22,
     "subscribeInChallenge": MessageLookupByLibrary.simpleMessage("اشترك الآن"),
     "success": MessageLookupByLibrary.simpleMessage("نجاح"),
     "successfullyCompleted": MessageLookupByLibrary.simpleMessage("مبروك!"),
@@ -485,7 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "thirdPlace": MessageLookupByLibrary.simpleMessage("الثالث"),
     "top3Winners": MessageLookupByLibrary.simpleMessage("أفضل 3 فائزين"),
     "topTen": MessageLookupByLibrary.simpleMessage("افضل 10 مقاتلين!"),
-    "totalAnswers": m21,
+    "totalAnswers": m23,
     "totalBalance": MessageLookupByLibrary.simpleMessage("إجمالي الرصيد"),
     "totalPoints": MessageLookupByLibrary.simpleMessage("اجمالي النقاط"),
     "transaction": MessageLookupByLibrary.simpleMessage("المعاملات"),
@@ -594,7 +603,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "watchAdToDoublePoints": MessageLookupByLibrary.simpleMessage(
       "شاهد إعلان لمضاعفة النقاط",
     ),
-    "watchAds": m22,
+    "watchAds": m24,
     "wrong": MessageLookupByLibrary.simpleMessage("خطأ"),
     "wrongCredentials": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني أو كلمة المرور غير صحيحة",

@@ -61,6 +61,62 @@ class _EventsPageState extends State<EventsPage> {
     });
   }
 
+  Future<bool> _showLeaderboardTermsDialog(AppEvent e) async {
+    final s = S.of(context);
+
+    return await showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (dialogContext) {
+        return AlertDialog(
+          insetPadding:
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Text(
+            s.eventTermsTitle(e.title),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.mainColor,
+              fontSize: 18,
+            ),
+          ),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: SingleChildScrollView(
+              child: Text(
+                s.eventTermsContent(e.title),
+                style: const TextStyle(
+                  fontSize: 13.5,
+                  height: 1.6,
+                  color: Colors.black87,
+                ),
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ),
+          actions: [
+            OutlinedButton(
+              onPressed: () => Navigator.pop(dialogContext, false),
+              child: Text(s.cancel),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondColor,
+                foregroundColor: AppColors.whiteColor,
+              ),
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: Text(s.iAgree),
+            ),
+          ],
+        );
+      },
+    ) ??
+        false;
+  }
+
   Timer? _tick;
 
   @override
@@ -717,7 +773,11 @@ class _EventsPageState extends State<EventsPage> {
 
       case 'JoinLeaderboardQuiz':
         return ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
+            final agreed = await _showLeaderboardTermsDialog(e);
+            if (!agreed) return;
+            if (!mounted) return;
+
             Navigator.push(
               context,
               MaterialPageRoute(

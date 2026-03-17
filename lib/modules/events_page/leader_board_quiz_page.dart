@@ -1066,14 +1066,7 @@ class _LeaderboardQuizPageState extends State<LeaderboardQuizPage> {
                                                   return;
                                                 }
 
-                                                if (eventCubit.leaderboardCurrentQuestionIndex %
-                                                            7 ==
-                                                        0 ||
-                                                    eventCubit.leaderboardCurrentQuestionIndex +
-                                                            3 ==
-                                                        eventCubit
-                                                            .leaderboardQuestions
-                                                            .length) {
+                                                if (eventCubit.leaderboardCurrentQuestionIndex % 10 == 0 ) {
                                                   final mainCubit =
                                                       MainAppCubit.get(context);
                                                   mainCubit.interstitialAd();

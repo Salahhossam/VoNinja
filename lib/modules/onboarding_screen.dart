@@ -63,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingSlide(
       title: 'مكافآتك توصلك كاش بسهولة',
       bullets: [
-        'كل 25,000 نقطة = 100 جنيه.',
+        'كل 10,000 نقطة = 100 جنيه.',
         'التحويل بيتم خلال 24–48 ساعة بكل سهولة وأمان.',
         'تابع رصيدك مباشرة من داخل التطبيق',
       ],
@@ -71,11 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ),
     OnboardingSlide(
       title: 'ابدأ رحلتك الآن مع Voninja',
-      bullets: [
-        'جاوب أول 5 أسئلة في 5 دقائق،',
-        'واحصــل على 500 نقطة مجانية كبداية قوية!',
-        'إنجازك الأول = دافعك للاستمرار والتفوق.',
-      ],
+      bullets: [''],
       image: 'assets/onboarding/slide5.png',
     ),
   ];
