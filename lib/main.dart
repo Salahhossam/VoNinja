@@ -15,6 +15,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vo_ninja/modules/singup_page/singup_cubit/singup_cubit.dart';
 import 'package:vo_ninja/modules/splash_screen.dart';
 import 'package:vo_ninja/modules/treasure_boxes_page/treasure_boxes_cubit/treasure_boxes_cubit.dart';
+import 'package:vo_ninja/shared/notification_service.dart';
 import 'generated/l10n.dart';
 import 'modules/challenges_page/task_cubit/task_cubit.dart';
 import 'modules/challenges_tap_page/challenges_cubit/challenges_tap_cubit.dart';
@@ -55,6 +56,7 @@ Future<void> main() async {
       log('Initialization failed: $error');
     },
   );
+  await NotificationService.init();
   DioHelperPayment.init();
 
   await CashHelper.init();

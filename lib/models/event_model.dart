@@ -36,7 +36,7 @@ class AppEvent {
   final int? order;
   final Map<String, dynamic> rules;
   final List<String> instructions;
-
+  final String? notificationTopic;
   AppEvent({
     required this.id,
     required this.type,
@@ -48,6 +48,7 @@ class AppEvent {
     required this.order,
     required this.rules,
     required this.instructions,
+    required this.notificationTopic,
   });
 
   factory AppEvent.fromDoc(DocumentSnapshot doc) {
@@ -67,6 +68,7 @@ class AppEvent {
           ?.map((e) => e.toString())
           .toList() ??
           [],
+      notificationTopic: data['notificationTopic'],
     );
   }
 

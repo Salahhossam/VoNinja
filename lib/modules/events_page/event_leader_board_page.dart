@@ -58,8 +58,11 @@ class _EventLeaderboardPageState extends State<EventLeaderboardPage> {
     if (rank == 1) {
       return (widget.event.rules['firstPrize'] ?? 0) as int;
     }
-    if (rank == 2 || rank == 3) {
-      return (widget.event.rules['secondThirdPrize'] ?? 0) as int;
+    if (rank == 2) {
+      return (widget.event.rules['secondPrize'] ?? 0) as int;
+    }
+    if (rank == 3) {
+      return (widget.event.rules['thirdPrize'] ?? 0) as int;
     }
     if (rank >= 4 && rank <= 10) {
       return (widget.event.rules['fourthTenthPrize'] ?? 0) as int;

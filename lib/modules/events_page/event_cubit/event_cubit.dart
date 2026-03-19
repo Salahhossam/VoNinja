@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -705,6 +708,11 @@ class EventCubit extends Cubit<EventState> {
           'status': 'in_progress',
           'lastUpdatedAt': FieldValue.serverTimestamp(),
         }, SetOptions(merge: true));
+      }
+      final topic = event.notificationTopic;
+      if (topic != null && topic.trim().isNotEmpty) {
+        unawaited( FirebaseMessaging.instance.subscribeToTopic(topic));
+        //print('Subscribed OK to: $topic');
       }
 
       emit(JoinEventSuccess());

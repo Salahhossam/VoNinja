@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:vo_ninja/shared/style/color.dart';
 import '../../generated/l10n.dart';
 import '../../shared/constant/constant.dart';
 import '../../shared/network/local/cash_helper.dart';
+import '../../shared/notification_service.dart';
 import 'taps_cubit/taps_cubit.dart';
 import 'taps_cubit/taps_state.dart';
 
@@ -29,11 +32,35 @@ class _TapsPageState extends State<TapsPage> {
   static const int kUnifiedSteps = 7; // 3 (Home) + 4 (Tabs)
   bool _unifiedScheduled = false;
   late final TutorialKeysBundle k;
+  FirebaseMessaging? messaging;
   @override
   void initState() {
     super.initState();
     k = TutorialKeysBundle();
     final cubit = TapsCubit.get(context);
+    messaging = FirebaseMessaging.instance;
+    messaging!.requestPermission(sound: true, badge: true, alert: true, provisional: false);
+    messaging!.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint("Message received in foreground");
+
+      if (Platform.isAndroid && message.notification != null) {
+        NotificationService.showNotification(
+          title: message.notification!.title ?? 'New Notification',
+          body: message.notification!.body ?? '',
+        );
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      debugPrint('Message clicked!');
+    });
+
     cubit.bindTutorialKeys(k); // <-- دي الأهم
     cubit.updateActiveStatus(true);
 

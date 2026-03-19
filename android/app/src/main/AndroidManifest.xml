@@ -24,6 +24,7 @@
     <application
         android:label="Voninja"
         android:name="${applicationName}"
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="false"
         tools:replace="android:allowBackup"
         android:fullBackupOnly="false"
